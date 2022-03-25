@@ -284,10 +284,8 @@ Webflow.push(() => {
         if (slider.current() === STEP.Services) sequence = new Sequence()
 
         const next = sequence.next
-        console.log(`Next: ${next}`)
-        slider.goto(next)
-
         setStepNav(sequence)
+        slider.goto(next)
 
         switch (slider.current()) {
             case STEP.Duration:
@@ -304,9 +302,8 @@ Webflow.push(() => {
 
     const onBack = () => {
         const prev = sequence.prev
-        console.log(`Prev: ${prev}`)
-        slider.goto(prev)
         setStepNav(sequence)
+        slider.goto(prev)
         toggleNext()
     }
 

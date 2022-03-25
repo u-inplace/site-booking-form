@@ -98,8 +98,7 @@ const steps = {
         () => queryServices(),
         () => {
             const services = getSelectedServices()
-            let total = isServiceSelected(SERVICE.Cooking) ? 1 : 0
-            total += isServiceSelected(SERVICE.Grocery) ? 1 : 0
+            let total = getSelectedServices().length * 0.5
             return total
         }
     ),

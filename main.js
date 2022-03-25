@@ -260,7 +260,7 @@ Webflow.push(() => {
     }
 
     const setStepNav = function (seq) {
-        document.getElementsByClassName('step-number')[seq.current].innerHTML = `Step ${
+        document.getElementsByClassName('step-number')[slider.current() - 1].innerHTML = `Step ${
             seq.current
         }/${seq.current === 1 ? '-' : seq.total}`
     }
@@ -284,8 +284,8 @@ Webflow.push(() => {
         if (slider.current() === STEP.Services) sequence = new Sequence()
 
         const next = sequence.next
-        setStepNav(sequence)
         slider.goto(next)
+        setStepNav(sequence)
 
         switch (slider.current()) {
             case STEP.Duration:
@@ -302,8 +302,8 @@ Webflow.push(() => {
 
     const onBack = () => {
         const prev = sequence.prev
-        setStepNav(sequence)
         slider.goto(prev)
+        setStepNav(sequence)
         toggleNext()
     }
 

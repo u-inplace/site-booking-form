@@ -257,9 +257,9 @@ Webflow.push(() => {
     }
 
     const setStepNav = function (seq) {
-        document.getElementById('step-nav').innerHTML = `Step ${seq.current}/${
-            seq.current === 1 ? '-' : seq.total
-        }`
+        document.getElementsByClassName('step-number')[seq.current - 1].innerHTML = `Step ${
+            seq.current
+        }/${seq.current === 1 ? '-' : seq.total}`
     }
 
     var slider = new W_SLIDER_CONTROLLER('#booking-slider')

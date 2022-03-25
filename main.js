@@ -260,7 +260,7 @@ Webflow.push(() => {
     }
 
     const setStepNav = function (seq) {
-        document.getElementsByClassName('step-number')[seq.current - 1].innerHTML = `Step ${
+        document.getElementsByClassName('step-number')[seq.current].innerHTML = `Step ${
             seq.current
         }/${seq.current === 1 ? '-' : seq.total}`
     }

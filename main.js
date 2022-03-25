@@ -1,3 +1,7 @@
+/**
+ * Helper file for webflow inplace.be
+ */
+
 const STEP = {
     Services: 1,
     Ironing: 2,

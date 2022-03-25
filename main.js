@@ -98,7 +98,11 @@ const steps = {
         () => queryServices(),
         () => {
             const services = getSelectedServices()
-            let total = getSelectedServices().length * 0.5
+            let total = 0
+            if (services.length > 1) {
+                total += isServiceSelected(SERVICE.Cooking) ? 0.5 : 0
+                total += isServiceSelected(SERVICE.Grocery) ? 0.5 : 0
+            }
             return total
         }
     ),

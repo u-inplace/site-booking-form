@@ -1,5 +1,5 @@
 /**
- * Helper file for webflow inplace.be combinatronics 1
+ * Helper file for webflow inplace.be booking
  */
 
 const STEP = {

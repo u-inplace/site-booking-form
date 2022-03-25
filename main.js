@@ -1,5 +1,5 @@
 /**
- * Helper file for webflow inplace.be new
+ * Helper file for webflow inplace.be bleh
  */
 
 const STEP = {

@@ -8,24 +8,19 @@ const isProduction = process.env.NODE_ENV == 'production'
 const stylesHandler = 'style-loader'
 
 const config = {
-    entry: './src/index.js',
+    entry: {
+        Calendar: './src/calendar/main.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        library: 'Foobar'
+        filename: '[name].bundle.js',
+        library: '[name]'
     },
     target: ['web', 'es5'],
     devServer: {
         open: true,
         host: 'localhost'
     },
-    plugins: [
-        // new HtmlWebpackPlugin({
-        //   template: "index.html",
-        // }),
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    ],
     module: {
         rules: [
             {
@@ -36,17 +31,6 @@ const config = {
                 test: /\.css$/i,
                 use: [stylesHandler, 'css-loader']
             }
-            // {
-            //     test: /\.s[ac]ss$/i,
-            //     use: [stylesHandler, 'css-loader', 'sass-loader']
-            // },
-            // {
-            //     test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-            //     type: 'asset'
-            // }
-
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ]
     }
 }

@@ -2,7 +2,7 @@ import Calendar from 'color-calendar'
 import 'color-calendar/dist/css/theme-glass.css'
 import { getMondays } from '../helpers/dates'
 
-export default class CalendarController {
+export class Controller {
     constructor() {
         const newLocal = this
         newLocal.calendar = new Calendar({
@@ -55,7 +55,7 @@ export default class CalendarController {
     }
 
     init() {
-        getAvailability()
+        this.getAvailability()
         console.log(JSON.stringify(getMondays(), null, 2))
     }
 

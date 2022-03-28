@@ -1,3 +1,6 @@
+/**
+ * Build UI Calendar with empty events
+ */
 const availabilityCal = new Calendar({
     id: '#availability-cal',
     theme: 'glass',
@@ -5,12 +8,13 @@ const availabilityCal = new Calendar({
     weekdayType: 'long-upper',
     startWeekday: 1,
     monthDisplayType: 'long',
-    primaryColor: '#1ead96',
+    primaryColor: '#2aae75',
     fontFamilyHeader: 'Poppins, sans-serif',
     fontFamilyWeekdays: 'Poppins, sans-serif',
     fontFamilyBody: 'Poppins, sans-serif',
     calendarSize: 'large',
     layoutModifiers: ['month-left-align'],
+    dropShadow: '',
     eventsData: [
         {
             id: 1,
@@ -44,3 +48,42 @@ const availabilityCal = new Calendar({
         console.debug('month change', currentDate, events)
     }
 })
+
+/**
+ * Get Availability
+ */
+const getAvailability = async () => {
+    const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
+    const params = new URLSearchParams({
+        code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
+        postalCode: 1000,
+        duration: 3,
+        recurrence: 'once',
+        weekSearchDate: '2022-04-11'
+    })
+
+    url.search = params
+    const res = await fetch(url)
+    const avail = await res.json()
+
+    console.log(JSON.stringify(avail, null, 2))
+
+    avail?.data?.forEach(dateAvail =>
+        dateAvail.time_slots.forEach(slot => {
+            const event = {
+                start: slot.start_time,
+                end: slot.end_time,
+                start_time: slot.label,
+                employee: {
+                    id: slot.affiliate_worker.worker_contract_id,
+                    first_name: slot.affiliate_worker.first_name,
+                    last_name: slot.affiliate_worker.last_name,
+                    allergies: slot.affiliate_worker.allergies
+                }
+            }
+            availabilityCal.addEventsData([event])
+        })
+    )
+}
+
+getAvailability()

@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}
+.container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 40px;
+}
+
+@media screen and (max-width: 650px) {
+    body {
+        height: auto;
+        padding: 20px 10px;
+    }
+    .container {
+        display: grid;
+        grid-template-columns: auto;
+        align-items: center;
+        gap: 40px;
+    }
+}

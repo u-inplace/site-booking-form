@@ -9,7 +9,7 @@ const availabilityCal = new Calendar({
     fontFamilyHeader: 'Poppins, sans-serif',
     fontFamilyWeekdays: 'Poppins, sans-serif',
     fontFamilyBody: 'Poppins, sans-serif',
-    calendarSize: 'small',
+    calendarSize: 'large',
     layoutModifiers: ['month-left-align'],
     eventsData: [
         {

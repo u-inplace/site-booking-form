@@ -13,7 +13,8 @@ const STEP = {
     },
     Duration: 7,
     Frequency: 8,
-    Contact: 9
+    Availability: 9,
+    Contact: 10
 }
 
 const SERVICE = {
@@ -230,7 +231,7 @@ Webflow.push(() => {
             if (isServiceSelected(SERVICE.Ironing)) seq.push(STEP.Ironing)
             if (isServiceSelected(SERVICE.Cleaning))
                 seq = seq.concat(Object.values(STEP.Cleaning).map(e => e))
-            seq = seq.concat([STEP.Duration, STEP.Frequency, STEP.Contact])
+            seq = seq.concat([STEP.Duration, STEP.Frequency, STEP.Availability, STEP.Contact])
             this.list = seq
         }
 

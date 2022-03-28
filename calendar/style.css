@@ -12,10 +12,10 @@ body {
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
-    gap: 40px;
+    gap: 80px;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1024px) {
     body {
         height: auto;
         padding: 20px 10px;

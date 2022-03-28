@@ -11,7 +11,8 @@ const config = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
+        filename: 'bundle.js',
+        library: 'Foobar'
     },
     target: ['web', 'es5'],
     devServer: {
@@ -34,15 +35,15 @@ const config = {
             {
                 test: /\.css$/i,
                 use: [stylesHandler, 'css-loader']
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [stylesHandler, 'css-loader', 'sass-loader']
-            },
-            {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-                type: 'asset'
             }
+            // {
+            //     test: /\.s[ac]ss$/i,
+            //     use: [stylesHandler, 'css-loader', 'sass-loader']
+            // },
+            // {
+            //     test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+            //     type: 'asset'
+            // }
 
             // Add your rules for custom modules here
             // Learn more about loaders from https://webpack.js.org/loaders/

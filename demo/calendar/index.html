@@ -12,9 +12,10 @@
             <div id="availability-cal"></div>
         </div>
 
-        <script type="module" src="../../dist/main.bundle.js"></script>
-        <script type="module">
-            // import { CalendarController } from '../../dist/main.bundle.js'
+        <script type="text/javascript" src="../../dist/bundle.js"></script>
+        <script type="text/javascript">
+            // import { CalendarController } from './main.bundle.js'
+            console.log(`Fooo=${Foo}`)
             const calendar = new CalendarController()
             calendar.init()
         </script>

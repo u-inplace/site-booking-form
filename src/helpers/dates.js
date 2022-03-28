@@ -4,7 +4,7 @@
  * @returns
  */
 const getMondays = date => {
-    var d = date || new Date(),
+    var d = date ? new Date(date.getTime()) : new Date(),
         month = d.getMonth(),
         mondays = []
 
@@ -17,6 +17,13 @@ const getMondays = date => {
     }
 
     return mondays
+}
+
+/**
+ * Return YYYY-MM-DD
+ */
+export const toISOStringShort = date => {
+    return new Date(date).toISOString().slice(0, 10)
 }
 
 export { getMondays }

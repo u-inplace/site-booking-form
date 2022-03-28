@@ -1,9 +1,13 @@
 import Calendar from 'color-calendar'
 import 'color-calendar/dist/css/theme-glass.css'
-import { getMondays } from '../helpers/dates'
+import _ from 'lodash'
+import { getMondays, toISOStringShort } from '../helpers/dates'
 
 export class Controller {
     constructor() {
+        // Store requested weeks
+        this.cached = {}
+
         const newLocal = this
         newLocal.calendar = new Calendar({
             id: '#availability-cal',
@@ -19,57 +23,39 @@ export class Controller {
             calendarSize: 'large',
             layoutModifiers: ['month-left-align'],
             dropShadow: '',
-            eventsData: [
-                {
-                    id: 1,
-                    name: 'French class',
-                    start: '2022-03-17T06:00:00',
-                    end: '2022-03-18T20:30:00'
-                },
-                {
-                    id: 2,
-                    name: 'Blockchain 101',
-                    start: '2022-03-20T10:00:00',
-                    end: '2022-03-20T11:30:00'
-                },
-                {
-                    id: 3,
-                    name: 'Cheese 101',
-                    start: '2022-04-01T10:00:00',
-                    end: '2022-04-02T11:30:00'
-                },
-                {
-                    id: 4,
-                    name: 'Cheese 101',
-                    start: '2022-04-01T10:00:00',
-                    end: '2022-04-02T11:30:00'
-                }
-            ],
             dateChanged: (currentDate, events) => {
                 console.debug('date change', currentDate, events)
             },
             monthChanged: (currentDate, events) => {
                 console.debug('month change', currentDate, events)
+                getMondays(currentDate).forEach(monday => this.getAvailability(monday))
             }
         })
     }
 
     init() {
-        this.getAvailability()
-        console.log(JSON.stringify(getMondays(), null, 2))
+        // Boostrap with current month's availability
+        getMondays().forEach(monday => this.getAvailability(monday))
     }
 
     /**
      * Get Availability
      */
-    async getAvailability() {
+    async getAvailability(weekStartDate) {
+        const weekKey = toISOStringShort(weekStartDate)
+
+        if (weekStartDate < new Date() || this.cached[weekKey]) return
+        this.cached[weekKey] = true
+
+        console.log(`# WeekStart: ${toISOStringShort(weekStartDate)}`)
+
         const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
         const params = new URLSearchParams({
             code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
             postalCode: 1000,
             duration: 3,
             recurrence: 'once',
-            weekSearchDate: '2022-04-11'
+            weekSearchDate: toISOStringShort(weekStartDate)
         })
 
         url.search = params
@@ -78,21 +64,34 @@ export class Controller {
 
         console.log(JSON.stringify(avail, null, 2))
 
-        avail?.data?.forEach(dateAvail =>
-            dateAvail.time_slots.forEach(slot => {
-                const event = {
-                    start: slot.start_time,
-                    end: slot.end_time,
-                    start_time: slot.label,
-                    employee: {
-                        id: slot.affiliate_worker.worker_contract_id,
-                        first_name: slot.affiliate_worker.first_name,
-                        last_name: slot.affiliate_worker.last_name,
-                        allergies: slot.affiliate_worker.allergies
-                    }
-                }
-                this.calendar.addEventsData([event])
-            })
+        const newEvents = _.compact(
+            avail?.data
+                ?.map(dateAvail =>
+                    dateAvail.time_slots.map(slot => {
+                        // Only add if it's still the same month as start of the week
+                        // to avoid infinity loop with monthChanged event, which is triggered
+                        // when a new event is added
+                        if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth())
+                            return
+
+                        return {
+                            start: new Date(slot.start_time),
+                            end: new Date(slot.end_time),
+                            start_time: slot.label,
+                            employee: {
+                                id: slot.affiliate_worker.worker_contract_id,
+                                first_name: slot.affiliate_worker.first_name,
+                                last_name: slot.affiliate_worker.last_name,
+                                allergies: slot.affiliate_worker.allergies
+                            }
+                        }
+                    })
+                )
+                .flat()
         )
+
+        console.log(`>> ${toISOStringShort(weekStartDate)} + ${newEvents.length} slots`)
+        console.log(`${JSON.stringify(newEvents, null, 2)}`)
+        newEvents.length > 0 && this.calendar.addEventsData(newEvents)
     }
 }

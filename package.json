@@ -45,6 +45,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "color-calendar": "^1.0.7"
+    "color-calendar": "^1.0.7",
+    "lodash": "^4.17.21"
   }
 }

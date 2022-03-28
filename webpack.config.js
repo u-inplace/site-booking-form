@@ -9,6 +9,7 @@ const stylesHandler = 'style-loader'
 
 const config = {
     entry: {
+        Steps: './src/steps/main.js',
         Calendar: './src/calendar/main.js'
     },
     output: {

@@ -2,7 +2,16 @@ import Calendar from 'color-calendar'
 import 'color-calendar/dist/css/theme-glass.css'
 import _ from 'lodash'
 import { getMondays, toISOStringShort } from '../helpers/dates'
+import './styles.css'
 
+/**
+ * Constants
+ */
+const LoaderId = 'loaderBalls'
+
+/**
+ * Calendar Controller
+ */
 export class Controller {
     constructor() {
         // Store requested weeks
@@ -33,9 +42,56 @@ export class Controller {
         })
     }
 
-    init() {
+    async init() {
+        // Add loading animation
+        // this.addLoadingAnimation()
         // Boostrap with current month's availability
-        getMondays().forEach(monday => this.getAvailability(monday))
+        // this.toggleLoading(true)
+        // await Promise.all(getMondays().map(monday => this.getAvailability(monday)))
+        // this.toggleLoading()
+    }
+
+    /**
+     * Load more dates
+     */
+    onMonthChange = (currentDate, events) => {
+        console.debug('::onMonthChange::', currentDate, events)
+        // getMondays(currentDate).forEach(monday => this.getAvailability(monday))
+        // this.toggleLoading(true)
+        getMondays(currentDate).map(monday => this.getAvailability(monday))
+        // this.toggleLoading()
+    }
+
+    /**
+     * Load slots into view
+     * @param {*} currentDate
+     * @param {*} events
+     */
+    onDateChange = (currentDate, events) => {
+        console.debug('::onDateChange::', currentDate, events)
+    }
+
+    /**
+     * Start or stop loading animation
+     */
+    toggleLoading(isVisible) {
+        const loader = document.getElementById(LoaderId)
+        loader && (loader.style.display = isVisible ? '' : 'none')
+    }
+
+    /**
+     * Create a hidden loading animation to be called in monthChange
+     */
+    addLoadingAnimation() {
+        // Add loading animation
+        const loader = document.createElement('div')
+        loader.classList.add('loader')
+        loader.id = LoaderId
+        loader.style.display = 'none'
+        loader.innerHTML = `
+            <span class="loader__element"></span>
+        `
+        document.getElementsByClassName('calendar__monthyear')[0].appendChild(loader)
     }
 
     /**
@@ -90,8 +146,6 @@ export class Controller {
                 .flat()
         )
 
-        console.log(`>> ${toISOStringShort(weekStartDate)} + ${newEvents.length} slots`)
-        console.log(`${JSON.stringify(newEvents, null, 2)}`)
         newEvents.length > 0 && this.calendar.addEventsData(newEvents)
     }
 }

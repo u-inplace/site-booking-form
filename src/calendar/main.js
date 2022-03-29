@@ -1,5 +1,6 @@
 import Calendar from 'color-calendar'
 import 'color-calendar/dist/css/theme-glass.css'
+import { addMonths, startOfMonth } from 'date-fns'
 import _ from 'lodash'
 import { getMondays, toISOStringShort } from '../helpers/dates'
 import './styles.css'
@@ -16,6 +17,8 @@ export class Controller {
     constructor() {
         // Store requested weeks
         this.cached = {}
+
+        this._initialised = false
 
         const newLocal = this
         newLocal.calendar = new Calendar({
@@ -35,11 +38,23 @@ export class Controller {
             dateChanged: this.onDateChange,
             monthChanged: this.onMonthChange
         })
+        // Add loading animation
+        this.addLoadingAnimation()
     }
 
     async init() {
-        // Add loading animation
-        this.addLoadingAnimation()
+        this._initialised = true
+
+        // In case of no dates available in the current month, skip to the next one
+        if (this.calendar.getEventsData().length === 0) {
+            const curr = new Date()
+            const next = addMonths(curr, 1)
+            await this.getMonthAvailability(next)
+        }
+
+        const slots = _.sortBy(this.calendar.getEventsData(), 'start')
+
+        if (slots?.length > 0) this.calendar.setDate(slots[0]?.start)
     }
 
     /**
@@ -47,10 +62,9 @@ export class Controller {
      */
     onMonthChange = async (currentDate, events) => {
         console.debug('::onMonthChange::', currentDate, events)
-        // getMondays(currentDate).forEach(monday => this.getAvailability(monday))
-        this.toggleLoading(true)
-        await Promise.all(getMondays(currentDate).map(monday => this.getAvailability(monday)))
-        this.toggleLoading()
+        const firstDay = startOfMonth(currentDate)
+        await this.getMonthAvailability(firstDay)
+        if (!this._initialised) this.init()
     }
 
     /**
@@ -85,6 +99,12 @@ export class Controller {
         document.getElementsByClassName('calendar__monthyear')[0].appendChild(loader)
     }
 
+    async getMonthAvailability(startDate) {
+        this.toggleLoading(true)
+        await Promise.all(getMondays(startDate).map(monday => this.getAvailability(monday)))
+        this.toggleLoading()
+    }
+
     /**
      * Get Availability
      */
@@ -109,7 +129,7 @@ export class Controller {
         const res = await fetch(url)
         const avail = await res.json()
 
-        console.log(JSON.stringify(avail, null, 2))
+        // console.log(JSON.stringify(avail, null, 2))
 
         const slotToEvent = slot => {
             // Only add if it's still the same month as start of the week

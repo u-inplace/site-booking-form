@@ -32,34 +32,25 @@ export class Controller {
             calendarSize: 'large',
             layoutModifiers: ['month-left-align'],
             dropShadow: '',
-            dateChanged: (currentDate, events) => {
-                console.debug('date change', currentDate, events)
-            },
-            monthChanged: (currentDate, events) => {
-                console.debug('month change', currentDate, events)
-                getMondays(currentDate).forEach(monday => this.getAvailability(monday))
-            }
+            dateChanged: this.onDateChange,
+            monthChanged: this.onMonthChange
         })
     }
 
     async init() {
         // Add loading animation
-        // this.addLoadingAnimation()
-        // Boostrap with current month's availability
-        // this.toggleLoading(true)
-        // await Promise.all(getMondays().map(monday => this.getAvailability(monday)))
-        // this.toggleLoading()
+        this.addLoadingAnimation()
     }
 
     /**
      * Load more dates
      */
-    onMonthChange = (currentDate, events) => {
+    onMonthChange = async (currentDate, events) => {
         console.debug('::onMonthChange::', currentDate, events)
         // getMondays(currentDate).forEach(monday => this.getAvailability(monday))
-        // this.toggleLoading(true)
-        getMondays(currentDate).map(monday => this.getAvailability(monday))
-        // this.toggleLoading()
+        this.toggleLoading(true)
+        await Promise.all(getMondays(currentDate).map(monday => this.getAvailability(monday)))
+        this.toggleLoading()
     }
 
     /**
@@ -120,29 +111,28 @@ export class Controller {
 
         console.log(JSON.stringify(avail, null, 2))
 
+        const slotToEvent = slot => {
+            // Only add if it's still the same month as start of the week
+            // to avoid infinity loop with monthChanged event, which is triggered
+            // when a new event is added
+            if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return
+
+            return {
+                start: new Date(slot.start_time),
+                end: new Date(slot.end_time),
+                start_time: slot.label,
+                employee: {
+                    id: slot.affiliate_worker.worker_contract_id,
+                    first_name: slot.affiliate_worker.first_name,
+                    last_name: slot.affiliate_worker.last_name,
+                    allergies: slot.affiliate_worker.allergies
+                }
+            }
+        }
+
         const newEvents = _.compact(
             avail?.data
-                ?.map(dateAvail =>
-                    dateAvail.time_slots.map(slot => {
-                        // Only add if it's still the same month as start of the week
-                        // to avoid infinity loop with monthChanged event, which is triggered
-                        // when a new event is added
-                        if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth())
-                            return
-
-                        return {
-                            start: new Date(slot.start_time),
-                            end: new Date(slot.end_time),
-                            start_time: slot.label,
-                            employee: {
-                                id: slot.affiliate_worker.worker_contract_id,
-                                first_name: slot.affiliate_worker.first_name,
-                                last_name: slot.affiliate_worker.last_name,
-                                allergies: slot.affiliate_worker.allergies
-                            }
-                        }
-                    })
-                )
+                ?.map(dateAvail => dateAvail.time_slots.map(slot => slotToEvent(slot)))
                 .flat()
         )
 

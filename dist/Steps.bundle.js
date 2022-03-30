@@ -10089,7 +10089,9 @@ const sliderController = function () {
     toggleNext();
   };
 
-  $('#booking-slider').on('click', '.next-button-slide', onNext.bind(this)).on('click', '.back-button-slide', onBack.bind(this));
+  const domSlider = document.getElementById('booking-slider');
+  domSlider.querySelector('.next-button-slide').addEventListener('click', onNext);
+  domSlider.querySelector('.back-button-slide').addEventListener('click', onBack);
 }; // eslint-disable-next-line no-use-before-define
 
 

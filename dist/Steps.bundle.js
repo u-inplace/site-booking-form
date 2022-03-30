@@ -9638,6 +9638,201 @@ class DOM {
 
 /***/ }),
 
+/***/ "./src/steps/model.js":
+/*!****************************!*\
+  !*** ./src/steps/model.js ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ BookingModel; }
+/* harmony export */ });
+/**
+ * Booking model
+ */
+class BookingModel {
+  #steps;
+
+  constructor(steps) {
+    this.#steps = steps;
+  }
+  /**
+   * Estimation calc
+   */
+
+
+  static get estimation() {
+    return Math.floor(Object.values(this.#steps).reduce((acc, s, i) => {
+      console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`); // eslint-disable-next-line no-param-reassign
+
+      acc += s ? s.duration : 0;
+      return acc;
+    }, 3.0));
+  }
+
+  static set estimation(estimation) {
+    document.getElementById('duration').nextElementSibling.noUiSlider.set(estimation);
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/steps/navigation.js":
+/*!*********************************!*\
+  !*** ./src/steps/navigation.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Navigation; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./model */ "./src/steps/model.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sequence */ "./src/steps/sequence.js");
+/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./steps */ "./src/steps/steps.js");
+
+
+
+
+
+class Navigation {
+  #slider;
+  #sequence;
+  #model;
+
+  constructor() {
+    this.#slider = new W_SLIDER_CONTROLLER('#booking-slider');
+    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_4__["default"]); // Handle step validations
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(true); // Setup event handlers
+
+    Object.values(_steps__WEBPACK_IMPORTED_MODULE_4__["default"]).forEach(s => {
+      s.observed.forEach(o => {
+        // eslint-disable-next-line no-param-reassign
+        o.elem.checked = false;
+        o.elem.addEventListener(o.event, this.#toggleNext);
+      });
+    }); // Hide all steps to avoid big steps making
+    // the div bigger
+
+    for (let i = 2; i <= this.#slider.count(); i++) {
+      _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${i}`);
+    }
+  }
+
+  set #step(seq) {
+    document.getElementsByClassName('step-number')[this.#slider.current() - 1].innerHTML = `Step ${seq.current}/${seq.current === 1 ? '-' : seq.total}`;
+  } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
+
+  #toggleNext() {
+    const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current()]?.isNextDisabled;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(isDisabled);
+  }
+
+  onNext() {
+    const {
+      next
+    } = this.#sequence; // Unhide next step before moving on
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next + 1}`);
+    this.#slider.goto(next);
+    this.#step(this.#sequence); // Hide previous
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
+
+    switch (this.#slider.current()) {
+      case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
+        // slider.current already points to the next slide
+        this.#model.estimation = this.#model.estimation;
+        console.log(this.#model.estimation);
+        break;
+
+      default:
+        this.#toggleNext();
+        break;
+    }
+  } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
+
+  onBack = () => {
+    const {
+      prev
+    } = this.#sequence; // Display previous before moving back
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev + 1}`);
+    this.#slider.goto(prev);
+    this.#step(this.#sequence); // Hide previous
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 2}`);
+    this.#toggleNext();
+  };
+}
+
+/***/ }),
+
+/***/ "./src/steps/sequence.js":
+/*!*******************************!*\
+  !*** ./src/steps/sequence.js ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Sequence; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
+
+
+/**
+ * Sequence Controller
+ */
+
+class Sequence {
+  #current;
+
+  constructor() {
+    this.#current = 0;
+    let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
+    if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
+    if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
+    seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Frequency, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);
+    this.list = seq;
+  }
+
+  get next() {
+    this.#current++;
+    console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
+    return this.list[this.#current] - 1;
+  }
+
+  get prev() {
+    this.#current--;
+    console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
+    return this.list[this.#current] - 1;
+  }
+
+  get total() {
+    return this.list.length;
+  }
+
+  get current() {
+    return this.#current + 1;
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/steps/step_config.js":
 /*!**********************************!*\
   !*** ./src/steps/step_config.js ***!
@@ -9956,147 +10151,18 @@ var __webpack_exports__ = {};
   !*** ./src/steps/main.js ***!
   \***************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
-/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps */ "./src/steps/steps.js");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./navigation */ "./src/steps/navigation.js");
 /* eslint-disable no-var */
 
-/* eslint-disable max-classes-per-file */
-
-
-
-/**
- * Estimation calc
- */
-
-const getEstimation = () => Math.floor(Object.values(_steps__WEBPACK_IMPORTED_MODULE_2__["default"]).reduce((acc, s, i) => {
-  console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`); // eslint-disable-next-line no-param-reassign
-
-  acc += s ? s.duration : 0;
-  return acc;
-}, 3.0));
-
-const setEstimation = estimation => {
-  document.getElementById('duration').nextElementSibling.noUiSlider.set(estimation);
-};
 /**
  * Add handlers
  */
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-
-const sliderController = function () {
-  // eslint-disable-next-line no-undef
-  var slider = new W_SLIDER_CONTROLLER('#booking-slider'); // eslint-disable-next-line no-underscore-dangle
-
-  const _DOM = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];
-
-  class Sequence {
-    constructor() {
-      this._current = 0;
-      let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
-      if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
-      if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
-      seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Frequency, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);
-      this.list = seq;
-    }
-
-    get next() {
-      this._current++;
-      console.log(`Seq : ${this.list} ; curr : ${this._current}`);
-      return this.list[this._current] - 1;
-    }
-
-    get prev() {
-      this._current--;
-      console.log(`Seq : ${this.list} ; curr : ${this._current}`);
-      return this.list[this._current] - 1;
-    }
-
-    get total() {
-      return this.list.length;
-    }
-
-    get current() {
-      return this._current + 1;
-    }
-
-  } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
-
-  const toggleNext = function () {
-    const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_2__["default"][slider.current()]?.isNextDisabled;
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(isDisabled);
-  }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
-
-  const setStepNav = function (seq) {
-    document.getElementsByClassName('step-number')[slider.current() - 1].innerHTML = `Step ${seq.current}/${seq.current === 1 ? '-' : seq.total}`;
-  }; // Handle step validations
-
-
-  _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(true); // Setup event handlers
-
-  Object.values(_steps__WEBPACK_IMPORTED_MODULE_2__["default"]).forEach(s => {
-    s.observed.forEach(o => {
-      // eslint-disable-next-line no-param-reassign
-      o.elem.checked = false;
-      o.elem.addEventListener(o.event, toggleNext);
-    });
-  }); // Hide all steps to avoid big steps making
-  // the div bigger
-
-  for (let i = 2; i <= slider.count(); i++) {
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${i}`);
-  }
-
-  let sequence = {}; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
-  const onNext = () => {
-    if (slider.current() === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) sequence = new Sequence();
-    const {
-      next
-    } = sequence; // Unhide next step before moving on
-
-    _DOM.display(`step-${next + 1}`);
-
-    slider.goto(next);
-    setStepNav(sequence); // Hide previous
-
-    _DOM.hide(`step-${next}`);
-
-    switch (slider.current()) {
-      case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
-        // slider.current already points to the next slide
-        setEstimation(getEstimation());
-        console.log(getEstimation());
-        break;
-
-      default:
-        toggleNext();
-        break;
-    }
-  }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
-
-  const onBack = () => {
-    const {
-      prev
-    } = sequence; // Display previous before moving back
-
-    _DOM.display(`step-${prev + 1}`);
-
-    slider.goto(prev);
-    setStepNav(sequence); // Hide previous
-
-    _DOM.hide(`step-${prev + 2}`);
-
-    toggleNext();
-  };
-
+const sliderController = () => {
+  const nav = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
   const domSlider = document.getElementById('booking-slider');
-  domSlider.querySelector('.next-button-slide').addEventListener('click', onNext);
-  domSlider.querySelector('.back-button-slide').addEventListener('click', onBack);
+  domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext);
+  domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack);
 }; // eslint-disable-next-line no-use-before-define
 
 

@@ -29,7 +29,8 @@
         }
     },
     "globals": {
-        "Webflow": true
+        "Webflow": true,
+        "W_SLIDER_CONTROLLER": true
     },
     "plugins": ["prettier", "prefer-arrow", "no-param-reassign-allow-reduce"],
     "rules": {
@@ -48,6 +49,10 @@
         "no-unused-expressions": ["error", { "allowShortCircuit": true }],
         "no-underscore-dangle": ["error", { "allowAfterThis": true }],
         "func-names": ["error", "as-needed"],
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+        "func-style": ["error", "expression", { "allowArrowFunctions": true }],
+        "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+        "no-self-assign": ["error", { "props": false }],
         "prefer-arrow/prefer-arrow-functions": [
             "error",
             {
@@ -56,8 +61,6 @@
                 "classPropertiesAllowed": false
             }
         ],
-        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
-        "func-style": ["error", "expression", { "allowArrowFunctions": true }],
         "sort-imports": [
             "error",
             {

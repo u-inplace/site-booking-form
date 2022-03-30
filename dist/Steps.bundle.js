@@ -10050,7 +10050,7 @@ const sliderController = function () {
 
   let sequence = {}; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-  const onNext = () => {
+  const onNext = function () {
     if (slider.current() === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) sequence = new Sequence();
     const {
       next
@@ -10076,7 +10076,7 @@ const sliderController = function () {
   }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
 
-  const onBack = () => {
+  const onBack = function () {
     const {
       prev
     } = sequence; // Display previous before moving back

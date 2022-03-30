@@ -4,16 +4,11 @@
 export const STEP = {
     Services: 1,
     Ironing: 2,
-    Cleaning: {
-        Info: 3,
-        Home: 4,
-        Extras: 5,
-        Supplies: 6
-    },
-    Duration: 7,
-    Frequency: 8,
-    Availability: 9,
-    Contact: 10
+    Cleaning: 3,
+    Duration: 4,
+    Frequency: 5,
+    Availability: 6,
+    Contact: 7
 }
 
 export const SERVICE = {

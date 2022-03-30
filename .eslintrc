@@ -62,9 +62,8 @@
             "error",
             {
                 "ignoreCase": false,
-                "ignoreDeclarationSort": false,
-                "ignoreMemberSort": false,
-                "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+                "ignoreDeclarationSort": true,
+                "ignoreMemberSort": true,
                 "allowSeparatedGroups": false
             }
         ]

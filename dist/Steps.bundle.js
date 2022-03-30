@@ -10161,8 +10161,8 @@ __webpack_require__.r(__webpack_exports__);
 const sliderController = () => {
   const nav = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
   const domSlider = document.getElementById('booking-slider');
-  domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext);
-  domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack);
+  domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext.bind(nav));
+  domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack.bind(nav));
 }; // eslint-disable-next-line no-use-before-define
 
 

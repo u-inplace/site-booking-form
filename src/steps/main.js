@@ -8,8 +8,8 @@ const sliderController = () => {
     const nav = new Navigation()
 
     const domSlider = document.getElementById('booking-slider')
-    domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext)
-    domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack)
+    domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext.bind(nav))
+    domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack.bind(nav))
 }
 
 // eslint-disable-next-line no-use-before-define

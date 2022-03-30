@@ -22,7 +22,7 @@ export default class Navigation {
             s.observed.forEach(o => {
                 // eslint-disable-next-line no-param-reassign
                 o.elem.checked = false
-                o.elem.addEventListener(o.event, this.#toggleNext)
+                o.elem.addEventListener(o.event, this.#toggleNext.bind(this))
             })
         })
 
@@ -41,7 +41,6 @@ export default class Navigation {
         }`
     }
 
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     #toggleNext() {
         const isDisabled = Steps[this.#slider.current() - 1]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
@@ -71,7 +70,6 @@ export default class Navigation {
         }
     }
 
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     onBack = () => {
         const { next, prev } = this.#sequence
 

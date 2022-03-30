@@ -9717,7 +9717,7 @@ class Navigation {
       s.observed.forEach(o => {
         // eslint-disable-next-line no-param-reassign
         o.elem.checked = false;
-        o.elem.addEventListener(o.event, this.#toggleNext);
+        o.elem.addEventListener(o.event, this.#toggleNext.bind(this));
       });
     }); // Hide all steps to avoid big steps making
     // the div bigger
@@ -9729,8 +9729,7 @@ class Navigation {
 
   #updateNav() {
     document.getElementsByClassName('step-number')[this.#slider.current() - 1].innerHTML = `Step ${this.#sequence.current}/${this.#sequence.current === 1 ? '-' : this.#sequence.total}`;
-  } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
+  }
 
   #toggleNext() {
     const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current() - 1]?.isNextDisabled;
@@ -9760,8 +9759,7 @@ class Navigation {
         this.#toggleNext();
         break;
     }
-  } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
+  }
 
   onBack = () => {
     const {

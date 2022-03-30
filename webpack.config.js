@@ -8,6 +8,7 @@ const stylesHandler = 'style-loader'
 
 const config = {
     target: ['web', 'es5'],
+    devtool: 'inline-source-map',
     devServer: {
         open: true,
         host: 'localhost'
@@ -33,7 +34,8 @@ const calendarConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'Calendar.bundle.js',
-        library: 'Calendar'
+        library: 'Calendar',
+        sourceMapFilename: '[name].js.map'
     }
 }
 
@@ -43,7 +45,8 @@ const stepsConfig = {
     entry: './src/steps/main.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'Steps.bundle.js'
+        filename: 'Steps.bundle.js',
+        sourceMapFilename: '[name].js.map'
     }
 }
 

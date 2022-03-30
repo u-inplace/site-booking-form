@@ -8,7 +8,8 @@ const stylesHandler = 'style-loader'
 
 const config = {
     target: ['web', 'es5'],
-    devtool: 'inline-source-map',
+    mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
         open: true,
         host: 'localhost'
@@ -35,7 +36,7 @@ const calendarConfig = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'Calendar.bundle.js',
         library: 'Calendar',
-        sourceMapFilename: '[name].js.map'
+        sourceMapFilename: 'Calendar.js.map'
     }
 }
 
@@ -46,12 +47,10 @@ const stepsConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'Steps.bundle.js',
-        sourceMapFilename: '[name].js.map'
+        sourceMapFilename: 'Steps.js.map'
     }
 }
 
 module.exports = () => {
-    // eslint-disable-next-line no-multi-assign
-    calendarConfig.mode = stepsConfig.mode = isProduction ? 'production' : 'development'
     return [calendarConfig, stepsConfig]
 }

@@ -1,14 +1,32 @@
 {
     "env": {
-        "es2022": true,
+        "es2020": true,
         "es6": true,
         "browser": true,
         "jquery": true
     },
+    "parser": "@babel/eslint-parser",
     "extends": ["airbnb-base", "prettier"],
     "parserOptions": {
         "ecmaVersion": 12,
-        "experimentalObjectRestSpread": true
+        "experimentalObjectRestSpread": true,
+        "requireConfigFile": "false",
+        "babelOptions": {
+            "plugins": [
+                "@babel/syntax-dynamic-import",
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-proposal-optional-chaining",
+                "@babel/plugin-proposal-class-properties"
+            ],
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "modules": "auto"
+                    }
+                ]
+            ]
+        }
     },
     "globals": {
         "Webflow": true

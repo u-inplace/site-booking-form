@@ -9987,7 +9987,9 @@ const setEstimation = estimation => {
 
 const sliderController = function () {
   // eslint-disable-next-line no-undef
-  var slider = new W_SLIDER_CONTROLLER('#booking-slider');
+  var slider = new W_SLIDER_CONTROLLER('#booking-slider'); // eslint-disable-next-line no-underscore-dangle
+
+  const _DOM = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];
 
   class Sequence {
     constructor() {
@@ -10050,17 +10052,18 @@ const sliderController = function () {
 
   let sequence = {}; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-  const onNext = function () {
+  const onNext = () => {
     if (slider.current() === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) sequence = new Sequence();
     const {
       next
     } = sequence; // Unhide next step before moving on
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next + 1}`);
+    _DOM.display(`step-${next + 1}`);
+
     slider.goto(next);
     setStepNav(sequence); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next}`);
+    _DOM.hide(`step-${next}`);
 
     switch (slider.current()) {
       case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
@@ -10076,22 +10079,24 @@ const sliderController = function () {
   }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
 
-  const onBack = function () {
+  const onBack = () => {
     const {
       prev
     } = sequence; // Display previous before moving back
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev + 1}`);
+    _DOM.display(`step-${prev + 1}`);
+
     slider.goto(prev);
     setStepNav(sequence); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 2}`);
+    _DOM.hide(`step-${prev + 2}`);
+
     toggleNext();
   };
 
   const domSlider = document.getElementById('booking-slider');
-  domSlider.querySelector('.next-button-slide').addEventListener('click', onNext.bind(this));
-  domSlider.querySelector('.back-button-slide').addEventListener('click', onBack.bind(this));
+  domSlider.querySelector('.next-button-slide').addEventListener('click', onNext);
+  domSlider.querySelector('.back-button-slide').addEventListener('click', onBack);
 }; // eslint-disable-next-line no-use-before-define
 
 

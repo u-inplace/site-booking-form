@@ -51,6 +51,4 @@ const stepsConfig = {
     }
 }
 
-module.exports = () => {
-    return [calendarConfig, stepsConfig]
-}
+module.exports = () => [calendarConfig, stepsConfig]

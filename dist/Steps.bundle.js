@@ -9748,7 +9748,7 @@ class Navigation {
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
 
-    switch (this.#slider.current() + 1) {
+    switch (this.#slider.current() - 1) {
       case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
         // slider.current already points to the next slide
         this.#model.estimation = this.#model.estimation;

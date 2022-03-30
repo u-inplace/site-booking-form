@@ -60,7 +60,7 @@ export default class Navigation {
         // Hide previous
         DOM.hide(`step-${next - 1}`)
 
-        switch (this.#slider.current() + 1) {
+        switch (this.#slider.current() - 1) {
             case STEP.Duration:
                 // slider.current already points to the next slide
                 this.#model.estimation = this.#model.estimation

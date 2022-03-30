@@ -87,14 +87,27 @@ const sliderController = function () {
         })
     })
 
+    // Hide all steps to avoid big steps making
+    // the div bigger
+    for (let i = 2; i <= slider.count(); i++) {
+        DOM.hide(`step-${i}`)
+    }
+
     let sequence = {}
 
     const onNext = () => {
         if (slider.current() === STEP.Services) sequence = new Sequence()
 
         const { next } = sequence
+
+        // Unhide next step before moving on
+        DOM.display(`step-${next}`)
+
         slider.goto(next)
         setStepNav(sequence)
+
+        // Hide previous
+        DOM.hide(`step-${next - 1}`)
 
         switch (slider.current()) {
             case STEP.Duration:
@@ -110,8 +123,16 @@ const sliderController = function () {
 
     const onBack = () => {
         const { prev } = sequence
+
+        // Display previous before moving back
+        DOM.display(`step-${prev}`)
+
         slider.goto(prev)
         setStepNav(sequence)
+
+        // Hide previous
+        DOM.hide(`step-${prev + 1}`)
+
         toggleNext()
     }
 

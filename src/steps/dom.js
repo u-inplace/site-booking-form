@@ -81,4 +81,15 @@ export default class DOM {
     static isBathroomSelected() {
         return DOM.getRadio('home-bathrooms', true)
     }
+
+    /**
+     * General functions
+     */
+    static hide(id) {
+        document.getElementById(id).style.display = 'none'
+    }
+
+    static display(id) {
+        document.getElementById(id).style.display = 'block'
+    }
 }

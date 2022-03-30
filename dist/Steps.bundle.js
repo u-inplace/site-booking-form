@@ -9708,7 +9708,6 @@ class Navigation {
 
   constructor() {
     this.#slider = new W_SLIDER_CONTROLLER('#booking-slider');
-    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
     this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_4__["default"]); // Handle step validations
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(true); // Setup event handlers
@@ -9737,6 +9736,8 @@ class Navigation {
   }
 
   onNext() {
+    // Create a new sequence when leaving the first step
+    if (this.#slider.current() === 1) this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
     const {
       next,
       prev

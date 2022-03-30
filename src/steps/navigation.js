@@ -11,7 +11,6 @@ export default class Navigation {
 
     constructor() {
         this.#slider = new W_SLIDER_CONTROLLER('#booking-slider')
-        this.#sequence = new Sequence()
         this.#model = new BookingModel(Steps)
 
         // Handle step validations
@@ -47,6 +46,9 @@ export default class Navigation {
     }
 
     onNext() {
+        // Create a new sequence when leaving the first step
+        if (this.#slider.current() === 1) this.#sequence = new Sequence()
+
         const { next, prev } = this.#sequence
 
         // Unhide next step before moving on

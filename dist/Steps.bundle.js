@@ -9722,7 +9722,7 @@ class Navigation {
     }); // Hide all steps to avoid big steps making
     // the div bigger
 
-    for (let i = 2; i <= this.#slider.count(); i++) {
+    for (let i = 1; i < this.#slider.count(); i++) {
       _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${i}`);
     }
   }

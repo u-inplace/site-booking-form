@@ -7,15 +7,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 const stylesHandler = 'style-loader'
 
 const config = {
-    entry: {
-        Steps: './src/steps/main.js',
-        Calendar: './src/calendar/main.js'
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        library: '[name]'
-    },
     target: ['web', 'es5'],
     devServer: {
         open: true,
@@ -35,11 +26,29 @@ const config = {
     }
 }
 
-module.exports = () => {
-    if (isProduction) {
-        config.mode = 'production'
-    } else {
-        config.mode = 'development'
+const calendarConfig = {
+    ...config,
+    name: 'calendarConfig',
+    entry: './src/calendar/main.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'Calendar.bundle.js',
+        library: 'Calendar'
     }
-    return config
+}
+
+const stepsConfig = {
+    ...config,
+    name: 'stepsConfig',
+    entry: './src/steps/main.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'Steps.bundle.js'
+    }
+}
+
+module.exports = () => {
+    // eslint-disable-next-line no-multi-assign
+    calendarConfig.mode = stepsConfig.mode = isProduction ? 'production' : 'development'
+    return [calendarConfig, stepsConfig]
 }

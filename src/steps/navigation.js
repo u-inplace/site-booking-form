@@ -49,7 +49,7 @@ export default class Navigation {
         // Create a new sequence when leaving the first step
         if (this.#slider.current() === 1) this.#sequence = new Sequence()
 
-        const { next, prev } = this.#sequence
+        const { next } = this.#sequence
 
         // Unhide next step before moving on
         DOM.display(`step-${next}`)
@@ -58,7 +58,7 @@ export default class Navigation {
         this.#updateNav()
 
         // Hide previous
-        DOM.hide(`step-${prev}`)
+        DOM.hide(`step-${next - 1}`)
 
         switch (this.#slider.current() + 1) {
             case STEP.Duration:
@@ -73,7 +73,7 @@ export default class Navigation {
     }
 
     onBack = () => {
-        const { next, prev } = this.#sequence
+        const { prev } = this.#sequence
 
         // Display previous before moving back
         DOM.display(`step-${prev}`)
@@ -81,8 +81,8 @@ export default class Navigation {
         this.#slider.goto(prev)
         this.#updateNav()
 
-        // Hide previous
-        DOM.hide(`step-${next}`)
+        // Hide next
+        DOM.hide(`step-${prev + 1}`)
 
         this.#toggleNext()
     }

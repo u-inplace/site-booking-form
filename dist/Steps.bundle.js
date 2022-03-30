@@ -9739,15 +9739,14 @@ class Navigation {
     // Create a new sequence when leaving the first step
     if (this.#slider.current() === 1) this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
     const {
-      next,
-      prev
+      next
     } = this.#sequence; // Unhide next step before moving on
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next}`);
     this.#slider.goto(next);
     this.#updateNav(); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
 
     switch (this.#slider.current() + 1) {
       case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
@@ -9764,15 +9763,14 @@ class Navigation {
 
   onBack = () => {
     const {
-      next,
       prev
     } = this.#sequence; // Display previous before moving back
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev}`);
     this.#slider.goto(prev);
-    this.#updateNav(); // Hide previous
+    this.#updateNav(); // Hide next
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 1}`);
     this.#toggleNext();
   };
 }

@@ -9503,13 +9503,13 @@ __webpack_require__.r(__webpack_exports__);
  * Helper file for webflow inplace.be booking_
  */
 const STEP = {
-  Services: 1,
-  Ironing: 2,
-  Cleaning: 3,
-  Duration: 4,
-  Frequency: 5,
-  Availability: 6,
-  Contact: 7
+  Services: 0,
+  Ironing: 1,
+  Cleaning: 2,
+  Duration: 3,
+  Frequency: 4,
+  Availability: 5,
+  Contact: 6
 };
 const SERVICE = {
   Cleaning: 'cleaning',
@@ -9727,28 +9727,29 @@ class Navigation {
     }
   }
 
-  set #step(seq) {
-    document.getElementsByClassName('step-number')[this.#slider.current() - 1].innerHTML = `Step ${seq.current}/${seq.current === 1 ? '-' : seq.total}`;
+  #updateNav() {
+    document.getElementsByClassName('step-number')[this.#slider.current() - 1].innerHTML = `Step ${this.#sequence.current}/${this.#sequence.current === 1 ? '-' : this.#sequence.total}`;
   } // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
 
   #toggleNext() {
-    const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current()]?.isNextDisabled;
+    const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current() - 1]?.isNextDisabled;
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(isDisabled);
   }
 
   onNext() {
     const {
-      next
+      next,
+      prev
     } = this.#sequence; // Unhide next step before moving on
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next + 1}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next}`);
     this.#slider.goto(next);
-    this.#step(this.#sequence); // Hide previous
+    this.#updateNav(); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev}`);
 
-    switch (this.#slider.current()) {
+    switch (this.#slider.current() + 1) {
       case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
         // slider.current already points to the next slide
         this.#model.estimation = this.#model.estimation;
@@ -9764,14 +9765,15 @@ class Navigation {
 
   onBack = () => {
     const {
+      next,
       prev
     } = this.#sequence; // Display previous before moving back
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev + 1}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev}`);
     this.#slider.goto(prev);
-    this.#step(this.#sequence); // Hide previous
+    this.#updateNav(); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 2}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next}`);
     this.#toggleNext();
   };
 }
@@ -9812,13 +9814,13 @@ class Sequence {
   get next() {
     this.#current++;
     console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
-    return this.list[this.#current] - 1;
+    return this.list[this.#current];
   }
 
   get prev() {
     this.#current--;
     console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
-    return this.list[this.#current] - 1;
+    return this.list[this.#current];
   }
 
   get total() {
@@ -9826,7 +9828,7 @@ class Sequence {
   }
 
   get current() {
-    return this.#current + 1;
+    return this.#current;
   }
 
 }

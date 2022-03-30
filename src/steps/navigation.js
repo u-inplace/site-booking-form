@@ -33,31 +33,33 @@ export default class Navigation {
         }
     }
 
-    set #step(seq) {
+    #updateNav() {
         document.getElementsByClassName('step-number')[
             this.#slider.current() - 1
-        ].innerHTML = `Step ${seq.current}/${seq.current === 1 ? '-' : seq.total}`
+        ].innerHTML = `Step ${this.#sequence.current}/${
+            this.#sequence.current === 1 ? '-' : this.#sequence.total
+        }`
     }
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     #toggleNext() {
-        const isDisabled = Steps[this.#slider.current()]?.isNextDisabled
+        const isDisabled = Steps[this.#slider.current() - 1]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
     }
 
     onNext() {
-        const { next } = this.#sequence
+        const { next, prev } = this.#sequence
 
         // Unhide next step before moving on
-        DOM.display(`step-${next + 1}`)
+        DOM.display(`step-${next}`)
 
         this.#slider.goto(next)
-        this.#step(this.#sequence)
+        this.#updateNav()
 
         // Hide previous
-        DOM.hide(`step-${next - 1}`)
+        DOM.hide(`step-${prev}`)
 
-        switch (this.#slider.current()) {
+        switch (this.#slider.current() + 1) {
             case STEP.Duration:
                 // slider.current already points to the next slide
                 this.#model.estimation = this.#model.estimation
@@ -71,16 +73,16 @@ export default class Navigation {
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     onBack = () => {
-        const { prev } = this.#sequence
+        const { next, prev } = this.#sequence
 
         // Display previous before moving back
-        DOM.display(`step-${prev + 1}`)
+        DOM.display(`step-${prev}`)
 
         this.#slider.goto(prev)
-        this.#step(this.#sequence)
+        this.#updateNav()
 
         // Hide previous
-        DOM.hide(`step-${prev + 2}`)
+        DOM.hide(`step-${next}`)
 
         this.#toggleNext()
     }

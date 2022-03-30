@@ -20,13 +20,13 @@ export default class Sequence {
     get next() {
         this.#current++
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)
-        return this.list[this.#current] - 1
+        return this.list[this.#current]
     }
 
     get prev() {
         this.#current--
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)
-        return this.list[this.#current] - 1
+        return this.list[this.#current]
     }
 
     get total() {
@@ -34,6 +34,6 @@ export default class Sequence {
     }
 
     get current() {
-        return this.#current + 1
+        return this.#current
     }
 }

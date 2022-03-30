@@ -9,7 +9,7 @@ const stylesHandler = 'style-loader'
 const config = {
     target: ['web', 'es5'],
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
         open: true,
         host: 'localhost'

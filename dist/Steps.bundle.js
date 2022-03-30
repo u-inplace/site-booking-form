@@ -10056,11 +10056,11 @@ const sliderController = function () {
       next
     } = sequence; // Unhide next step before moving on
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next + 1}`);
     slider.goto(next);
     setStepNav(sequence); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next}`);
 
     switch (slider.current()) {
       case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
@@ -10081,11 +10081,11 @@ const sliderController = function () {
       prev
     } = sequence; // Display previous before moving back
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev + 1}`);
     slider.goto(prev);
     setStepNav(sequence); // Hide previous
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 1}`);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 2}`);
     toggleNext();
   };
 

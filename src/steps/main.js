@@ -102,13 +102,13 @@ const sliderController = function () {
         const { next } = sequence
 
         // Unhide next step before moving on
-        DOM.display(`step-${next}`)
+        DOM.display(`step-${next + 1}`)
 
         slider.goto(next)
         setStepNav(sequence)
 
         // Hide previous
-        DOM.hide(`step-${next - 1}`)
+        DOM.hide(`step-${next}`)
 
         switch (slider.current()) {
             case STEP.Duration:
@@ -127,13 +127,13 @@ const sliderController = function () {
         const { prev } = sequence
 
         // Display previous before moving back
-        DOM.display(`step-${prev}`)
+        DOM.display(`step-${prev + 1}`)
 
         slider.goto(prev)
         setStepNav(sequence)
 
         // Hide previous
-        DOM.hide(`step-${prev + 1}`)
+        DOM.hide(`step-${prev + 2}`)
 
         toggleNext()
     }

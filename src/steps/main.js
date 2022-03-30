@@ -122,5 +122,5 @@ const sliderController = function () {
 }
 
 // eslint-disable-next-line no-use-before-define
-var Webflow = Webflow || []
+var Webflow = Webflow || window.Webflow || []
 Webflow.push(sliderController)

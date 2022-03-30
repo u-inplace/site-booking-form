@@ -24,7 +24,6 @@ export class Controller {
         newLocal.calendar = new Calendar({
             id: '#availability-cal',
             theme: 'glass',
-            // border: "5px solid black",
             weekdayType: 'long-upper',
             startWeekday: 1,
             monthDisplayType: 'long',

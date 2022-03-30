@@ -10048,9 +10048,9 @@ const sliderController = function () {
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${i}`);
   }
 
-  let sequence = {};
+  let sequence = {}; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-  const onNext = () => {
+  const onNext = function () {
     if (slider.current() === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) sequence = new Sequence();
     const {
       next
@@ -10073,9 +10073,10 @@ const sliderController = function () {
         toggleNext();
         break;
     }
-  };
+  }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-  const onBack = () => {
+
+  const onBack = function () {
     const {
       prev
     } = sequence; // Display previous before moving back

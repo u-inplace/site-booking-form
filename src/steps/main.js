@@ -95,7 +95,8 @@ const sliderController = function () {
 
     let sequence = {}
 
-    const onNext = () => {
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    const onNext = function () {
         if (slider.current() === STEP.Services) sequence = new Sequence()
 
         const { next } = sequence
@@ -121,7 +122,8 @@ const sliderController = function () {
         }
     }
 
-    const onBack = () => {
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    const onBack = function () {
         const { prev } = sequence
 
         // Display previous before moving back

@@ -10050,7 +10050,7 @@ const sliderController = function () {
 
   let sequence = {}; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
-  const onNext = function () {
+  const onNext = () => {
     if (slider.current() === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) sequence = new Sequence();
     const {
       next
@@ -10076,7 +10076,7 @@ const sliderController = function () {
   }; // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 
 
-  const onBack = function () {
+  const onBack = () => {
     const {
       prev
     } = sequence; // Display previous before moving back
@@ -10089,7 +10089,7 @@ const sliderController = function () {
     toggleNext();
   };
 
-  $('#booking-slider').on('click', '.next-button-slide', onNext).on('click', '.back-button-slide', onBack);
+  $('#booking-slider').on('click', '.next-button-slide', onNext.bind(this)).on('click', '.back-button-slide', onBack.bind(this));
 }; // eslint-disable-next-line no-use-before-define
 
 

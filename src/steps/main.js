@@ -96,7 +96,7 @@ const sliderController = function () {
     let sequence = {}
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    const onNext = function () {
+    const onNext = () => {
         if (slider.current() === STEP.Services) sequence = new Sequence()
 
         const { next } = sequence
@@ -123,7 +123,7 @@ const sliderController = function () {
     }
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    const onBack = function () {
+    const onBack = () => {
         const { prev } = sequence
 
         // Display previous before moving back
@@ -139,8 +139,8 @@ const sliderController = function () {
     }
 
     $('#booking-slider')
-        .on('click', '.next-button-slide', onNext)
-        .on('click', '.back-button-slide', onBack)
+        .on('click', '.next-button-slide', onNext.bind(this))
+        .on('click', '.back-button-slide', onBack.bind(this))
 }
 
 // eslint-disable-next-line no-use-before-define

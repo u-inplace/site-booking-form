@@ -25,9 +25,9 @@ const setEstimation = estimation => {
 /**
  * Add handlers
  */
-// eslint-disable-next-line no-use-before-define
-var Webflow = Webflow || []
-Webflow.push(() => {
+
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+const sliderController = function () {
     // eslint-disable-next-line no-undef
     var slider = new W_SLIDER_CONTROLLER('#booking-slider')
 
@@ -119,4 +119,8 @@ Webflow.push(() => {
     $('#booking-slider')
         .on('click', '.next-button-slide', onNext)
         .on('click', '.back-button-slide', onBack)
-})
+}
+
+// eslint-disable-next-line no-use-before-define
+var Webflow = Webflow || []
+Webflow.push(sliderController)

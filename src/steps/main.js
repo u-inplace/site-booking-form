@@ -139,8 +139,8 @@ const sliderController = function () {
     }
 
     const domSlider = document.getElementById('booking-slider')
-    domSlider.querySelector('.next-button-slide').addEventListener('click', onNext)
-    domSlider.querySelector('.back-button-slide').addEventListener('click', onBack)
+    domSlider.querySelector('.next-button-slide').addEventListener('click', onNext.bind(this))
+    domSlider.querySelector('.back-button-slide').addEventListener('click', onBack.bind(this))
 }
 
 // eslint-disable-next-line no-use-before-define

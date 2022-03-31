@@ -224,6 +224,150 @@ var Calendar;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+
+      content += cssWithMappingToString(item);
+
+      if (needLayer) {
+        content += "}";
+      }
+
+      if (item[2]) {
+        content += "}";
+      }
+
+      if (item[4]) {
+        content += "}";
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+
+
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/sourceMaps.js":
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/sourceMaps.js ***!
+  \************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
+  }
+
+  return [content].join("\n");
+};
+
+/***/ }),
+
 /***/ "./node_modules/date-fns/esm/_lib/requiredArgs/index.js":
 /*!**************************************************************!*\
   !*** ./node_modules/date-fns/esm/_lib/requiredArgs/index.js ***!
@@ -9998,6 +10142,54 @@ const toISOStringShort = date => {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/color-calendar/dist/css/theme-glass.css":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/color-calendar/dist/css/theme-glass.css ***!
+  \****************************************************************************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".color-calendar {\n  position: relative;\n  display: inline-flex;\n  flex-direction: column;\n  width: auto;\n  height: auto;\n  box-sizing: border-box;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  font-family: var(--cal-font-family-body);\n  font-size: 1rem;\n}\n\n.color-calendar .calendar__header {\n  position: relative;\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  font-family: var(--cal-font-family-header);\n}\n\n.color-calendar .calendar__monthyear {\n  font-size: 1.5rem;\n  margin: 0 auto;\n  text-align: center;\n  grid-column: 2/span 5;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__monthyear .calendar__month {\n  cursor: pointer;\n}\n.color-calendar .calendar__monthyear .calendar__year {\n  cursor: pointer;\n}\n\n.color-calendar .calendar__arrow {\n  height: 35px;\n  width: 100%;\n  position: relative;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  z-index: 101;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-inner {\n  width: 35px;\n  height: 35px;\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-prev {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-prev .calendar__arrow-inner::before {\n  margin-left: 0.3em;\n  transform: rotate(-135deg);\n}\n.color-calendar .calendar__arrow-next {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-next .calendar__arrow-inner::before {\n  margin-right: 0.3em;\n  transform: rotate(45deg);\n}\n\n.color-calendar .calendar__body {\n  height: auto;\n  overflow: hidden;\n}\n\n.color-calendar .calendar__weekdays {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  margin-bottom: 5px;\n  font-family: var(--cal-font-family-weekdays);\n}\n.color-calendar .calendar__weekdays .calendar__weekday {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 40px;\n}\n\n.color-calendar .calendar__days {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  grid-template-rows: repeat(6, minmax(30px, 40px));\n  font-family: var(--cal-font-family-body);\n}\n.color-calendar .calendar__days .calendar__day {\n  position: relative;\n  z-index: 101;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__days .calendar__day-text {\n  cursor: pointer;\n}\n.color-calendar .calendar__days .calendar__day-box {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: calc(55% + 8px);\n  height: 90%;\n  opacity: 0;\n  z-index: -1;\n  cursor: pointer;\n  transition: opacity 0.3s ease-out;\n  will-change: opacity;\n}\n.color-calendar .calendar__days .calendar__day-event {\n  /* Event Bullet */\n}\n.color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {\n  position: absolute;\n  top: 80%;\n  border-radius: 50%;\n  width: 4px;\n  height: 4px;\n  left: 50%;\n  transform: translateX(-50%);\n  overflow: hidden;\n  cursor: pointer;\n}\n.color-calendar .calendar__days .calendar__day-selected:not(.calendar__day-today) .calendar__day-box {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: calc(55% + 8px);\n  height: 90%;\n  z-index: -1;\n  cursor: pointer;\n}\n\n.color-calendar .calendar__picker {\n  position: absolute;\n  z-index: 201;\n  width: 100%;\n  top: 75px;\n  left: 0;\n  bottom: 0;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  visibility: hidden;\n  opacity: 0;\n  transition: all 0.3s ease;\n  font-family: var(--cal-font-family-body);\n}\n.color-calendar .calendar__picker .calendar__picker-month {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  grid-template-rows: repeat(4, minmax(0, 1fr));\n  grid-gap: 1rem 6%;\n  gap: 1rem 6%;\n  margin: 8%;\n  transition: none;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option {\n  position: relative;\n  text-align: center;\n  padding: 15px 0;\n  font-weight: 700;\n  color: #323232;\n  border-radius: var(--cal-border-radius);\n  align-self: center;\n  cursor: pointer;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option::after {\n  content: \"\";\n  width: 100%;\n  height: 50px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: var(--cal-color-primary);\n  border-radius: var(--cal-border-radius);\n  opacity: 0.1;\n  z-index: -1;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option:hover:after {\n  opacity: 0.08;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected {\n  color: white;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected::after {\n  opacity: 1;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected:hover:after {\n  opacity: 0.9;\n}\n.color-calendar .calendar__picker .calendar__picker-year {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  grid-template-rows: repeat(4, minmax(0, 1fr));\n  grid-gap: 1rem 6%;\n  gap: 1rem 6%;\n  margin: 8%;\n  transition: none;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option {\n  position: relative;\n  text-align: center;\n  padding: 15px 0;\n  font-weight: 700;\n  color: #323232;\n  border-radius: var(--cal-border-radius);\n  align-self: center;\n  cursor: pointer;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option::after {\n  content: \"\";\n  width: 100%;\n  height: 50px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: var(--cal-color-primary);\n  border-radius: var(--cal-border-radius);\n  opacity: 0.1;\n  z-index: -1;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option:hover:after {\n  opacity: 0.08;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected {\n  color: white;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected::after {\n  opacity: 1;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected:hover:after {\n  opacity: 0.9;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow {\n  position: absolute;\n  opacity: 0.4;\n  border-radius: var(--cal-border-radius);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow-left {\n  top: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding-left: 10px;\n  padding-right: 4px;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow-right {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding-left: 4px;\n  padding-right: 10px;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow:hover {\n  opacity: 1;\n  background-color: #f8f8f8;\n}\n\n.chevron-thin-left {\n  display: inline-block;\n  border-right: 2px solid var(--cal-color-primary);\n  border-bottom: 2px solid var(--cal-color-primary);\n  width: 10px;\n  height: 10px;\n  transform: rotate(-225deg);\n}\n.chevron-thin-right {\n  display: inline-block;\n  border-right: 2px solid var(--cal-color-primary);\n  border-bottom: 2px solid var(--cal-color-primary);\n  width: 10px;\n  height: 10px;\n  transform: rotate(-45deg);\n}\n\n.color-calendar.month-left-align .calendar__header .calendar__monthyear {\n  grid-column: 1/span 5;\n  margin: 0;\n  justify-content: flex-start;\n  padding-left: 5%;\n}\n\n.color-calendar.glass {\n  --cal-color-primary: #EC407A;\n  --cal-font-family-header: \"Open Sans\", sans-serif;\n  --cal-font-family-weekdays: \"Open Sans\", sans-serif;\n  --cal-font-family-body: \"Open Sans\", sans-serif;\n  --cal-drop-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);\n  --cal-border: none;\n  --cal-border-radius: 0.5rem;\n  --cal-header-color: white;\n  --cal-header-background-color: rgba(0, 0, 0, 0.3);\n  border-radius: var(--cal-border-radius);\n  box-shadow: var(--cal-drop-shadow);\n  color: #323232;\n  background-color: var(--cal-header-background-color);\n  -webkit-backdrop-filter: blur(5px);\n          backdrop-filter: blur(5px);\n  border: var(--cal-border);\n}\n\n.color-calendar.glass .calendar__header {\n  padding: 20px 14px 20px 14px;\n  color: var(--cal-header-color);\n}\n\n.color-calendar.glass .calendar__monthyear {\n  font-weight: 700;\n  color: var(--cal-header-color);\n}\n\n.color-calendar.glass .calendar__arrow-inner {\n  border-radius: 50%;\n}\n.color-calendar.glass .calendar__arrow-inner::before {\n  content: \"\";\n  width: 0.5em;\n  height: 0.5em;\n  position: absolute;\n  border-style: solid;\n  border-width: 0.17em 0.17em 0 0;\n  display: inline-block;\n  transform-origin: center center;\n  transform: rotate(-45deg);\n  border-radius: 2px;\n  color: var(--cal-header-color);\n}\n.color-calendar.glass .calendar__arrow-inner::after {\n  content: \"\";\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 35px;\n  height: 35px;\n  border-radius: 50%;\n  background-color: var(--cal-header-color);\n  opacity: 0.12;\n  z-index: -1;\n  transition: opacity 0.3s ease;\n}\n.color-calendar.glass .calendar__arrow-inner:hover::after {\n  transition: opacity 0.3s ease;\n  opacity: 0.25;\n}\n.color-calendar.glass .calendar__arrow-prev {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar.glass .calendar__arrow-prev .calendar__arrow-inner::before {\n  margin-left: 0.25em;\n  transform: rotate(-135deg);\n}\n.color-calendar.glass .calendar__arrow-next {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar.glass .calendar__arrow-next .calendar__arrow-inner::before {\n  margin-right: 0.25em;\n  transform: rotate(45deg);\n}\n\n.color-calendar.glass .calendar__body {\n  padding: 18px 14px;\n  border-radius: var(--cal-border-radius);\n  background-color: white;\n}\n\n.color-calendar.glass .calendar__weekdays {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  margin-bottom: 5px;\n}\n.color-calendar.glass .calendar__weekdays .calendar__weekday {\n  font-weight: 700;\n  opacity: 0.5;\n}\n\n.color-calendar.glass .calendar__days .calendar__day-other {\n  color: #323232;\n  opacity: 0.2;\n}\n.color-calendar.glass .calendar__days .calendar__day {\n  font-weight: 600;\n}\n.color-calendar.glass .calendar__days .calendar__day-today {\n  font-weight: 700;\n  color: var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-today .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-text:hover ~ .calendar__day-box {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-bullet {\n  background-color: var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-bullet:hover ~ .calendar__day-box {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  box-shadow: 0 3px 15px -5px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-box:hover {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-event {\n  font-weight: 700;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected {\n  color: white;\n  font-weight: 700;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  opacity: 1;\n  box-shadow: 0 3px 15px -5px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-text:hover ~ .calendar__day-box {\n  opacity: 1;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-bullet {\n  background-color: white;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-bullet:hover ~ .calendar__day-box {\n  opacity: 1;\n}\n\n.color-calendar.glass .calendar__picker {\n  background-color: white;\n  border-radius: var(--cal-border-radius);\n}\n.color-calendar.glass .calendar__picker-month-today {\n  box-shadow: inset 0px 0px 0px 1px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__picker-year-today {\n  box-shadow: inset 0px 0px 0px 1px var(--cal-color-primary);\n}\n\n.color-calendar.glass.color-calendar--small {\n  font-size: 0.8rem;\n}\n.color-calendar.glass.color-calendar--small .calendar__header {\n  padding: 10px 10px;\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n}\n.color-calendar.glass.color-calendar--small .calendar__header .calendar__monthyear {\n  font-size: 1.2rem;\n}\n.color-calendar.glass.color-calendar--small .calendar__header .calendar__arrow-inner, .color-calendar.glass.color-calendar--small .calendar__header .calendar__arrow-inner::after {\n  width: 30px;\n  height: 30px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body {\n  padding: 10px 10px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__weekdays {\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n  margin-bottom: 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__days {\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n  grid-template-rows: repeat(6, minmax(30px, 35px));\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker {\n  top: 55px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option {\n  padding: 10px 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option::after {\n  height: 40px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option {\n  padding: 10px 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option::after {\n  height: 40px;\n}", "",{"version":3,"sources":["webpack://./node_modules/color-calendar/dist/css/theme-glass.css"],"names":[],"mappings":"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aAAa;EACb,WAAW;EACX,6BAA6B;AAC/B;AACA;EACE,6BAA6B;EAC7B,aAAa;AACf;AACA;EACE,kBAAkB;EAClB,aAAa;EACb,mBAAmB;EACnB,uBAAuB;AACzB;AACA;EACE,mBAAmB;EACnB,0BAA0B;AAC5B;AACA;EACE,kBAAkB;EAClB,aAAa;EACb,mBAAmB;EACnB,uBAAuB;AACzB;AACA;EACE,oBAAoB;EACpB,wBAAwB;AAC1B;;AAEA;EACE,kBAAkB;EAClB,uCAAuC;EACvC,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,oDAAoD;EACpD,kBAAkB;AACpB;AACA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;EACE,cAAc;EACd,YAAY;AACd;AACA;EACE,gBAAgB;AAClB;AACA;EACE,gBAAgB;EAChB,+BAA+B;AACjC;AACA;EACE,qBAAqB;EACrB,0CAA0C;EAC1C,YAAY;AACd;AACA;EACE,YAAY;AACd;AACA;EACE,0CAA0C;AAC5C;AACA;EACE,YAAY;AACd;AACA;EACE,qBAAqB;EACrB,0CAA0C;EAC1C,oDAAoD;AACtD;AACA;EACE,YAAY;AACd;AACA;EACE,gBAAgB;AAClB;AACA;EACE,YAAY;EACZ,gBAAgB;AAClB;AACA;EACE,qBAAqB;EACrB,0CAA0C;EAC1C,UAAU;EACV,oDAAoD;AACtD;AACA;EACE,UAAU;AACZ;AACA;EACE,uBAAuB;AACzB;AACA;EACE,UAAU;AACZ;;AAEA;EACE,uBAAuB;EACvB,uCAAuC;AACzC;AACA;EACE,0DAA0D;AAC5D;AACA;EACE,0DAA0D;AAC5D;;AAEA;EACE,iBAAiB;AACnB;AACA;EACE,kBAAkB;EAClB,oDAAoD;AACtD;AACA;EACE,iBAAiB;AACnB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;AACpB;AACA;EACE,oDAAoD;EACpD,gBAAgB;AAClB;AACA;EACE,oDAAoD;EACpD,iDAAiD;AACnD;AACA;EACE,SAAS;AACX;AACA;EACE,eAAe;AACjB;AACA;EACE,YAAY;AACd;AACA;EACE,eAAe;AACjB;AACA;EACE,YAAY;AACd","sourcesContent":[".color-calendar {\n  position: relative;\n  display: inline-flex;\n  flex-direction: column;\n  width: auto;\n  height: auto;\n  box-sizing: border-box;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  font-family: var(--cal-font-family-body);\n  font-size: 1rem;\n}\n\n.color-calendar .calendar__header {\n  position: relative;\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  font-family: var(--cal-font-family-header);\n}\n\n.color-calendar .calendar__monthyear {\n  font-size: 1.5rem;\n  margin: 0 auto;\n  text-align: center;\n  grid-column: 2/span 5;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__monthyear .calendar__month {\n  cursor: pointer;\n}\n.color-calendar .calendar__monthyear .calendar__year {\n  cursor: pointer;\n}\n\n.color-calendar .calendar__arrow {\n  height: 35px;\n  width: 100%;\n  position: relative;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  z-index: 101;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-inner {\n  width: 35px;\n  height: 35px;\n  position: relative;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-prev {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-prev .calendar__arrow-inner::before {\n  margin-left: 0.3em;\n  transform: rotate(-135deg);\n}\n.color-calendar .calendar__arrow-next {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__arrow-next .calendar__arrow-inner::before {\n  margin-right: 0.3em;\n  transform: rotate(45deg);\n}\n\n.color-calendar .calendar__body {\n  height: auto;\n  overflow: hidden;\n}\n\n.color-calendar .calendar__weekdays {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  margin-bottom: 5px;\n  font-family: var(--cal-font-family-weekdays);\n}\n.color-calendar .calendar__weekdays .calendar__weekday {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 40px;\n}\n\n.color-calendar .calendar__days {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  grid-template-rows: repeat(6, minmax(30px, 40px));\n  font-family: var(--cal-font-family-body);\n}\n.color-calendar .calendar__days .calendar__day {\n  position: relative;\n  z-index: 101;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar .calendar__days .calendar__day-text {\n  cursor: pointer;\n}\n.color-calendar .calendar__days .calendar__day-box {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: calc(55% + 8px);\n  height: 90%;\n  opacity: 0;\n  z-index: -1;\n  cursor: pointer;\n  transition: opacity 0.3s ease-out;\n  will-change: opacity;\n}\n.color-calendar .calendar__days .calendar__day-event {\n  /* Event Bullet */\n}\n.color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {\n  position: absolute;\n  top: 80%;\n  border-radius: 50%;\n  width: 4px;\n  height: 4px;\n  left: 50%;\n  transform: translateX(-50%);\n  overflow: hidden;\n  cursor: pointer;\n}\n.color-calendar .calendar__days .calendar__day-selected:not(.calendar__day-today) .calendar__day-box {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: calc(55% + 8px);\n  height: 90%;\n  z-index: -1;\n  cursor: pointer;\n}\n\n.color-calendar .calendar__picker {\n  position: absolute;\n  z-index: 201;\n  width: 100%;\n  top: 75px;\n  left: 0;\n  bottom: 0;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  visibility: hidden;\n  opacity: 0;\n  transition: all 0.3s ease;\n  font-family: var(--cal-font-family-body);\n}\n.color-calendar .calendar__picker .calendar__picker-month {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  grid-template-rows: repeat(4, minmax(0, 1fr));\n  grid-gap: 1rem 6%;\n  gap: 1rem 6%;\n  margin: 8%;\n  transition: none;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option {\n  position: relative;\n  text-align: center;\n  padding: 15px 0;\n  font-weight: 700;\n  color: #323232;\n  border-radius: var(--cal-border-radius);\n  align-self: center;\n  cursor: pointer;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option::after {\n  content: \"\";\n  width: 100%;\n  height: 50px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: var(--cal-color-primary);\n  border-radius: var(--cal-border-radius);\n  opacity: 0.1;\n  z-index: -1;\n}\n.color-calendar .calendar__picker .calendar__picker-month-option:hover:after {\n  opacity: 0.08;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected {\n  color: white;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected::after {\n  opacity: 1;\n}\n.color-calendar .calendar__picker .calendar__picker-month-selected:hover:after {\n  opacity: 0.9;\n}\n.color-calendar .calendar__picker .calendar__picker-year {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  grid-template-rows: repeat(4, minmax(0, 1fr));\n  grid-gap: 1rem 6%;\n  gap: 1rem 6%;\n  margin: 8%;\n  transition: none;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option {\n  position: relative;\n  text-align: center;\n  padding: 15px 0;\n  font-weight: 700;\n  color: #323232;\n  border-radius: var(--cal-border-radius);\n  align-self: center;\n  cursor: pointer;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option::after {\n  content: \"\";\n  width: 100%;\n  height: 50px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: var(--cal-color-primary);\n  border-radius: var(--cal-border-radius);\n  opacity: 0.1;\n  z-index: -1;\n}\n.color-calendar .calendar__picker .calendar__picker-year-option:hover:after {\n  opacity: 0.08;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected {\n  color: white;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected::after {\n  opacity: 1;\n}\n.color-calendar .calendar__picker .calendar__picker-year-selected:hover:after {\n  opacity: 0.9;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow {\n  position: absolute;\n  opacity: 0.4;\n  border-radius: var(--cal-border-radius);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow-left {\n  top: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding-left: 10px;\n  padding-right: 4px;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow-right {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding-left: 4px;\n  padding-right: 10px;\n}\n.color-calendar .calendar__picker .calendar__picker-year-arrow:hover {\n  opacity: 1;\n  background-color: #f8f8f8;\n}\n\n.chevron-thin-left {\n  display: inline-block;\n  border-right: 2px solid var(--cal-color-primary);\n  border-bottom: 2px solid var(--cal-color-primary);\n  width: 10px;\n  height: 10px;\n  transform: rotate(-225deg);\n}\n.chevron-thin-right {\n  display: inline-block;\n  border-right: 2px solid var(--cal-color-primary);\n  border-bottom: 2px solid var(--cal-color-primary);\n  width: 10px;\n  height: 10px;\n  transform: rotate(-45deg);\n}\n\n.color-calendar.month-left-align .calendar__header .calendar__monthyear {\n  grid-column: 1/span 5;\n  margin: 0;\n  justify-content: flex-start;\n  padding-left: 5%;\n}\n\n.color-calendar.glass {\n  --cal-color-primary: #EC407A;\n  --cal-font-family-header: \"Open Sans\", sans-serif;\n  --cal-font-family-weekdays: \"Open Sans\", sans-serif;\n  --cal-font-family-body: \"Open Sans\", sans-serif;\n  --cal-drop-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);\n  --cal-border: none;\n  --cal-border-radius: 0.5rem;\n  --cal-header-color: white;\n  --cal-header-background-color: rgba(0, 0, 0, 0.3);\n  border-radius: var(--cal-border-radius);\n  box-shadow: var(--cal-drop-shadow);\n  color: #323232;\n  background-color: var(--cal-header-background-color);\n  -webkit-backdrop-filter: blur(5px);\n          backdrop-filter: blur(5px);\n  border: var(--cal-border);\n}\n\n.color-calendar.glass .calendar__header {\n  padding: 20px 14px 20px 14px;\n  color: var(--cal-header-color);\n}\n\n.color-calendar.glass .calendar__monthyear {\n  font-weight: 700;\n  color: var(--cal-header-color);\n}\n\n.color-calendar.glass .calendar__arrow-inner {\n  border-radius: 50%;\n}\n.color-calendar.glass .calendar__arrow-inner::before {\n  content: \"\";\n  width: 0.5em;\n  height: 0.5em;\n  position: absolute;\n  border-style: solid;\n  border-width: 0.17em 0.17em 0 0;\n  display: inline-block;\n  transform-origin: center center;\n  transform: rotate(-45deg);\n  border-radius: 2px;\n  color: var(--cal-header-color);\n}\n.color-calendar.glass .calendar__arrow-inner::after {\n  content: \"\";\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 35px;\n  height: 35px;\n  border-radius: 50%;\n  background-color: var(--cal-header-color);\n  opacity: 0.12;\n  z-index: -1;\n  transition: opacity 0.3s ease;\n}\n.color-calendar.glass .calendar__arrow-inner:hover::after {\n  transition: opacity 0.3s ease;\n  opacity: 0.25;\n}\n.color-calendar.glass .calendar__arrow-prev {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar.glass .calendar__arrow-prev .calendar__arrow-inner::before {\n  margin-left: 0.25em;\n  transform: rotate(-135deg);\n}\n.color-calendar.glass .calendar__arrow-next {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.color-calendar.glass .calendar__arrow-next .calendar__arrow-inner::before {\n  margin-right: 0.25em;\n  transform: rotate(45deg);\n}\n\n.color-calendar.glass .calendar__body {\n  padding: 18px 14px;\n  border-radius: var(--cal-border-radius);\n  background-color: white;\n}\n\n.color-calendar.glass .calendar__weekdays {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(20px, 55px));\n  margin-bottom: 5px;\n}\n.color-calendar.glass .calendar__weekdays .calendar__weekday {\n  font-weight: 700;\n  opacity: 0.5;\n}\n\n.color-calendar.glass .calendar__days .calendar__day-other {\n  color: #323232;\n  opacity: 0.2;\n}\n.color-calendar.glass .calendar__days .calendar__day {\n  font-weight: 600;\n}\n.color-calendar.glass .calendar__days .calendar__day-today {\n  font-weight: 700;\n  color: var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-today .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-text:hover ~ .calendar__day-box {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-bullet {\n  background-color: var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-bullet:hover ~ .calendar__day-box {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  box-shadow: 0 3px 15px -5px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-box:hover {\n  opacity: 0.1;\n}\n.color-calendar.glass .calendar__days .calendar__day-event {\n  font-weight: 700;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected {\n  color: white;\n  font-weight: 700;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-box {\n  border-radius: 0.5rem;\n  background-color: var(--cal-color-primary);\n  opacity: 1;\n  box-shadow: 0 3px 15px -5px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-text:hover ~ .calendar__day-box {\n  opacity: 1;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-bullet {\n  background-color: white;\n}\n.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-bullet:hover ~ .calendar__day-box {\n  opacity: 1;\n}\n\n.color-calendar.glass .calendar__picker {\n  background-color: white;\n  border-radius: var(--cal-border-radius);\n}\n.color-calendar.glass .calendar__picker-month-today {\n  box-shadow: inset 0px 0px 0px 1px var(--cal-color-primary);\n}\n.color-calendar.glass .calendar__picker-year-today {\n  box-shadow: inset 0px 0px 0px 1px var(--cal-color-primary);\n}\n\n.color-calendar.glass.color-calendar--small {\n  font-size: 0.8rem;\n}\n.color-calendar.glass.color-calendar--small .calendar__header {\n  padding: 10px 10px;\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n}\n.color-calendar.glass.color-calendar--small .calendar__header .calendar__monthyear {\n  font-size: 1.2rem;\n}\n.color-calendar.glass.color-calendar--small .calendar__header .calendar__arrow-inner, .color-calendar.glass.color-calendar--small .calendar__header .calendar__arrow-inner::after {\n  width: 30px;\n  height: 30px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body {\n  padding: 10px 10px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__weekdays {\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n  margin-bottom: 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__days {\n  grid-template-columns: repeat(7, minmax(25px, 41px));\n  grid-template-rows: repeat(6, minmax(30px, 35px));\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker {\n  top: 55px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option {\n  padding: 10px 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option::after {\n  height: 40px;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option {\n  padding: 10px 0;\n}\n.color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option::after {\n  height: 40px;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/calendar/styles.css":
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/calendar/styles.css ***!
+  \***********************************************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ":root {\n    --main-color: transparent;\n    --point-color: #f8f4ee;\n    --size: 3px;\n}\n\n.loader {\n    background-color: var(--main-color);\n    overflow: hidden;\n    position: relative;\n    top: 0;\n    left: 10px;\n    display: flex;\n    align-items: center;\n    align-content: center;\n    justify-content: right;\n    z-index: 100000;\n}\n\n.loader__element {\n    border-radius: 100%;\n    border: var(--size) solid var(--point-color);\n    margin: calc(var(--size) * 2);\n}\n\n.loader__element:nth-child(1) {\n    animation: preloader 0.6s ease-in-out alternate infinite;\n}\n.loader__element:nth-child(2) {\n    animation: preloader 0.6s ease-in-out alternate 0.2s infinite;\n}\n\n.loader__element:nth-child(3) {\n    animation: preloader 0.6s ease-in-out alternate 0.4s infinite;\n}\n\n@keyframes preloader {\n    100% {\n        transform: scale(3);\n    }\n}\n", "",{"version":3,"sources":["webpack://./src/calendar/styles.css"],"names":[],"mappings":"AAAA;IACI,yBAAyB;IACzB,sBAAsB;IACtB,WAAW;AACf;;AAEA;IACI,mCAAmC;IACnC,gBAAgB;IAChB,kBAAkB;IAClB,MAAM;IACN,UAAU;IACV,aAAa;IACb,mBAAmB;IACnB,qBAAqB;IACrB,sBAAsB;IACtB,eAAe;AACnB;;AAEA;IACI,mBAAmB;IACnB,4CAA4C;IAC5C,6BAA6B;AACjC;;AAEA;IACI,wDAAwD;AAC5D;AACA;IACI,6DAA6D;AACjE;;AAEA;IACI,6DAA6D;AACjE;;AAEA;IACI;QACI,mBAAmB;IACvB;AACJ","sourcesContent":[":root {\n    --main-color: transparent;\n    --point-color: #f8f4ee;\n    --size: 3px;\n}\n\n.loader {\n    background-color: var(--main-color);\n    overflow: hidden;\n    position: relative;\n    top: 0;\n    left: 10px;\n    display: flex;\n    align-items: center;\n    align-content: center;\n    justify-content: right;\n    z-index: 100000;\n}\n\n.loader__element {\n    border-radius: 100%;\n    border: var(--size) solid var(--point-color);\n    margin: calc(var(--size) * 2);\n}\n\n.loader__element:nth-child(1) {\n    animation: preloader 0.6s ease-in-out alternate infinite;\n}\n.loader__element:nth-child(2) {\n    animation: preloader 0.6s ease-in-out alternate 0.2s infinite;\n}\n\n.loader__element:nth-child(3) {\n    animation: preloader 0.6s ease-in-out alternate 0.4s infinite;\n}\n\n@keyframes preloader {\n    100% {\n        transform: scale(3);\n    }\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/color-calendar/dist/css/theme-glass.css":
 /*!**************************************************************!*\
   !*** ./node_modules/color-calendar/dist/css/theme-glass.css ***!
@@ -10006,7 +10198,46 @@ const toISOStringShort = date => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_loader_dist_cjs_js_theme_glass_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js!./theme-glass.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/color-calendar/dist/css/theme-glass.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_theme_glass_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ __webpack_exports__["default"] = (_css_loader_dist_cjs_js_theme_glass_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _css_loader_dist_cjs_js_theme_glass_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _css_loader_dist_cjs_js_theme_glass_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -10019,8 +10250,359 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!./styles.css */ "./node_modules/css-loader/dist/cjs.js!./src/calendar/styles.css");
 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+var stylesInDOM = [];
+
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+
+  for (var i = 0; i < stylesInDOM.length; i++) {
+    if (stylesInDOM[i].identifier === identifier) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var indexByIdentifier = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3],
+      supports: item[4],
+      layer: item[5]
+    };
+
+    if (indexByIdentifier !== -1) {
+      stylesInDOM[indexByIdentifier].references++;
+      stylesInDOM[indexByIdentifier].updater(obj);
+    } else {
+      var updater = addElementStyle(obj, options);
+      options.byIndex = i;
+      stylesInDOM.splice(i, 0, {
+        identifier: identifier,
+        updater: updater,
+        references: 1
+      });
+    }
+
+    identifiers.push(identifier);
+  }
+
+  return identifiers;
+}
+
+function addElementStyle(obj, options) {
+  var api = options.domAPI(options);
+  api.update(obj);
+
+  var updater = function updater(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
+        return;
+      }
+
+      api.update(obj = newObj);
+    } else {
+      api.remove();
+    }
+  };
+
+  return updater;
+}
+
+module.exports = function (list, options) {
+  options = options || {};
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
+
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDOM[index].references--;
+    }
+
+    var newLastIdentifiers = modulesToDom(newList, options);
+
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
+
+      var _index = getIndexByIdentifier(_identifier);
+
+      if (stylesInDOM[_index].references === 0) {
+        stylesInDOM[_index].updater();
+
+        stylesInDOM.splice(_index, 1);
+      }
+    }
+
+    lastIdentifiers = newLastIdentifiers;
+  };
+};
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/insertBySelector.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/insertBySelector.js ***!
+  \********************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+var memo = {};
+/* istanbul ignore next  */
+
+function getTarget(target) {
+  if (typeof memo[target] === "undefined") {
+    var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
+
+    if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+      try {
+        // This will throw an exception if access to iframe is blocked
+        // due to cross-origin restrictions
+        styleTarget = styleTarget.contentDocument.head;
+      } catch (e) {
+        // istanbul ignore next
+        styleTarget = null;
+      }
+    }
+
+    memo[target] = styleTarget;
+  }
+
+  return memo[target];
+}
+/* istanbul ignore next  */
+
+
+function insertBySelector(insert, style) {
+  var target = getTarget(insert);
+
+  if (!target) {
+    throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+  }
+
+  target.appendChild(style);
+}
+
+module.exports = insertBySelector;
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/insertStyleElement.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/insertStyleElement.js ***!
+  \**********************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function insertStyleElement(options) {
+  var element = document.createElement("style");
+  options.setAttributes(element, options.attributes);
+  options.insert(element, options.options);
+  return element;
+}
+
+module.exports = insertStyleElement;
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js ***!
+  \**********************************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function setAttributesWithoutAttributes(styleElement) {
+  var nonce =  true ? __webpack_require__.nc : 0;
+
+  if (nonce) {
+    styleElement.setAttribute("nonce", nonce);
+  }
+}
+
+module.exports = setAttributesWithoutAttributes;
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/styleDomAPI.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/styleDomAPI.js ***!
+  \***************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function apply(styleElement, options, obj) {
+  var css = "";
+
+  if (obj.supports) {
+    css += "@supports (".concat(obj.supports, ") {");
+  }
+
+  if (obj.media) {
+    css += "@media ".concat(obj.media, " {");
+  }
+
+  var needLayer = typeof obj.layer !== "undefined";
+
+  if (needLayer) {
+    css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
+  }
+
+  css += obj.css;
+
+  if (needLayer) {
+    css += "}";
+  }
+
+  if (obj.media) {
+    css += "}";
+  }
+
+  if (obj.supports) {
+    css += "}";
+  }
+
+  var sourceMap = obj.sourceMap;
+
+  if (sourceMap && typeof btoa !== "undefined") {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  options.styleTagTransform(css, styleElement, options.options);
+}
+
+function removeStyleElement(styleElement) {
+  // istanbul ignore if
+  if (styleElement.parentNode === null) {
+    return false;
+  }
+
+  styleElement.parentNode.removeChild(styleElement);
+}
+/* istanbul ignore next  */
+
+
+function domAPI(options) {
+  var styleElement = options.insertStyleElement(options);
+  return {
+    update: function update(obj) {
+      apply(styleElement, options, obj);
+    },
+    remove: function remove() {
+      removeStyleElement(styleElement);
+    }
+  };
+}
+
+module.exports = domAPI;
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/styleTagTransform.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/styleTagTransform.js ***!
+  \*********************************************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function styleTagTransform(css, styleElement) {
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css;
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild);
+    }
+
+    styleElement.appendChild(document.createTextNode(css));
+  }
+}
+
+module.exports = styleTagTransform;
 
 /***/ })
 

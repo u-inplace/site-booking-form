@@ -126,7 +126,7 @@ export default class DOM {
         }
 
         static set formHeight(height) {
-            document.getElementsByClassName('form-mask')[0].style.height = `${height}px`
+            height && (document.getElementsByClassName('form-mask')[0].style.height = `${height}px`)
         }
     }
 }

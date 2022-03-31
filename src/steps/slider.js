@@ -11,6 +11,9 @@ export default class Slider {
 
     constructor(sequence) {
         this.#sequence = sequence || new Sequence()
+
+        // Active first slide
+        DOM.slider.setActive(0)
     }
 
     set sequence(sequence) {

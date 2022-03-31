@@ -8,7 +8,7 @@
     visibility: hidden;
 }
 
-.form-slide.very_active {
+.form-slide.very-active {
     height: auto;
     opacity: 1;
     visibility: visible;

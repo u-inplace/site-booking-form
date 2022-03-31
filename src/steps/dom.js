@@ -114,11 +114,11 @@ export default class DOM {
         }
 
         static setActive(stepNo) {
-            document.getElementById(`step-${stepNo}`).classList.add('very_active')
+            document.getElementById(`step-${stepNo}`).classList.add('very-active')
         }
 
         static setInactive(stepNo) {
-            document.getElementById(`step-${stepNo}`).classList.remove('very_active')
+            document.getElementById(`step-${stepNo}`).classList.remove('very-active')
         }
     }
 }

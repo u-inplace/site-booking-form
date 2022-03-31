@@ -9656,11 +9656,11 @@ class DOM {
     }
 
     static setActive(stepNo) {
-      document.getElementById(`step-${stepNo}`).classList.add('very_active');
+      document.getElementById(`step-${stepNo}`).classList.add('very-active');
     }
 
     static setInactive(stepNo) {
-      document.getElementById(`step-${stepNo}`).classList.remove('very_active');
+      document.getElementById(`step-${stepNo}`).classList.remove('very-active');
     }
 
   };
@@ -9880,7 +9880,9 @@ class Slider {
   #sequence;
 
   constructor(sequence) {
-    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
+
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0);
   }
 
   set sequence(sequence) {

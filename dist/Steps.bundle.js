@@ -9633,7 +9633,7 @@ class DOM {
   static display(id) {
     document.getElementById(id).style.display = 'inline-block';
     document.getElementById(id).style.visibility = 'visible';
-    document.getElementById(id).style.transform = '';
+    document.getElementById(id).style.transform = 'none';
   }
   /**
    * Slider

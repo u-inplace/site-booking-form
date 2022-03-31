@@ -33,3 +33,36 @@
         transform: scale(3);
     }
 }
+
+.color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {
+    position: absolute;
+    top: 80%;
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.color-calendar
+    .calendar__days
+    .calendar__day-selected:not(.calendar__day-today)
+    .calendar__day-box {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(55% + 11px);
+    height: 100%;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-box {
+    border-radius: 0.5rem;
+    background-color: var(--cal-color-primary);
+    opacity: 1;
+    box-shadow: 0 0px 0px 0px var(--cal-color-primary);
+}

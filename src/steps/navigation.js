@@ -30,7 +30,7 @@ export default class Navigation {
 
     #updateNav() {
         document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${
-            this.#sequence.current
+            this.#sequence.current + 1
         }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
     }
 

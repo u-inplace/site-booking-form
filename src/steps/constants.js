@@ -6,9 +6,8 @@ export const STEP = {
     Ironing: 1,
     Cleaning: 2,
     Duration: 3,
-    Frequency: 4,
-    Availability: 5,
-    Contact: 6
+    Availability: 4,
+    Contact: 5
 }
 
 export const SERVICE = {

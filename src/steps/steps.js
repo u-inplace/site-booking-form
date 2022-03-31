@@ -106,7 +106,7 @@ const Steps = {
 
     [STEP.Cleaning]: new CompoundStepConfig(supplies, extras, home),
 
-    [STEP.Frequency]: new StepConfig()
+    [STEP.Duration]: new StepConfig()
         .setNextDisabledFn(() => !DOM.getRadio('frequency', true))
         .setObservedFn(() => DOM.queryRadio('frequency'), 'click')
         .setDurationFn(() => 0)

@@ -9507,9 +9507,8 @@ const STEP = {
   Ironing: 1,
   Cleaning: 2,
   Duration: 3,
-  Frequency: 4,
-  Availability: 5,
-  Contact: 6
+  Availability: 4,
+  Contact: 5
 };
 const SERVICE = {
   Cleaning: 'cleaning',
@@ -9832,7 +9831,7 @@ class Sequence {
     let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
-    seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Frequency, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);
+    seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);
     this.list = seq;
   }
 
@@ -10157,7 +10156,7 @@ const Steps = {
     }
   }),
   [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.CompoundStepConfig(supplies, extras, home),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Frequency]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('frequency', true)).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click').setDurationFn(() => 0)
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('frequency', true)).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click').setDurationFn(() => 0)
 };
 /* harmony default export */ __webpack_exports__["default"] = (Steps);
 

@@ -10781,8 +10781,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const sliderController = () => {
   const nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton().addEventListener('click', nav.onNext.bind(nav));
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton().addEventListener('click', nav.onBack.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.addEventListener('click', nav.onNext.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.addEventListener('click', nav.onBack.bind(nav));
 }; // eslint-disable-next-line no-use-before-define
 
 

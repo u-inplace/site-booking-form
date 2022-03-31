@@ -3,7 +3,7 @@
 const path = require('path')
 
 const isProduction = process.env.NODE_ENV === 'production'
-const stylesHandler = 'style-loader'
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
     target: ['web', 'es5'],
@@ -13,6 +13,12 @@ const config = {
         open: true,
         host: 'localhost'
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        })
+    ],
     module: {
         rules: [
             {
@@ -21,7 +27,13 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler, 'css-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { sourceMap: false }
+                    }
+                ]
             }
         ]
     }

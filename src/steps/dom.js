@@ -1,8 +1,10 @@
+/* eslint-disable max-classes-per-file */
 import _ from 'lodash'
 
 /**
  * DOM query and manipulators
  */
+
 export default class DOM {
     static queryOptions(id, checked = false) {
         return Array.from(
@@ -80,5 +82,53 @@ export default class DOM {
 
     static isBathroomSelected() {
         return DOM.getRadio('home-bathrooms', true)
+    }
+
+    /**
+     * General functions
+     */
+    static hide(id) {
+        document.getElementById(id).style.display = 'none'
+    }
+
+    static display(id) {
+        document.getElementById(id).style.display = 'inline-block'
+        document.getElementById(id).style.visibility = 'visible'
+        document.getElementById(id).style.transform = 'none'
+    }
+
+    /**
+     * Slider
+     */
+    static slider = class {
+        static get element() {
+            return document.getElementById('booking-slider')
+        }
+
+        static get nextButton() {
+            return document.getElementById('booking-slider').querySelectorAll('.next-button-slide')
+        }
+
+        static get backButton() {
+            return document.getElementById('booking-slider').querySelectorAll('.back-button-slide')
+        }
+
+        static setActive(stepNo) {
+            document.getElementById(`step-${stepNo}`).classList.add('very-active')
+        }
+
+        static setInactive(stepNo) {
+            document.getElementById(`step-${stepNo}`).classList.remove('very-active')
+        }
+
+        static getStepHeight(stepNo) {
+            return document.getElementById(`step-${stepNo}`).offsetHeight
+        }
+
+        static set formHeight(height) {
+            // Add some more for shadow box below
+            height &&
+                (document.getElementsByClassName('form-mask')[0].style.height = `${height + 150}px`)
+        }
     }
 }

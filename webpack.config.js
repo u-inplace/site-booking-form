@@ -3,17 +3,22 @@
 const path = require('path')
 
 const isProduction = process.env.NODE_ENV === 'production'
-
-const stylesHandler = 'style-loader'
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
     target: ['web', 'es5'],
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
         open: true,
         host: 'localhost'
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        })
+    ],
     module: {
         rules: [
             {
@@ -22,7 +27,13 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler, 'css-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { sourceMap: false }
+                    }
+                ]
             }
         ]
     }
@@ -31,11 +42,11 @@ const config = {
 const calendarConfig = {
     ...config,
     name: 'calendarConfig',
-    entry: './src/calendar/main.js',
+    entry: { Calendar: './src/calendar/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'Calendar.bundle.js',
-        library: 'Calendar',
+        filename: '[name].bundle.js',
+        library: '[name]',
         sourceMapFilename: 'Calendar.js.map'
     }
 }
@@ -43,10 +54,10 @@ const calendarConfig = {
 const stepsConfig = {
     ...config,
     name: 'stepsConfig',
-    entry: './src/steps/main.js',
+    entry: { Steps: './src/steps/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'Steps.bundle.js',
+        filename: '[name].bundle.js',
         sourceMapFilename: 'Steps.js.map'
     }
 }

@@ -1,7 +1,7 @@
 /*!****************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/steps/slider.css ***!
   \****************************************************************************************************/
-.form_slide {
+.form-slide {
     position: absolute;
     top: 50px;
     left: 0;
@@ -11,13 +11,13 @@
     visibility: hidden;
 }
 
-.form_slide.very_active {
+.form-slide.very_active {
     height: auto;
     opacity: 1;
     visibility: visible;
 
     transition-property: all;
-    transition-duration: 1s;
+    transition-duration: 3s;
     transition-timing-function: linear;
     transition-delay: 0s;
     top: 0;

@@ -47,7 +47,7 @@ const calendarConfig = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         library: '[name]',
-        sourceMapFilename: '[name].js.map'
+        sourceMapFilename: 'Calendar.js.map'
     }
 }
 
@@ -59,7 +59,7 @@ const stepsConfig = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         library: '[name]',
-        sourceMapFilename: '[name].js.map'
+        sourceMapFilename: 'Steps.js.map'
     }
 }
 

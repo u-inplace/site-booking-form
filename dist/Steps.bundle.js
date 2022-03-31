@@ -9640,10 +9640,10 @@ class DOM {
 
   static slider = {
     element: document.getElementById('booking-slider'),
-    nextButton: DOM.element.querySelector('.next-button-slide'),
-    backButton: DOM.element.querySelector('.back-button-slide'),
-    arrowRight: DOM.element.querySelector('.w-slider-arrow-left'),
-    arrowLeft: DOM.element.querySelector('.w-slider-arrow-left')
+    nextButton: DOM.slider.element.querySelector('.next-button-slide'),
+    backButton: DOM.slider.element.querySelector('.back-button-slide'),
+    arrowRight: DOM.slider.element.querySelector('.w-slider-arrow-left'),
+    arrowLeft: DOM.slider.element.querySelector('.w-slider-arrow-left')
   };
 }
 

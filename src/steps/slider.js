@@ -14,6 +14,14 @@ export default class Slider {
 
         // Active first slide
         DOM.slider.setActive(0)
+
+        // Events to resize form after each step
+        window.addEventListener('load', this.resize, false)
+        window.addEventListener('resize', this.resize, false)
+    }
+
+    resize() {
+        DOM.slider.getStepHeight(this.current)
     }
 
     set sequence(sequence) {

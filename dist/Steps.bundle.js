@@ -9663,6 +9663,14 @@ class DOM {
       document.getElementById(`step-${stepNo}`).classList.remove('very-active');
     }
 
+    static getStepHeight(stepNo) {
+      return document.getElementById(`step-${stepNo}`).offsetHeight;
+    }
+
+    static set formHeight(height) {
+      document.getElementsByClassName('form-mask')[0].style.height = `${height}px`;
+    }
+
   };
 }
 
@@ -9882,7 +9890,14 @@ class Slider {
   constructor(sequence) {
     this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
 
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0); // Events to resize form after each step
+
+    window.addEventListener('load', this.resize, false);
+    window.addEventListener('resize', this.resize, false);
+  }
+
+  resize() {
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.getStepHeight(this.current);
   }
 
   set sequence(sequence) {

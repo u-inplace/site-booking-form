@@ -120,5 +120,13 @@ export default class DOM {
         static setInactive(stepNo) {
             document.getElementById(`step-${stepNo}`).classList.remove('very-active')
         }
+
+        static getStepHeight(stepNo) {
+            return document.getElementById(`step-${stepNo}`).offsetHeight
+        }
+
+        static set formHeight(height) {
+            document.getElementsByClassName('form-mask')[0].style.height = `${height}px`
+        }
     }
 }

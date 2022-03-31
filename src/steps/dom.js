@@ -90,7 +90,8 @@ export default class DOM {
     }
 
     static display(id) {
-        document.getElementById(id).style.display = 'block'
+        document.getElementById(id).style.display = 'inline-block'
+        document.getElementById(id).style.visibility = 'visible'
     }
 
     /**

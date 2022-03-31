@@ -13,13 +13,13 @@ export default class Navigation {
         DOM.slider.arrowRight().click()
         // unfuck transofrm
         // eslint-disable-next-line no-param-reassign
-        DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
+        // DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
     }
 
     static #back() {
         DOM.slider.arrowLeft().click()
         // eslint-disable-next-line no-param-reassign
-        DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
+        // DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
     }
 
     constructor() {

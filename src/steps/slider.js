@@ -21,7 +21,7 @@ export default class Slider {
     }
 
     resize() {
-        DOM.slider.getStepHeight(this.current)
+        DOM.slider.formHeight = DOM.slider.getStepHeight(this.current)
     }
 
     set sequence(sequence) {

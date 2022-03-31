@@ -1,4 +1,3 @@
-var Steps;
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -10288,7 +10287,6 @@ const sliderController = () => {
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(sliderController);
 }();
-Steps = __webpack_exports__;
 /******/ })()
 ;
 //# sourceMappingURL=Steps.js.map

@@ -16,9 +16,8 @@ export default class Slider {
         DOM.slider.setActive(0)
 
         // Events to resize form after each step
-        this.resize = this.resize.bind(this)
-        window.addEventListener('load', this.resize, false)
-        window.addEventListener('resize', this.resize, false)
+        window.addEventListener('load', () => this.resize(), false)
+        window.addEventListener('resize', () => this.resize(), false)
     }
 
     resize() {

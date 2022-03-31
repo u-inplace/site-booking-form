@@ -46,7 +46,7 @@ const calendarConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        library: '[name]',
+        library: 'Calendar',
         sourceMapFilename: '[name].js.map'
     }
 }

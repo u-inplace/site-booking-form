@@ -9714,7 +9714,7 @@ class BookingModel {
   }
 
   updateEstimation() {
-    this.estimation = this.estimation;
+    BookingModel.estimation = this.estimation;
   }
 
 }

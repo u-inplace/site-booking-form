@@ -57,6 +57,6 @@ export default class Navigation {
     }
 
     onBack = () => {
-        this.#slider.next()
+        this.#slider.prev()
     }
 }

@@ -9890,9 +9890,12 @@ class Slider {
     this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
 
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0); // Events to resize form after each step
+    // Seems that this works sometimes, but not always when the page
+    // is loading
 
     window.addEventListener('load', () => this.resize(), false);
     window.addEventListener('resize', () => this.resize(), false);
+    this.resize();
   }
 
   resize() {
@@ -9918,6 +9921,7 @@ class Slider {
       next
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(next);
+    this.resize();
   }
 
   prev() {
@@ -9931,6 +9935,7 @@ class Slider {
       prev
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
+    this.resize();
   }
 
 }

@@ -16,8 +16,12 @@ export default class Slider {
         DOM.slider.setActive(0)
 
         // Events to resize form after each step
+        // Seems that this works sometimes, but not always when the page
+        // is loading
         window.addEventListener('load', () => this.resize(), false)
         window.addEventListener('resize', () => this.resize(), false)
+
+        this.resize()
     }
 
     resize() {
@@ -40,6 +44,8 @@ export default class Slider {
         // Get next in sequence and active it
         const { next } = this.#sequence
         DOM.slider.setActive(next)
+
+        this.resize()
     }
 
     prev() {
@@ -50,5 +56,7 @@ export default class Slider {
         // Get prev in sequence and active it
         const { prev } = this.#sequence
         DOM.slider.setActive(prev)
+
+        this.resize()
     }
 }

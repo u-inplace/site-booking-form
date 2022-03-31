@@ -9778,17 +9778,10 @@ class Navigation {
     // Recalculate the sequence when leaving the first step
     if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) this.#sequence.reset();
     this.#slider.next();
-    this.#updateNav();
+    this.#updateNav(); // Update duration when loading Duration step
 
-    switch (this.#slider.current) {
-      case _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration:
-        this.#model.updateEstimation();
-        break;
-
-      default:
-        this.#toggleNext();
-        break;
-    }
+    this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration && this.#model.updateEstimation();
+    this.#toggleNext();
   }
 
   onBack = () => {

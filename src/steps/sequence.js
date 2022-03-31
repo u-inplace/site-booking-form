@@ -17,7 +17,7 @@ export default class Sequence {
         let seq = [STEP.Services]
         if (DOM.isServiceSelected(SERVICE.Ironing)) seq.push(STEP.Ironing)
         if (DOM.isServiceSelected(SERVICE.Cleaning)) seq.push(STEP.Cleaning)
-        seq = seq.concat([STEP.Duration, STEP.Frequency, STEP.Availability, STEP.Contact])
+        seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Contact])
         this.list = seq
     }
 

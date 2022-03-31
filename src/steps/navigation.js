@@ -46,14 +46,10 @@ export default class Navigation {
         this.#slider.next()
         this.#updateNav()
 
-        switch (this.#slider.current) {
-            case STEP.Duration:
-                this.#model.updateEstimation()
-                break
-            default:
-                this.#toggleNext()
-                break
-        }
+        // Update duration when loading Duration step
+        this.#slider.current === STEP.Duration && this.#model.updateEstimation()
+
+        this.#toggleNext()
     }
 
     onBack = () => {

@@ -126,7 +126,9 @@ export default class DOM {
         }
 
         static set formHeight(height) {
-            height && (document.getElementsByClassName('form-mask')[0].style.height = `${height}px`)
+            // Add some more for shadow box below
+            height &&
+                (document.getElementsByClassName('form-mask')[0].style.height = `${height + 200}px`)
         }
     }
 }

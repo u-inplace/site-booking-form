@@ -107,6 +107,9 @@ export default class DOM {
         arrowRight: () =>
             document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
         arrowLeft: () =>
-            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
+            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
+        allSlides: () => {
+            document.getElementById('booking-slider').querySelectorAll('.form-slide')
+        }
     }
 }

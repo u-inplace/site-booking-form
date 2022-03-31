@@ -9645,7 +9645,10 @@ class DOM {
     nextButton: () => document.getElementById('booking-slider').querySelector('.next-button-slide'),
     backButton: () => document.getElementById('booking-slider').querySelector('.back-button-slide'),
     arrowRight: () => document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
-    arrowLeft: () => document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
+    arrowLeft: () => document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
+    allSlides: () => {
+      document.getElementById('booking-slider').querySelectorAll('.form-slide');
+    }
   };
 }
 
@@ -9720,11 +9723,16 @@ class Navigation {
   #model;
 
   static #next() {
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowRight().click();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowRight().click(); // unfuck transofrm
+    // eslint-disable-next-line no-param-reassign
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.allSlides().forEach(s => s.style.transform = 'none');
   }
 
   static #back() {
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowLeft().click();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowLeft().click(); // eslint-disable-next-line no-param-reassign
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.allSlides().forEach(s => s.style.transform = 'none');
   }
 
   constructor() {

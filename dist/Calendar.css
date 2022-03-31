@@ -529,12 +529,6 @@
 /*!*******************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/calendar/styles.css ***!
   \*******************************************************************************************************/
-:root {
-    --main-color: transparent;
-    --point-color: #f8f4ee;
-    --size: 3px;
-}
-
 .loader {
     background-color: var(--main-color);
     overflow: hidden;

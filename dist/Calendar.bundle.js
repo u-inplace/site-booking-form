@@ -10150,6 +10150,7 @@ const LoaderId = 'loaderBalls';
 /**
  * Calendar Controller
  */
+// eslint-disable-next-line import/prefer-default-export
 
 class Controller {
   constructor() {
@@ -10206,6 +10207,7 @@ class Controller {
    * @param {*} currentDate
    * @param {*} events
    */
+  // eslint-disable-next-line class-methods-use-this
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
@@ -10213,6 +10215,7 @@ class Controller {
   /**
    * Start or stop loading animation
    */
+  // eslint-disable-next-line class-methods-use-this
 
   toggleLoading(isVisible) {
     const loader = document.getElementById(LoaderId);
@@ -10221,6 +10224,7 @@ class Controller {
   /**
    * Create a hidden loading animation to be called in monthChange
    */
+  // eslint-disable-next-line class-methods-use-this
 
 
   addLoadingAnimation() {
@@ -10266,7 +10270,8 @@ class Controller {
       // Only add if it's still the same month as start of the week
       // to avoid infinity loop with monthChanged event, which is triggered
       // when a new event is added
-      if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return;
+      if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return; // eslint-disable-next-line consistent-return
+
       return {
         start: new Date(slot.start_time),
         end: new Date(slot.end_time),

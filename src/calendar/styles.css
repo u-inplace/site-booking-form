@@ -1,9 +1,3 @@
-:root {
-    --main-color: transparent;
-    --point-color: #f8f4ee;
-    --size: 3px;
-}
-
 .loader {
     background-color: var(--main-color);
     overflow: hidden;

@@ -98,9 +98,9 @@ export default class DOM {
      */
     static slider = {
         element: document.getElementById('booking-slider'),
-        nextButton: DOM.slider.element.querySelector('.next-button-slide'),
-        backButton: DOM.slider.element.querySelector('.back-button-slide'),
-        arrowRight: DOM.slider.element.querySelector('.w-slider-arrow-left'),
-        arrowLeft: DOM.slider.element.querySelector('.w-slider-arrow-left')
+        nextButton: document.getElementById('booking-slider').querySelector('.next-button-slide'),
+        backButton: document.getElementById('booking-slider').querySelector('.back-button-slide'),
+        arrowRight: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
+        arrowLeft: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
     }
 }

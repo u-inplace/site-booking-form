@@ -10153,13 +10153,17 @@ const LoaderId = 'loaderBalls';
 // eslint-disable-next-line import/prefer-default-export
 
 class Controller {
-  constructor() {
+  #placeHolderID;
+  #initialised;
+
+  constructor(placeHolderID) {
     // Store requested weeks
     this.cached = {};
-    this._initialised = false;
+    this.#initialised = false;
+    this.#placeHolderID = placeHolderID;
     const newLocal = this;
     newLocal.calendar = new (color_calendar__WEBPACK_IMPORTED_MODULE_0___default())({
-      id: '#availability-cal',
+      id: `#${placeHolderID}`,
       theme: 'glass',
       weekdayType: 'long-upper',
       startWeekday: 1,
@@ -10179,7 +10183,7 @@ class Controller {
   }
 
   async init() {
-    this._initialised = true; // In case of no dates available in the current month, skip to the next one
+    this.#initialised = true; // In case of no dates available in the current month, skip to the next one
 
     if (this.calendar.getEventsData().length === 0) {
       const curr = new Date();
@@ -10200,7 +10204,7 @@ class Controller {
     console.debug('::onMonthChange::', currentDate, events);
     const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(currentDate);
     await this.getMonthAvailability(firstDay);
-    if (!this._initialised) this.init();
+    if (!this.#initialised) this.init();
   };
   /**
    * Load slots into view

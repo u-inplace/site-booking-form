@@ -15,15 +15,19 @@ const LoaderId = 'loaderBalls'
  */
 // eslint-disable-next-line import/prefer-default-export
 export class Controller {
-    constructor() {
+    #placeHolderID
+    #initialised
+
+    constructor(placeHolderID) {
         // Store requested weeks
         this.cached = {}
 
-        this._initialised = false
+        this.#initialised = false
+        this.#placeHolderID = placeHolderID
 
         const newLocal = this
         newLocal.calendar = new Calendar({
-            id: '#availability-cal',
+            id: `#${placeHolderID}`,
             theme: 'glass',
             weekdayType: 'long-upper',
             startWeekday: 1,
@@ -43,7 +47,7 @@ export class Controller {
     }
 
     async init() {
-        this._initialised = true
+        this.#initialised = true
 
         // In case of no dates available in the current month, skip to the next one
         if (this.calendar.getEventsData().length === 0) {
@@ -64,7 +68,7 @@ export class Controller {
         console.debug('::onMonthChange::', currentDate, events)
         const firstDay = startOfMonth(currentDate)
         await this.getMonthAvailability(firstDay)
-        if (!this._initialised) this.init()
+        if (!this.#initialised) this.init()
     }
 
     /**

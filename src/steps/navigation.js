@@ -9,6 +9,14 @@ export default class Navigation {
     #sequence
     #model
 
+    static #next() {
+        DOM.slider.arrowRight.click()
+    }
+
+    static #back() {
+        DOM.slider.arrowLeft.click()
+    }
+
     constructor() {
         this.#slider = new W_SLIDER_CONTROLLER('#booking-slider')
         this.#model = new BookingModel(Steps)
@@ -54,7 +62,8 @@ export default class Navigation {
         // Unhide next step before moving on
         DOM.display(`step-${next}`)
 
-        this.#slider.goto(next)
+        Navigation.#next()
+
         this.#updateNav()
 
         // Hide previous
@@ -78,7 +87,7 @@ export default class Navigation {
         // Display previous before moving back
         DOM.display(`step-${prev}`)
 
-        this.#slider.goto(prev)
+        Navigation.#back()
         this.#updateNav()
 
         // Hide next

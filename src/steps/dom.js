@@ -92,4 +92,15 @@ export default class DOM {
     static display(id) {
         document.getElementById(id).style.display = 'block'
     }
+
+    /**
+     * Slider
+     */
+    static slider = {
+        element: document.getElementById('booking-slider'),
+        nextButton: DOM.element.querySelector('.next-button-slide'),
+        backButton: DOM.element.querySelector('.back-button-slide'),
+        arrowRight: DOM.element.querySelector('.w-slider-arrow-left'),
+        arrowLeft: DOM.element.querySelector('.w-slider-arrow-left')
+    }
 }

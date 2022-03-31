@@ -1,4 +1,5 @@
 /* eslint-disable no-var */
+import DOM from './dom'
 import Navigation from './navigation'
 
 /**
@@ -7,9 +8,8 @@ import Navigation from './navigation'
 const sliderController = () => {
     const nav = new Navigation()
 
-    const domSlider = document.getElementById('booking-slider')
-    domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext.bind(nav))
-    domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack.bind(nav))
+    DOM.slider.nextButton.addEventListener('click', nav.onNext.bind(nav))
+    DOM.slider.backButton.addEventListener('click', nav.onBack.bind(nav))
 }
 
 // eslint-disable-next-line no-use-before-define

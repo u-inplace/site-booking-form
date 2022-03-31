@@ -9633,7 +9633,18 @@ class DOM {
   static display(id) {
     document.getElementById(id).style.display = 'block';
   }
+  /**
+   * Slider
+   */
 
+
+  static slider = {
+    element: document.getElementById('booking-slider'),
+    nextButton: DOM.element.querySelector('.next-button-slide'),
+    backButton: DOM.element.querySelector('.back-button-slide'),
+    arrowRight: DOM.element.querySelector('.w-slider-arrow-left'),
+    arrowLeft: DOM.element.querySelector('.w-slider-arrow-left')
+  };
 }
 
 /***/ }),
@@ -9706,6 +9717,14 @@ class Navigation {
   #sequence;
   #model;
 
+  static #next() {
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowRight.click();
+  }
+
+  static #back() {
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowLeft.click();
+  }
+
   constructor() {
     this.#slider = new W_SLIDER_CONTROLLER('#booking-slider');
     this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_4__["default"]); // Handle step validations
@@ -9743,7 +9762,7 @@ class Navigation {
     } = this.#sequence; // Unhide next step before moving on
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${next}`);
-    this.#slider.goto(next);
+    Navigation.#next();
     this.#updateNav(); // Hide previous
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${next - 1}`);
@@ -9767,7 +9786,7 @@ class Navigation {
     } = this.#sequence; // Display previous before moving back
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].display(`step-${prev}`);
-    this.#slider.goto(prev);
+    Navigation.#back();
     this.#updateNav(); // Hide next
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].hide(`step-${prev + 1}`);
@@ -10150,18 +10169,19 @@ var __webpack_exports__ = {};
   !*** ./src/steps/main.js ***!
   \***************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./navigation */ "./src/steps/navigation.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/steps/navigation.js");
 /* eslint-disable no-var */
+
 
 /**
  * Add handlers
  */
 
 const sliderController = () => {
-  const nav = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
-  const domSlider = document.getElementById('booking-slider');
-  domSlider.querySelector('.next-button-slide').addEventListener('click', nav.onNext.bind(nav));
-  domSlider.querySelector('.back-button-slide').addEventListener('click', nav.onBack.bind(nav));
+  const nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.addEventListener('click', nav.onNext.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.addEventListener('click', nav.onBack.bind(nav));
 }; // eslint-disable-next-line no-use-before-define
 
 

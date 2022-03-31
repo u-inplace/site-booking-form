@@ -97,10 +97,14 @@ export default class DOM {
      * Slider
      */
     static slider = {
-        element: document.getElementById('booking-slider'),
-        nextButton: document.getElementById('booking-slider').querySelector('.next-button-slide'),
-        backButton: document.getElementById('booking-slider').querySelector('.back-button-slide'),
-        arrowRight: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
-        arrowLeft: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
+        element: () => document.getElementById('booking-slider'),
+        nextButton: () =>
+            document.getElementById('booking-slider').querySelector('.next-button-slide'),
+        backButton: () =>
+            document.getElementById('booking-slider').querySelector('.back-button-slide'),
+        arrowRight: () =>
+            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
+        arrowLeft: () =>
+            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
     }
 }

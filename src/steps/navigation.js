@@ -10,11 +10,11 @@ export default class Navigation {
     #model
 
     static #next() {
-        DOM.slider.arrowRight.click()
+        DOM.slider.arrowRight().click()
     }
 
     static #back() {
-        DOM.slider.arrowLeft.click()
+        DOM.slider.arrowLeft().click()
     }
 
     constructor() {

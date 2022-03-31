@@ -9639,11 +9639,11 @@ class DOM {
 
 
   static slider = {
-    element: document.getElementById('booking-slider'),
-    nextButton: document.getElementById('booking-slider').querySelector('.next-button-slide'),
-    backButton: document.getElementById('booking-slider').querySelector('.back-button-slide'),
-    arrowRight: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
-    arrowLeft: document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
+    element: () => document.getElementById('booking-slider'),
+    nextButton: () => document.getElementById('booking-slider').querySelector('.next-button-slide'),
+    backButton: () => document.getElementById('booking-slider').querySelector('.back-button-slide'),
+    arrowRight: () => document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
+    arrowLeft: () => document.getElementById('booking-slider').querySelector('.w-slider-arrow-left')
   };
 }
 
@@ -9718,11 +9718,11 @@ class Navigation {
   #model;
 
   static #next() {
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowRight.click();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowRight().click();
   }
 
   static #back() {
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowLeft.click();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.arrowLeft().click();
   }
 
   constructor() {
@@ -10180,8 +10180,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const sliderController = () => {
   const nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.addEventListener('click', nav.onNext.bind(nav));
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.addEventListener('click', nav.onBack.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton().addEventListener('click', nav.onNext.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton().addEventListener('click', nav.onBack.bind(nav));
 }; // eslint-disable-next-line no-use-before-define
 
 

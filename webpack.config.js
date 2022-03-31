@@ -58,7 +58,6 @@ const stepsConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        library: '[name]',
         sourceMapFilename: 'Steps.js.map'
     }
 }

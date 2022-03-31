@@ -11,7 +11,7 @@ export default class BookingModel {
     /**
      * Estimation calc
      */
-    static get estimation() {
+    get estimation() {
         return Math.floor(
             Object.values(this.#steps).reduce((acc, s, i) => {
                 console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`)
@@ -24,5 +24,9 @@ export default class BookingModel {
 
     static set estimation(estimation) {
         document.getElementById('duration').nextElementSibling.noUiSlider.set(estimation)
+    }
+
+    updateEstimation() {
+        this.estimation = this.estimation
     }
 }

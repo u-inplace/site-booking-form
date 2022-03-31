@@ -1,0 +1,21 @@
+.form_slide {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.form_slide.very_active {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+    top: 0;
+}

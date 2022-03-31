@@ -8,6 +8,10 @@ export default class Sequence {
     #current
 
     constructor() {
+        this.reset()
+    }
+
+    reset() {
         this.#current = 0
 
         let seq = [STEP.Services]
@@ -34,6 +38,10 @@ export default class Sequence {
     }
 
     get current() {
+        return this.list[this.#current]
+    }
+
+    get currentIndex() {
         return this.#current
     }
 }

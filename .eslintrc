@@ -29,8 +29,7 @@
         }
     },
     "globals": {
-        "Webflow": true,
-        "W_SLIDER_CONTROLLER": true
+        "Webflow": true
     },
     "plugins": ["prettier", "prefer-arrow", "no-param-reassign-allow-reduce"],
     "rules": {

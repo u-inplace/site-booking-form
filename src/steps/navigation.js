@@ -2,6 +2,7 @@ import { STEP } from './constants'
 import DOM from './dom'
 import BookingModel from './model'
 import Sequence from './sequence'
+import Slider from './slider'
 import Steps from './steps'
 
 export default class Navigation {
@@ -9,21 +10,9 @@ export default class Navigation {
     #sequence
     #model
 
-    static #next() {
-        DOM.slider.arrowRight().click()
-        // unfuck transofrm
-        // eslint-disable-next-line no-param-reassign
-        // DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
-    }
-
-    static #back() {
-        DOM.slider.arrowLeft().click()
-        // eslint-disable-next-line no-param-reassign
-        // DOM.slider.allSlides().forEach(s => (s.style.transform = 'none'))
-    }
-
     constructor() {
-        this.#slider = new W_SLIDER_CONTROLLER('#booking-slider')
+        this.#sequence = new Sequence()
+        this.#slider = new Slider(this.#sequence)
         this.#model = new BookingModel(Steps)
 
         // Handle step validations
@@ -37,48 +26,29 @@ export default class Navigation {
                 o.elem.addEventListener(o.event, this.#toggleNext.bind(this))
             })
         })
-
-        // Hide all steps to avoid big steps making
-        // the div bigger
-        for (let i = 1; i < this.#slider.count(); i++) {
-            DOM.hide(`step-${i}`)
-        }
     }
 
     #updateNav() {
-        document.getElementsByClassName('step-number')[
-            this.#slider.current() - 1
-        ].innerHTML = `Step ${this.#sequence.current}/${
-            this.#sequence.current === 1 ? '-' : this.#sequence.total
-        }`
+        document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${
+            this.#sequence.current
+        }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
     }
 
     #toggleNext() {
-        const isDisabled = Steps[this.#slider.current() - 1]?.isNextDisabled
+        const isDisabled = Steps[this.#slider.current]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
     }
 
     onNext() {
-        // Create a new sequence when leaving the first step
-        if (this.#slider.current() === 1) this.#sequence = new Sequence()
+        // Recalculate the sequence when leaving the first step
+        if (this.#slider.current === STEP.Services) this.#sequence.reset()
 
-        const { next } = this.#sequence
-
-        // Unhide next step before moving on
-        DOM.display(`step-${next}`)
-
-        Navigation.#next()
-
+        this.#slider.next()
         this.#updateNav()
 
-        // Hide previous
-        DOM.hide(`step-${next - 1}`)
-
-        switch (this.#slider.current() - 1) {
+        switch (this.#slider.current) {
             case STEP.Duration:
-                // slider.current already points to the next slide
-                this.#model.estimation = this.#model.estimation
-                console.log(this.#model.estimation)
+                this.#model.updateEstimation()
                 break
             default:
                 this.#toggleNext()
@@ -87,17 +57,6 @@ export default class Navigation {
     }
 
     onBack = () => {
-        const { prev } = this.#sequence
-
-        // Display previous before moving back
-        DOM.display(`step-${prev}`)
-
-        Navigation.#back()
-        this.#updateNav()
-
-        // Hide next
-        DOM.hide(`step-${prev + 1}`)
-
-        this.#toggleNext()
+        this.#slider.next()
     }
 }

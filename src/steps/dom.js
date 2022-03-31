@@ -1,8 +1,10 @@
+/* eslint-disable max-classes-per-file */
 import _ from 'lodash'
 
 /**
  * DOM query and manipulators
  */
+
 export default class DOM {
     static queryOptions(id, checked = false) {
         return Array.from(
@@ -98,18 +100,25 @@ export default class DOM {
     /**
      * Slider
      */
-    static slider = {
-        element: () => document.getElementById('booking-slider'),
-        nextButton: () =>
-            document.getElementById('booking-slider').querySelector('.next-button-slide'),
-        backButton: () =>
-            document.getElementById('booking-slider').querySelector('.back-button-slide'),
-        arrowRight: () =>
-            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
-        arrowLeft: () =>
-            document.getElementById('booking-slider').querySelector('.w-slider-arrow-left'),
-        allSlides: () => {
-            document.getElementById('booking-slider').querySelectorAll('.form-slide')
+    static slider = class {
+        static get element() {
+            return document.getElementById('booking-slider')
+        }
+
+        static get nextButton() {
+            return document.getElementById('booking-slider').querySelector('.next-button-slide')
+        }
+
+        static get backButton() {
+            return document.getElementById('booking-slider').querySelector('.back-button-slide')
+        }
+
+        static setActive(stepNo) {
+            document.getElementById(`step-${stepNo}`).classList.add('very_active')
+        }
+
+        static setInactive(stepNo) {
+            document.getElementById(`step-${stepNo}`).classList.remove('very_active')
         }
     }
 }

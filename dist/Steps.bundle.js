@@ -9647,11 +9647,11 @@ class DOM {
     }
 
     static get nextButton() {
-      return document.getElementById('booking-slider').querySelector('.next-button-slide');
+      return document.getElementById('booking-slider').querySelectorAll('.next-button-slide');
     }
 
     static get backButton() {
-      return document.getElementById('booking-slider').querySelector('.back-button-slide');
+      return document.getElementById('booking-slider').querySelectorAll('.back-button-slide');
     }
 
     static setActive(stepNo) {
@@ -10284,8 +10284,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const sliderController = () => {
   const nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.addEventListener('click', nav.onNext.bind(nav));
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.addEventListener('click', nav.onBack.bind(nav));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.forEach(e => e.addEventListener('click', nav.onNext.bind(nav)));
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.forEach(e => e.addEventListener('click', nav.onBack.bind(nav)));
 }; // eslint-disable-next-line no-use-before-define
 
 

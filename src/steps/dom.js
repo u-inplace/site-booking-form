@@ -106,11 +106,11 @@ export default class DOM {
         }
 
         static get nextButton() {
-            return document.getElementById('booking-slider').querySelector('.next-button-slide')
+            return document.getElementById('booking-slider').querySelectorAll('.next-button-slide')
         }
 
         static get backButton() {
-            return document.getElementById('booking-slider').querySelector('.back-button-slide')
+            return document.getElementById('booking-slider').querySelectorAll('.back-button-slide')
         }
 
         static setActive(stepNo) {

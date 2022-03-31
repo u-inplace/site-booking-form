@@ -8,8 +8,8 @@ import Navigation from './navigation'
 const sliderController = () => {
     const nav = new Navigation()
 
-    DOM.slider.nextButton.addEventListener('click', nav.onNext.bind(nav))
-    DOM.slider.backButton.addEventListener('click', nav.onBack.bind(nav))
+    DOM.slider.nextButton.forEach(e => e.addEventListener('click', nav.onNext.bind(nav)))
+    DOM.slider.backButton.forEach(e => e.addEventListener('click', nav.onBack.bind(nav)))
 }
 
 // eslint-disable-next-line no-use-before-define

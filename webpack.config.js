@@ -51,10 +51,10 @@ const calendarConfig = {
     }
 }
 
-const stepsConfig = {
+const bookingConfig = {
     ...config,
-    name: 'stepsConfig',
-    entry: { Steps: './src/steps/main.js' },
+    name: 'bookingConfig',
+    entry: { Booking: './src/booking/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
@@ -62,4 +62,4 @@ const stepsConfig = {
     }
 }
 
-module.exports = () => [calendarConfig, stepsConfig]
+module.exports = () => [calendarConfig, bookingConfig]

@@ -10168,7 +10168,7 @@ const Steps = {
   [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _step_config__WEBPACK_IMPORTED_MODULE_3__.StepConfig().setNextDisabledFn(() => {
     const pc = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode;
     return pc.value.length !== pc.maxLength || !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value);
-  }).setObservedFn(_dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode, 'input', onPostalCodeInput).setAutoFollow(true),
+  }).setObservedFn(() => [_dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode], 'input', onPostalCodeInput).setAutoFollow(true),
   [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _step_config__WEBPACK_IMPORTED_MODULE_3__.StepConfig().setNextDisabledFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices().length === 0).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryServices()).setDurationFn(() => {
     const services = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices();
     let total = 0;

@@ -85,7 +85,7 @@ const Steps = {
             const pc = DOM.postalCode
             return pc.value.length !== pc.maxLength || !BookingModel.coverage.includes(pc.value)
         })
-        .setObservedFn(DOM.postalCode, 'input', onPostalCodeInput)
+        .setObservedFn(() => [DOM.postalCode], 'input', onPostalCodeInput)
         .setAutoFollow(true),
 
     [STEP.Services]: new StepConfig()

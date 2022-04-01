@@ -625,13 +625,13 @@
     position: absolute;
     top: 50px;
     height: 0;
-    opacity: 0;
+    /* opacity: 0; */
     visibility: hidden;
 }
 
 .form-slide.very-active {
     height: auto;
-    opacity: 1 !important;
+    /* opacity: 1 !important; */
     visibility: visible !important;
 
     transition-property: all;

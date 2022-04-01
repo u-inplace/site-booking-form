@@ -98,7 +98,7 @@ export default class CalendarController {
         const loader = document.createElement('div')
         loader.classList.add('loader')
         loader.id = LoaderId
-        loader.style.visibility = 'hidden'
+        loader.style.visibility = 'visible'
         loader.innerHTML = `
             <span class="loader__element"></span>
         `

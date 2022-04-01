@@ -582,18 +582,23 @@
     overflow: hidden;
     position: relative;
     top: 0;
-    left: 10px;
     display: flex;
     align-items: center;
     align-content: center;
-    justify-content: right;
+    justify-content: center;
     z-index: 100000;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
 }
 
 .loader__element {
     border-radius: 100%;
     border: var(--size) solid var(--point-color);
-    margin: calc(var(--size) * 2);
+    margin: calc(var(--size) * 3);
+    width: 5px;
+    height: 5px;
+    background: white;
 }
 
 .loader__element:nth-child(1) {
@@ -609,7 +614,7 @@
 
 @keyframes preloader {
     100% {
-        transform: scale(3);
+        transform: scale(4);
     }
 }
 

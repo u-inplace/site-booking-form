@@ -9769,8 +9769,11 @@ class Navigation {
   constructor() {
     this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
     this.#slider = new _slider__WEBPACK_IMPORTED_MODULE_4__["default"](this.#sequence);
-    this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_5__["default"]); // Handle step validations
+    this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_5__["default"]);
+  }
 
+  init() {
+    // Handle step validations
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(true); // Handle for next buttons
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.nextButton.forEach(e => e.addEventListener('click', this.onNext.bind(this)));
@@ -10329,7 +10332,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const sliderController = () => {
   // eslint-disable-next-line no-new
-  new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  navController.init();
 }; // eslint-disable-next-line no-use-before-define
 
 

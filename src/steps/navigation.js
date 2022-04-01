@@ -14,7 +14,9 @@ export default class Navigation {
         this.#sequence = new Sequence()
         this.#slider = new Slider(this.#sequence)
         this.#model = new BookingModel(Steps)
+    }
 
+    init() {
         // Handle step validations
         DOM.setNextButtonDisabled(true)
 

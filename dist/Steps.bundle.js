@@ -9849,7 +9849,7 @@ class Sequence {
 
   reset() {
     this.#current = 0;
-    let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
+    let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
     seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);

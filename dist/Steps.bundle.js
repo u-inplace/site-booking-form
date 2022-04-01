@@ -10027,7 +10027,7 @@ class Navigation {
     // The call from onBack must be handled manually since this method
     // is also called above by event, where the parameter is not a boolean
 
-    const stopAutoFollow = typeof dontAutoFollow === 'boolean' && !dontAutoFollow;
+    const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
     if (!isDisabled && !stopAutoFollow && _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current].autoFollow) this.#slider.next();
   }
 

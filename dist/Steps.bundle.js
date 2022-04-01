@@ -10483,7 +10483,9 @@ class Navigation {
 
         o.elem.addEventListener(o.event, this.#toggleNext.bind(this));
       });
-    });
+    }); // Autofocus on input
+
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.autofocus();
     this.#toggleNext();
   }
 

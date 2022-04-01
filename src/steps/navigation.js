@@ -40,6 +40,9 @@ export default class Navigation {
             })
         })
 
+        // Autofocus on input
+        DOM.postalCode.autofocus()
+
         this.#toggleNext()
     }
 

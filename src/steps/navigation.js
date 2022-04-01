@@ -44,7 +44,7 @@ export default class Navigation {
     #updateNav() {
         document.getElementsByClassName('step-number')[
             this.#sequence.current - 1
-        ].innerHTML = `Step ${this.#sequence.current}/${
+        ].innerHTML = `Step ${this.#sequence.currentIndex}/${
             this.#sequence.current === STEP.Services ? '-' : this.#sequence.total
         }`
     }

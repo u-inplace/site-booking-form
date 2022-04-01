@@ -2,18 +2,21 @@
  * Booking model
  */
 export default class BookingModel {
-    #steps
+    steps
+    #instance
 
     constructor(steps) {
-        this.#steps = steps
+        this.steps = steps
     }
 
-    /**
-     * Estimation calc
-     */
+    static get instance() {
+        this.#instance ??= new BookingModel()
+        return this.#instance
+    }
+
     get estimation() {
         return Math.floor(
-            Object.values(this.#steps).reduce((acc, s, i) => {
+            Object.values(this.steps).reduce((acc, s, i) => {
                 console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`)
                 // eslint-disable-next-line no-param-reassign
                 acc += s ? s.duration : 0

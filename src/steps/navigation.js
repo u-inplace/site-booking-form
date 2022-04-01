@@ -68,7 +68,7 @@ export default class Navigation {
         if (this.#slider.current === STEP.Services) this.#sequence.reset(true)
 
         this.#slider.next()
-        this.#updateNav()
+        if (this.#slider.current > 0) this.#updateNav()
 
         switch (this.#slider.current) {
             case STEP.Duration:

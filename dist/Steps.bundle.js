@@ -10036,7 +10036,7 @@ class Navigation {
     // Recalculate the sequence when leaving the first step
     if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services) this.#sequence.reset(true);
     this.#slider.next();
-    this.#updateNav();
+    if (this.#slider.current > 0) this.#updateNav();
 
     switch (this.#slider.current) {
       case _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Duration:

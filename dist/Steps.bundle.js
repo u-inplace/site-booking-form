@@ -10328,7 +10328,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 const sliderController = () => {
-  (0,_navigation__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  // eslint-disable-next-line no-new
+  new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
 }; // eslint-disable-next-line no-use-before-define
 
 

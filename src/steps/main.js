@@ -5,7 +5,8 @@ import Navigation from './navigation'
  * Add handlers
  */
 const sliderController = () => {
-    Navigation()
+    // eslint-disable-next-line no-new
+    new Navigation()
 }
 
 // eslint-disable-next-line no-use-before-define

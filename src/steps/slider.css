@@ -1,3 +1,9 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
 .form-slide {
     position: absolute;
 
@@ -5,6 +11,9 @@
     height: 0;
     opacity: 0;
     visibility: hidden;
+    z-index: 1;
+
+    transform: scaleY(0);
 }
 
 .form-slide.very-active {
@@ -12,9 +21,13 @@
     height: auto;
     opacity: 1 !important;
     visibility: visible !important;
+    z-index: 10;
 
-    transition-property: all;
+    transition-property: height, opacity, top;
     transition-duration: 0.5s;
     transition-timing-function: ease;
-    transition-delay: 0s;
+    transition-delay: 0.2s;
+
+    transform: scaleY(1);
+    transform-origin: top;
 }

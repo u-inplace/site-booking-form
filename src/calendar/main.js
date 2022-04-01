@@ -13,8 +13,7 @@ const LoaderId = 'loaderBalls'
 /**
  * Calendar Controller
  */
-// eslint-disable-next-line import/prefer-default-export
-export class Controller {
+export default class CalendarController {
     #placeHolderID
     #initialised
 

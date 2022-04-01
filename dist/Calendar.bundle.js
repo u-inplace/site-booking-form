@@ -10125,7 +10125,7 @@ var __webpack_exports__ = {};
   \******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Controller": function() { return /* binding */ Controller; }
+/* harmony export */   "default": function() { return /* binding */ CalendarController; }
 /* harmony export */ });
 /* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! color-calendar */ "./node_modules/color-calendar/dist/bundle.js");
 /* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(color_calendar__WEBPACK_IMPORTED_MODULE_0__);
@@ -10150,9 +10150,8 @@ const LoaderId = 'loaderBalls';
 /**
  * Calendar Controller
  */
-// eslint-disable-next-line import/prefer-default-export
 
-class Controller {
+class CalendarController {
   #placeHolderID;
   #initialised;
 

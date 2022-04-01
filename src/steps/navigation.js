@@ -1,4 +1,4 @@
-import { Calendar } from 'color-calendar'
+import CalendarController from '../calendar/main'
 import { STEP } from './constants'
 import DOM from './dom'
 import BookingModel from './model'
@@ -49,7 +49,7 @@ export default class Navigation {
         document.getElementsByClassName('step-number')[
             this.#sequence.current - 1
         ].innerHTML = `Step ${this.#sequence.currentIndex}/${
-            this.#sequence.current === STEP.Services ? '-' : this.#sequence.total
+            this.#sequence.current === STEP.Services ? '-' : this.#sequence.total - 1
         }`
     }
 
@@ -79,7 +79,7 @@ export default class Navigation {
                 break
             case STEP.Availability:
                 // Create new calendar controller
-                this.#calendar = new Calendar()
+                this.#calendar = new CalendarController('availability-cal')
                 break
             default:
                 break

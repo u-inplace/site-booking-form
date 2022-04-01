@@ -10502,7 +10502,11 @@ class Navigation {
     // is also called above by event, where the parameter is not a boolean
 
     const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
-    if (!isDisabled && !stopAutoFollow && _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current].autoFollow) this.#slider.next();
+
+    if (!isDisabled && !stopAutoFollow && _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current].autoFollow) {
+      _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.blur();
+      this.#slider.next();
+    }
   }
 
   onNext() {

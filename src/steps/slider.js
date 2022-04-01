@@ -49,13 +49,13 @@ export default class Slider {
     }
 
     prev() {
-        // Set current step as inactive
-        const { current } = this.#sequence
-        DOM.slider.setInactive(current)
-
         // Get prev in sequence and active it
         const { prev } = this.#sequence
         DOM.slider.setActive(prev)
+
+        // Set current step as inactive
+        const { current } = this.#sequence
+        DOM.slider.setInactive(current)
 
         this.resize()
     }

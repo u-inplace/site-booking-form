@@ -10666,16 +10666,16 @@ class Slider {
   }
 
   prev() {
-    // Set current step as inactive
-    const {
-      current
-    } = this.#sequence;
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setInactive(current); // Get prev in sequence and active it
-
+    // Get prev in sequence and active it
     const {
       prev
     } = this.#sequence;
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev); // Set current step as inactive
+
+    const {
+      current
+    } = this.#sequence;
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setInactive(current);
     this.resize();
   }
 

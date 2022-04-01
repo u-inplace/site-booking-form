@@ -10019,6 +10019,7 @@ class Navigation {
   }
 
   #updateNav() {
+    if (this.#slider.current < 1) return;
     document.getElementsByClassName('step-number')[this.#sequence.current - 1].innerHTML = `Step ${this.#sequence.currentIndex}/${this.#sequence.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services ? '-' : this.#sequence.total}`;
   }
 
@@ -10036,7 +10037,7 @@ class Navigation {
     // Recalculate the sequence when leaving the first step
     if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services) this.#sequence.reset(true);
     this.#slider.next();
-    if (this.#slider.current > 0) this.#updateNav();
+    this.#updateNav();
 
     switch (this.#slider.current) {
       case _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Duration:

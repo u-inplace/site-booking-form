@@ -44,6 +44,8 @@ export default class Navigation {
     }
 
     #updateNav() {
+        if (this.#slider.current < 1) return
+
         document.getElementsByClassName('step-number')[
             this.#sequence.current - 1
         ].innerHTML = `Step ${this.#sequence.currentIndex}/${
@@ -68,7 +70,7 @@ export default class Navigation {
         if (this.#slider.current === STEP.Services) this.#sequence.reset(true)
 
         this.#slider.next()
-        if (this.#slider.current > 0) this.#updateNav()
+        this.#updateNav()
 
         switch (this.#slider.current) {
             case STEP.Duration:

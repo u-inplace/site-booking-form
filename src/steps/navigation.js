@@ -18,11 +18,20 @@ export default class Navigation {
         // Handle step validations
         DOM.setNextButtonDisabled(true)
 
+        // Handle for next buttons
+        DOM.slider.nextButton.forEach(e => e.addEventListener('click', this.onNext.bind(this)))
+        DOM.slider.backButton.forEach(e => e.addEventListener('click', this.onBack.bind(this)))
+
         // Setup event handlers
         Object.values(Steps).forEach(s => {
             s.observed.forEach(o => {
                 // eslint-disable-next-line no-param-reassign
                 o.elem.checked = false
+
+                // Custom extra callback for event
+                if (o.onEvent) o.elem.addEventListener(o.event, o.onEvent)
+
+                // Default handle next callback
                 o.elem.addEventListener(o.event, this.#toggleNext.bind(this))
             })
         })
@@ -30,13 +39,16 @@ export default class Navigation {
 
     #updateNav() {
         document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${
-            this.#sequence.current + 1
+            this.#sequence.current
         }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
     }
 
     #toggleNext() {
         const isDisabled = Steps[this.#slider.current]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
+
+        // Autofollow - used on first step
+        if (!isDisabled && Steps[this.#slider.current].autoFollow) this.#slider.next()
     }
 
     onNext() {

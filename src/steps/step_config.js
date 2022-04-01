@@ -14,14 +14,18 @@ import _ from 'lodash'
 export class StepConfig {
     #isNextDisabledFn
     #observedFn
+    #onEvent
     #durationFn
     #event
+    #autoFollow
 
     constructor() {
         this.#isNextDisabledFn = () => false
         this.#observedFn = () => []
         this.#durationFn = () => 0
         this.#event = 'change'
+        this.#autoFollow = false
+        this.#onEvent = null
     }
 
     setNextDisabledFn(f) {
@@ -29,9 +33,10 @@ export class StepConfig {
         return this
     }
 
-    setObservedFn(f, event = 'change') {
+    setObservedFn(f, event = 'change', onEvent = null) {
         this.#observedFn = f
         this.#event = event
+        this.#onEvent = onEvent
         return this
     }
 
@@ -40,16 +45,29 @@ export class StepConfig {
         return this
     }
 
+    setAutoFollow(auto) {
+        this.#autoFollow = auto
+        return this
+    }
+
     get isNextDisabled() {
         return this.#isNextDisabledFn()
     }
 
     get observed() {
-        return this.#observedFn().map(e => ({ elem: e, event: this.#event }))
+        return this.#observedFn().map(e => ({
+            elem: e,
+            event: this.#event,
+            onEvent: this.#onEvent
+        }))
     }
 
     get duration() {
         return this.#durationFn()
+    }
+
+    get autoFollow() {
+        return this.#autoFollow
     }
 }
 

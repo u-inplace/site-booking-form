@@ -98,6 +98,17 @@ export default class DOM {
     }
 
     /**
+     * Postal Code
+     */
+    static get postalCode() {
+        return document.getElementById('postal-code')
+    }
+
+    static get postalCodeWarning() {
+        return document.getElementById('area-warning')
+    }
+
+    /**
      * Slider
      */
     static slider = class {

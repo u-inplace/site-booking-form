@@ -4,6 +4,7 @@
 
 import { EXTRA, SERVICE, STEP } from './constants'
 import DOM from './dom'
+import BookingModel from './model'
 import { CompoundStepConfig, StepConfig } from './step_config'
 
 /**
@@ -68,7 +69,25 @@ const home = new StepConfig()
 /**
  * Steps flow
  */
+
+const onPostalCodeInput = e => {
+    const pc = e.target
+    if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength)
+
+    if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value))
+        DOM.postalCodeWarning.classList.add('msg-active')
+    else DOM.postalCodeWarning.classList.remove('msg-active')
+}
+
 const Steps = {
+    [STEP.PostalCode]: new StepConfig()
+        .setNextDisabledFn(() => {
+            const pc = DOM.postalCode
+            return pc.value.length !== pc.maxLength || !BookingModel.coverage.includes(pc.value)
+        })
+        .setObservedFn(DOM.postalCode, 'input', onPostalCodeInput)
+        .setAutoFollow(true),
+
     [STEP.Services]: new StepConfig()
         .setNextDisabledFn(() => DOM.getSelectedServices().length === 0)
         .setObservedFn(() => DOM.queryServices())

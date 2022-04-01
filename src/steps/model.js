@@ -29,4 +29,31 @@ export default class BookingModel {
     updateEstimation() {
         BookingModel.estimation = this.estimation
     }
+
+    static get coverage() {
+        return [
+            '1070',
+            '1160',
+            '1082',
+            '1000',
+            '1040',
+            '1140',
+            '1190',
+            '1083',
+            '1130',
+            '1050',
+            '1090',
+            '1081',
+            '1020',
+            '1080',
+            '1120',
+            '1060',
+            '1210',
+            '1030',
+            '1180',
+            '1170',
+            '1200',
+            '1150'
+        ]
+    }
 }

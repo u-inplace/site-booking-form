@@ -10061,7 +10061,7 @@ class CalendarController {
 
   toggleLoading(isVisible) {
     const loader = document.getElementById(LoaderId);
-    loader && (loader.style.display = isVisible ? '' : 'none');
+    loader && (loader.style.visibility = isVisible ? 'visible' : 'hidden');
   }
   /**
    * Create a hidden loading animation to be called in monthChange
@@ -10074,7 +10074,7 @@ class CalendarController {
     const loader = document.createElement('div');
     loader.classList.add('loader');
     loader.id = LoaderId;
-    loader.style.display = 'none';
+    loader.style.visibility = 'hidden';
     loader.innerHTML = `
             <span class="loader__element"></span>
         `;

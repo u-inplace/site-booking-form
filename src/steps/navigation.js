@@ -61,7 +61,7 @@ export default class Navigation {
 
     onNext() {
         // Recalculate the sequence when leaving the first step
-        if (this.#slider.current === STEP.Services) this.#sequence.reset()
+        if (this.#slider.current === STEP.Services) this.#sequence.reset(true)
 
         this.#slider.next()
         this.#updateNav()

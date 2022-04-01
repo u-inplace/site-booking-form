@@ -10033,7 +10033,7 @@ class Navigation {
 
   onNext() {
     // Recalculate the sequence when leaving the first step
-    if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services) this.#sequence.reset();
+    if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services) this.#sequence.reset(true);
     this.#slider.next();
     this.#updateNav();
 
@@ -10091,8 +10091,8 @@ class Sequence {
     this.reset();
   }
 
-  reset() {
-    this.#current = 0;
+  reset(keepCurrent = false) {
+    !keepCurrent && (this.#current = 0);
     let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);

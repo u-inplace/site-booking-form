@@ -10015,6 +10015,7 @@ class Navigation {
         o.elem.addEventListener(o.event, this.#toggleNext.bind(this));
       });
     });
+    this.#toggleNext();
   }
 
   #updateNav() {

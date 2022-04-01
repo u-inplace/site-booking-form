@@ -41,8 +41,9 @@ export default class Navigation {
         })
 
         // Autofocus on input
-        // eslint-disable-next-line no-unused-expressions
+        DOM.postalCode.autofocus = true
         DOM.postalCode.focus()
+        DOM.postalCode.setAttribute('autofocus')
 
         this.#toggleNext()
     }

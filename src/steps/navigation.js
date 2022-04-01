@@ -47,12 +47,13 @@ export default class Navigation {
         }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
     }
 
-    #toggleNext() {
+    #toggleNext(disableAutoFollow = false) {
         const isDisabled = Steps[this.#slider.current]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
 
         // Autofollow - used on first step
-        if (!isDisabled && Steps[this.#slider.current].autoFollow) this.#slider.next()
+        if (!isDisabled && !disableAutoFollow && Steps[this.#slider.current].autoFollow)
+            this.#slider.next()
     }
 
     onNext() {
@@ -81,6 +82,7 @@ export default class Navigation {
     onBack = () => {
         this.#slider.prev()
         this.#updateNav()
-        this.#toggleNext()
+        // Disable auto follow
+        this.#toggleNext(true)
     }
 }

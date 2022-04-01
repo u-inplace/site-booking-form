@@ -42,9 +42,11 @@ export default class Navigation {
     }
 
     #updateNav() {
-        document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${
-            this.#sequence.current
-        }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
+        document.getElementsByClassName('step-number')[
+            this.#slider.current - 1
+        ].innerHTML = `Step ${this.#sequence.current}/${
+            this.#sequence.current === STEP.Services ? '-' : this.#sequence.total
+        }`
     }
 
     #toggleNext(dontAutoFollow = false) {

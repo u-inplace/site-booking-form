@@ -623,22 +623,30 @@
   \****************************************************************************************************/
 .form-slide {
     position: absolute;
+
     top: 50px;
     height: 0;
-    /* opacity: 0; */
+    opacity: 0;
     visibility: hidden;
+    z-index: 0;
+
+    transform: scaleY(0);
+    transition-property: height, opacity, top;
 }
 
 .form-slide.very-active {
+    top: 0;
     height: auto;
-    /* opacity: 1 !important; */
+    opacity: 1 !important;
     visibility: visible !important;
+    z-index: 1;
 
-    transition-property: all;
+    transform: scaleY(1);
+    transform-origin: top;
+
     transition-duration: 0.5s;
     transition-timing-function: ease;
     transition-delay: 0s;
-    top: 0;
 }
 
 /*!***************************************************************************************************!*\

@@ -1,3 +1,4 @@
+import { Calendar } from 'color-calendar'
 import { STEP } from './constants'
 import DOM from './dom'
 import BookingModel from './model'
@@ -9,6 +10,7 @@ export default class Navigation {
     #slider
     #sequence
     #model
+    #calendar
 
     constructor() {
         this.#sequence = new Sequence()
@@ -60,8 +62,18 @@ export default class Navigation {
         this.#slider.next()
         this.#updateNav()
 
-        // Update duration when loading Duration step
-        this.#slider.current === STEP.Duration && this.#model.updateEstimation()
+        switch (this.#slider.current) {
+            case STEP.Duration:
+                // Update duration when loading Duration step
+                this.#model.updateEstimation()
+                break
+            case STEP.Availability:
+                // Create new calendar controller
+                this.#calendar = new Calendar()
+                break
+            default:
+                break
+        }
 
         this.#toggleNext()
     }

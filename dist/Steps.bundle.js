@@ -10021,11 +10021,14 @@ class Navigation {
     document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${this.#sequence.current}/${this.#sequence.current === _constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Services ? '-' : this.#sequence.total}`;
   }
 
-  #toggleNext(disableAutoFollow = false) {
+  #toggleNext(dontAutoFollow = false) {
     const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current]?.isNextDisabled;
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].setNextButtonDisabled(isDisabled); // Autofollow - used on first step
+    // The call from onBack must be handled manually since this method
+    // is also called above by event, where the parameter is not a boolean
 
-    if (!isDisabled && !disableAutoFollow && _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current].autoFollow) this.#slider.next();
+    const stopAutoFollow = typeof dontAutoFollow === 'boolean' && !dontAutoFollow;
+    if (!isDisabled && !stopAutoFollow && _steps__WEBPACK_IMPORTED_MODULE_6__["default"][this.#slider.current].autoFollow) this.#slider.next();
   }
 
   onNext() {

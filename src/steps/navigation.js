@@ -47,12 +47,15 @@ export default class Navigation {
         }/${this.#sequence.current === STEP.Services ? '-' : this.#sequence.total}`
     }
 
-    #toggleNext(disableAutoFollow = false) {
+    #toggleNext(dontAutoFollow = false) {
         const isDisabled = Steps[this.#slider.current]?.isNextDisabled
         DOM.setNextButtonDisabled(isDisabled)
 
         // Autofollow - used on first step
-        if (!isDisabled && !disableAutoFollow && Steps[this.#slider.current].autoFollow)
+        // The call from onBack must be handled manually since this method
+        // is also called above by event, where the parameter is not a boolean
+        const stopAutoFollow = typeof dontAutoFollow === 'boolean' && !dontAutoFollow
+        if (!isDisabled && !stopAutoFollow && Steps[this.#slider.current].autoFollow)
             this.#slider.next()
     }
 

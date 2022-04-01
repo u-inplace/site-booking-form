@@ -10484,8 +10484,9 @@ class Navigation {
         o.elem.addEventListener(o.event, this.#toggleNext.bind(this));
       });
     }); // Autofocus on input
+    // eslint-disable-next-line no-unused-expressions
 
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.autofocus();
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.autofocus;
     this.#toggleNext();
   }
 

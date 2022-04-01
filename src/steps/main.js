@@ -1,5 +1,6 @@
 /* eslint-disable no-var */
 import Navigation from './navigation'
+import './style.css'
 
 /**
  * Add handlers

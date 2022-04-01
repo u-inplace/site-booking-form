@@ -21,3 +21,42 @@
     top: 0;
 }
 
+/*!***************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/steps/style.css ***!
+  \***************************************************************************************************/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.booking-big-input {
+    border: 0px;
+}
+
+.area-warning {
+    position: relative;
+    top: 100px;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.area-warning.msg-active {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    top: 0px;
+
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+

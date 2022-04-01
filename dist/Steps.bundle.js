@@ -10487,7 +10487,6 @@ class Navigation {
 
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.autofocus = true;
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.focus();
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.setAttribute('autofocus');
     this.#toggleNext();
   }
 

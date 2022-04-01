@@ -43,7 +43,6 @@ export default class Navigation {
         // Autofocus on input
         DOM.postalCode.autofocus = true
         DOM.postalCode.focus()
-        DOM.postalCode.setAttribute('autofocus')
 
         this.#toggleNext()
     }

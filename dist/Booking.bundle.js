@@ -10350,8 +10350,7 @@ class Slider {
     // is loading
 
     window.addEventListener('load', () => this.resize(), false);
-    window.addEventListener('resize', () => this.resize(), false);
-    this.resize();
+    window.addEventListener('resize', () => this.resize(), false); // this.resize()
   }
 
   static getInstance() {

@@ -22,7 +22,7 @@ export default class Slider {
         window.addEventListener('load', () => this.resize(), false)
         window.addEventListener('resize', () => this.resize(), false)
 
-        this.resize()
+        // this.resize()
     }
 
     static getInstance() {

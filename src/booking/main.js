@@ -1,15 +1,14 @@
 /* eslint-disable no-var */
-import DOM from './dom'
 import Navigation from './navigation'
+import './style.css'
 
 /**
  * Add handlers
  */
 const sliderController = () => {
-    const nav = new Navigation()
-
-    DOM.slider.nextButton.forEach(e => e.addEventListener('click', nav.onNext.bind(nav)))
-    DOM.slider.backButton.forEach(e => e.addEventListener('click', nav.onBack.bind(nav)))
+    //  ONly starts after page is loaded
+    const navController = new Navigation()
+    navController.init()
 }
 
 // eslint-disable-next-line no-use-before-define

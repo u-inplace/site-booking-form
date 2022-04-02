@@ -8,20 +8,25 @@ import './slider.css'
  */
 export default class Slider {
     #sequence
+    #onChange
 
     constructor(sequence) {
         this.#sequence = sequence || new Sequence()
-
-        // Active first slide
-        DOM.slider.setActive(0)
 
         // Events to resize form after each step
         // Seems that this works sometimes, but not always when the page
         // is loading
         window.addEventListener('load', () => this.resize(), false)
         window.addEventListener('resize', () => this.resize(), false)
+    }
 
-        this.resize()
+    static getInstance() {
+        this.instance ??= new Slider()
+        return this.instance
+    }
+
+    set onChange(fn) {
+        this.#onChange = fn
     }
 
     resize() {
@@ -30,6 +35,10 @@ export default class Slider {
 
     set sequence(sequence) {
         this.#sequence = sequence
+    }
+
+    get sequence() {
+        return this.#sequence
     }
 
     get current() {
@@ -46,6 +55,8 @@ export default class Slider {
         DOM.slider.setActive(next)
 
         this.resize()
+
+        this.#onChange('next')
     }
 
     prev() {
@@ -58,5 +69,7 @@ export default class Slider {
         DOM.slider.setActive(prev)
 
         this.resize()
+
+        this.#onChange('back')
     }
 }

@@ -11,10 +11,10 @@ export default class Sequence {
         this.reset()
     }
 
-    reset() {
-        this.#current = 0
+    reset(keepCurrent = false) {
+        !keepCurrent && (this.#current = 0)
 
-        let seq = [STEP.Services]
+        let seq = [STEP.PostalCode, STEP.Services]
         if (DOM.isServiceSelected(SERVICE.Ironing)) seq.push(STEP.Ironing)
         if (DOM.isServiceSelected(SERVICE.Cleaning)) seq.push(STEP.Cleaning)
         seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Contact])

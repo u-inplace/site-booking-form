@@ -46,20 +46,20 @@ const calendarConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        library: '[name]',
-        sourceMapFilename: 'Calendar.js.map'
+        library: 'Calendar',
+        sourceMapFilename: '[name].js.map'
     }
 }
 
-const stepsConfig = {
+const bookingConfig = {
     ...config,
-    name: 'stepsConfig',
-    entry: { Steps: './src/steps/main.js' },
+    name: 'bookingConfig',
+    entry: { Booking: './src/booking/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        sourceMapFilename: 'Steps.js.map'
+        sourceMapFilename: '[name].js.map'
     }
 }
 
-module.exports = () => [calendarConfig, stepsConfig]
+module.exports = () => [calendarConfig, bookingConfig]

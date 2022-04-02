@@ -1,6 +1,475 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/color-calendar/dist/bundle.js":
+/*!****************************************************!*\
+  !*** ./node_modules/color-calendar/dist/bundle.js ***!
+  \****************************************************/
+/***/ (function(module) {
+
+/**
+ * color-calendar
+ * v1.0.6
+ * by Pawan Kolhe <contact@pawankolhe.com> (https://pawankolhe.com/)
+ */
+!function (e, t) {
+   true ? module.exports = t() : 0;
+}(this, function () {
+  "use strict";
+
+  class e {
+    constructor(e = {}) {
+      var t, a, i, r, n, s, o, l, d, c, h, y, p;
+      if (this.CAL_NAME = "color-calendar", this.DAYS_TO_DISPLAY = 42, this.weekdayDisplayTypeOptions = {
+        short: ["S", "M", "T", "W", "T", "F", "S"],
+        "long-lower": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        "long-upper": ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+      }, this.id = null !== (t = e.id) && void 0 !== t ? t : "#color-calendar", this.calendarSize = null !== (a = e.calendarSize) && void 0 !== a ? a : "large", this.layoutModifiers = null !== (i = e.layoutModifiers) && void 0 !== i ? i : [], this.eventsData = null !== (r = e.eventsData) && void 0 !== r ? r : [], this.theme = null !== (n = e.theme) && void 0 !== n ? n : "basic", this.primaryColor = e.primaryColor, this.headerColor = e.headerColor, this.headerBackgroundColor = e.headerBackgroundColor, this.weekdaysColor = e.weekdaysColor, this.weekdayDisplayType = null !== (s = e.weekdayDisplayType) && void 0 !== s ? s : "long-lower", this.monthDisplayType = null !== (o = e.monthDisplayType) && void 0 !== o ? o : "long", this.startWeekday = null !== (l = e.startWeekday) && void 0 !== l ? l : 0, this.fontFamilyHeader = e.fontFamilyHeader, this.fontFamilyWeekdays = e.fontFamilyWeekdays, this.fontFamilyBody = e.fontFamilyBody, this.dropShadow = e.dropShadow, this.border = e.border, this.borderRadius = e.borderRadius, this.disableMonthYearPickers = null !== (d = e.disableMonthYearPickers) && void 0 !== d && d, this.disableDayClick = null !== (c = e.disableDayClick) && void 0 !== c && c, this.disableMonthArrowClick = null !== (h = e.disableMonthArrowClick) && void 0 !== h && h, this.customMonthValues = e.customMonthValues, this.customWeekdayValues = e.customWeekdayValues, this.monthChanged = e.monthChanged, this.dateChanged = e.dateChanged, this.selectedDateClicked = e.selectedDateClicked, this.customWeekdayValues && 7 === this.customWeekdayValues.length ? this.weekdays = this.customWeekdayValues : this.weekdays = null !== (y = this.weekdayDisplayTypeOptions[this.weekdayDisplayType]) && void 0 !== y ? y : this.weekdayDisplayTypeOptions.short, this.today = new Date(), this.currentDate = new Date(), this.pickerType = "month", this.eventDayMap = {}, this.oldSelectedNode = null, this.filteredEventsThisMonth = [], this.daysIn_PrevMonth = [], this.daysIn_CurrentMonth = [], this.daysIn_NextMonth = [], this.firstDay_PrevMonth = 0, this.firstDay_CurrentMonth = 0, this.firstDay_NextMonth = 0, this.numOfDays_PrevMonth = 0, this.numOfDays_CurrentMonth = 0, this.numOfDays_NextMonth = 0, this.yearPickerOffset = 0, this.yearPickerOffsetTemporary = 0, this.calendar = document.querySelector(this.id), !this.calendar) throw new Error(`[COLOR-CALENDAR] Element with selector '${this.id}' not found`);
+      this.calendar.innerHTML = `\n      <div class="${this.CAL_NAME} ${this.theme} color-calendar--${this.calendarSize}">\n        <div class="calendar__header">\n          <div class="calendar__arrow calendar__arrow-prev"><div class="calendar__arrow-inner"></div></div>\n          <div class="calendar__monthyear">\n            <span class="calendar__month"></span>&nbsp;\n            <span class="calendar__year"></span>\n          </div>\n          <div class="calendar__arrow calendar__arrow-next"><div class="calendar__arrow-inner"></div></div>\n        </div>\n        <div class="calendar__body">\n          <div class="calendar__weekdays"></div>\n          <div class="calendar__days"></div>\n          <div class="calendar__picker">\n            <div class="calendar__picker-month">\n              ${(null !== (p = this.customMonthValues) && void 0 !== p ? p : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]).map((e, t) => `<div class="calendar__picker-month-option" data-value="${t}">${e}</div>`).join("")}\n            </div>\n            <div class="calendar__picker-year">\n              <div class="calendar__picker-year-option" data-value="0"></div>\n              <div class="calendar__picker-year-option" data-value="1"></div>\n              <div class="calendar__picker-year-option" data-value="2"></div>\n              <div class="calendar__picker-year-option" data-value="3"></div>\n              <div class="calendar__picker-year-option" data-value="4"></div>\n              <div class="calendar__picker-year-option" data-value="5"></div>\n              <div class="calendar__picker-year-option" data-value="6"></div>\n              <div class="calendar__picker-year-option" data-value="7"></div>\n              <div class="calendar__picker-year-option" data-value="8"></div>\n              <div class="calendar__picker-year-option" data-value="9"></div>\n              <div class="calendar__picker-year-option" data-value="10"></div>\n              <div class="calendar__picker-year-option" data-value="11"></div>\n              <div class="calendar__picker-year-arrow calendar__picker-year-arrow-left">\n                <div class="chevron-thin chevron-thin-left"></div>\n              </div>\n              <div class="calendar__picker-year-arrow calendar__picker-year-arrow-right">\n                <div class="chevron-thin chevron-thin-right"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    `, this.calendarRoot = document.querySelector(`${this.id} .${this.CAL_NAME}`), this.calendarHeader = document.querySelector(this.id + " .calendar__header"), this.calendarWeekdays = document.querySelector(this.id + " .calendar__weekdays"), this.calendarDays = document.querySelector(this.id + " .calendar__days"), this.pickerContainer = document.querySelector(this.id + " .calendar__picker"), this.pickerMonthContainer = document.querySelector(this.id + " .calendar__picker-month"), this.pickerYearContainer = document.querySelector(this.id + " .calendar__picker-year"), this.yearPickerChevronLeft = document.querySelector(this.id + " .calendar__picker-year-arrow-left"), this.yearPickerChevronRight = document.querySelector(this.id + " .calendar__picker-year-arrow-right"), this.pickerMonthContainer.children[this.today.getMonth()].classList.add("calendar__picker-month-today"), this.layoutModifiers.forEach(e => {
+        this.calendarRoot.classList.add(e);
+      }), this.layoutModifiers.includes("month-left-align") && (this.calendarHeader.innerHTML = '\n        <div class="calendar__monthyear">\n          <span class="calendar__month"></span>&nbsp;\n          <span class="calendar__year"></span>\n        </div>\n        <div class="calendar__arrow calendar__arrow-prev"><div class="calendar__arrow-inner"></div></div>\n        <div class="calendar__arrow calendar__arrow-next"><div class="calendar__arrow-inner"></div></div>\n      '), this.monthyearDisplay = document.querySelector(this.id + " .calendar__monthyear"), this.monthDisplay = document.querySelector(this.id + " .calendar__month"), this.yearDisplay = document.querySelector(this.id + " .calendar__year"), this.prevButton = document.querySelector(this.id + " .calendar__arrow-prev .calendar__arrow-inner"), this.nextButton = document.querySelector(this.id + " .calendar__arrow-next .calendar__arrow-inner"), this.togglePicker(!1), this.configureStylePreferences(), this.addEventListeners(), this.reset(new Date());
+    }
+
+    reset(e) {
+      this.currentDate = e || new Date(), this.clearCalendarDays(), this.updateMonthYear(), this.updateMonthPickerSelection(this.currentDate.getMonth()), this.generatePickerYears(), this.updateYearPickerSelection(this.currentDate.getFullYear(), 4), this.updateYearPickerTodaySelection(), this.generateWeekdays(), this.generateDays(), this.selectDayInitial(!!e), this.renderDays(), this.setOldSelectedNode(), this.dateChanged && this.dateChanged(this.currentDate, this.getDateEvents(this.currentDate)), this.monthChanged && this.monthChanged(this.currentDate, this.getMonthEvents());
+    }
+
+  }
+
+  return e.prototype.addEventListeners = function () {
+    this.prevButton.addEventListener("click", this.handlePrevMonthButtonClick.bind(this)), this.nextButton.addEventListener("click", this.handleNextMonthButtonClick.bind(this)), this.monthyearDisplay.addEventListener("click", this.handleMonthYearDisplayClick.bind(this)), this.calendarDays.addEventListener("click", this.handleCalendarDayClick.bind(this)), this.pickerMonthContainer.addEventListener("click", this.handleMonthPickerClick.bind(this)), this.pickerYearContainer.addEventListener("click", this.handleYearPickerClick.bind(this)), this.yearPickerChevronLeft.addEventListener("click", this.handleYearChevronLeftClick.bind(this)), this.yearPickerChevronRight.addEventListener("click", this.handleYearChevronRightClick.bind(this));
+  }, e.prototype.configureStylePreferences = function () {
+    let e = this.calendarRoot;
+    this.primaryColor && e.style.setProperty("--cal-color-primary", this.primaryColor), this.fontFamilyHeader && e.style.setProperty("--cal-font-family-header", this.fontFamilyHeader), this.fontFamilyWeekdays && e.style.setProperty("--cal-font-family-weekdays", this.fontFamilyWeekdays), this.fontFamilyBody && e.style.setProperty("--cal-font-family-body", this.fontFamilyBody), this.dropShadow && e.style.setProperty("--cal-drop-shadow", this.dropShadow), this.border && e.style.setProperty("--cal-border", this.border), this.borderRadius && e.style.setProperty("--cal-border-radius", this.borderRadius), this.headerColor && e.style.setProperty("--cal-header-color", this.headerColor), this.headerBackgroundColor && e.style.setProperty("--cal-header-background-color", this.headerBackgroundColor), this.weekdaysColor && e.style.setProperty("--cal-weekdays-color", this.weekdaysColor);
+  }, e.prototype.togglePicker = function (e) {
+    !0 === e ? (this.pickerContainer.style.visibility = "visible", this.pickerContainer.style.opacity = "1", "year" === this.pickerType && this.generatePickerYears(), this.removeYearPickerSelection(), this.updateYearPickerSelection(this.currentDate.getFullYear())) : !1 === e ? (this.pickerContainer.style.visibility = "hidden", this.pickerContainer.style.opacity = "0", this.monthDisplay && this.yearDisplay && (this.monthDisplay.style.opacity = "1", this.yearDisplay.style.opacity = "1"), this.yearPickerOffsetTemporary = 0) : "hidden" === this.pickerContainer.style.visibility ? (this.pickerContainer.style.visibility = "visible", this.pickerContainer.style.opacity = "1", "year" === this.pickerType && this.generatePickerYears(), this.removeYearPickerSelection(), this.updateYearPickerSelection(this.currentDate.getFullYear())) : (this.pickerContainer.style.visibility = "hidden", this.pickerContainer.style.opacity = "0", this.monthDisplay && this.yearDisplay && (this.monthDisplay.style.opacity = "1", this.yearDisplay.style.opacity = "1"), this.yearPickerOffsetTemporary = 0);
+  }, e.prototype.handleMonthPickerClick = function (e) {
+    if (!e.target.classList.contains("calendar__picker-month-option")) return;
+    const t = parseInt(e.target.dataset.value, 10);
+    this.updateMonthPickerSelection(t), this.updateCurrentDate(0, void 0, t), this.togglePicker(!1);
+  }, e.prototype.updateMonthPickerSelection = function (e) {
+    e < 0 ? e = 11 : e %= 12, this.removeMonthPickerSelection(), this.pickerMonthContainer.children[e].classList.add("calendar__picker-month-selected");
+  }, e.prototype.removeMonthPickerSelection = function () {
+    for (let e = 0; e < 12; e++) this.pickerMonthContainer.children[e].classList.contains("calendar__picker-month-selected") && this.pickerMonthContainer.children[e].classList.remove("calendar__picker-month-selected");
+  }, e.prototype.handleYearPickerClick = function (e) {
+    if (!e.target.classList.contains("calendar__picker-year-option")) return;
+    this.yearPickerOffset += this.yearPickerOffsetTemporary;
+    const t = parseInt(e.target.innerText),
+          a = parseInt(e.target.dataset.value);
+    this.updateYearPickerSelection(t, a), this.updateCurrentDate(0, void 0, void 0, t), this.togglePicker(!1);
+  }, e.prototype.updateYearPickerSelection = function (e, t) {
+    if (void 0 === t) {
+      for (let a = 0; a < 12; a++) {
+        let i = this.pickerYearContainer.children[a];
+
+        if (parseInt(i.innerHTML) === e && i.dataset.value) {
+          t = parseInt(i.dataset.value);
+          break;
+        }
+      }
+
+      if (void 0 === t) return;
+    }
+
+    this.removeYearPickerSelection(), this.pickerYearContainer.children[t].classList.add("calendar__picker-year-selected");
+  }, e.prototype.updateYearPickerTodaySelection = function () {
+    parseInt(this.pickerYearContainer.children[4].innerHTML) === this.today.getFullYear() ? this.pickerYearContainer.children[4].classList.add("calendar__picker-year-today") : this.pickerYearContainer.children[4].classList.remove("calendar__picker-year-today");
+  }, e.prototype.removeYearPickerSelection = function () {
+    for (let e = 0; e < 12; e++) this.pickerYearContainer.children[e].classList.contains("calendar__picker-year-selected") && this.pickerYearContainer.children[e].classList.remove("calendar__picker-year-selected");
+  }, e.prototype.generatePickerYears = function () {
+    const e = this.today.getFullYear() + this.yearPickerOffset + this.yearPickerOffsetTemporary;
+    let t = 0;
+
+    for (let a = e - 4; a <= e + 7; a++) {
+      this.pickerYearContainer.children[t].innerText = a.toString(), t++;
+    }
+
+    this.updateYearPickerTodaySelection();
+  }, e.prototype.handleYearChevronLeftClick = function () {
+    this.yearPickerOffsetTemporary -= 12, this.generatePickerYears(), this.removeYearPickerSelection(), this.updateYearPickerSelection(this.currentDate.getFullYear()), this.updateYearPickerTodaySelection();
+  }, e.prototype.handleYearChevronRightClick = function () {
+    this.yearPickerOffsetTemporary += 12, this.generatePickerYears(), this.removeYearPickerSelection(), this.updateYearPickerSelection(this.currentDate.getFullYear()), this.updateYearPickerTodaySelection();
+  }, e.prototype.setMonthDisplayType = function (e) {
+    this.monthDisplayType = e, this.updateMonthYear();
+  }, e.prototype.handleMonthYearDisplayClick = function (e) {
+    if (!e.target.classList.contains("calendar__month") && !e.target.classList.contains("calendar__year")) return;
+    if (this.disableMonthYearPickers) return;
+    const t = this.pickerType,
+          a = e.target.classList;
+    a.contains("calendar__month") ? (this.pickerType = "month", this.monthDisplay.style.opacity = "1", this.yearDisplay.style.opacity = "0.7", this.pickerMonthContainer.style.display = "grid", this.pickerYearContainer.style.display = "none") : a.contains("calendar__year") && (this.pickerType = "year", this.monthDisplay.style.opacity = "0.7", this.yearDisplay.style.opacity = "1", this.pickerMonthContainer.style.display = "none", this.pickerYearContainer.style.display = "grid"), t === this.pickerType ? this.togglePicker() : this.togglePicker(!0);
+  }, e.prototype.handlePrevMonthButtonClick = function () {
+    if (this.disableMonthArrowClick) return;
+    const e = this.currentDate.getMonth() - 1;
+    this.currentDate.getFullYear() <= this.today.getFullYear() + this.yearPickerOffset - 4 && e < 0 && (this.yearPickerOffset -= 12, this.generatePickerYears()), e < 0 && this.updateYearPickerSelection(this.currentDate.getFullYear() - 1), this.updateMonthPickerSelection(e), this.updateCurrentDate(-1), this.togglePicker(!1);
+  }, e.prototype.handleNextMonthButtonClick = function () {
+    if (this.disableMonthArrowClick) return;
+    const e = this.currentDate.getMonth() + 1;
+    this.currentDate.getFullYear() >= this.today.getFullYear() + this.yearPickerOffset + 7 && e > 11 && (this.yearPickerOffset += 12, this.generatePickerYears()), e > 11 && this.updateYearPickerSelection(this.currentDate.getFullYear() + 1), this.updateMonthPickerSelection(e), this.updateCurrentDate(1), this.togglePicker(!1);
+  }, e.prototype.updateMonthYear = function () {
+    this.oldSelectedNode = null, this.customMonthValues ? this.monthDisplay.innerHTML = this.customMonthValues[this.currentDate.getMonth()] : this.monthDisplay.innerHTML = new Intl.DateTimeFormat("default", {
+      month: this.monthDisplayType
+    }).format(this.currentDate), this.yearDisplay.innerHTML = this.currentDate.getFullYear().toString();
+  }, e.prototype.setWeekdayDisplayType = function (e) {
+    var t;
+    this.weekdayDisplayType = e, this.weekdays = null !== (t = this.weekdayDisplayTypeOptions[this.weekdayDisplayType]) && void 0 !== t ? t : this.weekdayDisplayTypeOptions.short, this.generateWeekdays();
+  }, e.prototype.generateWeekdays = function () {
+    let e = "";
+
+    for (let t = 0; t < 7; t++) e += `\n      <div class="calendar__weekday">${this.weekdays[(t + this.startWeekday) % 7]}</div>\n    `;
+
+    this.calendarWeekdays.innerHTML = e;
+  }, e.prototype.setDate = function (e) {
+    e && (e instanceof Date ? this.reset(e) : this.reset(new Date(e)));
+  }, e.prototype.getSelectedDate = function () {
+    return this.currentDate;
+  }, e.prototype.clearCalendarDays = function () {
+    this.daysIn_PrevMonth = [], this.daysIn_CurrentMonth = [], this.daysIn_NextMonth = [];
+  }, e.prototype.updateCalendar = function (e) {
+    e && (this.updateMonthYear(), this.clearCalendarDays(), this.generateDays(), this.selectDayInitial()), this.renderDays(), e && this.setOldSelectedNode();
+  }, e.prototype.setOldSelectedNode = function () {
+    if (!this.oldSelectedNode) {
+      let e = void 0;
+
+      for (let t = 1; t < this.calendarDays.childNodes.length; t += 2) {
+        let a = this.calendarDays.childNodes[t];
+
+        if (a.classList && a.classList.contains("calendar__day-active") && a.innerText === this.currentDate.getDate().toString()) {
+          e = a;
+          break;
+        }
+      }
+
+      e && (this.oldSelectedNode = [e, parseInt(e.innerText)]);
+    }
+  }, e.prototype.selectDayInitial = function (e) {
+    if (e) this.daysIn_CurrentMonth[this.currentDate.getDate() - 1].selected = !0;else {
+      let e = this.today.getMonth() === this.currentDate.getMonth(),
+          t = this.today.getDate() === this.currentDate.getDate();
+      e && t ? this.daysIn_CurrentMonth[this.today.getDate() - 1].selected = !0 : this.daysIn_CurrentMonth[0].selected = !0;
+    }
+  }, e.prototype.handleCalendarDayClick = function (e) {
+    if (!(e.target.classList.contains("calendar__day-box") || e.target.classList.contains("calendar__day-text") || e.target.classList.contains("calendar__day-box-today") || e.target.classList.contains("calendar__day-bullet"))) return;
+    if (this.disableDayClick) return;
+    if (this.oldSelectedNode && !this.oldSelectedNode[0]) return;
+    if (e.target.parentElement.classList.contains("calendar__day-selected")) return void (this.selectedDateClicked && this.selectedDateClicked(this.currentDate, this.getDateEvents(this.currentDate)));
+    let t, a;
+    t = e.target.parentElement.innerText, a = parseInt(t, 10), this.removeOldDaySelection(), t && (this.updateCurrentDate(0, a), Object.assign(this.daysIn_CurrentMonth[a - 1], {
+      selected: !0
+    }), this.rerenderSelectedDay(e.target.parentElement, a, !0));
+  }, e.prototype.removeOldDaySelection = function () {
+    this.oldSelectedNode && (Object.assign(this.daysIn_CurrentMonth[this.oldSelectedNode[1] - 1], {
+      selected: !1
+    }), this.rerenderSelectedDay(this.oldSelectedNode[0], this.oldSelectedNode[1]));
+  }, e.prototype.updateCurrentDate = function (e, t, a, i) {
+    this.currentDate = new Date(i || this.currentDate.getFullYear(), null != a ? a : this.currentDate.getMonth() + e, 0 === e && t ? t : 1), (0 !== e || null != a || i) && (this.updateCalendar(!0), this.monthChanged && this.monthChanged(this.currentDate, this.getMonthEvents())), this.dateChanged && this.dateChanged(this.currentDate, this.getDateEvents(this.currentDate));
+  }, e.prototype.generateDays = function () {
+    this.numOfDays_PrevMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate(), this.firstDay_CurrentMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1).getDay(), this.numOfDays_CurrentMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
+
+    for (let e = 0; e < this.numOfDays_CurrentMonth; e++) this.daysIn_CurrentMonth.push({
+      day: e + 1,
+      selected: !1
+    });
+  }, e.prototype.renderDays = function () {
+    let e = 0;
+    const t = this.currentDate.getFullYear(),
+          a = this.currentDate.getMonth();
+    let i;
+    this.filteredEventsThisMonth = this.eventsData.filter(e => {
+      const i = new Date(e.start);
+      return i.getFullYear() === t && i.getMonth() === a;
+    }), this.eventDayMap = {}, this.filteredEventsThisMonth.forEach(e => {
+      const t = new Date(e.start).getDate(),
+            a = new Date(e.end).getDate();
+
+      for (let e = t; e <= a; e++) this.eventDayMap[e] = !0;
+    }), i = this.firstDay_CurrentMonth < this.startWeekday ? 7 + this.firstDay_CurrentMonth - this.startWeekday : this.firstDay_CurrentMonth - this.startWeekday;
+    let r = "";
+
+    for (let t = 0; t < i; t++) r += `\n      <div class="calendar__day calendar__day-other">${this.numOfDays_PrevMonth + 1 - i + t}</div>\n    `, e++;
+
+    let n = this.today.getFullYear() === this.currentDate.getFullYear(),
+        s = this.today.getMonth() === this.currentDate.getMonth() && n;
+    this.daysIn_CurrentMonth.forEach(t => {
+      let a = s && t.day === this.today.getDate();
+      r += `\n      <div class="calendar__day calendar__day-active${a ? " calendar__day-today" : ""}${this.eventDayMap[t.day] ? " calendar__day-event" : " calendar__day-no-event"}${t.selected ? " calendar__day-selected" : ""}">\n        <span class="calendar__day-text">${t.day}</span>\n        <div class="calendar__day-bullet"></div>\n        <div class="calendar__day-box"></div>\n      </div>\n    `, e++;
+    });
+
+    for (let t = 0; t < this.DAYS_TO_DISPLAY - e; t++) r += `\n      <div class="calendar__day calendar__day-other">${t + 1}</div>\n    `;
+
+    this.calendarDays.innerHTML = r;
+  }, e.prototype.rerenderSelectedDay = function (e, t, a) {
+    let i = e.previousElementSibling,
+        r = this.today.getFullYear() === this.currentDate.getFullYear(),
+        n = this.today.getMonth() === this.currentDate.getMonth() && r && t === this.today.getDate(),
+        s = document.createElement("div");
+    s.className += `calendar__day calendar__day-active${n ? " calendar__day-today" : ""}${this.eventDayMap[t] ? " calendar__day-event" : " calendar__day-no-event"}${this.daysIn_CurrentMonth[t - 1].selected ? " calendar__day-selected" : ""}`, s.innerHTML = `\n    <span class="calendar__day-text">${t}</span>\n    <div class="calendar__day-bullet"></div>\n    <div class="calendar__day-box"></div>\n  `, i ? i.parentElement ? i.parentElement.insertBefore(s, i.nextSibling) : console.log("Previous element does not have parent") : this.calendarDays.insertBefore(s, e), a && (this.oldSelectedNode = [s, t]), e.remove();
+  }, e.prototype.getEventsData = function () {
+    return JSON.parse(JSON.stringify(this.eventsData));
+  }, e.prototype.setEventsData = function (e) {
+    return this.eventsData = JSON.parse(JSON.stringify(e)), this.setDate(this.currentDate), this.eventsData.length;
+  }, e.prototype.addEventsData = function (e = []) {
+    const t = this.eventsData.push(...e);
+    return this.setDate(this.currentDate), t;
+  }, e.prototype.getDateEvents = function (e) {
+    return this.filteredEventsThisMonth.filter(t => {
+      const a = new Date(t.start).getDate(),
+            i = new Date(t.end).getDate();
+      return e.getDate() >= a && e.getDate() <= i;
+    });
+  }, e.prototype.getMonthEvents = function () {
+    return this.filteredEventsThisMonth;
+  }, e;
+});
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/esm/_lib/requiredArgs/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/date-fns/esm/_lib/requiredArgs/index.js ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ requiredArgs; }
+/* harmony export */ });
+function requiredArgs(required, args) {
+  if (args.length < required) {
+    throw new TypeError(required + ' argument' + (required > 1 ? 's' : '') + ' required, but only ' + args.length + ' present');
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/esm/_lib/toInteger/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/date-fns/esm/_lib/toInteger/index.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ toInteger; }
+/* harmony export */ });
+function toInteger(dirtyNumber) {
+  if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
+    return NaN;
+  }
+
+  var number = Number(dirtyNumber);
+
+  if (isNaN(number)) {
+    return number;
+  }
+
+  return number < 0 ? Math.ceil(number) : Math.floor(number);
+}
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/esm/addMonths/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/date-fns/esm/addMonths/index.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ addMonths; }
+/* harmony export */ });
+/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_lib/toInteger/index.js */ "./node_modules/date-fns/esm/_lib/toInteger/index.js");
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toDate/index.js */ "./node_modules/date-fns/esm/toDate/index.js");
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_lib/requiredArgs/index.js */ "./node_modules/date-fns/esm/_lib/requiredArgs/index.js");
+
+
+
+/**
+ * @name addMonths
+ * @category Month Helpers
+ * @summary Add the specified number of months to the given date.
+ *
+ * @description
+ * Add the specified number of months to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of months to be added. Positive decimals will be rounded using `Math.floor`, decimals less than zero will be rounded using `Math.ceil`.
+ * @returns {Date} the new date with the months added
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Add 5 months to 1 September 2014:
+ * const result = addMonths(new Date(2014, 8, 1), 5)
+ * //=> Sun Feb 01 2015 00:00:00
+ */
+
+function addMonths(dirtyDate, dirtyAmount) {
+  (0,_lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(2, arguments);
+  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate);
+  var amount = (0,_lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dirtyAmount);
+
+  if (isNaN(amount)) {
+    return new Date(NaN);
+  }
+
+  if (!amount) {
+    // If 0 months, no-op to avoid changing times in the hour before end of DST
+    return date;
+  }
+
+  var dayOfMonth = date.getDate(); // The JS Date object supports date math by accepting out-of-bounds values for
+  // month, day, etc. For example, new Date(2020, 0, 0) returns 31 Dec 2019 and
+  // new Date(2020, 13, 1) returns 1 Feb 2021.  This is *almost* the behavior we
+  // want except that dates will wrap around the end of a month, meaning that
+  // new Date(2020, 13, 31) will return 3 Mar 2021 not 28 Feb 2021 as desired. So
+  // we'll default to the end of the desired month by adding 1 to the desired
+  // month and using a date of 0 to back up one day to the end of the desired
+  // month.
+
+  var endOfDesiredMonth = new Date(date.getTime());
+  endOfDesiredMonth.setMonth(date.getMonth() + amount + 1, 0);
+  var daysInMonth = endOfDesiredMonth.getDate();
+
+  if (dayOfMonth >= daysInMonth) {
+    // If we're already at the end of the month, then this is the correct date
+    // and we're done.
+    return endOfDesiredMonth;
+  } else {
+    // Otherwise, we now know that setting the original day-of-month value won't
+    // cause an overflow, so set the desired day-of-month. Note that we can't
+    // just set the date of `endOfDesiredMonth` because that object may have had
+    // its time changed in the unusual case where where a DST transition was on
+    // the last day of the month and its local time was in the hour skipped or
+    // repeated next to a DST transition.  So we use `date` instead which is
+    // guaranteed to still have the original time.
+    date.setFullYear(endOfDesiredMonth.getFullYear(), endOfDesiredMonth.getMonth(), dayOfMonth);
+    return date;
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/esm/startOfMonth/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/date-fns/esm/startOfMonth/index.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ startOfMonth; }
+/* harmony export */ });
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toDate/index.js */ "./node_modules/date-fns/esm/toDate/index.js");
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_lib/requiredArgs/index.js */ "./node_modules/date-fns/esm/_lib/requiredArgs/index.js");
+
+
+/**
+ * @name startOfMonth
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
+ *
+ * @description
+ * Return the start of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a month for 2 September 2014 11:55:00:
+ * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+
+function startOfMonth(dirtyDate) {
+  (0,_lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(1, arguments);
+  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate);
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/esm/toDate/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/date-fns/esm/toDate/index.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ toDate; }
+/* harmony export */ });
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_lib/requiredArgs/index.js */ "./node_modules/date-fns/esm/_lib/requiredArgs/index.js");
+
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @param {Date|Number} argument - the value to convert
+ * @returns {Date} the parsed date in the local time zone
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+
+function toDate(argument) {
+  (0,_lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(1, arguments);
+  var argStr = Object.prototype.toString.call(argument); // Clone the date
+
+  if (argument instanceof Date || typeof argument === 'object' && argStr === '[object Date]') {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new Date(argument.getTime());
+  } else if (typeof argument === 'number' || argStr === '[object Number]') {
+    return new Date(argument);
+  } else {
+    if ((typeof argument === 'string' || argStr === '[object String]') && typeof console !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"); // eslint-disable-next-line no-console
+
+      console.warn(new Error().stack);
+    }
+
+    return new Date(NaN);
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -9486,10 +9955,10 @@ else {}}).call(this);
 
 /***/ }),
 
-/***/ "./src/steps/constants.js":
-/*!********************************!*\
-  !*** ./src/steps/constants.js ***!
-  \********************************/
+/***/ "./src/booking/constants.js":
+/*!**********************************!*\
+  !*** ./src/booking/constants.js ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9503,12 +9972,13 @@ __webpack_require__.r(__webpack_exports__);
  * Helper file for webflow inplace.be booking_
  */
 const STEP = {
-  Services: 0,
-  Ironing: 1,
-  Cleaning: 2,
-  Duration: 3,
-  Availability: 4,
-  Contact: 5
+  PostalCode: 0,
+  Services: 1,
+  Ironing: 2,
+  Cleaning: 3,
+  Duration: 4,
+  Availability: 5,
+  Contact: 6
 };
 const SERVICE = {
   Cleaning: 'cleaning',
@@ -9525,10 +9995,10 @@ const EXTRA = {
 
 /***/ }),
 
-/***/ "./src/steps/dom.js":
-/*!**************************!*\
-  !*** ./src/steps/dom.js ***!
-  \**************************/
+/***/ "./src/booking/dom.js":
+/*!****************************!*\
+  !*** ./src/booking/dom.js ***!
+  \****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9636,6 +10106,18 @@ class DOM {
     document.getElementById(id).style.transform = 'none';
   }
   /**
+   * Postal Code
+   */
+
+
+  static get postalCode() {
+    return document.getElementById('postal-code');
+  }
+
+  static get postalCodeWarning() {
+    return document.getElementById('area-warning');
+  }
+  /**
    * Slider
    */
 
@@ -9645,11 +10127,11 @@ class DOM {
       return document.getElementById('booking-slider');
     }
 
-    static get nextButton() {
+    static get nextButtonAll() {
       return document.getElementById('booking-slider').querySelectorAll('.next-button-slide');
     }
 
-    static get backButton() {
+    static get backButtonAll() {
       return document.getElementById('booking-slider').querySelectorAll('.back-button-slide');
     }
 
@@ -9675,10 +10157,10 @@ class DOM {
 
 /***/ }),
 
-/***/ "./src/steps/model.js":
-/*!****************************!*\
-  !*** ./src/steps/model.js ***!
-  \****************************/
+/***/ "./src/booking/model.js":
+/*!******************************!*\
+  !*** ./src/booking/model.js ***!
+  \******************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9690,18 +10172,19 @@ __webpack_require__.r(__webpack_exports__);
  * Booking model
  */
 class BookingModel {
-  #steps;
+  steps;
 
   constructor(steps) {
-    this.#steps = steps;
+    this.steps = steps;
   }
-  /**
-   * Estimation calc
-   */
 
+  static getInstance() {
+    this.instance ??= new BookingModel();
+    return this.instance;
+  }
 
   get estimation() {
-    return Math.floor(Object.values(this.#steps).reduce((acc, s, i) => {
+    return Math.floor(Object.values(this.steps).reduce((acc, s, i) => {
       console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`); // eslint-disable-next-line no-param-reassign
 
       acc += s ? s.duration : 0;
@@ -9717,14 +10200,18 @@ class BookingModel {
     BookingModel.estimation = this.estimation;
   }
 
+  static get coverage() {
+    return ['1070', '1160', '1082', '1000', '1040', '1140', '1190', '1083', '1130', '1050', '1090', '1081', '1020', '1080', '1120', '1060', '1210', '1030', '1180', '1170', '1200', '1150'];
+  }
+
 }
 
 /***/ }),
 
-/***/ "./src/steps/navigation.js":
-/*!*********************************!*\
-  !*** ./src/steps/navigation.js ***!
-  \*********************************/
+/***/ "./src/booking/navigation.js":
+/*!***********************************!*\
+  !*** ./src/booking/navigation.js ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9732,14 +10219,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Navigation; }
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
-/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./model */ "./src/steps/model.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sequence */ "./src/steps/sequence.js");
-/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slider */ "./src/steps/slider.js");
-/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./steps */ "./src/steps/steps.js");
-
-
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./src/booking/model.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider */ "./src/booking/slider.js");
+/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./steps */ "./src/booking/steps/index.js");
 
 
 
@@ -9749,54 +10232,33 @@ class Navigation {
   #sequence;
   #model;
 
-  constructor() {
-    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.#slider = new _slider__WEBPACK_IMPORTED_MODULE_4__["default"](this.#sequence);
-    this.#model = new _model__WEBPACK_IMPORTED_MODULE_2__["default"](_steps__WEBPACK_IMPORTED_MODULE_5__["default"]); // Handle step validations
+  init() {
+    // Create model instance
+    this.#model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
+    this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_3__["default"];
+    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_2__["default"].getInstance();
+    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.#slider.sequence = this.#sequence; // Add handler for slider changes
 
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(true); // Setup event handlers
+    this.#slider.onChange = this.onChange.bind(this); // Init all steps
 
-    Object.values(_steps__WEBPACK_IMPORTED_MODULE_5__["default"]).forEach(s => {
-      s.observed.forEach(o => {
-        // eslint-disable-next-line no-param-reassign
-        o.elem.checked = false;
-        o.elem.addEventListener(o.event, this.#toggleNext.bind(this));
-      });
-    });
+    Object.values(_steps__WEBPACK_IMPORTED_MODULE_3__["default"]).forEach(s => s.init()); // Activate first step as 'back' to avoid autofollow
+
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][0].onActive('back');
   }
 
-  #updateNav() {
-    document.getElementsByClassName('step-number')[this.#slider.current].innerHTML = `Step ${this.#sequence.current + 1}/${this.#sequence.current === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services ? '-' : this.#sequence.total}`;
+  onChange(event) {
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][this.#slider.current].onActive(event);
   }
 
-  #toggleNext() {
-    const isDisabled = _steps__WEBPACK_IMPORTED_MODULE_5__["default"][this.#slider.current]?.isNextDisabled;
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].setNextButtonDisabled(isDisabled);
-  }
-
-  onNext() {
-    // Recalculate the sequence when leaving the first step
-    if (this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services) this.#sequence.reset();
-    this.#slider.next();
-    this.#updateNav(); // Update duration when loading Duration step
-
-    this.#slider.current === _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration && this.#model.updateEstimation();
-    this.#toggleNext();
-  }
-
-  onBack = () => {
-    this.#slider.prev();
-    this.#updateNav();
-    this.#toggleNext();
-  };
 }
 
 /***/ }),
 
-/***/ "./src/steps/sequence.js":
-/*!*******************************!*\
-  !*** ./src/steps/sequence.js ***!
-  \*******************************/
+/***/ "./src/booking/sequence.js":
+/*!*********************************!*\
+  !*** ./src/booking/sequence.js ***!
+  \*********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9804,8 +10266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Sequence; }
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
 
 
 /**
@@ -9819,9 +10281,9 @@ class Sequence {
     this.reset();
   }
 
-  reset() {
-    this.#current = 0;
-    let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
+  reset(keepCurrent = false) {
+    !keepCurrent && (this.#current = 0);
+    let seq = [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services];
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
     if (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) seq.push(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
     seq = seq.concat([_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability, _constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]);
@@ -9856,10 +10318,10 @@ class Sequence {
 
 /***/ }),
 
-/***/ "./src/steps/slider.js":
-/*!*****************************!*\
-  !*** ./src/steps/slider.js ***!
-  \*****************************/
+/***/ "./src/booking/slider.js":
+/*!*******************************!*\
+  !*** ./src/booking/slider.js ***!
+  \*******************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9867,9 +10329,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Slider; }
 /* harmony export */ });
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sequence */ "./src/steps/sequence.js");
-/* harmony import */ var _slider_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider.css */ "./src/steps/slider.css");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
+/* harmony import */ var _slider_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider.css */ "./src/booking/slider.css");
 
 
 
@@ -9880,17 +10342,24 @@ __webpack_require__.r(__webpack_exports__);
 
 class Slider {
   #sequence;
+  #onChange;
 
   constructor(sequence) {
-    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
-
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0); // Events to resize form after each step
+    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Events to resize form after each step
     // Seems that this works sometimes, but not always when the page
     // is loading
 
     window.addEventListener('load', () => this.resize(), false);
     window.addEventListener('resize', () => this.resize(), false);
-    this.resize();
+  }
+
+  static getInstance() {
+    this.instance ??= new Slider();
+    return this.instance;
+  }
+
+  set onChange(fn) {
+    this.#onChange = fn;
   }
 
   resize() {
@@ -9899,6 +10368,10 @@ class Slider {
 
   set sequence(sequence) {
     this.#sequence = sequence;
+  }
+
+  get sequence() {
+    return this.#sequence;
   }
 
   get current() {
@@ -9917,6 +10390,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(next);
     this.resize();
+    this.#onChange('next');
   }
 
   prev() {
@@ -9931,96 +10405,310 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
     this.resize();
+    this.#onChange('back');
   }
 
 }
 
 /***/ }),
 
-/***/ "./src/steps/step_config.js":
-/*!**********************************!*\
-  !*** ./src/steps/step_config.js ***!
-  \**********************************/
+/***/ "./src/booking/steps/availability.js":
+/*!*******************************************!*\
+  !*** ./src/booking/steps/availability.js ***!
+  \*******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CompoundStepConfig": function() { return /* binding */ CompoundStepConfig; },
-/* harmony export */   "StepConfig": function() { return /* binding */ StepConfig; }
+/* harmony export */   "default": function() { return /* binding */ AvailabilityStep; }
 /* harmony export */ });
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* eslint-disable lines-between-class-members */
+/* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* eslint-disable class-methods-use-this */
 
-/* eslint-disable max-classes-per-file */
 
-/**
- * Step configuration
-*  Example
-    new StepConfig()
-        .setNextDisabledFn()
-        .setObservedFn()
-        .setDurationFn()
- */
 
-class StepConfig {
-  #isNextDisabledFn;
-  #observedFn;
-  #durationFn;
-  #event;
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  #calendar;
 
   constructor() {
-    this.#isNextDisabledFn = () => false;
-
-    this.#observedFn = () => [];
-
-    this.#durationFn = () => 0;
-
-    this.#event = 'change';
+    super(_constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Availability);
   }
 
-  setNextDisabledFn(f) {
-    this.#isNextDisabledFn = f;
-    return this;
-  }
+  onActive() {
+    super.onActive(); // Update duration when loading Duration step
 
-  setObservedFn(f, event = 'change') {
-    this.#observedFn = f;
-    this.#event = event;
-    return this;
-  }
-
-  setDurationFn(f) {
-    this.#durationFn = f;
-    return this;
-  }
-
-  get isNextDisabled() {
-    return this.#isNextDisabledFn();
-  }
-
-  get observed() {
-    return this.#observedFn().map(e => ({
-      elem: e,
-      event: this.#event
-    }));
-  }
-
-  get duration() {
-    return this.#durationFn();
+    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal');
   }
 
 }
+
+/***/ }),
+
+/***/ "./src/booking/steps/base.js":
+/*!***********************************!*\
+  !*** ./src/booking/steps/base.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ BaseStep; }
+/* harmony export */ });
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./step */ "./src/booking/steps/step.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable class-methods-use-this */
+
+
+
 /**
- * Compounded Step Page
+ * Default step handler
+ * Handles next and prev events
  */
 
-class CompoundStepConfig extends StepConfig {
+class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  stepNo;
+
+  constructor(stepNo) {
+    super();
+    this.stepNo = stepNo;
+  }
+  /**
+   * Observer for next and back buttons
+   */
+
+
+  get observed() {
+    const set = [{
+      // Return only the button for the current slide
+      elem: _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButtonAll[this.stepNo],
+      event: 'click',
+      handler: this.onNext.bind(this)
+    }, {
+      // Disconsider the first step, as it does not have a back button
+      elem: _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButtonAll[this.stepNo - 1],
+      event: 'click',
+      handler: this.onBack.bind(this)
+    }, ...this.toggleNextWatcher.list.map(watcher => ({ ...watcher,
+      handler: this.toggleNext.bind(this)
+    }))];
+    return set;
+  }
+  /**
+   * Should be implemented in child classes
+   */
+
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  }
+
+  init() {
+    super.init();
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].setNextButtonDisabled(true); // Wierd bug but sometimes input start checked
+
+    this.toggleNextWatcher.list.forEach(e => e.elem.checked = false);
+  }
+
+  toggleNext(dontAutoFollow = false) {
+    const isDisabled = this.isNextDisabled;
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].setNextButtonDisabled(this.isNextDisabled); // Autofollow - used on first step
+    // The call from onBack must be handled manually since this method
+    // is also called above by event, where the parameter is not a boolean
+
+    const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
+    if (!isDisabled && !stopAutoFollow && this.autoFollow) this.slider.next();
+  }
+
+  onNext() {
+    this.slider.next();
+  }
+
+  onBack() {
+    this.slider.prev();
+  }
+
+  get sequence() {
+    return this.slider.sequence;
+  }
+  /**
+   * Triggered when slide becomes active
+   */
+
+
+  onActive(event) {
+    this.updateNav(); // Disable autofollow when going back
+
+    this.toggleNext(event === 'back');
+  }
+
+  updateNav() {
+    if (this.slider.current < 1) return;
+    document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = `Step ${this.sequence.currentIndex}/${this.sequence.total - 1}`;
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/cleaning.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/cleaning.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ CleaningStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _compound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./compound */ "./src/booking/steps/compound.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable max-classes-per-file */
+
+/* eslint-disable class-methods-use-this */
+
+
+
+
+
+/**
+ * Empty Step
+ */
+
+class BaseCleaningStep {
+  get isNextDisabled() {
+    return false;
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  }
+
+  get duration() {
+    return 0;
+  }
+
+}
+
+class Supplies extends BaseCleaningStep {
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getOption('supplies-conf', true);
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('supplies-conf'));
+  }
+
+}
+
+class Extras extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryCleaningExtras());
+  }
+
+  get duration() {
+    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
+    let total = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Windows) ? 1 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Cabinets) ? 1 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Fridge) ? 0.5 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Oven) ? 0.5 : 0;
+    return total;
+  }
+
+}
+
+class Home extends BaseCleaningStep {
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBedroomSelected() || !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBathroomSelected();
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('home-'));
+  }
+
+  get duration() {
+    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
+    const bedroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bedrooms', true)?.value;
+    const bathroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bathrooms', true)?.value;
+    let total = 0;
+
+    switch (bedroom) {
+      case '3':
+      case '4':
+        total += 1;
+        break;
+
+      case '5+':
+        total += 2;
+        break;
+
+      default:
+        break;
+    }
+
+    switch (bathroom) {
+      case '2':
+        total += 1;
+        break;
+
+      case '3':
+        total += 2;
+        break;
+
+      case '4+':
+        total += 3;
+        break;
+
+      default:
+        break;
+    }
+
+    return total;
+  }
+
+}
+
+class CleaningStep extends _compound__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning, new Supplies(), new Extras(), new Home());
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/compound.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/compound.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ CompoundStep; }
+/* harmony export */ });
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+
+
+/**
+ * Step with multiple validations for next button
+ */
+
+class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
   #steps;
 
-  constructor(...steps) {
-    super();
+  constructor(stepNo, ...steps) {
+    super(stepNo);
     this.#steps = steps;
   }
 
@@ -10028,104 +10716,139 @@ class CompoundStepConfig extends StepConfig {
     return this.#steps.reduce((acc, s) => acc || s.isNextDisabled, false);
   }
 
-  get observed() {
-    return lodash__WEBPACK_IMPORTED_MODULE_0___default().flatten(this.#steps.map(s => s.observed));
+  get toggleNextWatcher() {
+    const set = new _watcher__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.#steps.forEach(s => set.push(s.toggleNextWatcher.list));
+    return set;
   }
 
   get duration() {
     return this.#steps.reduce((acc, s) => acc + s.duration, 0);
   }
 
+  onNext() {
+    super.onNext();
+  }
+
+  onBack() {
+    super.onBack();
+  }
+
 }
 
 /***/ }),
 
-/***/ "./src/steps/steps.js":
-/*!****************************!*\
-  !*** ./src/steps/steps.js ***!
-  \****************************/
+/***/ "./src/booking/steps/duration.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/duration.js ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/steps/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
-/* harmony import */ var _step_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./step_config */ "./src/steps/step_config.js");
-/** *
- * STEPS CONFIGURATION
- ** */
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ DurationStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable class-methods-use-this */
 
 
 
-/**
- * Cleaning Service Step
- */
 
-const supplies = new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getOption('supplies-conf', true)).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('supplies-conf'));
-const extras = new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryCleaningExtras()).setDurationFn(() => {
-  if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
-  let total = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Windows) ? 1 : 0;
-  total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Cabinets) ? 1 : 0;
-  total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Fridge) ? 0.5 : 0;
-  total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Oven) ? 0.5 : 0;
-  return total;
-});
-const home = new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBedroomSelected() || !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBathroomSelected()).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('home-')).setDurationFn(() => {
-  if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
-  const bedroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bedrooms', true)?.value;
-  const bathroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bathrooms', true)?.value;
-  let total = 0;
-
-  switch (bedroom) {
-    case '3':
-    case '4':
-      total += 1;
-      break;
-
-    case '5+':
-      total += 2;
-      break;
-
-    default:
-      break;
+class DurationStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration);
   }
 
-  switch (bathroom) {
-    case '2':
-      total += 1;
-      break;
-
-    case '3':
-      total += 2;
-      break;
-
-    case '4+':
-      total += 3;
-      break;
-
-    default:
-      break;
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('frequency', true);
   }
 
-  return total;
-});
-/**
- * Steps flow
- */
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_3__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click');
+  }
+
+  onNext() {
+    super.onNext(); // Update duration when loading Duration step
+
+    this.model.updateEstimation();
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/index.js":
+/*!************************************!*\
+  !*** ./src/booking/steps/index.js ***!
+  \************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _availability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./availability */ "./src/booking/steps/availability.js");
+/* harmony import */ var _cleaning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cleaning */ "./src/booking/steps/cleaning.js");
+/* harmony import */ var _duration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./duration */ "./src/booking/steps/duration.js");
+/* harmony import */ var _ironing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ironing */ "./src/booking/steps/ironing.js");
+/* harmony import */ var _postalCode__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./postalCode */ "./src/booking/steps/postalCode.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services */ "./src/booking/steps/services.js");
+
+
+
+
+
+
 
 const Steps = {
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices().length === 0).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryServices()).setDurationFn(() => {
-    const services = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices();
-    let total = 0;
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _postalCode__WEBPACK_IMPORTED_MODULE_5__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _services__WEBPACK_IMPORTED_MODULE_6__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _ironing__WEBPACK_IMPORTED_MODULE_4__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning]: new _cleaning__WEBPACK_IMPORTED_MODULE_2__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _duration__WEBPACK_IMPORTED_MODULE_3__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability]: new _availability__WEBPACK_IMPORTED_MODULE_1__["default"]()
+};
+/* harmony default export */ __webpack_exports__["default"] = (Steps);
 
-    if (services.length > 1) {
-      total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cooking) ? 0.5 : 0;
-      total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Grocery) ? 0.5 : 0;
-    }
+/***/ }),
 
-    return total;
-  }),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedIroning()).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('ironing-size'), 'click').setDurationFn(() => {
+/***/ "./src/booking/steps/ironing.js":
+/*!**************************************!*\
+  !*** ./src/booking/steps/ironing.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ IroningStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable class-methods-use-this */
+
+
+
+
+class IroningStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
+  }
+
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedIroning();
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_3__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('ironing-size'), 'click');
+  }
+
+  get duration() {
     if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing)) return 0;
 
     switch (_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedIroning()) {
@@ -10147,18 +10870,513 @@ const Steps = {
       default:
         return 0;
     }
-  }),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.CompoundStepConfig(supplies, extras, home),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _step_config__WEBPACK_IMPORTED_MODULE_2__.StepConfig().setNextDisabledFn(() => !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('frequency', true)).setObservedFn(() => _dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click').setDurationFn(() => 0)
-};
-/* harmony default export */ __webpack_exports__["default"] = (Steps);
+  }
+
+}
 
 /***/ }),
 
-/***/ "./src/steps/slider.css":
+/***/ "./src/booking/steps/postalCode.js":
+/*!*****************************************!*\
+  !*** ./src/booking/steps/postalCode.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ PostalCodeStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model */ "./src/booking/model.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable class-methods-use-this */
+
+
+
+
+
+class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode);
+  }
+
+  init() {
+    super.init(); // Autofocus on input
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.autofocus = true;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.focus();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.setActive(0);
+    this.slider.resize();
+  }
+
+  get isNextDisabled() {
+    const pc = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode;
+    return pc.value.length !== pc.maxLength || !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value);
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"]([_dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode], 'input');
+  }
+
+  get observed() {
+    return [...super.observed, {
+      elem: _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode,
+      event: 'input',
+      handler: this.onPostalCodeInput
+    }];
+  }
+
+  onNext() {
+    // Remove focus to hide keyboard
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.blur();
+    document.activeElement.blur();
+    super.onNext();
+  }
+
+  get autoFollow() {
+    return true;
+  }
+
+  updateNav() {
+    // No such thing on this step
+    return null;
+  }
+
+  onPostalCodeInput(e) {
+    const pc = e.target;
+    if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength);
+    if (pc.value.length === pc.maxLength && !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value)) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarning.classList.add('msg-active');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarning.classList.remove('msg-active');
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/services.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/services.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ServicesStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable class-methods-use-this */
+
+
+
+
+class ServicesStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services);
+  }
+
+  get isNextDisabled() {
+    return _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices().length === 0;
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_3__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryServices());
+  }
+
+  get duration() {
+    const services = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices();
+    let total = 0;
+
+    if (services.length > 1) {
+      total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cooking) ? 0.5 : 0;
+      total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Grocery) ? 0.5 : 0;
+    }
+
+    return total;
+  }
+
+  updateNav() {
+    // No such thing on this step
+    document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = 'Step 1/-';
+  }
+
+  onNext() {
+    this.sequence.reset(true);
+    super.onNext();
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/step.js":
+/*!***********************************!*\
+  !*** ./src/booking/steps/step.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Step; }
+/* harmony export */ });
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../model */ "./src/booking/model.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../slider */ "./src/booking/slider.js");
+/* eslint-disable class-methods-use-this */
+
+/**
+ * Step configuration
+ */
+
+
+class Step {
+  slider;
+  model;
+
+  constructor() {
+    this.slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
+    this.model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
+  }
+
+  get observed() {
+    return [];
+  }
+
+  get isNextDisabled() {
+    return false;
+  }
+
+  get duration() {
+    return 0;
+  }
+
+  get autoFollow() {
+    return false;
+  }
+  /**
+   * Create event handlers for observed attributes
+   * expects an array of
+   *  elem
+   *  event = 'click'
+   *  handler = fn
+   */
+
+
+  init() {
+    this.observed.forEach(o => o?.elem?.addEventListener(o.event, o.handler));
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/watcher.js":
+/*!**************************************!*\
+  !*** ./src/booking/steps/watcher.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ToggleWatcher; }
+/* harmony export */ });
+/**
+ * Next button watcher
+ */
+class ToggleWatcher {
+  #list;
+
+  constructor(elems = [], event = 'change') {
+    this.#list = elems.map(e => ({
+      elem: e,
+      event
+    }));
+  }
+
+  push(entries) {
+    this.#list = this.#list.concat(entries);
+  }
+
+  get list() {
+    return this.#list;
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/calendar/main.js":
 /*!******************************!*\
-  !*** ./src/steps/slider.css ***!
+  !*** ./src/calendar/main.js ***!
   \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ CalendarController; }
+/* harmony export */ });
+/* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! color-calendar */ "./node_modules/color-calendar/dist/bundle.js");
+/* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(color_calendar__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var color_calendar_dist_css_theme_glass_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! color-calendar/dist/css/theme-glass.css */ "./node_modules/color-calendar/dist/css/theme-glass.css");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addMonths/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfMonth/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers_dates__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dates */ "./src/helpers/dates.js");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles.css */ "./src/calendar/styles.css");
+
+
+
+
+
+
+/**
+ * Constants
+ */
+
+const LoaderId = 'loaderBalls';
+/**
+ * Calendar Controller
+ */
+
+class CalendarController {
+  #placeHolderID;
+  #initialised;
+
+  constructor(placeHolderID) {
+    // Store requested weeks
+    this.cached = {};
+    this.#initialised = false;
+    this.#placeHolderID = placeHolderID;
+    const newLocal = this;
+    newLocal.calendar = new (color_calendar__WEBPACK_IMPORTED_MODULE_0___default())({
+      id: `#${placeHolderID}`,
+      theme: 'glass',
+      weekdayType: 'long-upper',
+      startWeekday: 1,
+      monthDisplayType: 'long',
+      primaryColor: '#2aae75',
+      fontFamilyHeader: 'Poppins, sans-serif',
+      fontFamilyWeekdays: 'Poppins, sans-serif',
+      fontFamilyBody: 'Poppins, sans-serif',
+      calendarSize: 'large',
+      layoutModifiers: ['month-left-align'],
+      dropShadow: '',
+      dateChanged: this.onDateChange,
+      monthChanged: this.onMonthChange
+    }); // Add loading animation
+
+    this.addLoadingAnimation();
+  }
+
+  async init() {
+    this.#initialised = true; // In case of no dates available in the current month, skip to the next one
+
+    if (this.calendar.getEventsData().length === 0) {
+      const curr = new Date();
+      const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(curr, 1);
+      await this.getMonthAvailability(next);
+    }
+
+    const slots = lodash__WEBPACK_IMPORTED_MODULE_2___default().sortBy(this.calendar.getEventsData(), 'start');
+
+    if (slots?.length > 0) this.calendar.setDate(slots[0]?.start);
+  }
+  /**
+   * Load more dates
+   */
+
+
+  onMonthChange = async (currentDate, events) => {
+    console.debug('::onMonthChange::', currentDate, events);
+    const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(currentDate);
+    await this.getMonthAvailability(firstDay);
+    if (!this.#initialised) this.init();
+  };
+  /**
+   * Load slots into view
+   * @param {*} currentDate
+   * @param {*} events
+   */
+  // eslint-disable-next-line class-methods-use-this
+
+  onDateChange = (currentDate, events) => {
+    console.debug('::onDateChange::', currentDate, events);
+  };
+  /**
+   * Start or stop loading animation
+   */
+  // eslint-disable-next-line class-methods-use-this
+
+  toggleLoading(isVisible) {
+    const loader = document.getElementById(LoaderId);
+    loader && (loader.style.visibility = isVisible ? 'visible' : 'hidden');
+  }
+  /**
+   * Create a hidden loading animation to be called in monthChange
+   */
+  // eslint-disable-next-line class-methods-use-this
+
+
+  addLoadingAnimation() {
+    // Add loading animation
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    loader.id = LoaderId;
+    loader.style.visibility = 'visible';
+    loader.innerHTML = `
+            <span class="loader__element"></span>
+        `;
+    document.getElementsByClassName('calendar__monthyear')[0].appendChild(loader);
+  }
+
+  async getMonthAvailability(startDate) {
+    this.toggleLoading(true);
+    await Promise.all((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.getMondays)(startDate).map(monday => this.getAvailability(monday)));
+    this.toggleLoading();
+  }
+  /**
+   * Get Availability
+   */
+
+
+  async getAvailability(weekStartDate) {
+    const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate);
+    if (weekStartDate < new Date() || this.cached[weekKey]) return;
+    this.cached[weekKey] = true;
+    console.log(`# WeekStart: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)}`);
+    const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
+    const params = new URLSearchParams({
+      code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
+      postalCode: 1000,
+      duration: 3,
+      recurrence: 'once',
+      weekSearchDate: (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)
+    });
+    url.search = params;
+    const res = await fetch(url);
+    const avail = await res.json(); // console.log(JSON.stringify(avail, null, 2))
+
+    const slotToEvent = slot => {
+      // Only add if it's still the same month as start of the week
+      // to avoid infinity loop with monthChanged event, which is triggered
+      // when a new event is added
+      if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return; // eslint-disable-next-line consistent-return
+
+      return {
+        start: new Date(slot.start_time),
+        end: new Date(slot.end_time),
+        start_time: slot.label,
+        employee: {
+          id: slot.affiliate_worker.worker_contract_id,
+          first_name: slot.affiliate_worker.first_name,
+          last_name: slot.affiliate_worker.last_name,
+          allergies: slot.affiliate_worker.allergies
+        }
+      };
+    };
+
+    const newEvents = lodash__WEBPACK_IMPORTED_MODULE_2___default().compact(avail?.data?.map(dateAvail => dateAvail.time_slots.map(slot => slotToEvent(slot))).flat());
+
+    newEvents.length > 0 && this.calendar.addEventsData(newEvents);
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/helpers/dates.js":
+/*!******************************!*\
+  !*** ./src/helpers/dates.js ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getMondays": function() { return /* binding */ getMondays; },
+/* harmony export */   "toISOStringShort": function() { return /* binding */ toISOStringShort; }
+/* harmony export */ });
+/**
+ * Return all mondays of the month
+ * @param {*} date
+ * @returns
+ */
+const getMondays = date => {
+  var d = date ? new Date(date.getTime()) : new Date(),
+      month = d.getMonth(),
+      mondays = [];
+  d.setDate(1); // Get all the other Mondays in the month
+
+  while (d.getMonth() === month) {
+    mondays.push(new Date(d.getTime()));
+    d.setDate(d.getDate() + 7);
+  }
+
+  return mondays;
+};
+/**
+ * Return YYYY-MM-DD
+ */
+
+
+const toISOStringShort = date => {
+  return new Date(date).toISOString().slice(0, 10);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/color-calendar/dist/css/theme-glass.css":
+/*!**************************************************************!*\
+  !*** ./node_modules/color-calendar/dist/css/theme-glass.css ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/booking/slider.css":
+/*!********************************!*\
+  !*** ./src/booking/slider.css ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/booking/style.css":
+/*!*******************************!*\
+  !*** ./src/booking/style.css ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/calendar/styles.css":
+/*!*********************************!*\
+  !*** ./src/calendar/styles.css ***!
+  \*********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10264,12 +11482,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!***************************!*\
-  !*** ./src/steps/main.js ***!
-  \***************************/
+/*!*****************************!*\
+  !*** ./src/booking/main.js ***!
+  \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/steps/dom.js");
-/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/steps/navigation.js");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");
 /* eslint-disable no-var */
 
 
@@ -10278,9 +11496,9 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 const sliderController = () => {
-  const nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButton.forEach(e => e.addEventListener('click', nav.onNext.bind(nav)));
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButton.forEach(e => e.addEventListener('click', nav.onBack.bind(nav)));
+  //  ONly starts after page is loaded
+  const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  navController.init();
 }; // eslint-disable-next-line no-use-before-define
 
 
@@ -10289,4 +11507,4 @@ Webflow.push(sliderController);
 }();
 /******/ })()
 ;
-//# sourceMappingURL=Steps.js.map
+//# sourceMappingURL=Booking.js.map

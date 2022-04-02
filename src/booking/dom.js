@@ -98,6 +98,17 @@ export default class DOM {
     }
 
     /**
+     * Postal Code
+     */
+    static get postalCode() {
+        return document.getElementById('postal-code')
+    }
+
+    static get postalCodeWarning() {
+        return document.getElementById('area-warning')
+    }
+
+    /**
      * Slider
      */
     static slider = class {
@@ -105,11 +116,11 @@ export default class DOM {
             return document.getElementById('booking-slider')
         }
 
-        static get nextButton() {
+        static get nextButtonAll() {
             return document.getElementById('booking-slider').querySelectorAll('.next-button-slide')
         }
 
-        static get backButton() {
+        static get backButtonAll() {
             return document.getElementById('booking-slider').querySelectorAll('.back-button-slide')
         }
 

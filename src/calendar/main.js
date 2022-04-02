@@ -13,16 +13,20 @@ const LoaderId = 'loaderBalls'
 /**
  * Calendar Controller
  */
-export class Controller {
-    constructor() {
+export default class CalendarController {
+    #placeHolderID
+    #initialised
+
+    constructor(placeHolderID) {
         // Store requested weeks
         this.cached = {}
 
-        this._initialised = false
+        this.#initialised = false
+        this.#placeHolderID = placeHolderID
 
         const newLocal = this
         newLocal.calendar = new Calendar({
-            id: '#availability-cal',
+            id: `#${placeHolderID}`,
             theme: 'glass',
             weekdayType: 'long-upper',
             startWeekday: 1,
@@ -42,7 +46,7 @@ export class Controller {
     }
 
     async init() {
-        this._initialised = true
+        this.#initialised = true
 
         // In case of no dates available in the current month, skip to the next one
         if (this.calendar.getEventsData().length === 0) {
@@ -63,7 +67,7 @@ export class Controller {
         console.debug('::onMonthChange::', currentDate, events)
         const firstDay = startOfMonth(currentDate)
         await this.getMonthAvailability(firstDay)
-        if (!this._initialised) this.init()
+        if (!this.#initialised) this.init()
     }
 
     /**
@@ -71,6 +75,7 @@ export class Controller {
      * @param {*} currentDate
      * @param {*} events
      */
+    // eslint-disable-next-line class-methods-use-this
     onDateChange = (currentDate, events) => {
         console.debug('::onDateChange::', currentDate, events)
     }
@@ -78,20 +83,22 @@ export class Controller {
     /**
      * Start or stop loading animation
      */
+    // eslint-disable-next-line class-methods-use-this
     toggleLoading(isVisible) {
         const loader = document.getElementById(LoaderId)
-        loader && (loader.style.display = isVisible ? '' : 'none')
+        loader && (loader.style.visibility = isVisible ? 'visible' : 'hidden')
     }
 
     /**
      * Create a hidden loading animation to be called in monthChange
      */
+    // eslint-disable-next-line class-methods-use-this
     addLoadingAnimation() {
         // Add loading animation
         const loader = document.createElement('div')
         loader.classList.add('loader')
         loader.id = LoaderId
-        loader.style.display = 'none'
+        loader.style.visibility = 'visible'
         loader.innerHTML = `
             <span class="loader__element"></span>
         `
@@ -136,6 +143,7 @@ export class Controller {
             // when a new event is added
             if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return
 
+            // eslint-disable-next-line consistent-return
             return {
                 start: new Date(slot.start_time),
                 end: new Date(slot.end_time),

@@ -10125,7 +10125,7 @@ var __webpack_exports__ = {};
   \******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Controller": function() { return /* binding */ Controller; }
+/* harmony export */   "default": function() { return /* binding */ CalendarController; }
 /* harmony export */ });
 /* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! color-calendar */ "./node_modules/color-calendar/dist/bundle.js");
 /* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(color_calendar__WEBPACK_IMPORTED_MODULE_0__);
@@ -10151,14 +10151,18 @@ const LoaderId = 'loaderBalls';
  * Calendar Controller
  */
 
-class Controller {
-  constructor() {
+class CalendarController {
+  #placeHolderID;
+  #initialised;
+
+  constructor(placeHolderID) {
     // Store requested weeks
     this.cached = {};
-    this._initialised = false;
+    this.#initialised = false;
+    this.#placeHolderID = placeHolderID;
     const newLocal = this;
     newLocal.calendar = new (color_calendar__WEBPACK_IMPORTED_MODULE_0___default())({
-      id: '#availability-cal',
+      id: `#${placeHolderID}`,
       theme: 'glass',
       weekdayType: 'long-upper',
       startWeekday: 1,
@@ -10178,7 +10182,7 @@ class Controller {
   }
 
   async init() {
-    this._initialised = true; // In case of no dates available in the current month, skip to the next one
+    this.#initialised = true; // In case of no dates available in the current month, skip to the next one
 
     if (this.calendar.getEventsData().length === 0) {
       const curr = new Date();
@@ -10199,13 +10203,14 @@ class Controller {
     console.debug('::onMonthChange::', currentDate, events);
     const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(currentDate);
     await this.getMonthAvailability(firstDay);
-    if (!this._initialised) this.init();
+    if (!this.#initialised) this.init();
   };
   /**
    * Load slots into view
    * @param {*} currentDate
    * @param {*} events
    */
+  // eslint-disable-next-line class-methods-use-this
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
@@ -10213,14 +10218,16 @@ class Controller {
   /**
    * Start or stop loading animation
    */
+  // eslint-disable-next-line class-methods-use-this
 
   toggleLoading(isVisible) {
     const loader = document.getElementById(LoaderId);
-    loader && (loader.style.display = isVisible ? '' : 'none');
+    loader && (loader.style.visibility = isVisible ? 'visible' : 'hidden');
   }
   /**
    * Create a hidden loading animation to be called in monthChange
    */
+  // eslint-disable-next-line class-methods-use-this
 
 
   addLoadingAnimation() {
@@ -10228,7 +10235,7 @@ class Controller {
     const loader = document.createElement('div');
     loader.classList.add('loader');
     loader.id = LoaderId;
-    loader.style.display = 'none';
+    loader.style.visibility = 'visible';
     loader.innerHTML = `
             <span class="loader__element"></span>
         `;
@@ -10266,7 +10273,8 @@ class Controller {
       // Only add if it's still the same month as start of the week
       // to avoid infinity loop with monthChanged event, which is triggered
       // when a new event is added
-      if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return;
+      if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return; // eslint-disable-next-line consistent-return
+
       return {
         start: new Date(slot.start_time),
         end: new Date(slot.end_time),

@@ -16,7 +16,8 @@
                 "@babel/syntax-dynamic-import",
                 "@babel/plugin-transform-runtime",
                 "@babel/plugin-proposal-optional-chaining",
-                "@babel/plugin-proposal-class-properties"
+                "@babel/plugin-proposal-class-properties",
+                "lodash"
             ],
             "presets": [
                 [
@@ -52,6 +53,7 @@
         "func-style": ["error", "expression", { "allowArrowFunctions": true }],
         "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
         "no-self-assign": ["error", { "props": false }],
+        "constructor-super": "error",
         "prefer-arrow/prefer-arrow-functions": [
             "error",
             {

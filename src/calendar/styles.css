@@ -1,7 +1,49 @@
-:root {
-    --main-color: transparent;
-    --point-color: #f8f4ee;
-    --size: 3px;
+.color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {
+    position: absolute;
+    top: 80%;
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    left: 45%;
+    overflow: hidden;
+    cursor: pointer;
+
+    animation: bouncy 0.5s linear forwards;
+}
+
+@keyframes bouncy {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.color-calendar
+    .calendar__days
+    .calendar__day-selected:not(.calendar__day-today)
+    .calendar__day-box {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(55% + 11px);
+    height: 100%;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.color-calendar.glass .calendar__days .calendar__day-selected .calendar__day-box {
+    border-radius: 0.5rem;
+    background-color: var(--cal-color-primary);
+    opacity: 1;
+    box-shadow: 0 0px 0px 0px var(--cal-color-primary);
 }
 
 .loader {
@@ -9,18 +51,23 @@
     overflow: hidden;
     position: relative;
     top: 0;
-    left: 10px;
     display: flex;
     align-items: center;
     align-content: center;
-    justify-content: right;
+    justify-content: center;
     z-index: 100000;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
 }
 
 .loader__element {
     border-radius: 100%;
     border: var(--size) solid var(--point-color);
-    margin: calc(var(--size) * 2);
+    margin: calc(var(--size) * 3);
+    width: 5px;
+    height: 5px;
+    background: white;
 }
 
 .loader__element:nth-child(1) {
@@ -36,6 +83,6 @@
 
 @keyframes preloader {
     100% {
-        transform: scale(3);
+        transform: scale(4);
     }
 }

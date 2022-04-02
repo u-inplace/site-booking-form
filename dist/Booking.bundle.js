@@ -10531,6 +10531,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     const template = document.getElementById('start-time-template'); // Clean up existing entries
 
     document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(options)) document.getElementById('aval-warning').classList.add('.msg-active');else document.getElementById('aval-warning').classList.remove('.msg-active');
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(options, 'start_time').forEach(option => {
       const node = template.cloneNode(true);

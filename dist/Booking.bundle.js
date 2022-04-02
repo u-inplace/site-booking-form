@@ -10717,7 +10717,9 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   get toggleNextWatcher() {
-    return this.#steps.reduce((acc, s) => acc.push(s.toggleNextWatcher.list), new _watcher__WEBPACK_IMPORTED_MODULE_1__["default"]());
+    const set = new _watcher__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.#steps.forEach(s => set.push(s.toggleNextWatcher.list));
+    return set;
   }
 
   get duration() {

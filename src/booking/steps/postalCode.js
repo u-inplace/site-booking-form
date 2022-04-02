@@ -33,6 +33,12 @@ export default class PostalCodeStep extends BaseStep {
         ]
     }
 
+    onNext() {
+        // Remove focus to hide keyboard
+        DOM.postalCode.blur()
+        super.onNext()
+    }
+
     get autoFollow() {
         return true
     }

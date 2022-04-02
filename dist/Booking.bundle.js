@@ -10927,6 +10927,12 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     }];
   }
 
+  onNext() {
+    // Remove focus to hide keyboard
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.blur();
+    super.onNext();
+  }
+
   get autoFollow() {
     return true;
   }

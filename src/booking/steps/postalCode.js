@@ -15,6 +15,8 @@ export default class PostalCodeStep extends BaseStep {
         // Autofocus on input
         DOM.postalCode.autofocus = true
         DOM.postalCode.focus()
+
+        DOM.slider.setActive(0)
     }
 
     get isNextDisabled() {

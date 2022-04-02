@@ -9,12 +9,10 @@ import ToggleWatcher from './watcher'
  */
 export default class DefaultStep extends Step {
     stepNo
-    sequence
 
     constructor(stepNo) {
         super()
         this.stepNo = stepNo
-        this.sequence = this.slider.sequence
     }
 
     /**
@@ -72,6 +70,10 @@ export default class DefaultStep extends Step {
 
     onBack() {
         this.slider.prev()
+    }
+
+    get sequence() {
+        return this.slider.sequence
     }
 
     /**

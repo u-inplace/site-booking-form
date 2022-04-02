@@ -10638,12 +10638,10 @@ __webpack_require__.r(__webpack_exports__);
 
 class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   stepNo;
-  sequence;
 
   constructor(stepNo) {
     super();
     this.stepNo = stepNo;
-    this.sequence = this.slider.sequence;
   }
   /**
    * Observer for next and back buttons
@@ -10696,6 +10694,10 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   onBack() {
     this.slider.prev();
+  }
+
+  get sequence() {
+    return this.slider.sequence;
   }
   /**
    * Triggered when slide becomes active

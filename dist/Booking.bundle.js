@@ -10183,6 +10183,10 @@ class DOM {
       document.getElementById('summary-occurrence').innerText = freq;
     }
 
+    static set payment(value) {
+      document.getElementById('summary-payment').innerText = value;
+    }
+
   };
 }
 
@@ -10488,6 +10492,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
       duration
     } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.payment = `${duration} titres-services`;
     const {
       occurrence
     } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];

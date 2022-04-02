@@ -31,6 +31,7 @@ export default class AvailabilityStep extends BaseStep {
 
         const { duration } = DOM
         DOM.summary.duration = `${duration}h`
+        DOM.summary.payment = `${duration} titres-services`
 
         const { occurrence } = DOM
         DOM.summary.occurrence = occurrence

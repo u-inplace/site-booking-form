@@ -170,5 +170,9 @@ export default class DOM {
         static set occurrence(freq) {
             document.getElementById('summary-occurrence').innerText = freq
         }
+
+        static set payment(value) {
+            document.getElementById('summary-payment').innerText = value
+        }
     }
 }

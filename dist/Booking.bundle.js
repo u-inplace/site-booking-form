@@ -10534,11 +10534,11 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
       node.style.display = 'block';
       node.classList.add('start-time'); // Handle clicks on option
 
-      const radio = node.getElementsByClassName('start-time-radio');
+      const radio = node.getElementsByClassName('start-time-radio')[0];
       radio.addEventListener('click', this.onStartTimeSelect.bind(this));
       radio.setAttribute('id', '');
       radio.value = option.start_time;
-      const label = node.getElementsByClassName('start-time-text');
+      const label = node.getElementsByClassName('start-time-text')[0];
       label.innerText = option.start_time;
       document.getElementById('start-time-block').appendChild(node);
     });

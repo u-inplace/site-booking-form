@@ -10153,6 +10153,41 @@ class DOM {
     }
 
   };
+
+  static get duration() {
+    return document.getElementById('duration').value;
+  }
+
+  static get occurrence() {
+    return DOM.getRadio('frequency', true).value;
+  }
+  /** *
+   * Summary
+   */
+
+
+  static summary = class {
+    static activeService(service) {
+      document.getElementById(`summary-${service}`).classList.add('service-active');
+    }
+
+    static inactiveService(service) {
+      document.getElementById(`summary-${service}`).classList.remove('service-active');
+    }
+
+    static set duration(time) {
+      document.getElementById('summary-duration').innerText = time;
+    }
+
+    static set occurrence(freq) {
+      document.getElementById('summary-occurrence').innerText = freq;
+    }
+
+    static set payment(value) {
+      document.getElementById('summary-payment').innerText = value;
+    }
+
+  };
 }
 
 /***/ }),
@@ -10184,9 +10219,8 @@ class BookingModel {
   }
 
   get estimation() {
-    return Math.floor(Object.values(this.steps).reduce((acc, s, i) => {
-      console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`); // eslint-disable-next-line no-param-reassign
-
+    return Math.floor(Object.values(this.steps).reduce((acc, s) => {
+      // eslint-disable-next-line no-param-reassign
       acc += s ? s.duration : 0;
       return acc;
     }, 3.0));
@@ -10425,12 +10459,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* eslint-disable class-methods-use-this */
 
 
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   #calendar;
 
   constructor() {
@@ -10440,7 +10476,31 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
-    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal');
+    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal', {
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.value,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
+    });
+    this.#createSummary();
+  }
+  /**
+   * Read options and create a summary
+   */
+
+
+  #createSummary() {
+    // Selected services
+    const services = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
+    const {
+      duration
+    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.payment = `${duration} titres-services`;
+    const {
+      occurrence
+    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.occurrence = occurrence;
   }
 
 }
@@ -10521,7 +10581,11 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     // is also called above by event, where the parameter is not a boolean
 
     const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
-    if (!isDisabled && !stopAutoFollow && this.autoFollow) this.slider.next();
+
+    if (!isDisabled && !stopAutoFollow && this.autoFollow) {
+      // Wait a bit before going
+      setTimeout(() => this.slider.next(), 500);
+    }
   }
 
   onNext() {
@@ -10547,7 +10611,6 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
 
   updateNav() {
-    if (this.slider.current < 1) return;
     document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = `Step ${this.sequence.currentIndex}/${this.sequence.total - 1}`;
   }
 
@@ -10771,10 +10834,10 @@ class DurationStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
     return new _watcher__WEBPACK_IMPORTED_MODULE_3__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click');
   }
 
-  onNext() {
-    super.onNext(); // Update duration when loading Duration step
-
-    this.model.updateEstimation();
+  onActive(event) {
+    // Update duration when loading Duration step
+    if (event === 'next') this.model.updateEstimation();
+    super.onActive(event);
   }
 
 }
@@ -11149,10 +11212,13 @@ const LoaderId = 'loaderBalls';
 class CalendarController {
   #placeHolderID;
   #initialised;
+  #request;
+  #cached;
 
-  constructor(placeHolderID) {
+  constructor(placeHolderID, request = {}) {
     // Store requested weeks
-    this.cached = {};
+    this.#cached = {};
+    this.#request = request;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -11249,15 +11315,15 @@ class CalendarController {
 
   async getAvailability(weekStartDate) {
     const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate);
-    if (weekStartDate < new Date() || this.cached[weekKey]) return;
-    this.cached[weekKey] = true;
+    if (weekStartDate < new Date() || this.#cached[weekKey]) return;
+    this.#cached[weekKey] = true;
     console.log(`# WeekStart: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)}`);
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
-      postalCode: 1000,
-      duration: 3,
-      recurrence: 'once',
+      postalCode: this.#request.postalCode,
+      duration: this.#request.duration,
+      recurrence: this.#request.recurrence,
       weekSearchDate: (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)
     });
     url.search = params;

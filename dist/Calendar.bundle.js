@@ -10154,10 +10154,13 @@ const LoaderId = 'loaderBalls';
 class CalendarController {
   #placeHolderID;
   #initialised;
+  #request;
+  #cached;
 
-  constructor(placeHolderID) {
+  constructor(placeHolderID, request = {}) {
     // Store requested weeks
-    this.cached = {};
+    this.#cached = {};
+    this.#request = request;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -10254,15 +10257,15 @@ class CalendarController {
 
   async getAvailability(weekStartDate) {
     const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate);
-    if (weekStartDate < new Date() || this.cached[weekKey]) return;
-    this.cached[weekKey] = true;
+    if (weekStartDate < new Date() || this.#cached[weekKey]) return;
+    this.#cached[weekKey] = true;
     console.log(`# WeekStart: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)}`);
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
-      postalCode: 1000,
-      duration: 3,
-      recurrence: 'once',
+      postalCode: this.#request.postalCode,
+      duration: this.#request.duration,
+      recurrence: this.#request.recurrence,
       weekSearchDate: (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)
     });
     url.search = params;

@@ -142,4 +142,37 @@ export default class DOM {
                 (document.getElementsByClassName('form-mask')[0].style.height = `${height + 150}px`)
         }
     }
+
+    static get duration() {
+        return document.getElementById('duration').value
+    }
+
+    static get occurrence() {
+        return DOM.getRadio('frequency', true).value
+    }
+
+    /** *
+     * Summary
+     */
+    static summary = class {
+        static activeService(service) {
+            document.getElementById(`summary-${service}`).classList.add('service-active')
+        }
+
+        static inactiveService(service) {
+            document.getElementById(`summary-${service}`).classList.remove('service-active')
+        }
+
+        static set duration(time) {
+            document.getElementById('summary-duration').innerText = time
+        }
+
+        static set occurrence(freq) {
+            document.getElementById('summary-occurrence').innerText = freq
+        }
+
+        static set payment(value) {
+            document.getElementById('summary-payment').innerText = value
+        }
+    }
 }

@@ -15,8 +15,7 @@ export default class BookingModel {
 
     get estimation() {
         return Math.floor(
-            Object.values(this.steps).reduce((acc, s, i) => {
-                console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`)
+            Object.values(this.steps).reduce((acc, s) => {
                 // eslint-disable-next-line no-param-reassign
                 acc += s ? s.duration : 0
                 return acc

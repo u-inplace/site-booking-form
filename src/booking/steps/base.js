@@ -64,7 +64,10 @@ export default class BaseStep extends Step {
         // The call from onBack must be handled manually since this method
         // is also called above by event, where the parameter is not a boolean
         const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow
-        if (!isDisabled && !stopAutoFollow && this.autoFollow) this.slider.next()
+        if (!isDisabled && !stopAutoFollow && this.autoFollow) {
+            // Wait a bit before going
+            setTimeout(() => this.slider.next(), 500)
+        }
     }
 
     onNext() {
@@ -89,8 +92,6 @@ export default class BaseStep extends Step {
     }
 
     updateNav() {
-        if (this.slider.current < 1) return
-
         document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = `Step ${
             this.sequence.currentIndex
         }/${this.sequence.total - 1}`

@@ -10477,7 +10477,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     super.onActive(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal', {
-      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode,
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.value,
       duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
       recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
     });

@@ -10341,7 +10341,6 @@ __webpack_require__.r(__webpack_exports__);
 
 class Slider {
   #sequence;
-  #instance;
   #onChange;
 
   constructor(sequence) {
@@ -10357,8 +10356,8 @@ class Slider {
   }
 
   static get instance() {
-    this.#instance ??= new Slider();
-    return this.#instance;
+    this.instance ??= new Slider();
+    return this.instance;
   }
 
   set onChange(fn) {

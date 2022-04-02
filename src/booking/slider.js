@@ -8,7 +8,6 @@ import './slider.css'
  */
 export default class Slider {
     #sequence
-    #instance
     #onChange
 
     constructor(sequence) {
@@ -27,8 +26,8 @@ export default class Slider {
     }
 
     static get instance() {
-        this.#instance ??= new Slider()
-        return this.#instance
+        this.instance ??= new Slider()
+        return this.instance
     }
 
     set onChange(fn) {

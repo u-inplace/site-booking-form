@@ -22,6 +22,9 @@ export default class Navigation {
 
         // Init all steps
         Object.values(Steps).forEach(s => s.init())
+
+        // Activate first step
+        Steps[0].onActive()
     }
 
     onChange() {

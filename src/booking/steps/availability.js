@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import CalendarController from '../../calendar/main'
 import { STEP } from '../constants'
-import DefaultStep from './default'
+import BaseStep from './base'
 
-export default class AvailabilityStep extends DefaultStep {
+export default class AvailabilityStep extends BaseStep {
     #calendar
 
     constructor() {

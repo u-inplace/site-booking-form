@@ -2,10 +2,10 @@
 
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
-import DefaultStep from './default'
+import BaseStep from './base'
 import ToggleWatcher from './watcher'
 
-export default class IroningStep extends DefaultStep {
+export default class IroningStep extends BaseStep {
     constructor() {
         super(STEP.Ironing)
     }

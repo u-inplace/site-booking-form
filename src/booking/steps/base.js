@@ -7,7 +7,7 @@ import ToggleWatcher from './watcher'
  * Default step handler
  * Handles next and prev events
  */
-export default class DefaultStep extends Step {
+export default class BaseStep extends Step {
     stepNo
 
     constructor(stepNo) {

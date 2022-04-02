@@ -10425,12 +10425,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* eslint-disable class-methods-use-this */
 
 
 
-class AvailabilityStep extends _default__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   #calendar;
 
   constructor() {
@@ -10447,182 +10447,16 @@ class AvailabilityStep extends _default__WEBPACK_IMPORTED_MODULE_2__["default"] 
 
 /***/ }),
 
-/***/ "./src/booking/steps/cleaning.js":
-/*!***************************************!*\
-  !*** ./src/booking/steps/cleaning.js ***!
-  \***************************************/
+/***/ "./src/booking/steps/base.js":
+/*!***********************************!*\
+  !*** ./src/booking/steps/base.js ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ CleaningStep; }
-/* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _compound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./compound */ "./src/booking/steps/compound.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
-/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
-/* eslint-disable max-classes-per-file */
-
-/* eslint-disable class-methods-use-this */
-
-
-
-
-
-
-class BaseCleaningStep extends _default__WEBPACK_IMPORTED_MODULE_3__["default"] {
-  constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
-  }
-
-}
-
-class Supplies extends BaseCleaningStep {
-  get isNextDisabled() {
-    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getOption('supplies-conf', true);
-  }
-
-  get toggleNextWatcher() {
-    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('supplies-conf'));
-  }
-
-}
-
-class Extras extends _default__WEBPACK_IMPORTED_MODULE_3__["default"] {
-  get toggleNextWatcher() {
-    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryCleaningExtras());
-  }
-
-  get duration() {
-    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
-    let total = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Windows) ? 1 : 0;
-    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Cabinets) ? 1 : 0;
-    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Fridge) ? 0.5 : 0;
-    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Oven) ? 0.5 : 0;
-    return total;
-  }
-
-}
-
-class Home extends BaseCleaningStep {
-  get isNextDisabled() {
-    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBedroomSelected() || !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBathroomSelected();
-  }
-
-  get toggleNextWatcher() {
-    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('home-'));
-  }
-
-  get duration() {
-    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
-    const bedroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bedrooms', true)?.value;
-    const bathroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bathrooms', true)?.value;
-    let total = 0;
-
-    switch (bedroom) {
-      case '3':
-      case '4':
-        total += 1;
-        break;
-
-      case '5+':
-        total += 2;
-        break;
-
-      default:
-        break;
-    }
-
-    switch (bathroom) {
-      case '2':
-        total += 1;
-        break;
-
-      case '3':
-        total += 2;
-        break;
-
-      case '4+':
-        total += 3;
-        break;
-
-      default:
-        break;
-    }
-
-    return total;
-  }
-
-}
-
-class CleaningStep extends _compound__WEBPACK_IMPORTED_MODULE_2__["default"] {
-  constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning, new Supplies(), new Extras(), new Home());
-  }
-
-}
-
-/***/ }),
-
-/***/ "./src/booking/steps/compound.js":
-/*!***************************************!*\
-  !*** ./src/booking/steps/compound.js ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ CompoundStep; }
-/* harmony export */ });
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
-/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
-
-
-/**
- * Step with multiple validations for next button
- */
-
-class CompoundStep extends _default__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  #steps;
-
-  constructor(stepNo, ...steps) {
-    super(stepNo);
-    this.#steps = steps;
-  }
-
-  init() {
-    this.#steps.forEach(s => s.init());
-  }
-
-  get isNextDisabled() {
-    return this.#steps.reduce((acc, s) => acc || s.isNextDisabled, false);
-  }
-
-  get toggleNextWatcher() {
-    return this.#steps.reduce((acc, s) => acc.push(s.toggleNextWatcher), new _watcher__WEBPACK_IMPORTED_MODULE_1__["default"]());
-  }
-
-  get duration() {
-    return this.#steps.reduce((acc, s) => acc + s.duration, 0);
-  }
-
-}
-
-/***/ }),
-
-/***/ "./src/booking/steps/default.js":
-/*!**************************************!*\
-  !*** ./src/booking/steps/default.js ***!
-  \**************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ DefaultStep; }
+/* harmony export */   "default": function() { return /* binding */ BaseStep; }
 /* harmony export */ });
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
 /* harmony import */ var _step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./step */ "./src/booking/steps/step.js");
@@ -10636,7 +10470,7 @@ __webpack_require__.r(__webpack_exports__);
  * Handles next and prev events
  */
 
-class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   stepNo;
 
   constructor(stepNo) {
@@ -10721,6 +10555,172 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
 /***/ }),
 
+/***/ "./src/booking/steps/cleaning.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/cleaning.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ CleaningStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _compound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./compound */ "./src/booking/steps/compound.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable max-classes-per-file */
+
+/* eslint-disable class-methods-use-this */
+
+
+
+
+
+
+class BaseCleaningStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
+  }
+
+}
+
+class Supplies extends BaseCleaningStep {
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].getOption('supplies-conf', true);
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryOptions('supplies-conf'));
+  }
+
+}
+
+class Extras extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryCleaningExtras());
+  }
+
+  get duration() {
+    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
+    let total = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Windows) ? 1 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Cabinets) ? 1 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Fridge) ? 0.5 : 0;
+    total += _dom__WEBPACK_IMPORTED_MODULE_1__["default"].isExtraSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.EXTRA.Oven) ? 0.5 : 0;
+    return total;
+  }
+
+}
+
+class Home extends BaseCleaningStep {
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBedroomSelected() || !_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isBathroomSelected();
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('home-'));
+  }
+
+  get duration() {
+    if (!_dom__WEBPACK_IMPORTED_MODULE_1__["default"].isServiceSelected(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)) return 0;
+    const bedroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bedrooms', true)?.value;
+    const bathroom = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getRadio('home-bathrooms', true)?.value;
+    let total = 0;
+
+    switch (bedroom) {
+      case '3':
+      case '4':
+        total += 1;
+        break;
+
+      case '5+':
+        total += 2;
+        break;
+
+      default:
+        break;
+    }
+
+    switch (bathroom) {
+      case '2':
+        total += 1;
+        break;
+
+      case '3':
+        total += 2;
+        break;
+
+      case '4+':
+        total += 3;
+        break;
+
+      default:
+        break;
+    }
+
+    return total;
+  }
+
+}
+
+class CleaningStep extends _compound__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning, new Supplies(), new Extras(), new Home());
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking/steps/compound.js":
+/*!***************************************!*\
+  !*** ./src/booking/steps/compound.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ CompoundStep; }
+/* harmony export */ });
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+
+
+/**
+ * Step with multiple validations for next button
+ */
+
+class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  #steps;
+
+  constructor(stepNo, ...steps) {
+    super(stepNo);
+    this.#steps = steps;
+  }
+
+  init() {
+    this.#steps.forEach(s => s.init());
+  }
+
+  get isNextDisabled() {
+    return this.#steps.reduce((acc, s) => acc || s.isNextDisabled, false);
+  }
+
+  get toggleNextWatcher() {
+    return this.#steps.reduce((acc, s) => acc.push(s.toggleNextWatcher), new _watcher__WEBPACK_IMPORTED_MODULE_1__["default"]());
+  }
+
+  get duration() {
+    return this.#steps.reduce((acc, s) => acc + s.duration, 0);
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking/steps/duration.js":
 /*!***************************************!*\
   !*** ./src/booking/steps/duration.js ***!
@@ -10734,14 +10734,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable class-methods-use-this */
 
 
 
 
-class DurationStep extends _default__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class DurationStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration);
   }
@@ -10811,14 +10811,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable class-methods-use-this */
 
 
 
 
-class IroningStep extends _default__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class IroningStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
   }
@@ -10873,7 +10873,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
 /* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model */ "./src/booking/model.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable class-methods-use-this */
 
@@ -10881,7 +10881,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class PostalCodeStep extends _default__WEBPACK_IMPORTED_MODULE_3__["default"] {
+class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode);
   }
@@ -10942,14 +10942,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default */ "./src/booking/steps/default.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable class-methods-use-this */
 
 
 
 
-class ServicesStep extends _default__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class ServicesStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services);
   }

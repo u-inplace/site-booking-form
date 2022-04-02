@@ -1,10 +1,10 @@
-import DefaultStep from './default'
+import BaseStep from './base'
 import ToggleWatcher from './watcher'
 
 /**
  * Step with multiple validations for next button
  */
-export default class CompoundStep extends DefaultStep {
+export default class CompoundStep extends BaseStep {
     #steps
 
     constructor(stepNo, ...steps) {

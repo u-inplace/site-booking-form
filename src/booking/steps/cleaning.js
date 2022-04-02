@@ -3,11 +3,11 @@
 
 import { EXTRA, SERVICE, STEP } from '../constants'
 import DOM from '../dom'
+import BaseStep from './base'
 import CompoundStep from './compound'
-import DefaultStep from './default'
 import ToggleWatcher from './watcher'
 
-class BaseCleaningStep extends DefaultStep {
+class BaseCleaningStep extends BaseStep {
     constructor() {
         super(STEP.Cleaning)
     }
@@ -23,7 +23,7 @@ class Supplies extends BaseCleaningStep {
     }
 }
 
-class Extras extends DefaultStep {
+class Extras extends BaseStep {
     get toggleNextWatcher() {
         return new ToggleWatcher(DOM.queryCleaningExtras())
     }

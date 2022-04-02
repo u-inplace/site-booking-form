@@ -2,10 +2,10 @@
 import { STEP } from '../constants'
 import DOM from '../dom'
 import BookingModel from '../model'
-import DefaultStep from './default'
+import BaseStep from './base'
 import ToggleWatcher from './watcher'
 
-export default class PostalCodeStep extends DefaultStep {
+export default class PostalCodeStep extends BaseStep {
     constructor() {
         super(STEP.PostalCode)
     }

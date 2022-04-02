@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { STEP } from '../constants'
 import DOM from '../dom'
-import DefaultStep from './default'
+import BaseStep from './base'
 import ToggleWatcher from './watcher'
 
-export default class DurationStep extends DefaultStep {
+export default class DurationStep extends BaseStep {
     constructor() {
         super(STEP.Duration)
     }

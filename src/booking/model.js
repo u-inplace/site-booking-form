@@ -3,15 +3,14 @@
  */
 export default class BookingModel {
     steps
-    #instance
 
     constructor(steps) {
         this.steps = steps
     }
 
-    static get instance() {
-        this.#instance ??= new BookingModel()
-        return this.#instance
+    static getInstance() {
+        this.instance ??= new BookingModel()
+        return this.instance
     }
 
     get estimation() {

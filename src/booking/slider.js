@@ -25,7 +25,7 @@ export default class Slider {
         this.resize()
     }
 
-    static get instance() {
+    static getInstance() {
         this.instance ??= new Slider()
         return this.instance
     }

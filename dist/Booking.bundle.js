@@ -10173,15 +10173,14 @@ __webpack_require__.r(__webpack_exports__);
  */
 class BookingModel {
   steps;
-  #instance;
 
   constructor(steps) {
     this.steps = steps;
   }
 
-  static get instance() {
-    this.#instance ??= new BookingModel();
-    return this.#instance;
+  static getInstance() {
+    this.instance ??= new BookingModel();
+    return this.instance;
   }
 
   get estimation() {
@@ -10235,9 +10234,9 @@ class Navigation {
 
   init() {
     // Create model instance
-    this.#model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].instance;
+    this.#model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
     this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_3__["default"];
-    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_2__["default"].instance;
+    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_2__["default"].getInstance();
     this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.#slider.sequence = this.#sequence; // Add handler for slider changes
 
@@ -10355,7 +10354,7 @@ class Slider {
     this.resize();
   }
 
-  static get instance() {
+  static getInstance() {
     this.instance ??= new Slider();
     return this.instance;
   }
@@ -11007,8 +11006,8 @@ class Step {
   model;
 
   constructor() {
-    this.slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"].instance;
-    this.model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].instance;
+    this.slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
+    this.model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
   }
 
   get observed() {

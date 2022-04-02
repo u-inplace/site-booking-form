@@ -11,8 +11,8 @@ export default class Step {
     model
 
     constructor() {
-        this.slider = Slider.instance
-        this.model = BookingModel.instance
+        this.slider = Slider.getInstance()
+        this.model = BookingModel.getInstance()
     }
 
     get observed() {

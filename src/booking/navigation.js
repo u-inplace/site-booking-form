@@ -10,10 +10,10 @@ export default class Navigation {
 
     init() {
         // Create model instance
-        this.#model = BookingModel.instance
+        this.#model = BookingModel.getInstance()
         this.#model.steps = Steps
 
-        this.#slider = Slider.instance
+        this.#slider = Slider.getInstance()
         this.#sequence = new Sequence()
         this.#slider.sequence = this.#sequence
 

@@ -147,6 +147,10 @@ export default class DOM {
         return document.getElementById('duration').value
     }
 
+    static get occurrence() {
+        return DOM.getRadio('frequency', true).value
+    }
+
     /** *
      * Summary
      */
@@ -161,6 +165,10 @@ export default class DOM {
 
         static set duration(time) {
             document.getElementById('summary-duration').innerText = time
+        }
+
+        static set occurrence(freq) {
+            document.getElementById('summary-occurrence').innerText = freq
         }
     }
 }

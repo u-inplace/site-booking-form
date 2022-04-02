@@ -10157,6 +10157,10 @@ class DOM {
   static get duration() {
     return document.getElementById('duration').value;
   }
+
+  static get occurrence() {
+    return DOM.getRadio('frequency', true).value;
+  }
   /** *
    * Summary
    */
@@ -10173,6 +10177,10 @@ class DOM {
 
     static set duration(time) {
       document.getElementById('summary-duration').innerText = time;
+    }
+
+    static set occurrence(freq) {
+      document.getElementById('summary-occurrence').innerText = freq;
     }
 
   };
@@ -10480,6 +10488,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
       duration
     } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
+    const {
+      occurrence
+    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.occurrence = occurrence;
   }
 
 }

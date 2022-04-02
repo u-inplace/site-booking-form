@@ -13,9 +13,6 @@ export default class Slider {
     constructor(sequence) {
         this.#sequence = sequence || new Sequence()
 
-        // Active first slide
-        DOM.slider.setActive(0)
-
         // Events to resize form after each step
         // Seems that this works sometimes, but not always when the page
         // is loading

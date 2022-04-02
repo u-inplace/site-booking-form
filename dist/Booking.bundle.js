@@ -10345,9 +10345,7 @@ class Slider {
   #onChange;
 
   constructor(sequence) {
-    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
-
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0); // Events to resize form after each step
+    this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Events to resize form after each step
     // Seems that this works sometimes, but not always when the page
     // is loading
 
@@ -11453,11 +11451,9 @@ var __webpack_exports__ = {};
   !*** ./src/booking/main.js ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
-/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");
 /* eslint-disable no-var */
-
 
 
 /**
@@ -11465,12 +11461,11 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 const sliderController = () => {
-  // eslint-disable-next-line no-new
-  const navController = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  navController.init(); // Line below is here just to load this thing in the main file
-  // eslint-disable-next-line no-unused-expressions
-
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider;
+  //  ONly starts after page is loaded
+  window.onload = () => {
+    const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    navController.init();
+  };
 }; // eslint-disable-next-line no-use-before-define
 
 

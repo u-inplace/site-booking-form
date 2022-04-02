@@ -10156,11 +10156,13 @@ class CalendarController {
   #initialised;
   #request;
   #cached;
+  #onDayChangeCb;
 
-  constructor(placeHolderID, request = {}) {
+  constructor(placeHolderID, request, onDayChangeCb) {
     // Store requested weeks
     this.#cached = {};
     this.#request = request;
+    this.#onDayChangeCb = onDayChangeCb;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -10217,6 +10219,7 @@ class CalendarController {
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
+    this.#onDayChangeCb(currentDate, events);
   };
   /**
    * Start or stop loading animation

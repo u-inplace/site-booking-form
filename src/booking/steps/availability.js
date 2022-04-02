@@ -14,11 +14,15 @@ export default class AvailabilityStep extends BaseStep {
     onActive() {
         super.onActive()
         // Update duration when loading Duration step
-        this.#calendar = new CalendarController('availability-cal', {
-            postalCode: DOM.postalCode.value,
-            duration: DOM.duration,
-            recurrence: DOM.occurrence
-        })
+        this.#calendar = new CalendarController(
+            'availability-cal',
+            {
+                postalCode: DOM.postalCode.value,
+                duration: DOM.duration,
+                recurrence: DOM.occurrence
+            },
+            this.onDayChange.bind(this)
+        )
 
         this.#createSummary()
     }
@@ -40,4 +44,48 @@ export default class AvailabilityStep extends BaseStep {
         const { occurrence } = DOM
         DOM.summary.occurrence = occurrence
     }
+
+    /**
+     * Load all available options
+     * An option has the following structure
+     * {
+        start: new Date(slot.start_time),
+        end: new Date(slot.end_time),
+        start_time: slot.label,
+        employee: {
+            id: slot.affiliate_worker.worker_contract_id,
+            first_name: slot.affiliate_worker.first_name,
+            last_name: slot.affiliate_worker.last_name,
+            allergies: slot.affiliate_worker.allergies
+        }
+    }
+     */
+    onDayChange(day, options) {
+        // Get template checkbox
+        const template = document.getElementById('start-time-template')
+
+        options.forEach(option => {
+            const node = template.cloneNode(true)
+
+            node.setAttribute('id', '')
+            node.style.display = 'block'
+
+            // Handle clicks on option
+            const radio = node.getElementsByClassName('start-time-radio')
+            radio.addEventListener('click', this.onStartTimeSelect.bind(this))
+            radio.setAttribute('id', '')
+            radio.value = option.start_time
+
+            const label = node.getElementsByClassName('start-time-text')
+            label.innerText = option.start_time
+
+            document.getElementById('start-time-block').appendChild(node)
+        })
+    }
+
+    /**
+     * handle start time selection
+     * @param {*} e
+     */
+    onStartTimeSelect() {}
 }

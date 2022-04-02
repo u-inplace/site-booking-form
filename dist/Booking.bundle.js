@@ -10188,6 +10188,10 @@ class DOM {
     }
 
   };
+  /**
+   * Availability
+   */
+
 }
 
 /***/ }),
@@ -10480,7 +10484,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
       postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.value,
       duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
       recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
-    });
+    }, this.onDayChange.bind(this));
     this.#createSummary();
   }
   /**
@@ -10502,6 +10506,47 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.occurrence = occurrence;
   }
+  /**
+   * Load all available options
+   * An option has the following structure
+   * {
+      start: new Date(slot.start_time),
+      end: new Date(slot.end_time),
+      start_time: slot.label,
+      employee: {
+          id: slot.affiliate_worker.worker_contract_id,
+          first_name: slot.affiliate_worker.first_name,
+          last_name: slot.affiliate_worker.last_name,
+          allergies: slot.affiliate_worker.allergies
+      }
+  }
+   */
+
+
+  onDayChange(day, options) {
+    // Get template checkbox
+    const template = document.getElementById('start-time-template');
+    options.forEach(option => {
+      const node = template.cloneNode(true);
+      node.setAttribute('id', '');
+      node.style.display = 'block'; // Handle clicks on option
+
+      const radio = node.getElementsByClassName('start-time-radio');
+      radio.addEventListener('click', this.onStartTimeSelect.bind(this));
+      radio.setAttribute('id', '');
+      radio.value = option.start_time;
+      const label = node.getElementsByClassName('start-time-text');
+      label.innerText = option.start_time;
+      document.getElementById('start-time-block').appendChild(node);
+    });
+  }
+  /**
+   * handle start time selection
+   * @param {*} e
+   */
+
+
+  onStartTimeSelect() {}
 
 }
 
@@ -11214,11 +11259,13 @@ class CalendarController {
   #initialised;
   #request;
   #cached;
+  #onDayChangeCb;
 
-  constructor(placeHolderID, request = {}) {
+  constructor(placeHolderID, request, onDayChangeCb) {
     // Store requested weeks
     this.#cached = {};
     this.#request = request;
+    this.#onDayChangeCb = onDayChangeCb;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -11275,6 +11322,7 @@ class CalendarController {
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
+    this.#onDayChangeCb(currentDate, events);
   };
   /**
    * Start or stop loading animation

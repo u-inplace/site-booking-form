@@ -175,4 +175,8 @@ export default class DOM {
             document.getElementById('summary-payment').innerText = value
         }
     }
+
+    /**
+     * Availability
+     */
 }

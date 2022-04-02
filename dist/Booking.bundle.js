@@ -10247,8 +10247,8 @@ class Navigation {
     _steps__WEBPACK_IMPORTED_MODULE_3__["default"][0].onActive();
   }
 
-  onChange() {
-    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][this.#slider.current].onActive();
+  onChange(event) {
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][this.#slider.current].onActive(event);
   }
 
 }

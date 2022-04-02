@@ -27,7 +27,7 @@ export default class Navigation {
         Steps[0].onActive()
     }
 
-    onChange() {
-        Steps[this.#slider.current].onActive()
+    onChange(event) {
+        Steps[this.#slider.current].onActive(event)
     }
 }

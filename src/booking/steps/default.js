@@ -51,6 +51,9 @@ export default class DefaultStep extends Step {
     init() {
         super.init()
         DOM.setNextButtonDisabled(true)
+
+        // Wierd bug but sometimes input start checked
+        this.toggleNextWatcher.list(e => (e.checked = false))
     }
 
     toggleNext(dontAutoFollow = false) {

@@ -10577,7 +10577,11 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     // is also called above by event, where the parameter is not a boolean
 
     const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
-    if (!isDisabled && !stopAutoFollow && this.autoFollow) this.slider.next();
+
+    if (!isDisabled && !stopAutoFollow && this.autoFollow) {
+      // Wait a bit before going
+      setTimeout(() => this.slider.next(), 1000);
+    }
   }
 
   onNext() {

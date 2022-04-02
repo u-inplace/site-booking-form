@@ -7,7 +7,7 @@
 * Autoprefixer: v10.3.1
 * Browsers: last 4 version
 */
-.form-slide {
+/* .form-slide {
     position: absolute;
 
     top: 50px;
@@ -33,7 +33,7 @@
 
     transform: scaleY(1);
     transform-origin: top;
-}
+} */
 
 /*!************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/color-calendar/dist/css/theme-glass.css ***!

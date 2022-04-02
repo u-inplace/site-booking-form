@@ -1,0 +1,48 @@
+/* eslint-disable class-methods-use-this */
+import { STEP } from '../constants'
+import DOM from '../dom'
+import BookingModel from '../model'
+import DefaultStep from './default'
+
+export default class PostalCodeStep extends DefaultStep {
+    constructor() {
+        super(STEP.PostalCode)
+    }
+
+    init() {
+        super.init()
+        // Autofocus on input
+        DOM.postalCode.autofocus = true
+        DOM.postalCode.focus()
+    }
+
+    get isNextDisabled() {
+        const pc = DOM.postalCode
+        return pc.value.length !== pc.maxLength || !BookingModel.coverage.includes(pc.value)
+    }
+
+    get observed() {
+        return [
+            ...super.observed,
+            { elem: DOM.postalCode, event: 'input', handler: this.onPostalCodeInput }
+        ]
+    }
+
+    get autoFollow() {
+        return true
+    }
+
+    updateNav() {
+        // No such thing on this step
+        return null
+    }
+
+    onPostalCodeInput(e) {
+        const pc = e.target
+        if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength)
+
+        if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value))
+            DOM.postalCodeWarning.classList.add('msg-active')
+        else DOM.postalCodeWarning.classList.remove('msg-active')
+    }
+}

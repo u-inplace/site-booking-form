@@ -53,6 +53,7 @@
         "func-style": ["error", "expression", { "allowArrowFunctions": true }],
         "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
         "no-self-assign": ["error", { "props": false }],
+        "constructor-super": "error",
         "prefer-arrow/prefer-arrow-functions": [
             "error",
             {

@@ -8,6 +8,8 @@ import './slider.css'
  */
 export default class Slider {
     #sequence
+    #instance
+    #onChange
 
     constructor(sequence) {
         this.#sequence = sequence || new Sequence()
@@ -24,12 +26,25 @@ export default class Slider {
         this.resize()
     }
 
+    static get instance() {
+        this.#instance ??= new Slider()
+        return this.#instance
+    }
+
+    set onChange(fn) {
+        this.#onChange = fn
+    }
+
     resize() {
         DOM.slider.formHeight = DOM.slider.getStepHeight(this.current)
     }
 
     set sequence(sequence) {
         this.#sequence = sequence
+    }
+
+    get sequence() {
+        return this.#sequence
     }
 
     get current() {
@@ -46,6 +61,8 @@ export default class Slider {
         DOM.slider.setActive(next)
 
         this.resize()
+
+        this.#onChange('next')
     }
 
     prev() {
@@ -58,5 +75,7 @@ export default class Slider {
         DOM.slider.setActive(prev)
 
         this.resize()
+
+        this.#onChange('prev')
     }
 }

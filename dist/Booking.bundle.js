@@ -10344,8 +10344,8 @@ class Slider {
 
   constructor(sequence) {
     this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
-
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0); // Events to resize form after each step
+    // DOM.slider.setActive(0)
+    // Events to resize form after each step
     // Seems that this works sometimes, but not always when the page
     // is loading
 

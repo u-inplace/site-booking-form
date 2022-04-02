@@ -28,5 +28,8 @@ export default class AvailabilityStep extends BaseStep {
         Object.values(SERVICE).forEach(s =>
             services.includes(s) ? DOM.summary.activeService(s) : DOM.summary.inactiveService(s)
         )
+
+        const { duration } = DOM.summary
+        DOM.summary.duration = `${duration}h`
     }
 }

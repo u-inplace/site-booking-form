@@ -154,5 +154,13 @@ export default class DOM {
         static set inactiveService(service) {
             document.getElementById(`summary-${service}`).classList.remove('service-active')
         }
+
+        static get duration() {
+            return document.getElementById('duration').value
+        }
+
+        static set duration(time) {
+            document.getElementById('duration').value = time
+        }
     }
 }

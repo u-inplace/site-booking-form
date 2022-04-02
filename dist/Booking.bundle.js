@@ -10166,6 +10166,14 @@ class DOM {
       document.getElementById(`summary-${service}`).classList.remove('service-active');
     }
 
+    static get duration() {
+      return document.getElementById('duration').value;
+    }
+
+    static set duration(time) {
+      document.getElementById('duration').value = time;
+    }
+
   };
 }
 
@@ -10198,9 +10206,8 @@ class BookingModel {
   }
 
   get estimation() {
-    return Math.floor(Object.values(this.steps).reduce((acc, s, i) => {
-      console.log(`Estimation Step ${i + 1}: ${s ? s?.duration : 0}`); // eslint-disable-next-line no-param-reassign
-
+    return Math.floor(Object.values(this.steps).reduce((acc, s) => {
+      // eslint-disable-next-line no-param-reassign
       acc += s ? s.duration : 0;
       return acc;
     }, 3.0));
@@ -10468,6 +10475,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     // Selected services
     const services = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].getSelectedServices();
     Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
+    const {
+      duration
+    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary;
+    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
   }
 
 }

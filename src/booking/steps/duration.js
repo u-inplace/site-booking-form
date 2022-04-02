@@ -17,9 +17,8 @@ export default class DurationStep extends BaseStep {
         return new ToggleWatcher(DOM.queryRadio('frequency'), 'click')
     }
 
-    onNext() {
-        super.onNext()
+    onActive(event) {
         // Update duration when loading Duration step
-        this.model.updateEstimation()
+        if (event === 'next') this.model.updateEstimation()
     }
 }

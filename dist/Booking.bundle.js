@@ -10771,10 +10771,9 @@ class DurationStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
     return new _watcher__WEBPACK_IMPORTED_MODULE_3__["default"](_dom__WEBPACK_IMPORTED_MODULE_1__["default"].queryRadio('frequency'), 'click');
   }
 
-  onNext() {
-    super.onNext(); // Update duration when loading Duration step
-
-    this.model.updateEstimation();
+  onActive(event) {
+    // Update duration when loading Duration step
+    if (event === 'next') this.model.updateEstimation();
   }
 
 }

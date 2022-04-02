@@ -142,4 +142,17 @@ export default class DOM {
                 (document.getElementsByClassName('form-mask')[0].style.height = `${height + 150}px`)
         }
     }
+
+    /** *
+     * Summary
+     */
+    static summary = class {
+        static set activeService(service) {
+            document.getElementById(`summary-${service}`).classList.add('service-active')
+        }
+
+        static set inactiveService(service) {
+            document.getElementById(`summary-${service}`).classList.remove('service-active')
+        }
+    }
 }

@@ -10153,6 +10153,20 @@ class DOM {
     }
 
   };
+  /** *
+   * Summary
+   */
+
+  static summary = class {
+    static set activeService(service) {
+      document.getElementById(`summary-${service}`).classList.add('service-active');
+    }
+
+    static set inactiveService(service) {
+      document.getElementById(`summary-${service}`).classList.remove('service-active');
+    }
+
+  };
 }
 
 /***/ }),
@@ -10425,12 +10439,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* eslint-disable class-methods-use-this */
 
 
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
+
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   #calendar;
 
   constructor() {
@@ -10441,6 +10457,17 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
     super.onActive(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal');
+    this.#createSummary();
+  }
+  /**
+   * Read options and create a summary
+   */
+
+
+  #createSummary() {
+    // Selected services
+    const services = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
   }
 
 }

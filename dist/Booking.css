@@ -694,3 +694,10 @@ input[type='number'] {
     transition-delay: 0s;
 }
 
+.service-summary-item {
+    display: none;
+}
+.service-summary-item.service-active {
+    display: flex;
+}
+

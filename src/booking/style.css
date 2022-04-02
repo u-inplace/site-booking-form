@@ -33,3 +33,10 @@ input[type='number'] {
     transition-timing-function: ease;
     transition-delay: 0s;
 }
+
+.service-summary-item {
+    display: none;
+}
+.service-summary-item.service-active {
+    display: flex;
+}

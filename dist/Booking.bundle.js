@@ -10219,12 +10219,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Navigation; }
 /* harmony export */ });
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
-/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model */ "./src/booking/model.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
-/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slider */ "./src/booking/slider.js");
-/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./steps */ "./src/booking/steps/index.js");
-
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./src/booking/model.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider */ "./src/booking/slider.js");
+/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./steps */ "./src/booking/steps/index.js");
 
 
 
@@ -10236,22 +10234,21 @@ class Navigation {
 
   init() {
     // Create model instance
-    this.#model = _model__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
-    this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_4__["default"];
-    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_3__["default"].getInstance();
-    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    this.#model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
+    this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_3__["default"];
+    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_2__["default"].getInstance();
+    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.#slider.sequence = this.#sequence; // Add handler for slider changes
 
     this.#slider.onChange = this.onChange.bind(this); // Init all steps
 
-    Object.values(_steps__WEBPACK_IMPORTED_MODULE_4__["default"]).forEach(s => s.init()); // Activate first step as 'back' to avoid autofollow
+    Object.values(_steps__WEBPACK_IMPORTED_MODULE_3__["default"]).forEach(s => s.init()); // Activate first step as 'back' to avoid autofollow
 
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(0);
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][0].onActive('back');
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][0].onActive('back');
   }
 
   onChange(event) {
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current].onActive(event);
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][this.#slider.current].onActive(event);
   }
 
 }

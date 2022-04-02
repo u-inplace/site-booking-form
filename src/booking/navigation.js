@@ -1,4 +1,3 @@
-import DOM from './dom'
 import BookingModel from './model'
 import Sequence from './sequence'
 import Slider from './slider'
@@ -25,7 +24,6 @@ export default class Navigation {
         Object.values(Steps).forEach(s => s.init())
 
         // Activate first step as 'back' to avoid autofollow
-        DOM.slider.setActive(0)
         Steps[0].onActive('back')
     }
 

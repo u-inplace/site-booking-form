@@ -71,6 +71,6 @@ export default class Slider {
 
         this.resize()
 
-        this.#onChange('prev')
+        this.#onChange('back')
     }
 }

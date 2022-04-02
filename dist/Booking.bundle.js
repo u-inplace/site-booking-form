@@ -10406,7 +10406,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
     this.resize();
-    this.#onChange('prev');
+    this.#onChange('back');
   }
 
 }

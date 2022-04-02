@@ -67,8 +67,8 @@ export default class AvailabilityStep extends BaseStep {
         // Clean up existing entries
         document
             .getElementById('start-time-block')
-            .querySelectorAll('.start-time')
-            .forEach(e => e.parentNode.removeChild(e))
+            ?.querySelectorAll('.start-time')
+            ?.forEach(e => e.parentNode.removeChild(e))
 
         options.forEach(option => {
             const node = template.cloneNode(true)

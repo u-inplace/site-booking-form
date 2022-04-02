@@ -10527,7 +10527,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     // Get template checkbox
     const template = document.getElementById('start-time-template'); // Clean up existing entries
 
-    document.getElementById('start-time-block').querySelectorAll('.start-time').forEach(e => e.parentNode.removeChild(e));
+    document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
     options.forEach(option => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');

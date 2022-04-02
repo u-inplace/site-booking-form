@@ -10,7 +10,7 @@ const sliderController = () => {
     setTimeout(() => {
         const navController = new Navigation()
         navController.init()
-    }, 300)
+    }, 1000 * 3)
 }
 
 // eslint-disable-next-line no-use-before-define

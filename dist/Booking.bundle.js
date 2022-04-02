@@ -11474,7 +11474,7 @@ const sliderController = () => {
   setTimeout(() => {
     const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
     navController.init();
-  }, 300);
+  }, 1000 * 3);
 }; // eslint-disable-next-line no-use-before-define
 
 

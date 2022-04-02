@@ -89,8 +89,6 @@ export default class BaseStep extends Step {
     }
 
     updateNav() {
-        if (this.slider.current < 1) return
-
         document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = `Step ${
             this.sequence.currentIndex
         }/${this.sequence.total - 1}`

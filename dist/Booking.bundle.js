@@ -10603,7 +10603,6 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
 
   updateNav() {
-    if (this.slider.current < 1) return;
     document.getElementsByClassName('step-number')[this.stepNo - 1].innerHTML = `Step ${this.sequence.currentIndex}/${this.sequence.total - 1}`;
   }
 

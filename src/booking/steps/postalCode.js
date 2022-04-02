@@ -3,6 +3,7 @@ import { STEP } from '../constants'
 import DOM from '../dom'
 import BookingModel from '../model'
 import DefaultStep from './default'
+import ToggleWatcher from './watcher'
 
 export default class PostalCodeStep extends DefaultStep {
     constructor() {
@@ -19,6 +20,10 @@ export default class PostalCodeStep extends DefaultStep {
     get isNextDisabled() {
         const pc = DOM.postalCode
         return pc.value.length !== pc.maxLength || !BookingModel.coverage.includes(pc.value)
+    }
+
+    get toggleNextWatcher() {
+        return new ToggleWatcher([DOM.postalCode], 'input')
     }
 
     get observed() {

@@ -16,11 +16,28 @@ export default class DefaultStep extends Step {
         this.sequence = this.slider.sequence
     }
 
+    /**
+     * Observer for next and back buttons
+     */
     get observed() {
-        const set = this.toggleNextWatcher.map(watcher => ({
-            ...watcher,
-            handler: this.toggleNext.bind(this)
-        }))
+        const set = [
+            {
+                // Return only the button for the current slide
+                elem: DOM.slider.nextButtonAll[this.stepNo],
+                event: 'click',
+                handler: this.onNext.bind(this)
+            },
+            {
+                // Disconsider the first step, as it does not have a back button
+                elem: DOM.slider.backButtonAll[this.stepNo - 1],
+                event: 'click',
+                handler: this.onBack.bind(this)
+            },
+            ...this.toggleNextWatcher.map(watcher => ({
+                ...watcher,
+                handler: this.toggleNext.bind(this)
+            }))
+        ]
 
         return set
     }

@@ -10220,12 +10220,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Navigation; }
 /* harmony export */ });
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
-/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model */ "./src/booking/model.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
-/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slider */ "./src/booking/slider.js");
-/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./steps */ "./src/booking/steps/index.js");
-
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model */ "./src/booking/model.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sequence */ "./src/booking/sequence.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider */ "./src/booking/slider.js");
+/* harmony import */ var _steps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./steps */ "./src/booking/steps/index.js");
 
 
 
@@ -10237,84 +10235,22 @@ class Navigation {
 
   init() {
     // Create model instance
-    this.#model = _model__WEBPACK_IMPORTED_MODULE_1__["default"].instance;
-    this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_4__["default"];
-    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_3__["default"].instance;
-    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_2__["default"]();
-    this.#slider.sequence = this.#sequence;
-    Object.values(_steps__WEBPACK_IMPORTED_MODULE_4__["default"]).forEach(s => s.init()); // Set event handlers for next and prev buttons
+    this.#model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].instance;
+    this.#model.steps = _steps__WEBPACK_IMPORTED_MODULE_3__["default"];
+    this.#slider = _slider__WEBPACK_IMPORTED_MODULE_2__["default"].instance;
+    this.#sequence = new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.#slider.sequence = this.#sequence; // Add handler for slider changes
 
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButtonAll.forEach(button => button.addEventListener('click', this.onNext.bind(this)));
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButtonAll.forEach(button => button.addEventListener('click', this.onBack.bind(this))); // // Handle step validations
-    // DOM.setNextButtonDisabled(true)
-    // Setup event handlers
-    // Object.values(Steps).forEach(s => {
-    //     s.observed.forEach(o => {
-    //         // eslint-disable-next-line no-param-reassign
-    //         // TODO HERE
-    //         o.elem.checked = false
-    //     })
-    // })
-    // // Autofocus on input
-    // DOM.postalCode.autofocus = true
-    // DOM.postalCode.focus()
-    // this.#toggleNext()-
+    this.#slider.onChange = this.onChange.bind(this); // Init all steps
+
+    Object.values(_steps__WEBPACK_IMPORTED_MODULE_3__["default"]).forEach(s => s.init());
   }
 
-  onNext() {
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current].onNext();
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current].onActive();
+  onChange() {
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][this.#slider.current].onActive();
   }
 
-  onBack() {
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current].onBack();
-    _steps__WEBPACK_IMPORTED_MODULE_4__["default"][this.#slider.current].onActive();
-  } // #updateNav() {
-  //     // if (this.#slider.current < 1) return
-  //     document.getElementsByClassName('step-number')[
-  //         this.#sequence.current - 1
-  //     ].innerHTML = `Step ${this.#sequence.currentIndex}/${
-  //         this.#sequence.current === STEP.Services ? '-' : this.#sequence.total - 1
-  //     }`
-  // }
-  // #toggleNext(dontAutoFollow = false) {
-  //     const isDisabled = Steps[this.#slider.current]?.isNextDisabled
-  //     DOM.setNextButtonDisabled(isDisabled)
-  //     // Autofollow - used on first step
-  //     // The call from onBack must be handled manually since this method
-  //     // is also called above by event, where the parameter is not a boolean
-  //     const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow
-  //     if (!isDisabled && !stopAutoFollow && Steps[this.#slider.current].autoFollow) {
-  //         DOM.postalCode.blur()
-  //         this.#slider.next()
-  //     }
-  // }
-  // onNext() {
-  // Recalculate the sequence when leaving the first step
-  // if (this.#slider.current === STEP.Services) this.#sequence.reset(true)
-  // this.#slider.next()
-  // this.#updateNav()
-  // switch (this.#slider.current) {
-  //     // case STEP.Duration:
-  //     //     // Update duration when loading Duration step
-  //     //     this.#model.updateEstimation()
-  //     //     break
-  //     case STEP.Availability:
-  //         // Create new calendar controller
-  //         this.#calendar = new CalendarController('availability-cal')
-  //         break
-  //     default:
-  //         break
-  // }
-  // this.#toggleNext()
-
-
-} // onBack = () => {
-//     this.#slider.prev()
-//     this.#updateNav()
-//     // Disable auto follow
-//     this.#toggleNext(true)
-// }
+}
 
 /***/ }),
 
@@ -10406,6 +10342,7 @@ __webpack_require__.r(__webpack_exports__);
 class Slider {
   #sequence;
   #instance;
+  #onChange;
 
   constructor(sequence) {
     this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Active first slide
@@ -10422,6 +10359,10 @@ class Slider {
   static get instance() {
     this.#instance ??= new Slider();
     return this.#instance;
+  }
+
+  set onChange(fn) {
+    this.#onChange = fn;
   }
 
   resize() {
@@ -10452,6 +10393,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(next);
     this.resize();
+    this.#onChange('next');
   }
 
   prev() {
@@ -10466,6 +10408,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
     this.resize();
+    this.#onChange('prev');
   }
 
 }
@@ -10703,11 +10646,25 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     this.stepNo = stepNo;
     this.sequence = this.slider.sequence;
   }
+  /**
+   * Observer for next and back buttons
+   */
+
 
   get observed() {
-    const set = this.toggleNextWatcher.map(watcher => ({ ...watcher,
+    const set = [{
+      // Return only the button for the current slide
+      elem: _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.nextButtonAll[this.stepNo],
+      event: 'click',
+      handler: this.onNext.bind(this)
+    }, {
+      // Disconsider the first step, as it does not have a back button
+      elem: _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButtonAll[this.stepNo - 1],
+      event: 'click',
+      handler: this.onBack.bind(this)
+    }, ...this.toggleNextWatcher.map(watcher => ({ ...watcher,
       handler: this.toggleNext.bind(this)
-    }));
+    }))];
     return set;
   }
   /**

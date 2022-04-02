@@ -7,15 +7,21 @@ import BaseStep from './base'
 import CompoundStep from './compound'
 import ToggleWatcher from './watcher'
 
-class BaseCleaningStep extends BaseStep {
-    constructor() {
-        super(STEP.Cleaning)
+/**
+ * Empty Step
+ */
+class BaseCleaningStep {
+    get isNextDisabled() {
+        return false
     }
 
-    // Do not create handlers for onBack onNext for children
-    // classes to avoid the method being called multiple times
-    onBack() {}
-    onNext() {}
+    get toggleNextWatcher() {
+        return new ToggleWatcher()
+    }
+
+    get duration() {
+        return 0
+    }
 }
 
 class Supplies extends BaseCleaningStep {

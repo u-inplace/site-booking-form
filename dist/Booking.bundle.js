@@ -10579,17 +10579,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Empty Step
+ */
 
-class BaseCleaningStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
-  constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
-  } // Do not create handlers for onBack onNext for children
-  // classes to avoid the method being called multiple times
+class BaseCleaningStep {
+  get isNextDisabled() {
+    return false;
+  }
 
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  }
 
-  onBack() {}
-
-  onNext() {}
+  get duration() {
+    return 0;
+  }
 
 }
 
@@ -10705,10 +10710,6 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(stepNo, ...steps) {
     super(stepNo);
     this.#steps = steps;
-  }
-
-  init() {
-    this.#steps.forEach(s => s.init());
   }
 
   get isNextDisabled() {

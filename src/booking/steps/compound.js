@@ -12,10 +12,6 @@ export default class CompoundStep extends BaseStep {
         this.#steps = steps
     }
 
-    init() {
-        this.#steps.forEach(s => s.init())
-    }
-
     get isNextDisabled() {
         return this.#steps.reduce((acc, s) => acc || s.isNextDisabled, false)
     }

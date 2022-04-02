@@ -703,6 +703,7 @@ input[type='number'] {
 
 .start-time-template {
     opacity: 0;
+    transform: translateY(10px);
 
     transition-property: all;
     transition-duration: 0.5s;
@@ -712,5 +713,6 @@ input[type='number'] {
 
 .start-time-template .start-time {
     opacity: 1;
+    transform: translateY(0px);
 }
 

@@ -10476,7 +10476,11 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
-    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal');
+    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal', {
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
+    });
     this.#createSummary();
   }
   /**
@@ -11208,10 +11212,13 @@ const LoaderId = 'loaderBalls';
 class CalendarController {
   #placeHolderID;
   #initialised;
+  #request;
+  #cached;
 
-  constructor(placeHolderID) {
+  constructor(placeHolderID, request = {}) {
     // Store requested weeks
-    this.cached = {};
+    this.#cached = {};
+    this.#request = {};
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -11308,15 +11315,15 @@ class CalendarController {
 
   async getAvailability(weekStartDate) {
     const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate);
-    if (weekStartDate < new Date() || this.cached[weekKey]) return;
-    this.cached[weekKey] = true;
+    if (weekStartDate < new Date() || this.#cached[weekKey]) return;
+    this.#cached[weekKey] = true;
     console.log(`# WeekStart: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)}`);
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
-      postalCode: 1000,
-      duration: 3,
-      recurrence: 'once',
+      postalCode: this.#request.postalCode,
+      duration: this.#request.duration,
+      recurrence: this.#request.recurrence,
       weekSearchDate: (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)
     });
     url.search = params;

@@ -14,7 +14,11 @@ export default class AvailabilityStep extends BaseStep {
     onActive() {
         super.onActive()
         // Update duration when loading Duration step
-        this.#calendar = new CalendarController('availability-cal')
+        this.#calendar = new CalendarController('availability-cal', {
+            postalCode: DOM.postalCode,
+            duration: DOM.duration,
+            recurrence: DOM.occurrence
+        })
 
         this.#createSummary()
     }

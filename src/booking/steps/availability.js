@@ -71,7 +71,7 @@ export default class AvailabilityStep extends BaseStep {
             ?.querySelectorAll('.start-time')
             ?.forEach(e => e.parentNode.removeChild(e))
 
-        if (_.isEmpty(options)) document.getElementById('aval-warning').classList.add('.msg-active')
+        if (_.isEmpty(options)) document.getElementById('aval-warning').classList.add('msg-active')
         else document.getElementById('aval-warning').classList.remove('.msg-active')
 
         _.uniqBy(options, 'start_time').forEach(option => {

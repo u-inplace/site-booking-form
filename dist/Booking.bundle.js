@@ -10677,7 +10677,7 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     super.init();
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].setNextButtonDisabled(true); // Wierd bug but sometimes input start checked
 
-    this.toggleNextWatcher.list(e => e.checked = false);
+    this.toggleNextWatcher.list.forEach(e => e.checked = false);
   }
 
   toggleNext(dontAutoFollow = false) {

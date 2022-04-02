@@ -160,7 +160,7 @@ export default class DOM {
         }
 
         static set duration(time) {
-            document.getElementById('summary-duration').value = time
+            document.getElementById('summary-duration').innerText = time
         }
     }
 }

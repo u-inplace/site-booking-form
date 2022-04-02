@@ -7,10 +7,10 @@ import './style.css'
  */
 const sliderController = () => {
     //  ONly starts after page is loaded
-    window.onload = () => {
+    setTimeout(() => {
         const navController = new Navigation()
         navController.init()
-    }
+    }, 300)
 }
 
 // eslint-disable-next-line no-use-before-define

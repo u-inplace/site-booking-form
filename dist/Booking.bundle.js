@@ -10363,7 +10363,6 @@ class Slider {
   }
 
   resize() {
-    console.log(`Resize triggered: ${this.current}`);
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.formHeight = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.getStepHeight(this.current);
   }
 
@@ -11468,10 +11467,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const sliderController = () => {
   //  ONly starts after page is loaded
-  window.onload = () => {
+  setTimeout(() => {
     const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
     navController.init();
-  };
+  }, 300);
 }; // eslint-disable-next-line no-use-before-define
 
 

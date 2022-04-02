@@ -53,7 +53,7 @@ export default class BaseStep extends Step {
         DOM.setNextButtonDisabled(true)
 
         // Wierd bug but sometimes input start checked
-        this.toggleNextWatcher.list.forEach(e => (e.checked = false))
+        this.toggleNextWatcher.list.forEach(e => (e.elem.checked = false))
     }
 
     toggleNext(dontAutoFollow = false) {

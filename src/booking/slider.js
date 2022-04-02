@@ -30,6 +30,7 @@ export default class Slider {
     }
 
     resize() {
+        console.log(`Resize triggered: ${this.current}`)
         DOM.slider.formHeight = DOM.slider.getStepHeight(this.current)
     }
 

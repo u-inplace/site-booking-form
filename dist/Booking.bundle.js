@@ -10363,6 +10363,7 @@ class Slider {
   }
 
   resize() {
+    console.log(`Resize triggered: ${this.current}`);
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.formHeight = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.getStepHeight(this.current);
   }
 

@@ -10535,8 +10535,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(options, 'start_time').forEach(option => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');
-      node.style.display = 'flex';
-      node.classList.add('start-time'); // Handle clicks on option
+      node.style.display = 'flex'; // Handle clicks on option
 
       const radio = node.getElementsByClassName('start-time-radio')[0];
       radio.addEventListener('click', this.onStartTimeSelect.bind(this));
@@ -10545,6 +10544,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
       const label = node.getElementsByClassName('start-time-text')[0];
       label.innerText = option.start_time;
       document.getElementById('start-time-block').appendChild(node);
+      node.classList.add('start-time');
     });
   }
   /**

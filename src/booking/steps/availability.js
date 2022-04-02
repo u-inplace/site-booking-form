@@ -76,7 +76,6 @@ export default class AvailabilityStep extends BaseStep {
 
             node.setAttribute('id', '')
             node.style.display = 'flex'
-            node.classList.add('start-time')
 
             // Handle clicks on option
             const radio = node.getElementsByClassName('start-time-radio')[0]
@@ -88,6 +87,8 @@ export default class AvailabilityStep extends BaseStep {
             label.innerText = option.start_time
 
             document.getElementById('start-time-block').appendChild(node)
+
+            node.classList.add('start-time')
         })
     }
 

@@ -10461,29 +10461,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ AvailabilityStep; }
 /* harmony export */ });
-/* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* eslint-disable class-methods-use-this */
 
 
 
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
+
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
   #calendar;
 
   constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Availability);
+    super(_constants__WEBPACK_IMPORTED_MODULE_2__.STEP.Availability);
   }
 
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
-    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal', {
-      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.value,
-      duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
-      recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
+    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].postalCode.value,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].occurrence
     }, this.onDayChange.bind(this));
     this.#createSummary();
   }
@@ -10494,17 +10497,17 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   #createSummary() {
     // Selected services
-    const services = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].getSelectedServices();
-    Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
+    const services = _dom__WEBPACK_IMPORTED_MODULE_3__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_2__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.inactiveService(s));
     const {
       duration
-    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.payment = `${duration} titres-services`;
+    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.payment = `${duration} titres-services`;
     const {
       occurrence
-    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.occurrence = occurrence;
+    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.occurrence = occurrence;
   }
   /**
    * Load all available options
@@ -10528,7 +10531,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     const template = document.getElementById('start-time-template'); // Clean up existing entries
 
     document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-    options.forEach(option => {
+
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(options, 'start_time').forEach(option => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');
       node.style.display = 'flex';

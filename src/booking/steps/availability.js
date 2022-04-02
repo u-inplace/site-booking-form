@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import _ from 'lodash'
 import CalendarController from '../../calendar/main'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
@@ -70,7 +71,7 @@ export default class AvailabilityStep extends BaseStep {
             ?.querySelectorAll('.start-time')
             ?.forEach(e => e.parentNode.removeChild(e))
 
-        options.forEach(option => {
+        _.uniqBy(options, 'start_time').forEach(option => {
             const node = template.cloneNode(true)
 
             node.setAttribute('id', '')

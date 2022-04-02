@@ -10153,9 +10153,14 @@ class DOM {
     }
 
   };
+
+  static get duration() {
+    return document.getElementById('duration').value;
+  }
   /** *
    * Summary
    */
+
 
   static summary = class {
     static activeService(service) {
@@ -10166,12 +10171,8 @@ class DOM {
       document.getElementById(`summary-${service}`).classList.remove('service-active');
     }
 
-    static get duration() {
-      return document.getElementById('duration').value;
-    }
-
     static set duration(time) {
-      document.getElementById('duration').value = time;
+      document.getElementById('summary-duration').value = time;
     }
 
   };
@@ -10477,7 +10478,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
     const {
       duration
-    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary;
+    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
     _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
   }
 

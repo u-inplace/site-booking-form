@@ -29,7 +29,7 @@ export default class AvailabilityStep extends BaseStep {
             services.includes(s) ? DOM.summary.activeService(s) : DOM.summary.inactiveService(s)
         )
 
-        const { duration } = DOM.summary
+        const { duration } = DOM
         DOM.summary.duration = `${duration}h`
     }
 }

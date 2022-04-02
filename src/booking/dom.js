@@ -143,6 +143,10 @@ export default class DOM {
         }
     }
 
+    static get duration() {
+        return document.getElementById('duration').value
+    }
+
     /** *
      * Summary
      */
@@ -155,12 +159,8 @@ export default class DOM {
             document.getElementById(`summary-${service}`).classList.remove('service-active')
         }
 
-        static get duration() {
-            return document.getElementById('duration').value
-        }
-
         static set duration(time) {
-            document.getElementById('duration').value = time
+            document.getElementById('summary-duration').value = time
         }
     }
 }

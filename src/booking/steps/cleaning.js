@@ -95,12 +95,4 @@ export default class CleaningStep extends CompoundStep {
     constructor() {
         super(STEP.Cleaning, new Supplies(), new Extras(), new Home())
     }
-
-    onNext() {
-        super.onNext()
-    }
-
-    onBack() {
-        super.onBack()
-    }
 }

@@ -27,4 +27,12 @@ export default class CompoundStep extends BaseStep {
     get duration() {
         return this.#steps.reduce((acc, s) => acc + s.duration, 0)
     }
+
+    onNext() {
+        super.onNext()
+    }
+
+    onBack() {
+        super.onBack()
+    }
 }

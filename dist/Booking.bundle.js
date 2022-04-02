@@ -10676,14 +10676,6 @@ class CleaningStep extends _compound__WEBPACK_IMPORTED_MODULE_3__["default"] {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning, new Supplies(), new Extras(), new Home());
   }
 
-  onNext() {
-    super.onNext();
-  }
-
-  onBack() {
-    super.onBack();
-  }
-
 }
 
 /***/ }),
@@ -10729,6 +10721,14 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   get duration() {
     return this.#steps.reduce((acc, s) => acc + s.duration, 0);
+  }
+
+  onNext() {
+    super.onNext();
+  }
+
+  onBack() {
+    super.onBack();
   }
 
 }

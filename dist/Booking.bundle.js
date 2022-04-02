@@ -10525,11 +10525,14 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   onDayChange(day, options) {
     // Get template checkbox
-    const template = document.getElementById('start-time-template');
+    const template = document.getElementById('start-time-template'); // Clean up existing entries
+
+    document.getElementById('start-time-block').querySelectorAll('.start-time').forEach(e => e.parentNode.removeChild(e));
     options.forEach(option => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');
-      node.style.display = 'block'; // Handle clicks on option
+      node.style.display = 'block';
+      node.classList.add('start-time'); // Handle clicks on option
 
       const radio = node.getElementsByClassName('start-time-radio');
       radio.addEventListener('click', this.onStartTimeSelect.bind(this));

@@ -17,7 +17,10 @@ export default class CompoundStep extends BaseStep {
     }
 
     get toggleNextWatcher() {
-        return this.#steps.reduce((acc, s) => acc.push(s.toggleNextWatcher), new ToggleWatcher())
+        return this.#steps.reduce(
+            (acc, s) => acc.push(s.toggleNextWatcher.list),
+            new ToggleWatcher()
+        )
     }
 
     get duration() {

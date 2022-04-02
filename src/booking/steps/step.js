@@ -39,6 +39,6 @@ export default class Step {
      *  handler = fn
      */
     init() {
-        this.observed.forEach(o => o.elem.addEventListener(o.event, o.handler))
+        this.observed.forEach(o => o?.elem?.addEventListener(o.event, o.handler))
     }
 }

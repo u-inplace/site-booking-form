@@ -72,7 +72,7 @@ export default class AvailabilityStep extends BaseStep {
             ?.forEach(e => e.parentNode.removeChild(e))
 
         if (_.isEmpty(options)) document.getElementById('aval-warning').classList.add('msg-active')
-        else document.getElementById('aval-warning').classList.remove('.msg-active')
+        else document.getElementById('aval-warning').classList.remove('msg-active')
 
         _.uniqBy(options, 'start_time').forEach(option => {
             const node = template.cloneNode(true)

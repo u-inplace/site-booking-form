@@ -23,7 +23,7 @@ export default class CalendarController {
         // Store requested weeks
         this.#cached = {}
 
-        this.#request = {}
+        this.#request = request
 
         this.#initialised = false
         this.#placeHolderID = placeHolderID

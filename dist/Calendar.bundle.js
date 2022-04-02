@@ -10160,7 +10160,7 @@ class CalendarController {
   constructor(placeHolderID, request = {}) {
     // Store requested weeks
     this.#cached = {};
-    this.#request = {};
+    this.#request = request;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;

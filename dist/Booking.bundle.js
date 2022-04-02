@@ -10830,6 +10830,7 @@ class DurationStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   onActive(event) {
     // Update duration when loading Duration step
     if (event === 'next') this.model.updateEstimation();
+    super.onActive(event);
   }
 
 }

@@ -20,5 +20,6 @@ export default class DurationStep extends BaseStep {
     onActive(event) {
         // Update duration when loading Duration step
         if (event === 'next') this.model.updateEstimation()
+        super.onActive(event)
     }
 }

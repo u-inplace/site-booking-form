@@ -1,5 +1,4 @@
 /* eslint-disable no-var */
-import Navigation from './navigation'
 import './style.css'
 
 /**
@@ -7,10 +6,10 @@ import './style.css'
  */
 const sliderController = () => {
     //  ONly starts after page is loaded
-    setTimeout(() => {
-        const navController = new Navigation()
-        navController.init()
-    }, 1000 * 3)
+    // setTimeout(() => {
+    //     const navController = new Navigation()
+    //     navController.init()
+    // }, 300)
 }
 
 // eslint-disable-next-line no-use-before-define

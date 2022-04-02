@@ -10626,7 +10626,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
 /* harmony import */ var _step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./step */ "./src/booking/steps/step.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable class-methods-use-this */
+
 
 
 /**
@@ -10659,7 +10661,7 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
       elem: _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.backButtonAll[this.stepNo - 1],
       event: 'click',
       handler: this.onBack.bind(this)
-    }, ...this.toggleNextWatcher.map(watcher => ({ ...watcher,
+    }, ...this.toggleNextWatcher.list.map(watcher => ({ ...watcher,
       handler: this.toggleNext.bind(this)
     }))];
     return set;
@@ -10670,7 +10672,7 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
 
   get toggleNextWatcher() {
-    return [];
+    return new _watcher__WEBPACK_IMPORTED_MODULE_2__["default"]();
   }
 
   init() {
@@ -10690,23 +10692,20 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   onNext() {
     this.slider.next();
-    this.updateNav();
-    this.toggleNext();
   }
 
   onBack() {
     this.slider.prev();
-    this.updateNav(); // Disable auto follow
-
-    this.toggleNext(true);
   }
   /**
    * Triggered when slide becomes active
    */
 
 
-  onActive() {
-    return null;
+  onActive(event) {
+    this.updateNav(); // Disable autofollow when going back
+
+    this.toggleNext(event === 'back');
   }
 
   updateNav() {

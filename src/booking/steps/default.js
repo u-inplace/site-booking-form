@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import DOM from '../dom'
 import Step from './step'
+import ToggleWatcher from './watcher'
 
 /**
  * Default step handler
@@ -33,7 +34,7 @@ export default class DefaultStep extends Step {
                 event: 'click',
                 handler: this.onBack.bind(this)
             },
-            ...this.toggleNextWatcher.map(watcher => ({
+            ...this.toggleNextWatcher.list.map(watcher => ({
                 ...watcher,
                 handler: this.toggleNext.bind(this)
             }))
@@ -46,7 +47,7 @@ export default class DefaultStep extends Step {
      * Should be implemented in child classes
      */
     get toggleNextWatcher() {
-        return []
+        return new ToggleWatcher()
     }
 
     init() {
@@ -67,23 +68,19 @@ export default class DefaultStep extends Step {
 
     onNext() {
         this.slider.next()
-        this.updateNav()
-        this.toggleNext()
     }
 
     onBack() {
         this.slider.prev()
-        this.updateNav()
-
-        // Disable auto follow
-        this.toggleNext(true)
     }
 
     /**
      * Triggered when slide becomes active
      */
-    onActive() {
-        return null
+    onActive(event) {
+        this.updateNav()
+        // Disable autofollow when going back
+        this.toggleNext(event === 'back')
     }
 
     updateNav() {

@@ -10580,7 +10580,7 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     if (!isDisabled && !stopAutoFollow && this.autoFollow) {
       // Wait a bit before going
-      setTimeout(() => this.slider.next(), 1000);
+      setTimeout(() => this.slider.next(), 500);
     }
   }
 

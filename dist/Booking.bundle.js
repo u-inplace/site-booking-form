@@ -10149,7 +10149,6 @@ class DOM {
 
     static set formHeight(height) {
       // Add some more for shadow box below
-      console.log(`Set height: ${height}`);
       height && (document.getElementsByClassName('form-mask')[0].style.height = `${height + 150}px`);
     }
 
@@ -10584,7 +10583,13 @@ __webpack_require__.r(__webpack_exports__);
 class BaseCleaningStep extends _base__WEBPACK_IMPORTED_MODULE_2__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
-  }
+  } // Do not create handlers for onBack onNext for children
+  // classes to avoid the method being called multiple times
+
+
+  onBack() {}
+
+  onNext() {}
 
 }
 
@@ -10669,6 +10674,14 @@ class Home extends BaseCleaningStep {
 class CleaningStep extends _compound__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning, new Supplies(), new Extras(), new Home());
+  }
+
+  onNext() {
+    super.onNext();
+  }
+
+  onBack() {
+    super.onBack();
   }
 
 }

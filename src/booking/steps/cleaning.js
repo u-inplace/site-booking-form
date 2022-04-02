@@ -11,6 +11,11 @@ class BaseCleaningStep extends BaseStep {
     constructor() {
         super(STEP.Cleaning)
     }
+
+    // Do not create handlers for onBack onNext for children
+    // classes to avoid the method being called multiple times
+    onBack() {}
+    onNext() {}
 }
 
 class Supplies extends BaseCleaningStep {
@@ -89,5 +94,13 @@ class Home extends BaseCleaningStep {
 export default class CleaningStep extends CompoundStep {
     constructor() {
         super(STEP.Cleaning, new Supplies(), new Extras(), new Home())
+    }
+
+    onNext() {
+        super.onNext()
+    }
+
+    onBack() {
+        super.onBack()
     }
 }

@@ -74,7 +74,7 @@ export default class AvailabilityStep extends BaseStep {
             const node = template.cloneNode(true)
 
             node.setAttribute('id', '')
-            node.style.display = 'block'
+            node.style.display = 'flex'
             node.classList.add('start-time')
 
             // Handle clicks on option

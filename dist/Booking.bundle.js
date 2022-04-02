@@ -10531,7 +10531,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     options.forEach(option => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');
-      node.style.display = 'block';
+      node.style.display = 'flex';
       node.classList.add('start-time'); // Handle clicks on option
 
       const radio = node.getElementsByClassName('start-time-radio')[0];

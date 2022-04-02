@@ -7,6 +7,7 @@ import BaseStep from './base'
 
 export default class AvailabilityStep extends BaseStep {
     #calendar
+    #openings
 
     constructor() {
         super(STEP.Availability)
@@ -26,6 +27,7 @@ export default class AvailabilityStep extends BaseStep {
         )
 
         this.#createSummary()
+        this.#openings = {}
     }
 
     /**
@@ -47,8 +49,8 @@ export default class AvailabilityStep extends BaseStep {
     }
 
     /**
-     * Load all available options
-     * An option has the following structure
+     * Load all available openings
+     * An opening has the following structure
      * {
         start: new Date(slot.start_time),
         end: new Date(slot.end_time),
@@ -61,20 +63,23 @@ export default class AvailabilityStep extends BaseStep {
         }
     }
      */
-    onDayChange(day, options) {
+    onDayChange(day, openings) {
         // Get template checkbox
         const template = document.getElementById('start-time-template')
+
+        // Store day options
+        this.#openings[day] = openings
 
         // Clean up existing entries
         document
             .getElementById('start-time-block')
-            ?.querySelectorAll('.start-time')
+            ?.querySelectorAll('.start-time, .team-member')
             ?.forEach(e => e.parentNode.removeChild(e))
 
-        if (_.isEmpty(options)) document.getElementById('aval-warning').classList.add('msg-active')
+        if (_.isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active')
         else document.getElementById('aval-warning').classList.remove('msg-active')
 
-        _.uniqBy(options, 'start_time').forEach(option => {
+        _.uniqBy(openings, 'start_time').forEach(open => {
             const node = template.cloneNode(true)
 
             node.setAttribute('id', '')
@@ -85,10 +90,10 @@ export default class AvailabilityStep extends BaseStep {
             const radio = node.getElementsByClassName('start-time-radio')[0]
             radio.addEventListener('click', this.onStartTimeSelect.bind(this))
             radio.setAttribute('id', '')
-            radio.value = option.start_time
+            radio.value = open.start_time
 
             const label = node.getElementsByClassName('start-time-text')[0]
-            label.innerText = option.start_time
+            label.innerText = open.start_time
 
             document.getElementById('start-time-block').appendChild(node)
         })
@@ -98,5 +103,8 @@ export default class AvailabilityStep extends BaseStep {
      * handle start time selection
      * @param {*} e
      */
-    onStartTimeSelect() {}
+    onStartTimeSelect(e) {
+        // Get opening for this day
+        const openings = this.#openings
+    }
 }

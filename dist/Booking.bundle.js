@@ -10475,6 +10475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
   #calendar;
+  #openings;
 
   constructor() {
     super(_constants__WEBPACK_IMPORTED_MODULE_2__.STEP.Availability);
@@ -10489,6 +10490,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
       recurrence: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].occurrence
     }, this.onDayChange.bind(this));
     this.#createSummary();
+    this.#openings = {};
   }
   /**
    * Read options and create a summary
@@ -10510,8 +10512,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.occurrence = occurrence;
   }
   /**
-   * Load all available options
-   * An option has the following structure
+   * Load all available openings
+   * An opening has the following structure
    * {
       start: new Date(slot.start_time),
       end: new Date(slot.end_time),
@@ -10526,14 +10528,16 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
    */
 
 
-  onDayChange(day, options) {
+  onDayChange(day, openings) {
     // Get template checkbox
-    const template = document.getElementById('start-time-template'); // Clean up existing entries
+    const template = document.getElementById('start-time-template'); // Store day options
 
-    document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(options)) document.getElementById('aval-warning').classList.add('msg-active');else document.getElementById('aval-warning').classList.remove('msg-active');
+    this.#openings[day] = openings; // Clean up existing entries
 
-    lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(options, 'start_time').forEach(option => {
+    document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active');else document.getElementById('aval-warning').classList.remove('msg-active');
+
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
       const node = template.cloneNode(true);
       node.setAttribute('id', '');
       node.style.display = 'flex';
@@ -10542,9 +10546,9 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
       const radio = node.getElementsByClassName('start-time-radio')[0];
       radio.addEventListener('click', this.onStartTimeSelect.bind(this));
       radio.setAttribute('id', '');
-      radio.value = option.start_time;
+      radio.value = open.start_time;
       const label = node.getElementsByClassName('start-time-text')[0];
-      label.innerText = option.start_time;
+      label.innerText = open.start_time;
       document.getElementById('start-time-block').appendChild(node);
     });
   }
@@ -10554,7 +10558,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
    */
 
 
-  onStartTimeSelect() {}
+  onStartTimeSelect(e) {
+    // Get opening for this day
+    const openings = this.#openings;
+  }
 
 }
 

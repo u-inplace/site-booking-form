@@ -10676,7 +10676,6 @@ class DefaultStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   init() {
     super.init();
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].setNextButtonDisabled(true);
-    this.toggleNext();
   }
 
   toggleNext(dontAutoFollow = false) {

@@ -52,7 +52,6 @@ export default class DefaultStep extends Step {
     init() {
         super.init()
         DOM.setNextButtonDisabled(true)
-        this.toggleNext()
     }
 
     toggleNext(dontAutoFollow = false) {

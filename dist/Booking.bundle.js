@@ -10242,9 +10242,9 @@ class Navigation {
 
     this.#slider.onChange = this.onChange.bind(this); // Init all steps
 
-    Object.values(_steps__WEBPACK_IMPORTED_MODULE_3__["default"]).forEach(s => s.init()); // Activate first step
+    Object.values(_steps__WEBPACK_IMPORTED_MODULE_3__["default"]).forEach(s => s.init()); // Activate first step as 'back' to avoid autofollow
 
-    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][0].onActive();
+    _steps__WEBPACK_IMPORTED_MODULE_3__["default"][0].onActive('back');
   }
 
   onChange(event) {

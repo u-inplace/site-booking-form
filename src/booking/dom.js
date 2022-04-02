@@ -147,11 +147,11 @@ export default class DOM {
      * Summary
      */
     static summary = class {
-        static set activeService(service) {
+        static activeService(service) {
             document.getElementById(`summary-${service}`).classList.add('service-active')
         }
 
-        static set inactiveService(service) {
+        static inactiveService(service) {
             document.getElementById(`summary-${service}`).classList.remove('service-active')
         }
 

@@ -10545,7 +10545,6 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
       const label = node.getElementsByClassName('start-time-text')[0];
       label.innerText = option.start_time;
       document.getElementById('start-time-block').appendChild(node);
-      node.classList.remove('start-time-template');
     });
   }
   /**

@@ -88,7 +88,6 @@ export default class AvailabilityStep extends BaseStep {
             label.innerText = option.start_time
 
             document.getElementById('start-time-block').appendChild(node)
-            node.classList.remove('start-time-template')
         })
     }
 

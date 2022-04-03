@@ -14,6 +14,13 @@ import BaseStep from './base'
  * @property {string} start_time
  * @property {Employee} employee
  */
+
+/**
+ * Availability Step Controller
+ * @class
+ * @constructor
+ * @public
+ */
 export default class AvailabilityStep extends BaseStep {
     #calendar
 
@@ -104,8 +111,23 @@ export default class AvailabilityStep extends BaseStep {
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioClass: 'team-member-radio',
-                radioValue: slugify(`${open.first_name} ${open.last_name}`)
+                radioValue: open.start_time
             })
+
+            const node = template.cloneNode(true)
+
+            node.setAttribute('id', '')
+            node.style.display = 'flex'
+            node.classList.add('team-member')
+
+            const radio = node.getElementsByClassName('team-member-radio')[0]
+            radio.setAttribute('id', '')
+            radio.value = slugify(`${open.first_name} ${open.last_name}`)
+
+            const label = node.getElementsByClassName('team-member-name')[0]
+            label.innerText = open.employee.first_name
+
+            document.getElementById('team-members-block').appendChild(node)
         })
     }
 

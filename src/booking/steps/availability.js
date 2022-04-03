@@ -3,6 +3,7 @@
 import _ from 'lodash'
 import CalendarController from '../../calendar/main'
 import { slugify } from '../../helpers/text'
+import { Collections, webflow } from '../../webflow'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
@@ -31,6 +32,21 @@ export default class AvailabilityStep extends BaseStep {
      */
     openings
 
+    /**
+     * Team Members
+     * @typedef {{fileId: string, url: string }} Image
+     * @typedef {Object} TeamMember
+     * @property {String} name
+     * @property {String} slug
+     * @property {String} email
+     * @property {Image} avatar
+     */
+    /**
+     * @type {TeamMember[]}
+     * @protected
+     */
+    team
+
     constructor() {
         super(STEP.Availability)
     }
@@ -49,6 +65,9 @@ export default class AvailabilityStep extends BaseStep {
         )
 
         this.#createSummary()
+
+        // Load team profile from webflow collections
+        this.team = webflow.items({ collectionId: Collections.team })?.items
     }
 
     /**
@@ -126,7 +145,7 @@ export default class AvailabilityStep extends BaseStep {
         const template = DOM.calendar.team.memberTemplate
 
         _.filter(this.openings, { start_time }).forEach(open => {
-            this.createOptionsFromTemplate(template, {
+            const node = this.createOptionsFromTemplate(template, {
                 className: 'team-member',
                 parentId: 'team-members-block',
                 labelClass: 'team-member-name',
@@ -134,6 +153,13 @@ export default class AvailabilityStep extends BaseStep {
                 radioGroup: 'team-member',
                 radioValue: slugify(`${open.first_name} ${open.last_name}`)
             })
+
+            // Get profile picture from webflow collections
+            const avatar = _.find(this.team, {
+                name: `${open.employee.first_name} ${open.employee.first_name}`
+            })?.avatar
+
+            node.querySelector('.team-avatar').src = avatar.url
         })
 
         // Trigger slide resize

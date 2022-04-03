@@ -7,28 +7,9 @@ import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
 
-/**
- * @typedef {Object} Opening
- * @property {Date} start
- * @property {Date} end
- * @property {string} start_time
- * @property {Employee} employee
- */
-
-/**
- * Availability Step Controller
- * @class
- * @constructor
- * @public
- */
 export default class AvailabilityStep extends BaseStep {
     #calendar
 
-    /**
-     * Openings for a day
-     * @type {Opening[]}
-     * @protected
-     */
     openings
 
     constructor() {
@@ -69,21 +50,6 @@ export default class AvailabilityStep extends BaseStep {
         DOM.summary.occurrence = occurrence
     }
 
-    /**
-     * Load all available openings
-     * An opening has the following structure
-     *
-     * @typedef {Object} Employee
-     * @property {String} id
-     * @property {String} first_name
-     * @property {String} last_name
-     * @property {String} allergies
-     *
-     * @param  {string} day
-     * @param  {Opening[]} openings
-     *
-     * */
-
     onDayChange(day, openings) {
         // Get template checkbox
         const template = document.getElementById('start-time-template')
@@ -114,10 +80,6 @@ export default class AvailabilityStep extends BaseStep {
         })
     }
 
-    /**
-     * handle start time selection
-     * @param {HTMLInputElement} selected
-     */
     onStartTimeSelect(selected) {
         // Clean up existing entries
         document
@@ -140,23 +102,6 @@ export default class AvailabilityStep extends BaseStep {
         })
     }
 
-    /**
-     * Create a node copy from template
-     *
-     * @typedef {Object} Conf
-     * @property {String} className
-     * @property {String} parentId
-     * @property {String} labelClass
-     * @property {String} labelText
-     * @property {String} radioClass
-     * @property {String} radioValue
-     * @property {String} radioEvent
-     * @property {Function} radioEventHandler
-     *
-     * @param {HTMLObjectElement} template
-     * @param {Conf} conf
-     * @returns {HTMLObjectElement} node
-     */
     createOptionsFromTemplate(template, conf) {
         const node = template.cloneNode(true)
 

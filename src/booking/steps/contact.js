@@ -7,7 +7,8 @@ export default class ContactStep extends BaseStep {
         super(STEP.Contact)
     }
 
-    onActive() {
+    onActive(event) {
+        super.onActive(event)
         this.setDefaultLang()
     }
 

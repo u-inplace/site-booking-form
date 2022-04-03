@@ -11056,7 +11056,8 @@ class ContactStep extends _base__WEBPACK_IMPORTED_MODULE_1__["default"] {
     super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact);
   }
 
-  onActive() {
+  onActive(event) {
+    super.onActive(event);
     this.setDefaultLang();
   }
 

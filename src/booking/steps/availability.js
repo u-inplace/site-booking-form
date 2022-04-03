@@ -83,7 +83,6 @@ export default class AvailabilityStep extends BaseStep {
      * @param  {Opening[]} openings
      *
      * */
-
     onDayChange(day, openings) {
         // Get template checkbox
         const template = document.getElementById('start-time-template')

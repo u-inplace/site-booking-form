@@ -57,6 +57,14 @@ export default class AvailabilityStep extends BaseStep {
 
     onActive() {
         super.onActive()
+
+        // Get all team members from Webflow CMS
+        this.#fetchTeam()
+
+        // Clean up existing entries
+        DOM.calendar.openings.cleanUp()
+        this.toggleNext()
+
         // Update duration when loading Duration step
         this.#calendar = new CalendarController(
             'availability-cal',
@@ -68,11 +76,7 @@ export default class AvailabilityStep extends BaseStep {
             this.onDayChange.bind(this)
         )
 
-        this.toggleNext()
         this.#createSummary()
-
-        // Get all team members from Webflow CMS
-        this.#fetchTeam()
     }
 
     /**

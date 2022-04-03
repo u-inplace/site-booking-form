@@ -10563,17 +10563,19 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   }
 
   onActive() {
-    super.onActive(); // Update duration when loading Duration step
+    super.onActive(); // Get all team members from Webflow CMS
+
+    this.#fetchTeam(); // Clean up existing entries
+
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.cleanUp();
+    this.toggleNext(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {
       postalCode: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].postalCode.value,
       duration: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].duration,
       recurrence: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].occurrence
     }, this.onDayChange.bind(this));
-    this.toggleNext();
-    this.#createSummary(); // Get all team members from Webflow CMS
-
-    this.#fetchTeam();
+    this.#createSummary();
   }
   /**
    * Fetch team members from webflow CMS

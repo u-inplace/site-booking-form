@@ -68,6 +68,7 @@ export default class AvailabilityStep extends BaseStep {
             this.onDayChange.bind(this)
         )
 
+        this.toggleNext()
         this.#createSummary()
 
         // Get all team members from Webflow CMS

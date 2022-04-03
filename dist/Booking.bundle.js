@@ -10570,6 +10570,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
       duration: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].duration,
       recurrence: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].occurrence
     }, this.onDayChange.bind(this));
+    this.toggleNext();
     this.#createSummary(); // Get all team members from Webflow CMS
 
     this.#fetchTeam();

@@ -10195,7 +10195,8 @@ class DOM {
   static calendar = class {
     static openings = class {
       static cleanUp() {
-        document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+        document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+        DOM.calendar.team.cleanUp();
       }
 
       static showWarning() {

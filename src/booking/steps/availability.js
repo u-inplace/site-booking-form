@@ -141,6 +141,9 @@ export default class AvailabilityStep extends BaseStep {
                 radioValue: slugify(`${open.first_name} ${open.last_name}`)
             })
         })
+
+        // Trigger slide resize
+        this.slider.resize()
     }
 
     /**

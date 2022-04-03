@@ -10609,7 +10609,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
         radioGroup: 'team-member',
         radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.first_name} ${open.last_name}`)
       });
-    });
+    }); // Trigger slide resize
+
+
+    this.slider.resize();
   }
   /**
    * Create a node copy from template

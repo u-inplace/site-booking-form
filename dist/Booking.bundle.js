@@ -10682,7 +10682,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
    * @property {String} radioEvent
    * @property {Function} radioEventHandler
    *
-   * @param {HTMLObjectElement} template
+   * @param {HTMLDivElement} template
    * @param {Conf} conf
    * @returns {HTMLObjectElement} node
    */
@@ -10694,10 +10694,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     node.style.display = 'flex';
     node.classList.add(conf.className); // Handle clicks on option
 
-    const radio = node.getElementsByClassName(conf.radioClass)[0];
+    const radio = node.querySelector(`.${conf.radioClass}`);
     radio.setAttribute('id', '');
     radio.value = conf.radioValue;
-    const label = node.getElementsByClassName(conf.labelClass)[0];
+    const label = node.querySelector(`.${conf.labelClass}`);
     label.innerText = conf.labelText;
     document.getElementById('start-time-block').appendChild(node);
 

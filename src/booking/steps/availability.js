@@ -115,16 +115,16 @@ export default class AvailabilityStep extends BaseStep {
 
     /**
      * handle start time selection
-     * @param {HTMLInputElement} selected
+     * @param {MouseEvent} event
      */
-    onStartTimeSelect(selected) {
+    onStartTimeSelect(event) {
         // Clean up existing entries
         document
             .getElementById('start-time-block')
             ?.querySelectorAll('.team-member')
             ?.forEach(e => e.parentNode.removeChild(e))
 
-        const start_time = selected.value
+        const start_time = event.target.value
         const template = document.getElementById('team-member-template')
 
         _.filter(this.openings, { start_time }).forEach(open => {

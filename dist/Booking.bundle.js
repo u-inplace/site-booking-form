@@ -10575,14 +10575,14 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   }
   /**
    * handle start time selection
-   * @param {HTMLInputElement} selected
+   * @param {MouseEvent} event
    */
 
 
-  onStartTimeSelect(selected) {
+  onStartTimeSelect(event) {
     // Clean up existing entries
     document.getElementById('start-time-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
-    const start_time = selected.value;
+    const start_time = event.target.value;
     const template = document.getElementById('team-member-template');
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {

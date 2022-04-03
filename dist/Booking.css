@@ -658,16 +658,6 @@
 /*!*****************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/booking/style.css ***!
   \*****************************************************************************************************/
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.service-summary-item {
-    display: none;
-}
 .service-summary-item.service-active {
     display: flex;
 }

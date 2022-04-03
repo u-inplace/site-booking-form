@@ -11030,6 +11030,33 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ "./src/booking/steps/contact.js":
+/*!**************************************!*\
+  !*** ./src/booking/steps/contact.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ContactStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* eslint-disable class-methods-use-this */
+
+
+class ContactStep extends _base__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact);
+  }
+
+  onActive() {}
+
+}
+
+/***/ }),
+
 /***/ "./src/booking/steps/duration.js":
 /*!***************************************!*\
   !*** ./src/booking/steps/duration.js ***!
@@ -11084,10 +11111,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _availability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./availability */ "./src/booking/steps/availability.js");
 /* harmony import */ var _cleaning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cleaning */ "./src/booking/steps/cleaning.js");
-/* harmony import */ var _duration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./duration */ "./src/booking/steps/duration.js");
-/* harmony import */ var _ironing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ironing */ "./src/booking/steps/ironing.js");
-/* harmony import */ var _postalCode__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./postalCode */ "./src/booking/steps/postalCode.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services */ "./src/booking/steps/services.js");
+/* harmony import */ var _contact__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./contact */ "./src/booking/steps/contact.js");
+/* harmony import */ var _duration__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./duration */ "./src/booking/steps/duration.js");
+/* harmony import */ var _ironing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ironing */ "./src/booking/steps/ironing.js");
+/* harmony import */ var _postalCode__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./postalCode */ "./src/booking/steps/postalCode.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services */ "./src/booking/steps/services.js");
+
 
 
 
@@ -11096,12 +11125,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Steps = {
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _postalCode__WEBPACK_IMPORTED_MODULE_5__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _services__WEBPACK_IMPORTED_MODULE_6__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _ironing__WEBPACK_IMPORTED_MODULE_4__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _postalCode__WEBPACK_IMPORTED_MODULE_6__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _services__WEBPACK_IMPORTED_MODULE_7__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _ironing__WEBPACK_IMPORTED_MODULE_5__["default"](),
   [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning]: new _cleaning__WEBPACK_IMPORTED_MODULE_2__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _duration__WEBPACK_IMPORTED_MODULE_3__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability]: new _availability__WEBPACK_IMPORTED_MODULE_1__["default"]()
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _duration__WEBPACK_IMPORTED_MODULE_4__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability]: new _availability__WEBPACK_IMPORTED_MODULE_1__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]: new _contact__WEBPACK_IMPORTED_MODULE_3__["default"]()
 };
 /* harmony default export */ __webpack_exports__["default"] = (Steps);
 

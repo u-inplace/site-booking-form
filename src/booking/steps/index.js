@@ -1,6 +1,7 @@
 import { STEP } from '../constants'
 import AvailabilityStep from './availability'
 import CleaningStep from './cleaning'
+import ContactStep from './contact'
 import DurationStep from './duration'
 import IroningStep from './ironing'
 import PostalCodeStep from './postalCode'
@@ -12,7 +13,8 @@ const Steps = {
     [STEP.Ironing]: new IroningStep(),
     [STEP.Cleaning]: new CleaningStep(),
     [STEP.Duration]: new DurationStep(),
-    [STEP.Availability]: new AvailabilityStep()
+    [STEP.Availability]: new AvailabilityStep(),
+    [STEP.Contact]: new ContactStep()
 }
 
 export default Steps

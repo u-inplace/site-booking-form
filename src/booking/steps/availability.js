@@ -69,6 +69,20 @@ export default class AvailabilityStep extends BaseStep {
         DOM.summary.occurrence = occurrence
     }
 
+    /**
+     * Load all available openings
+     * An opening has the following structure
+     *
+     * @typedef {Object} Employee
+     * @property {String} id
+     * @property {String} first_name
+     * @property {String} last_name
+     * @property {String} allergies
+     *
+     * @param  {string} day
+     * @param  {Opening[]} openings
+     *
+     * */
     onDayChange(day, openings) {
         // Get template checkbox
         const template = document.getElementById('start-time-template')

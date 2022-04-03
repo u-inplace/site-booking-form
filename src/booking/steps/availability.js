@@ -167,15 +167,15 @@ export default class AvailabilityStep extends BaseStep {
         radio.setAttribute('id', '')
         radio.value = conf.radioValue
 
-        if (conf.radioEvent) {
-            radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
-            radio.addEventListener(conf.radioEvent, () => console.log('cliked'))
-        }
-
         const label = node.getElementsByClassName(conf.labelClass)[0]
         label.innerText = conf.labelText
 
         document.getElementById('start-time-block').appendChild(node)
+
+        if (conf.radioEvent) {
+            radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
+            radio.addEventListener(conf.radioEvent, () => console.log('cliked'))
+        }
 
         return node
     }

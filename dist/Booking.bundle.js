@@ -10556,6 +10556,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     super(_constants__WEBPACK_IMPORTED_MODULE_3__.STEP.Availability);
   }
 
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
+  }
+
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 

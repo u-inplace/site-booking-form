@@ -50,6 +50,10 @@ export default class AvailabilityStep extends BaseStep {
         super(STEP.Availability)
     }
 
+    get isNextDisabled() {
+        return !DOM.getRadio('team-member', true)
+    }
+
     onActive() {
         super.onActive()
         // Update duration when loading Duration step

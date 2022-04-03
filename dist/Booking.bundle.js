@@ -10603,7 +10603,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     }).forEach(open => {
       this.createOptionsFromTemplate(template, {
         className: 'team-member',
-        parentId: 'team-member-block',
+        parentId: 'team-members-block',
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioGroup: 'team-member',

@@ -134,7 +134,7 @@ export default class AvailabilityStep extends BaseStep {
         _.filter(this.openings, { start_time }).forEach(open => {
             this.createOptionsFromTemplate(template, {
                 className: 'team-member',
-                parentId: 'team-member-block',
+                parentId: 'team-members-block',
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioGroup: 'team-member',

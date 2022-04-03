@@ -10562,10 +10562,6 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
   }
 
-  get toggleNextWatcher() {
-    return new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click');
-  }
-
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
@@ -10682,8 +10678,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
         name: `${open.employee.first_name} ${open.employee.last_name}`
       })?.['profile-picture'];
       avatar?.url && (node.querySelector('.team-avatar').src = avatar.url);
-    }); // Trigger slide resize
+    }); // Wire events for next button
 
+
+    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click'); // Trigger slide resize
 
     this.slider.resize();
   }
@@ -10784,6 +10782,17 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   get toggleNextWatcher() {
     return new _watcher__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  }
+  /**
+   * Update list of watchers
+   * @param {ToggleWatcher} toggleList
+   */
+
+
+  set toggleNextWatcher(toggleList) {
+    this.wireEvents(toggleList.list.map(watcher => ({ ...watcher,
+      handler: this.toggleNext.bind(this)
+    })));
   }
 
   init() {
@@ -11324,6 +11333,17 @@ class Step {
     this.slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
     this.model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
   }
+  /**
+   * @typedef {Object} Observed
+   * @property {HTMLElement} elem
+   * @property {string} event
+   * @property {Function} handler
+   */
+
+  /**
+   * @returns {Observed[]}
+   */
+
 
   get observed() {
     return [];
@@ -11341,6 +11361,16 @@ class Step {
     return false;
   }
   /**
+   * Hook events with handlers
+   *
+   * @param {Observed[]} set
+   */
+
+
+  wireEvents(set) {
+    set.forEach(o => o?.elem?.addEventListener(o.event, o.handler));
+  }
+  /**
    * Create event handlers for observed attributes
    * expects an array of
    *  elem
@@ -11350,7 +11380,7 @@ class Step {
 
 
   init() {
-    this.observed.forEach(o => o?.elem?.addEventListener(o.event, o.handler));
+    this.wireEvents(this.observed);
   }
 
 }
@@ -11370,23 +11400,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * Next button watcher
+ *
+ * @class
+ * @constructor
+ * @public
  */
 class ToggleWatcher {
-  #list;
+  /**
+   * @typedef {Object} Observed
+   * @property {HTMLElement} elem
+   * @property {string} event
+   */
+
+  /**
+   * @type {Observed[]}
+   * @public
+   */
+  list;
+  /**
+   *
+   * @param {HTMLElement[]} elems
+   * @param {string} event
+   */
 
   constructor(elems = [], event = 'change') {
-    this.#list = elems.map(e => ({
+    this.list = elems.map(e => ({
       elem: e,
       event
     }));
   }
+  /**
+   *
+   * @param {Observed[]} entries
+   */
+
 
   push(entries) {
-    this.#list = this.#list.concat(entries);
-  }
-
-  get list() {
-    return this.#list;
+    this.list = this.list.concat(entries);
   }
 
 }

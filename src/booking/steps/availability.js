@@ -55,10 +55,6 @@ export default class AvailabilityStep extends BaseStep {
         return !DOM.getRadio('team-member', true)
     }
 
-    get toggleNextWatcher() {
-        return new ToggleWatcher(DOM.queryRadio('team-member'), 'click')
-    }
-
     onActive() {
         super.onActive()
         // Update duration when loading Duration step
@@ -186,6 +182,9 @@ export default class AvailabilityStep extends BaseStep {
 
             avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
         })
+
+        // Wire events for next button
+        this.toggleNextWatcher = new ToggleWatcher(DOM.queryRadio('team-member'), 'click')
 
         // Trigger slide resize
         this.slider.resize()

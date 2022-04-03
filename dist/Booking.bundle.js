@@ -10193,14 +10193,38 @@ class DOM {
    */
 
   static calendar = class {
-    static showTeamBlock() {
-      document.getElementById('team-members-block').classList.add('visible');
-    }
+    static openings = class {
+      static cleanUp() {
+        document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+      }
 
-    static hideTeamBlock() {
-      document.getElementById('team-members-block').classList.remove('visible');
-    }
+      static showWarning() {
+        document.getElementById('aval-warning').classList.add('msg-active');
+      }
 
+      static hideWarning() {
+        document.getElementById('aval-warning').classList.remove('msg-active');
+      }
+
+    };
+    static team = class {
+      static showBlock() {
+        document.getElementById('team-members-block').classList.add('visible');
+      }
+
+      static hideBlock() {
+        document.getElementById('team-members-block').classList.remove('visible');
+      }
+
+      static cleanUp() {
+        document.getElementById('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+      }
+
+      static get memberTemplate() {
+        return document.getElementById('team-member-template');
+      }
+
+    };
   };
 }
 
@@ -10567,10 +10591,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
     this.openings = openings; // Clean up existing entries
 
-    document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e)); // Hide Team block
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.cleanUp(); // Hide Team block
 
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.hideTeamBlock();
-    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active');else document.getElementById('aval-warning').classList.remove('msg-active');
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.hideBlock();
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.showWarning();else _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.hideWarning();
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
       this.createOptionsFromTemplate(template, {
@@ -10593,10 +10617,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
   onStartTimeSelect(event) {
     // Clean up existing entries
-    document.getElementById('start-time-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.showTeamBlock();
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.cleanUp();
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.showBlock();
     const start_time = event.target.value;
-    const template = document.getElementById('team-member-template');
+    const template = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.memberTemplate;
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {
       start_time

@@ -91,16 +91,13 @@ export default class AvailabilityStep extends BaseStep {
         this.openings = openings
 
         // Clean up existing entries
-        document
-            .getElementById('start-time-block')
-            ?.querySelectorAll('.start-time, .team-member')
-            ?.forEach(e => e.parentNode.removeChild(e))
+        DOM.calendar.openings.cleanUp()
 
         // Hide Team block
-        DOM.calendar.hideTeamBlock()
+        DOM.calendar.team.hideBlock()
 
-        if (_.isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active')
-        else document.getElementById('aval-warning').classList.remove('msg-active')
+        if (_.isEmpty(openings)) DOM.calendar.openings.showWarning()
+        else DOM.calendar.openings.hideWarning()
 
         _.uniqBy(openings, 'start_time').forEach(open => {
             this.createOptionsFromTemplate(template, {
@@ -122,14 +119,11 @@ export default class AvailabilityStep extends BaseStep {
      */
     onStartTimeSelect(event) {
         // Clean up existing entries
-        document
-            .getElementById('start-time-block')
-            ?.querySelectorAll('.team-member')
-            ?.forEach(e => e.parentNode.removeChild(e))
+        DOM.calendar.team.cleanUp()
 
-        DOM.calendar.showTeamBlock()
+        DOM.calendar.team.showBlock()
         const start_time = event.target.value
-        const template = document.getElementById('team-member-template')
+        const template = DOM.calendar.team.memberTemplate
 
         _.filter(this.openings, { start_time }).forEach(open => {
             this.createOptionsFromTemplate(template, {

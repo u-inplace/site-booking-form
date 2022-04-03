@@ -180,12 +180,42 @@ export default class DOM {
      * Availability
      */
     static calendar = class {
-        static showTeamBlock() {
-            document.getElementById('team-members-block').classList.add('visible')
+        static openings = class {
+            static cleanUp() {
+                document
+                    .getElementById('start-time-block')
+                    ?.querySelectorAll('.start-time, .team-member')
+                    ?.forEach(e => e.parentNode.removeChild(e))
+            }
+
+            static showWarning() {
+                document.getElementById('aval-warning').classList.add('msg-active')
+            }
+
+            static hideWarning() {
+                document.getElementById('aval-warning').classList.remove('msg-active')
+            }
         }
 
-        static hideTeamBlock() {
-            document.getElementById('team-members-block').classList.remove('visible')
+        static team = class {
+            static showBlock() {
+                document.getElementById('team-members-block').classList.add('visible')
+            }
+
+            static hideBlock() {
+                document.getElementById('team-members-block').classList.remove('visible')
+            }
+
+            static cleanUp() {
+                document
+                    .getElementById('team-members-block')
+                    ?.querySelectorAll('.team-member')
+                    ?.forEach(e => e.parentNode.removeChild(e))
+            }
+
+            static get memberTemplate() {
+                return document.getElementById('team-member-template')
+            }
         }
     }
 }

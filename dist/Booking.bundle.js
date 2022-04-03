@@ -10681,7 +10681,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     }); // Wire events for next button
 
 
-    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click'); // Trigger slide resize
+    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click');
+    this.toggleNext(); // Trigger slide resize
 
     this.slider.resize();
   }

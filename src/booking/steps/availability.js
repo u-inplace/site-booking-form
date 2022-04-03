@@ -185,6 +185,7 @@ export default class AvailabilityStep extends BaseStep {
 
         // Wire events for next button
         this.toggleNextWatcher = new ToggleWatcher(DOM.queryRadio('team-member'), 'click')
+        this.toggleNext()
 
         // Trigger slide resize
         this.slider.resize()

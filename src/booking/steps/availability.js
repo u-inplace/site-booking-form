@@ -3,7 +3,6 @@
 import _ from 'lodash'
 import CalendarController from '../../calendar/main'
 import { slugify } from '../../helpers/text'
-import { Collections, webflow } from '../../webflow'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
@@ -32,6 +31,19 @@ export default class AvailabilityStep extends BaseStep {
      */
     openings
 
+    /**
+     * Team Members
+     * @typedef {{fileId: string, url: string }} Image
+     * @typedef {Object} TeamMember
+     * @property {String} name
+     * @property {String} slug
+     * @property {String} email
+     * @property {Image} avatar
+     */
+    /**
+     * @type {TeamMember[]}
+     * @protected
+     */
     team
 
     constructor() {
@@ -53,8 +65,25 @@ export default class AvailabilityStep extends BaseStep {
 
         this.#createSummary()
 
-        // Load team profile from webflow collections
-        this.team = webflow.items({ collectionId: Collections.team })?.items
+        // Get all team members from Webflow CMS
+        this.#fetchTeam()
+    }
+
+    /**
+     * Fetch team members from webflow CMS
+     */
+    async #fetchTeam() {
+        const url = new URL('https://inplace-booking.azurewebsites.net/api/collection')
+        const params = new URLSearchParams({
+            code: 'XZlUaOpBh4l7DhFKMgxg6j%2FcXWWRuv%2FPym6r7GvXuXjjcTpiSLGEQg%3D%3D',
+            name: 'team'
+        })
+
+        url.search = params
+        const res = await fetch(url)
+        const team = await res.json()
+
+        this.team = team
     }
 
     /**
@@ -146,7 +175,7 @@ export default class AvailabilityStep extends BaseStep {
                 name: `${open.employee.first_name} ${open.employee.first_name}`
             })?.avatar
 
-            node.querySelector('.team-avatar').src = avatar.url
+            avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
         })
 
         // Trigger slide resize

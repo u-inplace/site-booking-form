@@ -11039,9 +11039,35 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /*!**************************************!*\
   !*** ./src/booking/steps/contact.js ***!
   \**************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/ulysses/Code/projects/inplace/ui-booking/src/booking/steps/contact.js: Invalid left-hand side in assignment expression. (14:5)\n\n\u001b[0m \u001b[90m 12 |\u001b[39m         \u001b[36mconst\u001b[39m weGlotLang \u001b[33m=\u001b[39m document\u001b[33m.\u001b[39mquerySelector(\u001b[32m'.wg-element-wrapper.sw8'\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m         \u001b[36mconst\u001b[39m lang \u001b[33m=\u001b[39m weGlotLang\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mquerySelector(\u001b[32m'.w-dropdown-toggle'\u001b[39m)\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mgetAttribute(\u001b[32m'lang'\u001b[39m)\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 14 |\u001b[39m \t    document\u001b[33m.\u001b[39mgetElementById(lang)\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mchecked \u001b[33m=\u001b[39m \u001b[36mtrue\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 15 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 16 |\u001b[39m     }\u001b[0m\n\u001b[0m \u001b[90m 17 |\u001b[39m }\u001b[0m\n    at instantiate (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:358:12)\n    at Parser.raise (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:3334:19)\n    at Parser.checkLVal (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:12001:12)\n    at Parser.parseMaybeAssign (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:12245:12)\n    at Parser.parseExpressionBase (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:12149:23)\n    at /Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:12143:39\n    at Parser.allowInAnd (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:14231:16)\n    at Parser.parseExpression (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:12143:17)\n    at Parser.parseStatementContent (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:14671:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ContactStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* eslint-disable class-methods-use-this */
+
+
+class ContactStep extends _base__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact);
+  }
+
+  onActive() {
+    this.setDefaultLang();
+  }
+
+  setDefaultLang() {
+    // Get default user language from weglot
+    const weGlotLang = document.querySelector('.wg-element-wrapper.sw8');
+    const lang = weGlotLang?.querySelector('.w-dropdown-toggle')?.getAttribute('lang');
+    document.getElementById(lang).checked = true;
+  }
+
+}
 
 /***/ }),
 

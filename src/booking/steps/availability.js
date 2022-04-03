@@ -6,6 +6,7 @@ import { slugify } from '../../helpers/text'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
+import ToggleWatcher from './watcher'
 
 /**
  * @typedef {Object} Opening
@@ -52,6 +53,10 @@ export default class AvailabilityStep extends BaseStep {
 
     get isNextDisabled() {
         return !DOM.getRadio('team-member', true)
+    }
+
+    get toggleNextWatcher() {
+        return new ToggleWatcher(DOM.queryRadio('team-member'), 'click')
     }
 
     onActive() {

@@ -10502,9 +10502,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
 /* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable camelcase */
 
 /* eslint-disable class-methods-use-this */
+
 
 
 
@@ -10558,6 +10560,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
   get isNextDisabled() {
     return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
+  }
+
+  get toggleNextWatcher() {
+    return new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click');
   }
 
   onActive() {

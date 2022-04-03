@@ -10542,7 +10542,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
    * @property {String} name
    * @property {String} slug
    * @property {String} email
-   * @property {Image} avatar
+   * @property {Image} profile-picture
    */
 
   /**
@@ -10670,7 +10670,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
       const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
         name: `${open.employee.first_name} ${open.employee.first_name}`
-      })?.avatar;
+      })?.['profile-picture'];
       avatar?.url && (node.querySelector('.team-avatar').src = avatar.url);
     }); // Trigger slide resize
 

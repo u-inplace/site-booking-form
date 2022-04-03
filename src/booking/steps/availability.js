@@ -38,7 +38,7 @@ export default class AvailabilityStep extends BaseStep {
      * @property {String} name
      * @property {String} slug
      * @property {String} email
-     * @property {Image} avatar
+     * @property {Image} profile-picture
      */
     /**
      * @type {TeamMember[]}
@@ -173,7 +173,7 @@ export default class AvailabilityStep extends BaseStep {
             // Get profile picture from webflow collections
             const avatar = _.find(this.team, {
                 name: `${open.employee.first_name} ${open.employee.first_name}`
-            })?.avatar
+            })?.['profile-picture']
 
             avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
         })

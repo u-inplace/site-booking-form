@@ -53,7 +53,8 @@
     "dependencies": {
         "color-calendar": "^1.0.7",
         "date-fns": "^2.28.0",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "slugify": "^1.6.5"
     },
     "babel": {}
 }

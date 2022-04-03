@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 import _ from 'lodash'
+import slugify from 'slugify'
 import CalendarController from '../../calendar/main'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
@@ -27,7 +29,7 @@ export default class AvailabilityStep extends BaseStep {
         )
 
         this.#createSummary()
-        this.#openings = {}
+        this.#openings = []
     }
 
     /**
@@ -68,7 +70,7 @@ export default class AvailabilityStep extends BaseStep {
         const template = document.getElementById('start-time-template')
 
         // Store day options
-        this.#openings[day] = openings
+        this.#openings = openings
 
         // Clean up existing entries
         document
@@ -101,10 +103,36 @@ export default class AvailabilityStep extends BaseStep {
 
     /**
      * handle start time selection
-     * @param {*} e
+     * @param {*} selected
      */
-    onStartTimeSelect(e) {
-        // Get opening for this day
+    onStartTimeSelect(selected) {
+        // Clean up existing entries
+        document
+            .getElementById('start-time-block')
+            ?.querySelectorAll('.team-member')
+            ?.forEach(e => e.parentNode.removeChild(e))
+
+        // Get opening for selected day
+        const start_time = selected.value
         const openings = this.#openings
+
+        const template = document.getElementById('team-member-template')
+
+        _.filter(openings, { start_time }).forEach(open => {
+            const node = template.cloneNode(true)
+
+            node.setAttribute('id', '')
+            node.style.display = 'flex'
+            node.classList.add('team-member')
+
+            const radio = node.getElementsByClassName('team-member-radio')[0]
+            radio.setAttribute('id', '')
+            radio.value = slugify(`${open.first_name} ${open.last_name}`)
+
+            const label = node.getElementsByClassName('team-member-name')[0]
+            label.innerText = open.employee.first_name
+
+            document.getElementById('team-members-block').appendChild(node)
+        })
     }
 }

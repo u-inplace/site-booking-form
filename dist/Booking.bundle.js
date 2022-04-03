@@ -10634,7 +10634,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
     const label = node.querySelector(`.${conf.labelClass}`);
     label.innerText = conf.labelText;
-    document.getElementById('start-time-block').appendChild(node);
+    document.getElementById(conf.parentId).appendChild(node);
     return node;
   }
 

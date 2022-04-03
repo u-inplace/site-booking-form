@@ -10562,7 +10562,9 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
   }
 
-  onActive() {
+  onActive(event) {
+    // Only clean up if going from a previous page
+    if (event === 'back') return;
     super.onActive(); // Get all team members from Webflow CMS
 
     this.#fetchTeam(); // Clean up existing entries

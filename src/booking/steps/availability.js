@@ -55,7 +55,10 @@ export default class AvailabilityStep extends BaseStep {
         return !DOM.getRadio('team-member', true)
     }
 
-    onActive() {
+    onActive(event) {
+        // Only clean up if going from a previous page
+        if (event === 'back') return
+
         super.onActive()
 
         // Get all team members from Webflow CMS

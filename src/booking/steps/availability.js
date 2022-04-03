@@ -24,6 +24,11 @@ import BaseStep from './base'
 export default class AvailabilityStep extends BaseStep {
     #calendar
 
+    /**
+     * Openings for a day
+     * @type {Opening[]}
+     * @protected
+     */
     openings
 
     constructor() {

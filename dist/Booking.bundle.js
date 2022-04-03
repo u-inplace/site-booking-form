@@ -10196,7 +10196,6 @@ class DOM {
     static openings = class {
       static cleanUp() {
         document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-        DOM.calendar.team.cleanUp();
       }
 
       static showWarning() {
@@ -10568,7 +10567,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
     this.#fetchTeam(); // Clean up existing entries
 
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.cleanUp();
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.cleanUp();
     this.toggleNext(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {

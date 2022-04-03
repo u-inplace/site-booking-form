@@ -62,7 +62,7 @@ export default class AvailabilityStep extends BaseStep {
         this.#fetchTeam()
 
         // Clean up existing entries
-        DOM.calendar.openings.cleanUp()
+        DOM.calendar.team.cleanUp()
         this.toggleNext()
 
         // Update duration when loading Duration step

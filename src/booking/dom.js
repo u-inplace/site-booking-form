@@ -186,7 +186,6 @@ export default class DOM {
                     .getElementById('start-time-block')
                     ?.querySelectorAll('.start-time')
                     ?.forEach(e => e.parentNode.removeChild(e))
-                DOM.calendar.team.cleanUp()
             }
 
             static showWarning() {

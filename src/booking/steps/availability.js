@@ -105,9 +105,9 @@ export default class AvailabilityStep extends BaseStep {
                 parentId: 'start-time-block',
                 labelClass: 'start-time-text',
                 labelText: open.start_time,
-                radioClass: 'start-time-radio',
+                radioGroup: 'start-time',
                 radioEvent: 'click',
-                radioEventHandler: this.onStartTimeSelect,
+                radioEventHandler: this.onStartTimeSelect.bind(this),
                 radioValue: open.start_time
             })
         })
@@ -133,7 +133,7 @@ export default class AvailabilityStep extends BaseStep {
                 parentId: 'team-member-block',
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
-                radioClass: 'team-member-radio',
+                radioGroup: 'team-member',
                 radioValue: slugify(`${open.first_name} ${open.last_name}`)
             })
         })
@@ -147,7 +147,7 @@ export default class AvailabilityStep extends BaseStep {
      * @property {String} parentId
      * @property {String} labelClass
      * @property {String} labelText
-     * @property {String} radioClass
+     * @property {String} radioGroup
      * @property {String} radioValue
      * @property {String} radioEvent
      * @property {Function} radioEventHandler
@@ -164,19 +164,18 @@ export default class AvailabilityStep extends BaseStep {
         node.classList.add(conf.className)
 
         // Handle clicks on option
-        const radio = node.querySelector(`.${conf.radioClass}`)
+        const radio = node.querySelector(`input[name*='${conf.radioGroup}']`)
         radio.setAttribute('id', '')
         radio.value = conf.radioValue
+        if (conf.radioEvent) {
+            radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
+            radio.addEventListener(conf.radioEvent, () => console.log('cliked'))
+        }
 
         const label = node.querySelector(`.${conf.labelClass}`)
         label.innerText = conf.labelText
 
         document.getElementById('start-time-block').appendChild(node)
-
-        if (conf.radioEvent) {
-            radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
-            radio.addEventListener(conf.radioEvent, () => console.log('cliked'))
-        }
 
         return node
     }

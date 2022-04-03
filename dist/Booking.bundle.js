@@ -11064,7 +11064,7 @@ class ContactStep extends _base__WEBPACK_IMPORTED_MODULE_1__["default"] {
     // Get default user language from weglot
     const weGlotLang = document.querySelector('.wg-element-wrapper.sw8');
     const lang = weGlotLang?.querySelector('.w-dropdown-toggle')?.getAttribute('lang');
-    document.getElementById(lang).checked = true;
+    document.getElementById(lang).click();
   }
 
 }

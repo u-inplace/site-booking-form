@@ -15,6 +15,6 @@ export default class ContactStep extends BaseStep {
         // Get default user language from weglot
         const weGlotLang = document.querySelector('.wg-element-wrapper.sw8')
         const lang = weGlotLang?.querySelector('.w-dropdown-toggle')?.getAttribute('lang')
-        document.getElementById(lang).checked = true
+        document.getElementById(lang).click()
     }
 }

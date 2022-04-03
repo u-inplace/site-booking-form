@@ -135,7 +135,7 @@ export default class AvailabilityStep extends BaseStep {
         else DOM.calendar.openings.hideWarning()
 
         _.uniqBy(openings, 'start_time').forEach(open => {
-            this.createOptionsFromTemplate(template, {
+            this.copyTemplate(template, {
                 className: 'start-time',
                 parentId: 'start-time-block',
                 labelClass: 'start-time-text',
@@ -161,13 +161,13 @@ export default class AvailabilityStep extends BaseStep {
         const template = DOM.calendar.team.memberTemplate
 
         _.filter(this.openings, { start_time }).forEach(open => {
-            const node = this.createOptionsFromTemplate(template, {
+            const node = this.copyTemplate(template, {
                 className: 'team-member',
                 parentId: 'team-members-block',
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioGroup: 'team-member',
-                radioValue: slugify(`${open.first_name} ${open.last_name}`)
+                radioValue: slugify(`${open.employee.first_name} ${open.employee.last_name}`)
             })
 
             // Get profile picture from webflow collections
@@ -197,9 +197,9 @@ export default class AvailabilityStep extends BaseStep {
      *
      * @param {HTMLDivElement} template
      * @param {Conf} conf
-     * @returns {HTMLObjectElement} node
+     * @returns {HTMLObjectElement}
      */
-    createOptionsFromTemplate(template, conf) {
+    copyTemplate(template, conf) {
         const node = template.cloneNode(true)
 
         node.setAttribute('id', '')

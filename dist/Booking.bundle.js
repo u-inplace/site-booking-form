@@ -10631,7 +10631,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.showWarning();else _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.hideWarning();
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
-      this.createOptionsFromTemplate(template, {
+      this.copyTemplate(template, {
         className: 'start-time',
         parentId: 'start-time-block',
         labelClass: 'start-time-text',
@@ -10659,13 +10659,13 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {
       start_time
     }).forEach(open => {
-      const node = this.createOptionsFromTemplate(template, {
+      const node = this.copyTemplate(template, {
         className: 'team-member',
         parentId: 'team-members-block',
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioGroup: 'team-member',
-        radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.first_name} ${open.last_name}`)
+        radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.employee.first_name} ${open.employee.last_name}`)
       }); // Get profile picture from webflow collections
 
       const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
@@ -10692,11 +10692,11 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
    *
    * @param {HTMLDivElement} template
    * @param {Conf} conf
-   * @returns {HTMLObjectElement} node
+   * @returns {HTMLObjectElement}
    */
 
 
-  createOptionsFromTemplate(template, conf) {
+  copyTemplate(template, conf) {
     const node = template.cloneNode(true);
     node.setAttribute('id', '');
     node.style.display = 'flex';

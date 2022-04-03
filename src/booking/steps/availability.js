@@ -96,6 +96,9 @@ export default class AvailabilityStep extends BaseStep {
             ?.querySelectorAll('.start-time, .team-member')
             ?.forEach(e => e.parentNode.removeChild(e))
 
+        // Hide Team block
+        DOM.calendar.hideTeamBlock()
+
         if (_.isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active')
         else document.getElementById('aval-warning').classList.remove('msg-active')
 
@@ -124,6 +127,7 @@ export default class AvailabilityStep extends BaseStep {
             ?.querySelectorAll('.team-member')
             ?.forEach(e => e.parentNode.removeChild(e))
 
+        DOM.calendar.showTeamBlock()
         const start_time = event.target.value
         const template = document.getElementById('team-member-template')
 

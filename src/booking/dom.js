@@ -179,4 +179,13 @@ export default class DOM {
     /**
      * Availability
      */
+    static calendar = class {
+        static showTeamBlock() {
+            document.getElementById('team-members-block').classList.add('visible')
+        }
+
+        static hideTeamBlock() {
+            document.getElementById('team-members-block').classList.remove('visible')
+        }
+    }
 }

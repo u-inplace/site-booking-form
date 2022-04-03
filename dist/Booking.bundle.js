@@ -10192,6 +10192,16 @@ class DOM {
    * Availability
    */
 
+  static calendar = class {
+    static showTeamBlock() {
+      document.getElementById('team-members-block').classList.add('visible');
+    }
+
+    static hideTeamBlock() {
+      document.getElementById('team-members-block').classList.remove('visible');
+    }
+
+  };
 }
 
 /***/ }),
@@ -10557,7 +10567,9 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
     this.openings = openings; // Clean up existing entries
 
-    document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+    document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e)); // Hide Team block
+
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.hideTeamBlock();
     if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) document.getElementById('aval-warning').classList.add('msg-active');else document.getElementById('aval-warning').classList.remove('msg-active');
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
@@ -10582,6 +10594,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   onStartTimeSelect(event) {
     // Clean up existing entries
     document.getElementById('start-time-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.showTeamBlock();
     const start_time = event.target.value;
     const template = document.getElementById('team-member-template');
 

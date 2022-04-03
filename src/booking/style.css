@@ -49,6 +49,15 @@ input[type='number'] {
     animation: fromDownUp 0.5s ease;
 }
 
+.team-members-wrapper {
+    display: none;
+}
+
+.team-members-wrapper.visible {
+    display: flex;
+    animation: fromDownUp 0.5s ease;
+}
+
 @keyframes fromDownUp {
     0% {
         opacity: 0;

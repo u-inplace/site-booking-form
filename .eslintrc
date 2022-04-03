@@ -32,7 +32,7 @@
     "globals": {
         "Webflow": true
     },
-    "plugins": ["prettier", "prefer-arrow", "no-param-reassign-allow-reduce"],
+    "plugins": ["prettier", "prefer-arrow"],
     "rules": {
         "prettier/prettier": ["error"],
         "default-case": "error",

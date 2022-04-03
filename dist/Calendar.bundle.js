@@ -9974,9 +9974,9 @@ __webpack_require__.r(__webpack_exports__);
  * @returns
  */
 const getMondays = date => {
-  var d = date ? new Date(date.getTime()) : new Date(),
-      month = d.getMonth(),
-      mondays = [];
+  const d = date ? new Date(date.getTime()) : new Date();
+  const month = d.getMonth();
+  const mondays = [];
   d.setDate(1); // Get all the other Mondays in the month
 
   while (d.getMonth() === month) {
@@ -9991,9 +9991,7 @@ const getMondays = date => {
  */
 
 
-const toISOStringShort = date => {
-  return new Date(date).toISOString().slice(0, 10);
-};
+const toISOStringShort = date => new Date(date).toISOString().slice(0, 10);
 
 
 /***/ }),
@@ -10156,11 +10154,13 @@ class CalendarController {
   #initialised;
   #request;
   #cached;
+  #onDayChangeCb;
 
-  constructor(placeHolderID, request = {}) {
+  constructor(placeHolderID, request, onDayChangeCb) {
     // Store requested weeks
     this.#cached = {};
     this.#request = request;
+    this.#onDayChangeCb = onDayChangeCb;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -10217,6 +10217,7 @@ class CalendarController {
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
+    this.#onDayChangeCb(currentDate, events);
   };
   /**
    * Start or stop loading animation

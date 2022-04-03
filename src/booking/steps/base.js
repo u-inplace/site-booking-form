@@ -48,6 +48,19 @@ export default class BaseStep extends Step {
         return new ToggleWatcher()
     }
 
+    /**
+     * Update list of watchers
+     * @param {ToggleWatcher} toggleList
+     */
+    set toggleNextWatcher(toggleList) {
+        this.wireEvents(
+            toggleList.list.map(watcher => ({
+                ...watcher,
+                handler: this.toggleNext.bind(this)
+            }))
+        )
+    }
+
     init() {
         super.init()
         DOM.setNextButtonDisabled(true)

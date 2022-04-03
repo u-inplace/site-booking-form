@@ -15,6 +15,16 @@ export default class Step {
         this.model = BookingModel.getInstance()
     }
 
+    /**
+     * @typedef {Object} Observed
+     * @property {HTMLElement} elem
+     * @property {string} event
+     * @property {Function} handler
+     */
+
+    /**
+     * @returns {Observed[]}
+     */
     get observed() {
         return []
     }
@@ -32,6 +42,15 @@ export default class Step {
     }
 
     /**
+     * Hook events with handlers
+     *
+     * @param {Observed[]} set
+     */
+    wireEvents(set) {
+        set.forEach(o => o?.elem?.addEventListener(o.event, o.handler))
+    }
+
+    /**
      * Create event handlers for observed attributes
      * expects an array of
      *  elem
@@ -39,6 +58,6 @@ export default class Step {
      *  handler = fn
      */
     init() {
-        this.observed.forEach(o => o?.elem?.addEventListener(o.event, o.handler))
+        this.wireEvents(this.observed)
     }
 }

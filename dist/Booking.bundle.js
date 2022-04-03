@@ -10188,6 +10188,44 @@ class DOM {
     }
 
   };
+  /**
+   * Availability
+   */
+
+  static calendar = class {
+    static openings = class {
+      static cleanUp() {
+        document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+      }
+
+      static showWarning() {
+        document.getElementById('aval-warning').classList.add('msg-active');
+      }
+
+      static hideWarning() {
+        document.getElementById('aval-warning').classList.remove('msg-active');
+      }
+
+    };
+    static team = class {
+      static showBlock() {
+        document.getElementById('team-members-block').classList.add('visible');
+      }
+
+      static hideBlock() {
+        document.getElementById('team-members-block').classList.remove('visible');
+      }
+
+      static cleanUp() {
+        document.getElementById('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+      }
+
+      static get memberTemplate() {
+        return document.getElementById('team-member-template');
+      }
+
+    };
+  };
 }
 
 /***/ }),
@@ -10457,31 +10495,100 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ AvailabilityStep; }
 /* harmony export */ });
-/* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
+/* harmony import */ var _helpers_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/text */ "./src/helpers/text.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* eslint-disable camelcase */
+
 /* eslint-disable class-methods-use-this */
 
 
 
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
+
+
+
+/**
+ * @typedef {Object} Opening
+ * @property {Date} start
+ * @property {Date} end
+ * @property {string} start_time
+ * @property {Employee} employee
+ */
+
+/**
+ * Availability Step Controller
+ * @class
+ * @constructor
+ * @public
+ */
+
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   #calendar;
+  /**
+   * Openings for a day
+   * @type {Opening[]}
+   * @protected
+   */
+
+  openings;
+  /**
+   * Team Members
+   * @typedef {{fileId: string, url: string }} Image
+   * @typedef {Object} TeamMember
+   * @property {String} name
+   * @property {String} slug
+   * @property {String} email
+   * @property {Image} profile-picture
+   */
+
+  /**
+   * @type {TeamMember[]}
+   * @protected
+   */
+
+  team;
 
   constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_1__.STEP.Availability);
+    super(_constants__WEBPACK_IMPORTED_MODULE_3__.STEP.Availability);
+  }
+
+  get isNextDisabled() {
+    return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
   }
 
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
-    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_0__["default"]('availability-cal', {
-      postalCode: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].postalCode.value,
-      duration: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].duration,
-      recurrence: _dom__WEBPACK_IMPORTED_MODULE_2__["default"].occurrence
+    this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].postalCode.value,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].occurrence
+    }, this.onDayChange.bind(this));
+    this.#createSummary(); // Get all team members from Webflow CMS
+
+    this.#fetchTeam();
+  }
+  /**
+   * Fetch team members from webflow CMS
+   */
+
+
+  async #fetchTeam() {
+    const url = new URL('https://inplace-booking.azurewebsites.net/api/collection');
+    const params = new URLSearchParams({
+      code: 'Itrex4w/daAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484/49A==',
+      name: 'team'
     });
-    this.#createSummary();
+    url.search = params;
+    const res = await fetch(url);
+    const team = await res.json();
+    this.team = team;
   }
   /**
    * Read options and create a summary
@@ -10490,17 +10597,128 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   #createSummary() {
     // Selected services
-    const services = _dom__WEBPACK_IMPORTED_MODULE_2__["default"].getSelectedServices();
-    Object.values(_constants__WEBPACK_IMPORTED_MODULE_1__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.inactiveService(s));
+    const services = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_3__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.inactiveService(s));
     const {
       duration
-    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.duration = `${duration}h`;
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.payment = `${duration} titres-services`;
+    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.payment = `${duration} titres-services`;
     const {
       occurrence
-    } = _dom__WEBPACK_IMPORTED_MODULE_2__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_2__["default"].summary.occurrence = occurrence;
+    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.occurrence = occurrence;
+  }
+  /**
+   * Load all available openings
+   * An opening has the following structure
+   *
+   * @typedef {Object} Employee
+   * @property {String} id
+   * @property {String} first_name
+   * @property {String} last_name
+   * @property {String} allergies
+   *
+   * @param  {string} day
+   * @param  {Opening[]} openings
+   *
+   * */
+
+
+  onDayChange(day, openings) {
+    // Get template checkbox
+    const template = document.getElementById('start-time-template'); // Store day options
+
+    this.openings = openings; // Clean up existing entries
+
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.cleanUp(); // Hide Team block
+
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.hideBlock();
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.showWarning();else _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.hideWarning();
+
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
+      this.copyTemplate(template, {
+        className: 'start-time',
+        parentId: 'start-time-block',
+        labelClass: 'start-time-text',
+        labelText: open.start_time,
+        radioGroup: 'start-time',
+        radioEvent: 'click',
+        radioEventHandler: this.onStartTimeSelect.bind(this),
+        radioValue: open.start_time
+      });
+    });
+  }
+  /**
+   * handle start time selection
+   * @param {MouseEvent} event
+   */
+
+
+  onStartTimeSelect(event) {
+    // Clean up existing entries
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.cleanUp();
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.showBlock();
+    const start_time = event.target.value;
+    const template = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.memberTemplate;
+
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {
+      start_time
+    }).forEach(open => {
+      const node = this.copyTemplate(template, {
+        className: 'team-member',
+        parentId: 'team-members-block',
+        labelClass: 'team-member-name',
+        labelText: open.employee.first_name,
+        radioGroup: 'team-member',
+        radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.employee.first_name} ${open.employee.last_name}`)
+      }); // Get profile picture from webflow collections
+
+      const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
+        name: `${open.employee.first_name} ${open.employee.last_name}`
+      })?.['profile-picture'];
+      avatar?.url && (node.querySelector('.team-avatar').src = avatar.url);
+    }); // Wire events for next button
+
+
+    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click');
+    this.toggleNext(); // Trigger slide resize
+
+    this.slider.resize();
+  }
+  /**
+   * Create a node copy from template
+   *
+   * @typedef {Object} Conf
+   * @property {String} className
+   * @property {String} parentId
+   * @property {String} labelClass
+   * @property {String} labelText
+   * @property {String} radioGroup
+   * @property {String} radioValue
+   * @property {String} radioEvent
+   * @property {Function} radioEventHandler
+   *
+   * @param {HTMLDivElement} template
+   * @param {Conf} conf
+   * @returns {HTMLObjectElement}
+   */
+
+
+  copyTemplate(template, conf) {
+    const node = template.cloneNode(true);
+    node.setAttribute('id', '');
+    node.style.display = 'flex';
+    node.classList.add(conf.className); // Handle clicks on option
+
+    const radio = node.querySelector(`input[name*='${conf.radioGroup}']`);
+    radio.setAttribute('id', '');
+    radio.value = conf.radioValue;
+    if (conf.radioEvent) radio.addEventListener(conf.radioEvent, conf.radioEventHandler);
+    const label = node.querySelector(`.${conf.labelClass}`);
+    label.innerText = conf.labelText;
+    document.getElementById(conf.parentId).appendChild(node);
+    return node;
   }
 
 }
@@ -10565,6 +10783,17 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   get toggleNextWatcher() {
     return new _watcher__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  }
+  /**
+   * Update list of watchers
+   * @param {ToggleWatcher} toggleList
+   */
+
+
+  set toggleNextWatcher(toggleList) {
+    this.wireEvents(toggleList.list.map(watcher => ({ ...watcher,
+      handler: this.toggleNext.bind(this)
+    })));
   }
 
   init() {
@@ -11105,6 +11334,17 @@ class Step {
     this.slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
     this.model = _model__WEBPACK_IMPORTED_MODULE_0__["default"].getInstance();
   }
+  /**
+   * @typedef {Object} Observed
+   * @property {HTMLElement} elem
+   * @property {string} event
+   * @property {Function} handler
+   */
+
+  /**
+   * @returns {Observed[]}
+   */
+
 
   get observed() {
     return [];
@@ -11122,6 +11362,16 @@ class Step {
     return false;
   }
   /**
+   * Hook events with handlers
+   *
+   * @param {Observed[]} set
+   */
+
+
+  wireEvents(set) {
+    set.forEach(o => o?.elem?.addEventListener(o.event, o.handler));
+  }
+  /**
    * Create event handlers for observed attributes
    * expects an array of
    *  elem
@@ -11131,7 +11381,7 @@ class Step {
 
 
   init() {
-    this.observed.forEach(o => o?.elem?.addEventListener(o.event, o.handler));
+    this.wireEvents(this.observed);
   }
 
 }
@@ -11151,23 +11401,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * Next button watcher
+ *
+ * @class
+ * @constructor
+ * @public
  */
 class ToggleWatcher {
-  #list;
+  /**
+   * @typedef {Object} Observed
+   * @property {HTMLElement} elem
+   * @property {string} event
+   */
+
+  /**
+   * @type {Observed[]}
+   * @public
+   */
+  list;
+  /**
+   *
+   * @param {HTMLElement[]} elems
+   * @param {string} event
+   */
 
   constructor(elems = [], event = 'change') {
-    this.#list = elems.map(e => ({
+    this.list = elems.map(e => ({
       elem: e,
       event
     }));
   }
+  /**
+   *
+   * @param {Observed[]} entries
+   */
+
 
   push(entries) {
-    this.#list = this.#list.concat(entries);
-  }
-
-  get list() {
-    return this.#list;
+    this.list = this.list.concat(entries);
   }
 
 }
@@ -11214,11 +11484,13 @@ class CalendarController {
   #initialised;
   #request;
   #cached;
+  #onDayChangeCb;
 
-  constructor(placeHolderID, request = {}) {
+  constructor(placeHolderID, request, onDayChangeCb) {
     // Store requested weeks
     this.#cached = {};
     this.#request = request;
+    this.#onDayChangeCb = onDayChangeCb;
     this.#initialised = false;
     this.#placeHolderID = placeHolderID;
     const newLocal = this;
@@ -11275,6 +11547,7 @@ class CalendarController {
 
   onDateChange = (currentDate, events) => {
     console.debug('::onDateChange::', currentDate, events);
+    this.#onDayChangeCb(currentDate, events);
   };
   /**
    * Start or stop loading animation
@@ -11376,9 +11649,9 @@ __webpack_require__.r(__webpack_exports__);
  * @returns
  */
 const getMondays = date => {
-  var d = date ? new Date(date.getTime()) : new Date(),
-      month = d.getMonth(),
-      mondays = [];
+  const d = date ? new Date(date.getTime()) : new Date();
+  const month = d.getMonth();
+  const mondays = [];
   d.setDate(1); // Get all the other Mondays in the month
 
   while (d.getMonth() === month) {
@@ -11393,10 +11666,35 @@ const getMondays = date => {
  */
 
 
-const toISOStringShort = date => {
-  return new Date(date).toISOString().slice(0, 10);
-};
+const toISOStringShort = date => new Date(date).toISOString().slice(0, 10);
 
+
+/***/ }),
+
+/***/ "./src/helpers/text.js":
+/*!*****************************!*\
+  !*** ./src/helpers/text.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "slugify": function() { return /* binding */ slugify; }
+/* harmony export */ });
+// eslint-disable-next-line import/prefer-default-export
+const slugify = string => {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìıİłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+  const p = new RegExp(a.split('').join('|'), 'g');
+  return string.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
+  .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+  .replace(/&/g, '-and-') // Replace & with 'and'
+  .replace(/^\w-]+/g, '') // Remove all non-word characters
+  .replace(/--+/g, '-') // Replace multiple - with single -
+  .replace(/^-+/, '') // Trim - from start of text
+  .replace(/-+$/, ''); // Trim - from end of text
+};
 
 /***/ }),
 

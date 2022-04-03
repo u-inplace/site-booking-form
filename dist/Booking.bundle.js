@@ -10548,6 +10548,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * @typedef {Object} Opening
+ * @property {Date} start
+ * @property {Date} end
+ * @property {string} start_time
+ * @property {Employee} employee
+ */
+
 class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   #calendar;
   openings;

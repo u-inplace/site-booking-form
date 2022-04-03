@@ -7,6 +7,13 @@ import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
 
+/**
+ * @typedef {Object} Opening
+ * @property {Date} start
+ * @property {Date} end
+ * @property {string} start_time
+ * @property {Employee} employee
+ */
 export default class AvailabilityStep extends BaseStep {
     #calendar
 

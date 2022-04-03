@@ -7,9 +7,29 @@ import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
 
+/**
+ * @typedef {Object} Opening
+ * @property {Date} start
+ * @property {Date} end
+ * @property {string} start_time
+ * @property {Employee} employee
+ */
+
+/**
+ * Availability Step Controller
+ * @class
+ * @constructor
+ * @public
+ */
 export default class AvailabilityStep extends BaseStep {
     #calendar
-    #openings
+
+    /**
+     * Openings for a day
+     * @type {Opening[]}
+     * @protected
+     */
+    openings
 
     constructor() {
         super(STEP.Availability)
@@ -29,7 +49,6 @@ export default class AvailabilityStep extends BaseStep {
         )
 
         this.#createSummary()
-        this.#openings = []
     }
 
     /**
@@ -53,24 +72,24 @@ export default class AvailabilityStep extends BaseStep {
     /**
      * Load all available openings
      * An opening has the following structure
-     * {
-        start: new Date(slot.start_time),
-        end: new Date(slot.end_time),
-        start_time: slot.label,
-        employee: {
-            id: slot.affiliate_worker.worker_contract_id,
-            first_name: slot.affiliate_worker.first_name,
-            last_name: slot.affiliate_worker.last_name,
-            allergies: slot.affiliate_worker.allergies
-        }
-    }
-     */
+     *
+     * @typedef {Object} Employee
+     * @property {String} id
+     * @property {String} first_name
+     * @property {String} last_name
+     * @property {String} allergies
+     *
+     * @param  {string} day
+     * @param  {Opening[]} openings
+     *
+     * */
+
     onDayChange(day, openings) {
         // Get template checkbox
         const template = document.getElementById('start-time-template')
 
         // Store day options
-        this.#openings = openings
+        this.openings = openings
 
         // Clean up existing entries
         document
@@ -82,28 +101,22 @@ export default class AvailabilityStep extends BaseStep {
         else document.getElementById('aval-warning').classList.remove('msg-active')
 
         _.uniqBy(openings, 'start_time').forEach(open => {
-            const node = template.cloneNode(true)
-
-            node.setAttribute('id', '')
-            node.style.display = 'flex'
-            node.classList.add('start-time')
-
-            // Handle clicks on option
-            const radio = node.getElementsByClassName('start-time-radio')[0]
-            radio.addEventListener('click', this.onStartTimeSelect.bind(this))
-            radio.setAttribute('id', '')
-            radio.value = open.start_time
-
-            const label = node.getElementsByClassName('start-time-text')[0]
-            label.innerText = open.start_time
-
-            document.getElementById('start-time-block').appendChild(node)
+            this.createOptionsFromTemplate(template, {
+                className: 'start-time',
+                parentId: 'start-time-block',
+                labelClass: 'start-time-text',
+                labelText: open.start_time,
+                radioClass: 'start-time-radio',
+                radioEvent: 'click',
+                radioEventHandler: this.onStartTimeSelect.bind(this),
+                radioValue: open.start_time
+            })
         })
     }
 
     /**
      * handle start time selection
-     * @param {*} selected
+     * @param {HTMLInputElement} selected
      */
     onStartTimeSelect(selected) {
         // Clean up existing entries
@@ -112,13 +125,19 @@ export default class AvailabilityStep extends BaseStep {
             ?.querySelectorAll('.team-member')
             ?.forEach(e => e.parentNode.removeChild(e))
 
-        // Get opening for selected day
         const start_time = selected.value
-        const openings = this.#openings
-
         const template = document.getElementById('team-member-template')
 
-        _.filter(openings, { start_time }).forEach(open => {
+        _.filter(this.openings, { start_time }).forEach(open => {
+            this.createOptionsFromTemplate(template, {
+                className: 'team-member',
+                parentId: 'team-member-block',
+                labelClass: 'team-member-name',
+                labelText: open.employee.first_name,
+                radioClass: 'team-member-radio',
+                radioValue: open.start_time
+            })
+
             const node = template.cloneNode(true)
 
             node.setAttribute('id', '')
@@ -134,5 +153,43 @@ export default class AvailabilityStep extends BaseStep {
 
             document.getElementById('team-members-block').appendChild(node)
         })
+    }
+
+    /**
+     * Create a node copy from template
+     *
+     * @typedef {Object} Conf
+     * @property {String} className
+     * @property {String} parentId
+     * @property {String} labelClass
+     * @property {String} labelText
+     * @property {String} radioClass
+     * @property {String} radioValue
+     * @property {String} radioEvent
+     * @property {Function} radioEventHandler
+     *
+     * @param {HTMLObjectElement} template
+     * @param {Conf} conf
+     * @returns {HTMLObjectElement} node
+     */
+    createOptionsFromTemplate(template, conf) {
+        const node = template.cloneNode(true)
+
+        node.setAttribute('id', '')
+        node.style.display = 'flex'
+        node.classList.add(conf.className)
+
+        // Handle clicks on option
+        const radio = node.getElementsByClassName(conf.radioClass)[0]
+        radio.setAttribute('id', '')
+        radio.value = conf.radioValue
+        if (conf.radioEvent) radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
+
+        const label = node.getElementsByClassName(conf.labelClass)[0]
+        label.innerText = conf.labelText
+
+        document.getElementById('start-time-block').appendChild(node)
+
+        return node
     }
 }

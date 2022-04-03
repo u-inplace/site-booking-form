@@ -10566,7 +10566,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
         labelText: open.start_time,
         radioClass: 'start-time-radio',
         radioEvent: 'click',
-        radioEventHandler: this.onStartTimeSelect.bind(this),
+        radioEventHandler: this.onStartTimeSelect,
         radioValue: open.start_time
       });
     });

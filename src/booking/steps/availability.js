@@ -106,7 +106,7 @@ export default class AvailabilityStep extends BaseStep {
                 labelText: open.start_time,
                 radioClass: 'start-time-radio',
                 radioEvent: 'click',
-                radioEventHandler: this.onStartTimeSelect.bind(this),
+                radioEventHandler: this.onStartTimeSelect,
                 radioValue: open.start_time
             })
         })

@@ -10665,18 +10665,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioClass: 'team-member-radio',
-        radioValue: open.start_time
+        radioValue: slugify__WEBPACK_IMPORTED_MODULE_1___default()(`${open.first_name} ${open.last_name}`)
       });
-      const node = template.cloneNode(true);
-      node.setAttribute('id', '');
-      node.style.display = 'flex';
-      node.classList.add('team-member');
-      const radio = node.getElementsByClassName('team-member-radio')[0];
-      radio.setAttribute('id', '');
-      radio.value = slugify__WEBPACK_IMPORTED_MODULE_1___default()(`${open.first_name} ${open.last_name}`);
-      const label = node.getElementsByClassName('team-member-name')[0];
-      label.innerText = open.employee.first_name;
-      document.getElementById('team-members-block').appendChild(node);
     });
   }
   /**

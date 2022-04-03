@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import _ from 'lodash'
 import CalendarController from '../../calendar/main'
+import { slugify } from '../../helpers/text'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
@@ -133,7 +134,7 @@ export default class AvailabilityStep extends BaseStep {
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioClass: 'team-member-radio',
-                radioValue: `${open.first_name} ${open.last_name}`
+                radioValue: slugify(`${open.first_name} ${open.last_name}`)
             })
         })
     }

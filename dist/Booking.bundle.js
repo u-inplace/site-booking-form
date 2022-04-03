@@ -10464,12 +10464,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _helpers_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/text */ "./src/helpers/text.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
 /* eslint-disable camelcase */
 
 /* eslint-disable class-methods-use-this */
+
 
 
 
@@ -10490,7 +10492,7 @@ __webpack_require__.r(__webpack_exports__);
  * @public
  */
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   #calendar;
   /**
    * Openings for a day
@@ -10501,16 +10503,16 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
   openings;
 
   constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_2__.STEP.Availability);
+    super(_constants__WEBPACK_IMPORTED_MODULE_3__.STEP.Availability);
   }
 
   onActive() {
     super.onActive(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {
-      postalCode: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].postalCode.value,
-      duration: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].duration,
-      recurrence: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].occurrence
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].postalCode.value,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].occurrence
     }, this.onDayChange.bind(this));
     this.#createSummary();
   }
@@ -10521,17 +10523,17 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
 
   #createSummary() {
     // Selected services
-    const services = _dom__WEBPACK_IMPORTED_MODULE_3__["default"].getSelectedServices();
-    Object.values(_constants__WEBPACK_IMPORTED_MODULE_2__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.inactiveService(s));
+    const services = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_3__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.inactiveService(s));
     const {
       duration
-    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.duration = `${duration}h`;
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.payment = `${duration} titres-services`;
+    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.payment = `${duration} titres-services`;
     const {
       occurrence
-    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.occurrence = occurrence;
+    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.occurrence = occurrence;
   }
   /**
    * Load all available openings
@@ -10592,7 +10594,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioClass: 'team-member-radio',
-        radioValue: `${open.first_name} ${open.last_name}`
+        radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.first_name} ${open.last_name}`)
       });
     });
   }
@@ -11512,9 +11514,9 @@ __webpack_require__.r(__webpack_exports__);
  * @returns
  */
 const getMondays = date => {
-  var d = date ? new Date(date.getTime()) : new Date(),
-      month = d.getMonth(),
-      mondays = [];
+  const d = date ? new Date(date.getTime()) : new Date();
+  const month = d.getMonth();
+  const mondays = [];
   d.setDate(1); // Get all the other Mondays in the month
 
   while (d.getMonth() === month) {
@@ -11529,10 +11531,35 @@ const getMondays = date => {
  */
 
 
-const toISOStringShort = date => {
-  return new Date(date).toISOString().slice(0, 10);
-};
+const toISOStringShort = date => new Date(date).toISOString().slice(0, 10);
 
+
+/***/ }),
+
+/***/ "./src/helpers/text.js":
+/*!*****************************!*\
+  !*** ./src/helpers/text.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "slugify": function() { return /* binding */ slugify; }
+/* harmony export */ });
+// eslint-disable-next-line import/prefer-default-export
+const slugify = string => {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìıİłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+  const p = new RegExp(a.split('').join('|'), 'g');
+  return string.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
+  .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+  .replace(/&/g, '-and-') // Replace & with 'and'
+  .replace(/^\w-]+/g, '') // Remove all non-word characters
+  .replace(/--+/g, '-') // Replace multiple - with single -
+  .replace(/^-+/, '') // Trim - from start of text
+  .replace(/-+$/, ''); // Trim - from end of text
+};
 
 /***/ }),
 

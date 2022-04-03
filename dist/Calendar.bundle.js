@@ -9974,9 +9974,9 @@ __webpack_require__.r(__webpack_exports__);
  * @returns
  */
 const getMondays = date => {
-  var d = date ? new Date(date.getTime()) : new Date(),
-      month = d.getMonth(),
-      mondays = [];
+  const d = date ? new Date(date.getTime()) : new Date();
+  const month = d.getMonth();
+  const mondays = [];
   d.setDate(1); // Get all the other Mondays in the month
 
   while (d.getMonth() === month) {
@@ -9991,9 +9991,7 @@ const getMondays = date => {
  */
 
 
-const toISOStringShort = date => {
-  return new Date(date).toISOString().slice(0, 10);
-};
+const toISOStringShort = date => new Date(date).toISOString().slice(0, 10);
 
 
 /***/ }),

@@ -10669,7 +10669,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
       }); // Get profile picture from webflow collections
 
       const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
-        name: `${open.employee.first_name} ${open.employee.first_name}`
+        name: `${open.employee.first_name} ${open.employee.last_name}`
       })?.['profile-picture'];
       avatar?.url && (node.querySelector('.team-avatar').src = avatar.url);
     }); // Trigger slide resize
@@ -10705,12 +10705,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     const radio = node.querySelector(`input[name*='${conf.radioGroup}']`);
     radio.setAttribute('id', '');
     radio.value = conf.radioValue;
-
-    if (conf.radioEvent) {
-      radio.addEventListener(conf.radioEvent, conf.radioEventHandler);
-      radio.addEventListener(conf.radioEvent, () => console.log('cliked'));
-    }
-
+    if (conf.radioEvent) radio.addEventListener(conf.radioEvent, conf.radioEventHandler);
     const label = node.querySelector(`.${conf.labelClass}`);
     label.innerText = conf.labelText;
     document.getElementById(conf.parentId).appendChild(node);

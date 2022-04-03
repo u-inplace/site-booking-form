@@ -166,7 +166,7 @@ export default class AvailabilityStep extends BaseStep {
         const radio = node.getElementsByClassName(conf.radioClass)[0]
         radio.setAttribute('id', '')
         radio.value = conf.radioValue
-        if (conf.radioEvent) radio.addEventListener(conf.radioEvent, conf.radioEventHandler)
+        if (conf.radioEvent) radio.click = conf.radioEventHandler
 
         const label = node.getElementsByClassName(conf.labelClass)[0]
         label.innerText = conf.labelText

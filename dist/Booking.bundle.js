@@ -10624,7 +10624,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     const radio = node.getElementsByClassName(conf.radioClass)[0];
     radio.setAttribute('id', '');
     radio.value = conf.radioValue;
-    if (conf.radioEvent) radio.addEventListener(conf.radioEvent, conf.radioEventHandler);
+    if (conf.radioEvent) radio.click = conf.radioEventHandler;
     const label = node.getElementsByClassName(conf.labelClass)[0];
     label.innerText = conf.labelText;
     document.getElementById('start-time-block').appendChild(node);

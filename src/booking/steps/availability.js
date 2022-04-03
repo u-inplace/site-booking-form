@@ -75,7 +75,7 @@ export default class AvailabilityStep extends BaseStep {
     async #fetchTeam() {
         const url = new URL('https://inplace-booking.azurewebsites.net/api/collection')
         const params = new URLSearchParams({
-            code: 'XZlUaOpBh4l7DhFKMgxg6j%2FcXWWRuv%2FPym6r7GvXuXjjcTpiSLGEQg%3D%3D',
+            code: 'Itrex4w%2FdaAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484%2F49A%3D%3D',
             name: 'team'
         })
 

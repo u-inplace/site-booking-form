@@ -10195,7 +10195,7 @@ class DOM {
   static calendar = class {
     static openings = class {
       static cleanUp() {
-        document.getElementById('start-time-block')?.querySelectorAll('.start-time, .team-member')?.forEach(e => e.parentNode.removeChild(e));
+        document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
       }
 
       static showWarning() {
@@ -10498,15 +10498,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _calendar_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../calendar/main */ "./src/calendar/main.js");
-/* harmony import */ var _helpers_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/text */ "./src/helpers/text.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
-/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dom */ "./src/booking/dom.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* harmony import */ var _watcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./watcher */ "./src/booking/steps/watcher.js");
 /* eslint-disable camelcase */
 
 /* eslint-disable class-methods-use-this */
-
 
 
 
@@ -10528,7 +10526,7 @@ __webpack_require__.r(__webpack_exports__);
  * @public
  */
 
-class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
+class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
   #calendar;
   /**
    * Openings for a day
@@ -10555,24 +10553,29 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
   team;
 
   constructor() {
-    super(_constants__WEBPACK_IMPORTED_MODULE_3__.STEP.Availability);
+    super(_constants__WEBPACK_IMPORTED_MODULE_2__.STEP.Availability);
   }
 
   get isNextDisabled() {
-    return !_dom__WEBPACK_IMPORTED_MODULE_4__["default"].getRadio('team-member', true);
+    return !_dom__WEBPACK_IMPORTED_MODULE_3__["default"].getRadio('team-member', true);
   }
 
-  onActive() {
-    super.onActive(); // Update duration when loading Duration step
+  onActive(event) {
+    // Only clean up if going from a previous page
+    if (event === 'back') return;
+    super.onActive(); // Get all team members from Webflow CMS
+
+    this.#fetchTeam(); // Clean up existing entries
+
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.cleanUp();
+    this.toggleNext(); // Update duration when loading Duration step
 
     this.#calendar = new _calendar_main__WEBPACK_IMPORTED_MODULE_1__["default"]('availability-cal', {
-      postalCode: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].postalCode.value,
-      duration: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].duration,
-      recurrence: _dom__WEBPACK_IMPORTED_MODULE_4__["default"].occurrence
+      postalCode: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].postalCode.value,
+      duration: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].duration,
+      recurrence: _dom__WEBPACK_IMPORTED_MODULE_3__["default"].occurrence
     }, this.onDayChange.bind(this));
-    this.#createSummary(); // Get all team members from Webflow CMS
-
-    this.#fetchTeam();
+    this.#createSummary();
   }
   /**
    * Fetch team members from webflow CMS
@@ -10597,17 +10600,17 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
   #createSummary() {
     // Selected services
-    const services = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].getSelectedServices();
-    Object.values(_constants__WEBPACK_IMPORTED_MODULE_3__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.inactiveService(s));
+    const services = _dom__WEBPACK_IMPORTED_MODULE_3__["default"].getSelectedServices();
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_2__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.inactiveService(s));
     const {
       duration
-    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.duration = `${duration}h`;
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.payment = `${duration} titres-services`;
+    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.payment = `${duration} titres-services`;
     const {
       occurrence
-    } = _dom__WEBPACK_IMPORTED_MODULE_4__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.occurrence = occurrence;
+    } = _dom__WEBPACK_IMPORTED_MODULE_3__["default"];
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.occurrence = occurrence;
   }
   /**
    * Load all available openings
@@ -10631,10 +10634,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
     this.openings = openings; // Clean up existing entries
 
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.cleanUp(); // Hide Team block
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.openings.cleanUp(); // Hide Team block
 
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.hideBlock();
-    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.showWarning();else _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.openings.hideWarning();
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.hideBlock();
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEmpty(openings)) _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.openings.showWarning();else _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.openings.hideWarning();
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().uniqBy(openings, 'start_time').forEach(open => {
       this.copyTemplate(template, {
@@ -10657,10 +10660,10 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
   onStartTimeSelect(event) {
     // Clean up existing entries
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.cleanUp();
-    _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.showBlock();
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.cleanUp();
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.showBlock();
     const start_time = event.target.value;
-    const template = _dom__WEBPACK_IMPORTED_MODULE_4__["default"].calendar.team.memberTemplate;
+    const template = _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.memberTemplate;
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {
       start_time
@@ -10671,7 +10674,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioGroup: 'team-member',
-        radioValue: (0,_helpers_text__WEBPACK_IMPORTED_MODULE_2__.slugify)(`${open.employee.first_name} ${open.employee.last_name}`)
+        radioValue: open.employee.id
       }); // Get profile picture from webflow collections
 
       const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
@@ -10681,7 +10684,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_5__["default"] {
     }); // Wire events for next button
 
 
-    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_6__["default"](_dom__WEBPACK_IMPORTED_MODULE_4__["default"].queryRadio('team-member'), 'click');
+    this.toggleNextWatcher = new _watcher__WEBPACK_IMPORTED_MODULE_5__["default"](_dom__WEBPACK_IMPORTED_MODULE_3__["default"].queryRadio('team-member'), 'click');
     this.toggleNext(); // Trigger slide resize
 
     this.slider.resize();
@@ -11030,6 +11033,43 @@ class CompoundStep extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ "./src/booking/steps/contact.js":
+/*!**************************************!*\
+  !*** ./src/booking/steps/contact.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ContactStep; }
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base */ "./src/booking/steps/base.js");
+/* eslint-disable class-methods-use-this */
+
+
+class ContactStep extends _base__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  constructor() {
+    super(_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact);
+  }
+
+  onActive(event) {
+    super.onActive(event);
+    this.setDefaultLang();
+  }
+
+  setDefaultLang() {
+    // Get default user language from weglot
+    const weGlotLang = document.querySelector('.wg-element-wrapper.sw8');
+    const lang = weGlotLang?.querySelector('.w-dropdown-toggle')?.getAttribute('lang');
+    document.getElementById(lang).click();
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking/steps/duration.js":
 /*!***************************************!*\
   !*** ./src/booking/steps/duration.js ***!
@@ -11084,10 +11124,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/booking/constants.js");
 /* harmony import */ var _availability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./availability */ "./src/booking/steps/availability.js");
 /* harmony import */ var _cleaning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cleaning */ "./src/booking/steps/cleaning.js");
-/* harmony import */ var _duration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./duration */ "./src/booking/steps/duration.js");
-/* harmony import */ var _ironing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ironing */ "./src/booking/steps/ironing.js");
-/* harmony import */ var _postalCode__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./postalCode */ "./src/booking/steps/postalCode.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services */ "./src/booking/steps/services.js");
+/* harmony import */ var _contact__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./contact */ "./src/booking/steps/contact.js");
+/* harmony import */ var _duration__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./duration */ "./src/booking/steps/duration.js");
+/* harmony import */ var _ironing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ironing */ "./src/booking/steps/ironing.js");
+/* harmony import */ var _postalCode__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./postalCode */ "./src/booking/steps/postalCode.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services */ "./src/booking/steps/services.js");
+
 
 
 
@@ -11096,12 +11138,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Steps = {
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _postalCode__WEBPACK_IMPORTED_MODULE_5__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _services__WEBPACK_IMPORTED_MODULE_6__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _ironing__WEBPACK_IMPORTED_MODULE_4__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.PostalCode]: new _postalCode__WEBPACK_IMPORTED_MODULE_6__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Services]: new _services__WEBPACK_IMPORTED_MODULE_7__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing]: new _ironing__WEBPACK_IMPORTED_MODULE_5__["default"](),
   [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning]: new _cleaning__WEBPACK_IMPORTED_MODULE_2__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _duration__WEBPACK_IMPORTED_MODULE_3__["default"](),
-  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability]: new _availability__WEBPACK_IMPORTED_MODULE_1__["default"]()
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration]: new _duration__WEBPACK_IMPORTED_MODULE_4__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Availability]: new _availability__WEBPACK_IMPORTED_MODULE_1__["default"](),
+  [_constants__WEBPACK_IMPORTED_MODULE_0__.STEP.Contact]: new _contact__WEBPACK_IMPORTED_MODULE_3__["default"]()
 };
 /* harmony default export */ __webpack_exports__["default"] = (Steps);
 
@@ -11668,33 +11711,6 @@ const getMondays = date => {
 
 const toISOStringShort = date => new Date(date).toISOString().slice(0, 10);
 
-
-/***/ }),
-
-/***/ "./src/helpers/text.js":
-/*!*****************************!*\
-  !*** ./src/helpers/text.js ***!
-  \*****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "slugify": function() { return /* binding */ slugify; }
-/* harmony export */ });
-// eslint-disable-next-line import/prefer-default-export
-const slugify = string => {
-  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìıİłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
-  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
-  const p = new RegExp(a.split('').join('|'), 'g');
-  return string.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
-  .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-  .replace(/&/g, '-and-') // Replace & with 'and'
-  .replace(/^\w-]+/g, '') // Remove all non-word characters
-  .replace(/--+/g, '-') // Replace multiple - with single -
-  .replace(/^-+/, '') // Trim - from start of text
-  .replace(/-+$/, ''); // Trim - from end of text
-};
 
 /***/ }),
 

@@ -184,7 +184,7 @@ export default class DOM {
             static cleanUp() {
                 document
                     .getElementById('start-time-block')
-                    ?.querySelectorAll('.start-time, .team-member')
+                    ?.querySelectorAll('.start-time')
                     ?.forEach(e => e.parentNode.removeChild(e))
             }
 

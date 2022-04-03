@@ -2,7 +2,6 @@
 /* eslint-disable class-methods-use-this */
 import _ from 'lodash'
 import CalendarController from '../../calendar/main'
-import { slugify } from '../../helpers/text'
 import { SERVICE, STEP } from '../constants'
 import DOM from '../dom'
 import BaseStep from './base'
@@ -55,8 +54,19 @@ export default class AvailabilityStep extends BaseStep {
         return !DOM.getRadio('team-member', true)
     }
 
-    onActive() {
+    onActive(event) {
+        // Only clean up if going from a previous page
+        if (event === 'back') return
+
         super.onActive()
+
+        // Get all team members from Webflow CMS
+        this.#fetchTeam()
+
+        // Clean up existing entries
+        DOM.calendar.team.cleanUp()
+        this.toggleNext()
+
         // Update duration when loading Duration step
         this.#calendar = new CalendarController(
             'availability-cal',
@@ -69,9 +79,6 @@ export default class AvailabilityStep extends BaseStep {
         )
 
         this.#createSummary()
-
-        // Get all team members from Webflow CMS
-        this.#fetchTeam()
     }
 
     /**
@@ -172,7 +179,7 @@ export default class AvailabilityStep extends BaseStep {
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioGroup: 'team-member',
-                radioValue: slugify(`${open.employee.first_name} ${open.employee.last_name}`)
+                radioValue: open.employee.id
             })
 
             // Get profile picture from webflow collections

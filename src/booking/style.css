@@ -5,35 +5,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-/* Firefox */
-input[type='number'] {
-    -moz-appearance: textfield;
-}
-
-.booking-big-input {
-    border: 0px;
-}
-
-.area-warning {
-    position: relative;
-    top: 10px;
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.area-warning.msg-active {
-    height: auto;
-    opacity: 1;
-    visibility: visible;
-    top: 0px;
-
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-}
-
 .service-summary-item {
     display: none;
 }

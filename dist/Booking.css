@@ -1,3 +1,6 @@
+/*!******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/booking/slider.css ***!
+  \******************************************************************************************************/
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.3.6,
@@ -32,6 +35,9 @@
     transform-origin: top;
 } */
 
+/*!************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/color-calendar/dist/css/theme-glass.css ***!
+  \************************************************************************************************************************************/
 .color-calendar {
   position: relative;
   display: inline-flex;
@@ -557,6 +563,9 @@
 .color-calendar.glass.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option::after {
   height: 40px;
 }
+/*!*******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/calendar/styles.css ***!
+  \*******************************************************************************************************/
 .color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {
     position: absolute;
     top: 80%;
@@ -646,40 +655,14 @@
     }
 }
 
+/*!*****************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/booking/style.css ***!
+  \*****************************************************************************************************/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-/* Firefox */
-input[type='number'] {
-    -moz-appearance: textfield;
-}
-
-.booking-big-input {
-    border: 0px;
-}
-
-.area-warning {
-    position: relative;
-    top: 10px;
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.area-warning.msg-active {
-    height: auto;
-    opacity: 1;
-    visibility: visible;
-    top: 0px;
-
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
 }
 
 .service-summary-item {

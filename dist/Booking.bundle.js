@@ -13130,21 +13130,6 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_6__["default"] {
    */
 
   openings;
-  /**
-   * Team Members
-   * @typedef {{fileId: string, url: string }} Image
-   * @typedef {Object} TeamMember
-   * @property {String} name
-   * @property {String} slug
-   * @property {String} email
-   * @property {Image} avatar
-   */
-
-  /**
-   * @type {TeamMember[]}
-   * @protected
-   */
-
   team;
 
   constructor() {

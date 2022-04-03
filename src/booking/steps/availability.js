@@ -32,19 +32,6 @@ export default class AvailabilityStep extends BaseStep {
      */
     openings
 
-    /**
-     * Team Members
-     * @typedef {{fileId: string, url: string }} Image
-     * @typedef {Object} TeamMember
-     * @property {String} name
-     * @property {String} slug
-     * @property {String} email
-     * @property {Image} avatar
-     */
-    /**
-     * @type {TeamMember[]}
-     * @protected
-     */
     team
 
     constructor() {

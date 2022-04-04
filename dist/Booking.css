@@ -702,9 +702,11 @@
 
 #form-error {
     display: none;
+    opacity: 0;
 }
 
 #form-error.active {
     display: block;
+    opacity: 1;
 }
 

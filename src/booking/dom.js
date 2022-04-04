@@ -240,6 +240,10 @@ export default class DOM {
 
             static show() {
                 document.getElementById('form-error').classList.add('active')
+
+                setTimeout(() => {
+                    document.getElementById('form-error').classList.remove('active')
+                }, 1000 * 5)
             }
 
             static hide() {

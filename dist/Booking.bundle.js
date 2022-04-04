@@ -11881,7 +11881,7 @@ const onSubmit = async event => {
   const form = event.target;
   const data = new FormData(form);
   const json = Object.fromEntries(data.entries());
-  const url = new URL(form.attributes.action);
+  const url = new URL(form.attributes.action.value);
   const res = await fetch(url, {
     method: 'POST',
     headers: {

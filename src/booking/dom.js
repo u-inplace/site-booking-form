@@ -243,7 +243,7 @@ export default class DOM {
 
                 setTimeout(() => {
                     document.getElementById('form-error').classList.remove('active')
-                }, 1000 * 5)
+                }, 1000 * 3)
             }
 
             static hide() {

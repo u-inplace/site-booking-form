@@ -1,4 +1,5 @@
 /* eslint-disable no-var */
+import 'vivify'
 import DOM from './dom'
 import Navigation from './navigation'
 import './style.css'
@@ -32,7 +33,7 @@ const onSubmit = async event => {
         if (res.status >= 300) {
             DOM.form.error.title = 'Something went wrong'
             DOM.form.error.detail = JSON.stringify(resJson)
-            DOM.form.error.show()
+            DOM.form.error.toast()
             DOM.form.onSubmitDone()
         } else {
             DOM.form.done()
@@ -40,7 +41,7 @@ const onSubmit = async event => {
     } catch (error) {
         DOM.form.error.title = 'Something went very wrong'
         DOM.form.error.detail = error.message
-        DOM.form.error.show()
+        DOM.form.error.toast()
         DOM.form.onSubmitDone()
     }
 }

@@ -104,12 +104,8 @@ export default class DOM {
         return document.getElementById('postal-code')
     }
 
-    static postalCodeWarningShow() {
-        DOM.alertShow('alert-area')
-    }
-
-    static postalCodeWarningHide() {
-        DOM.alertHide('alert-area')
+    static postalCodeToast() {
+        DOM.toast('alert-area')
     }
 
     /**
@@ -226,18 +222,13 @@ export default class DOM {
     /**
      * Message
      */
-    static alertShow(id) {
-        document.getElementById(id).classList.remove('inactive')
-        document.getElementById(id).classList.add('active')
+    static toast(id) {
+        const toastBlock = document.getElementById(id)
+        toastBlock.classList.add('active')
 
-        return (this.msgTimeout = setTimeout(() => {
-            DOM.alertHide(id)
-        }, 1000 * 5))
-    }
-
-    static alertHide(id) {
-        document.getElementById(id).classList.remove('active')
-        document.getElementById(id).classList.add('inactive')
+        return setTimeout(() => {
+            toastBlock.classList.remove('active')
+        }, 1000 * 4)
     }
 
     /** *
@@ -282,12 +273,8 @@ export default class DOM {
                 document.getElementById('error-detail').innerText = title
             }
 
-            static show() {
-                this.msgTimeout = DOM.alertShow('alert-submit')
-            }
-
-            static hide() {
-                DOM.alertHide('alert-submit')
+            static toast() {
+                this.msgTimeout = DOM.toast('alert-submit')
             }
         }
     }

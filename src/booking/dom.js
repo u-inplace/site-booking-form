@@ -264,7 +264,7 @@ export default class DOM {
             static show() {
                 document.getElementById('form-error').classList.add('active')
 
-                this.#msgTimeout = setTimeout(() => {
+                this.msgTimeout = setTimeout(() => {
                     document.getElementById('form-error').classList.remove('active')
                 }, 1000 * 3)
             }

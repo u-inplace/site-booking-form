@@ -9999,9 +9999,289 @@ const EXTRA = {
 /*!****************************!*\
   !*** ./src/booking/dom.js ***!
   \****************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/ulysses/Code/projects/inplace/ui-booking/src/booking/dom.js: Private name #msgTimeout is not defined. (267:21)\n\n\u001b[0m \u001b[90m 265 |\u001b[39m                 document\u001b[33m.\u001b[39mgetElementById(\u001b[32m'form-error'\u001b[39m)\u001b[33m.\u001b[39mclassList\u001b[33m.\u001b[39madd(\u001b[32m'active'\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 266 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 267 |\u001b[39m                 \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m\u001b[33m#\u001b[39mmsgTimeout \u001b[33m=\u001b[39m setTimeout(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 268 |\u001b[39m                     document\u001b[33m.\u001b[39mgetElementById(\u001b[32m'form-error'\u001b[39m)\u001b[33m.\u001b[39mclassList\u001b[33m.\u001b[39mremove(\u001b[32m'active'\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 269 |\u001b[39m                 }\u001b[33m,\u001b[39m \u001b[35m1000\u001b[39m \u001b[33m*\u001b[39m \u001b[35m3\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 270 |\u001b[39m             }\u001b[0m\n    at instantiate (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:358:12)\n    at Parser.raise (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:3334:19)\n    at ClassScopeHandler.exit (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:3658:21)\n    at Parser.parseClassBody (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:15422:21)\n    at Parser.parseClass (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:15353:22)\n    at Parser.parseExportDefaultExpression (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:15878:19)\n    at Parser.parseExport (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:15786:31)\n    at Parser.parseStatementContent (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:14644:27)\n    at Parser.parseStatement (/Users/ulysses/Code/projects/inplace/ui-booking/node_modules/@babel/parser/lib/index.js:14528:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ DOM; }
+/* harmony export */ });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* eslint-disable max-classes-per-file */
+
+/**
+ * DOM query and manipulators
+ */
+
+class DOM {
+  static queryOptions(id, checked = false) {
+    return Array.from(document.querySelectorAll(`input[id*='${id}']${checked ? ':checked' : ''}`));
+  }
+
+  static getOption(id, checked = false) {
+    return document.querySelector(`input[id*='${id}']${checked ? ':checked' : ''}`);
+  }
+
+  static queryRadio(name, checked = false) {
+    return Array.from(document.querySelectorAll(`input[name*='${name}']${checked ? ':checked' : ''}`));
+  }
+
+  static getRadio(name, checked = false) {
+    return document.querySelector(`input[name*="${name}"]${checked ? ':checked' : ''}`);
+  }
+
+  static setNextButtonDisabled(isDisabled) {
+    const nextButtonList = document.querySelectorAll('.next-button-slide');
+    Array.from(nextButtonList).forEach(nextButton => {
+      // eslint-disable-next-line no-param-reassign
+      nextButton.disabled = isDisabled;
+      if (isDisabled) nextButton.classList.add('disabled');else nextButton.classList.remove('disabled');
+    });
+  }
+  /**
+   * STEP: Services
+   * */
+
+
+  static queryServices(checked = false) {
+    return DOM.queryOptions('service-', checked);
+  }
+
+  static getSelectedServices() {
+    return DOM.queryServices(true).map(s => s.id.replace(/^.*-/, ''));
+  }
+
+  static isServiceSelected(service) {
+    return lodash__WEBPACK_IMPORTED_MODULE_0___default().includes(DOM.getSelectedServices(), service);
+  }
+  /**
+   * STEP: Ironing
+   */
+
+
+  static getSelectedIroning() {
+    return DOM.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
+  }
+  /**
+   * STEP: Cleaning - Extras
+   * */
+
+
+  static queryCleaningExtras(checked = false) {
+    return DOM.queryOptions('extra-', checked);
+  }
+
+  static getSelectedCleaningExtras() {
+    return DOM.queryCleaningExtras(true).map(s => s.id.replace(/^.*-/, ''));
+  }
+
+  static isExtraSelected(extra) {
+    return lodash__WEBPACK_IMPORTED_MODULE_0___default().includes(DOM.getSelectedCleaningExtras(), extra);
+  }
+  /**
+   * STEP: Cleaning - Home
+   * */
+
+
+  static isBedroomSelected() {
+    return DOM.getRadio('home-bedrooms', true);
+  }
+
+  static isBathroomSelected() {
+    return DOM.getRadio('home-bathrooms', true);
+  }
+  /**
+   * General functions
+   */
+
+
+  static hide(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  static display(id) {
+    document.getElementById(id).style.display = 'inline-block';
+    document.getElementById(id).style.visibility = 'visible';
+    document.getElementById(id).style.transform = 'none';
+  }
+  /**
+   * Postal Code
+   */
+
+
+  static get postalCode() {
+    return document.getElementById('postal-code');
+  }
+
+  static get postalCodeWarning() {
+    return document.getElementById('area-warning');
+  }
+  /**
+   * Slider
+   */
+
+
+  static slider = class {
+    static get element() {
+      return document.getElementById('booking-slider');
+    }
+
+    static get nextButtonAll() {
+      return document.getElementById('booking-slider').querySelectorAll('.next-button-slide');
+    }
+
+    static get backButtonAll() {
+      return document.getElementById('booking-slider').querySelectorAll('.back-button-slide');
+    }
+
+    static setActive(stepNo) {
+      document.getElementById(`step-${stepNo}`).classList.add('very-active');
+    }
+
+    static setInactive(stepNo) {
+      document.getElementById(`step-${stepNo}`).classList.remove('very-active');
+    }
+
+    static getStepHeight(stepNo) {
+      return document.getElementById(`step-${stepNo}`).offsetHeight;
+    }
+
+    static set formHeight(height) {
+      // Add some more for shadow box below
+      height && (document.getElementsByClassName('form-mask')[0].style.height = `${height + 150}px`);
+    }
+
+  };
+
+  static get duration() {
+    return document.getElementById('duration').value;
+  }
+
+  static get occurrence() {
+    return DOM.getRadio('frequency', true).value;
+  }
+  /** *
+   * Summary
+   */
+
+
+  static summary = class {
+    static activeService(service) {
+      document.getElementById(`summary-${service}`).classList.add('service-active');
+    }
+
+    static inactiveService(service) {
+      document.getElementById(`summary-${service}`).classList.remove('service-active');
+    }
+
+    static set duration(time) {
+      document.getElementById('summary-duration').innerText = time;
+    }
+
+    static set occurrence(freq) {
+      document.getElementById('summary-occurrence').innerText = freq;
+    }
+
+    static set payment(value) {
+      document.getElementById('summary-payment').innerText = value;
+    }
+
+  };
+  /**
+   * Availability
+   */
+
+  static calendar = class {
+    static openings = class {
+      static cleanUp() {
+        document.getElementById('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+      }
+
+      static showWarning() {
+        document.getElementById('aval-warning').classList.add('msg-active');
+      }
+
+      static hideWarning() {
+        document.getElementById('aval-warning').classList.remove('msg-active');
+      }
+
+    };
+    static team = class {
+      static showBlock() {
+        document.getElementById('team-members-block').classList.add('visible');
+      }
+
+      static hideBlock() {
+        document.getElementById('team-members-block').classList.remove('visible');
+      }
+
+      static cleanUp() {
+        document.getElementById('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+      }
+
+      static get memberTemplate() {
+        return document.getElementById('team-member-template');
+      }
+
+    };
+  };
+  /** *
+   * FORM
+   */
+
+  static form = class {
+    static submitButtonText;
+    static msgTimeout;
+
+    static done() {
+      document.getElementById('wf-form-Booking').classList.add('completed');
+      document.getElementById('form-done').classList.add('active');
+    }
+
+    static onSubmit() {
+      const button = document.getElementById('button-submit');
+      this.submitButtonText = button.value;
+      button.value = button.attributes['data-wait'].value;
+      button.disabled = true;
+      button.classList.add('wait');
+
+      if (this.msgTimeout) {
+        clearTimeout(this.msgTimeout);
+        DOM.form.error.hide();
+      }
+    }
+
+    static onSubmitDone() {
+      const button = document.getElementById('button-submit');
+      button.value = this.submitButtonText;
+      button.disabled = false;
+      button.classList.remove('wait');
+    }
+
+    static error = class {
+      static set title(title) {
+        document.getElementById('error-title').innerText = title;
+      }
+
+      static set detail(title) {
+        document.getElementById('error-detail').innerText = title;
+      }
+
+      static show() {
+        document.getElementById('form-error').classList.add('active');
+        this.msgTimeout = setTimeout(() => {
+          document.getElementById('form-error').classList.remove('active');
+        }, 1000 * 3);
+      }
+
+      static hide() {
+        document.getElementById('form-error').classList.remove('active');
+      }
+
+    };
+  };
+}
 
 /***/ }),
 

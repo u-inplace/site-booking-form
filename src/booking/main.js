@@ -21,14 +21,16 @@ const onSubmit = async event => {
                 contentType: 'application/json',
                 dataType: 'json'
             },
-            body: json
+            body: JSON.stringify(json)
         })
 
-        const resp = await res.json()
-
-        console.log(JSON.stringify(resp))
+        if (res.status >= 300) document.getElementById('wf-form-fail').style.display = 'block'
+        else {
+            document.getElementById('wf-form-Booking').style.display = 'none'
+            document.getElementById('wf-form-done').style.display = 'block'
+        }
     } catch (error) {
-        console.error(error)
+        document.getElementById('wf-form-fail').style.display = 'block'
     }
 }
 

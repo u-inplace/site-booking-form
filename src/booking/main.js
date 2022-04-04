@@ -1,5 +1,5 @@
 /* eslint-disable no-var */
-import 'vivify'
+import '../vivify.css'
 import DOM from './dom'
 import Navigation from './navigation'
 import './style.css'

@@ -9955,91 +9955,6 @@ else {}}).call(this);
 
 /***/ }),
 
-/***/ "./node_modules/vivify/lib/vivify.js":
-/*!*******************************************!*\
-  !*** ./node_modules/vivify/lib/vivify.js ***!
-  \*******************************************/
-/***/ (function(module) {
-
-module.exports = function () {
-  /**
-   *  Sequence class name manipulation over time.
-   *
-   *  Dependencies:
-   *
-   *  * air/attr
-   *  * air/class
-   *  * air/hidden
-   *
-   *  @param opts The options.
-   */
-  function vivify(opts, cb) {
-    if (typeof opts === 'string') {
-      opts = {
-        start: opts
-      };
-    }
-
-    opts = opts || {};
-    opts.wait = opts.wait !== undefined ? opts.wait : 0;
-    opts.delay = opts.delay || 500;
-    opts.begin = opts.begin || 'animated';
-
-    if (opts.infinite) {
-      opts.begin += ' infinite';
-    }
-
-    cb = cb || function noop() {};
-
-    cb = cb.bind(this); //console.log(opts);
-
-    this.removeClass(opts.begin);
-    this.removeClass(opts.start); // classes to add at the beginning
-
-    if (opts.begin) {
-      this.addClass(opts.begin);
-    }
-
-    var stop = function stop() {
-      if (!opts.infinite) {
-        this.removeClass(opts.start);
-        this.removeClass(opts.begin);
-      }
-
-      if (opts.pause) {
-        setTimeout(cb, opts.pause);
-      } else {
-        cb();
-      }
-    }.bind(this);
-
-    var start = function start() {
-      // must have loaded the air/hidden plugin
-      if (opts.show) {
-        this.show();
-      }
-
-      this.addClass(opts.start);
-      setTimeout(stop, opts.delay);
-    }.bind(this); // NOTE: often need a timeout to delay before adding the
-    // NOTE: animation class to allow the browser to
-    // NOTE: render the element
-
-
-    if (opts.wait) {
-      setTimeout(start, opts.wait);
-    } else {
-      start();
-    }
-
-    return this;
-  }
-
-  this.vivify = vivify;
-};
-
-/***/ }),
-
 /***/ "./src/booking/constants.js":
 /*!**********************************!*\
   !*** ./src/booking/constants.js ***!
@@ -11914,6 +11829,19 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
+/***/ }),
+
+/***/ "./src/vivify.css":
+/*!************************!*\
+  !*** ./src/vivify.css ***!
+  \************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -12016,8 +11944,7 @@ var __webpack_exports__ = {};
   !*** ./src/booking/main.js ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vivify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vivify */ "./node_modules/vivify/lib/vivify.js");
-/* harmony import */ var vivify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vivify__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vivify.css */ "./src/vivify.css");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
 /* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");

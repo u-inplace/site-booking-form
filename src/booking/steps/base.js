@@ -91,8 +91,8 @@ export default class BaseStep extends Step {
                     .querySelector('.next-button-slide')
                     .classList.add('remove')
 
-                this.onNext(), 1
-            })
+                this.onNext()
+            }, 500)
         }
     }
 

@@ -10889,8 +10889,8 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
       setTimeout(() => {
         document.getElementById(`step-${this.stepNo}`).querySelector('.next-button-slide').classList.add('remove');
-        this.onNext(), 1;
-      });
+        this.onNext();
+      }, 500);
     }
   }
 

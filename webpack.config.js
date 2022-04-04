@@ -23,7 +23,10 @@ const config = {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                options: {
+                    plugins: ['lodash']
+                }
             },
             {
                 test: /\.css$/i,

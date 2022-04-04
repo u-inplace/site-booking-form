@@ -10119,7 +10119,7 @@ class DOM {
   }
 
   static postalCodeWarningHide() {
-    DOM.alertHid('alert-area');
+    DOM.alertHide('alert-area');
   }
   /**
    * Slider

@@ -4,6 +4,7 @@ const path = require('path')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 const config = {
     target: ['web', 'es5'],
@@ -14,6 +15,7 @@ const config = {
         host: 'localhost'
     },
     plugins: [
+        new LodashModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'

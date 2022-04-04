@@ -64,6 +64,9 @@ export default class PostalCodeStep extends BaseStep {
             DOM.postalCode.blur()
             document.activeElement.blur()
 
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+
             DOM.postalCodeToast()
         }
     }

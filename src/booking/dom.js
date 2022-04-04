@@ -225,6 +225,7 @@ export default class DOM {
 
     static form = class {
         static #submitButtonText
+        static #msgTimeout
 
         static done() {
             document.getElementById('wf-form-Booking').classList.add('completed')
@@ -237,6 +238,11 @@ export default class DOM {
             button.value = button.attributes['data-wait'].value
             button.disabled = true
             button.classList.add('wait')
+
+            if (this.#msgTimeout) {
+                clearTimeout(this.#msgTimeout)
+                DOM.form.error.hide()
+            }
         }
 
         static onSubmitDone() {
@@ -258,7 +264,7 @@ export default class DOM {
             static show() {
                 document.getElementById('form-error').classList.add('active')
 
-                setTimeout(() => {
+                this.#msgTimeout = setTimeout(() => {
                     document.getElementById('form-error').classList.remove('active')
                 }, 1000 * 3)
             }

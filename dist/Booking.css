@@ -726,22 +726,6 @@
     animation: fromDownUp 0.5s ease;
 }
 
-.area-warning {
-    visibility: hidden;
-}
-
-.area-warning.msg-active {
-    height: auto;
-    opacity: 1;
-    visibility: visible;
-    top: 0px;
-
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-}
-
 @keyframes fromDownUp {
     0% {
         opacity: 0;

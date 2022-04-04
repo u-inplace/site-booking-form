@@ -713,7 +713,8 @@
     opacity: 1;
 }
 
-input.wait {
+input.wait,
+a.wait {
     background: #05121f;
 }
 

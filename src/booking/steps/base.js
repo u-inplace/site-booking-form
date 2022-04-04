@@ -79,6 +79,7 @@ export default class BaseStep extends Step {
         const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow
         if (!isDisabled && !stopAutoFollow && this.autoFollow) {
             // Animate button
+            document.activeElement.blur()
             document
                 .getElementById(`step-${this.stepNo}`)
                 .querySelector('.next-button-slide')

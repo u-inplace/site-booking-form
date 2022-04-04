@@ -10879,6 +10879,7 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     if (!isDisabled && !stopAutoFollow && this.autoFollow) {
       // Animate button
+      document.activeElement.blur();
       document.getElementById(`step-${this.stepNo}`).querySelector('.next-button-slide').classList.add('wait'); // Wait a bit before going
 
       setTimeout(() => {

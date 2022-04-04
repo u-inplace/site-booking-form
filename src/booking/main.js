@@ -38,7 +38,7 @@ const sliderController = () => {
 
     // Setup form submit action
     document.getElementById('wf-form-Booking').onsubmit = onSubmit
-    document.getElementsByClassName('booking-form-submit')[0].click = onSubmit
+    // document.getElementsByClassName('booking-form-submit')[0].click = onSubmit
 }
 
 // eslint-disable-next-line no-use-before-define

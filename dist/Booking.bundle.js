@@ -10241,10 +10241,12 @@ class DOM {
     static onSubmit() {
       this.#submitButtonText = document.getElementById('button-submit').value;
       document.getElementById('button-submit').value = document.getElementById('button-submit').attributes['data-wait'].value;
+      document.getElementById('button-submit').disabled = true;
     }
 
     static onSubmitDone() {
       document.getElementById('button-submit').value = this.#submitButtonText;
+      document.getElementById('button-submit').disabled = false;
     }
 
     static error = class {

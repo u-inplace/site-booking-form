@@ -10884,8 +10884,13 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow;
 
     if (!isDisabled && !stopAutoFollow && this.autoFollow) {
-      // Wait a bit before going
-      setTimeout(() => this.onNext(), 500);
+      // Animate button
+      document.getElementById(`step-${this.stepNo}`).querySelector('.next-button-slide').classList.add('wait'); // Wait a bit before going
+
+      setTimeout(() => {
+        document.getElementById(`step-${this.stepNo}`).querySelector('.next-button-slide').classList.add('remove');
+        this.onNext(), 1;
+      });
     }
   }
 
@@ -11334,13 +11339,10 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   }
 
   onNext() {
-    // Animate button
-    document.getElementById('step-0').querySelector('.next-button-slide').classList.add('wait'); // Remove focus to hide keyboard
-
+    // Remove focus to hide keyboard
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.blur();
     document.activeElement.blur();
     super.onNext();
-    document.getElementById('step-0').querySelector('.next-button-slide').classList.remove('wait');
   }
 
   get autoFollow() {

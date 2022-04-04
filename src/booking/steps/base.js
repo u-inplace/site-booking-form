@@ -78,8 +78,21 @@ export default class BaseStep extends Step {
         // is also called above by event, where the parameter is not a boolean
         const stopAutoFollow = typeof dontAutoFollow === 'boolean' && dontAutoFollow
         if (!isDisabled && !stopAutoFollow && this.autoFollow) {
+            // Animate button
+            document
+                .getElementById(`step-${this.stepNo}`)
+                .querySelector('.next-button-slide')
+                .classList.add('wait')
+
             // Wait a bit before going
-            setTimeout(() => this.onNext(), 500)
+            setTimeout(() => {
+                document
+                    .getElementById(`step-${this.stepNo}`)
+                    .querySelector('.next-button-slide')
+                    .classList.add('remove')
+
+                this.onNext(), 1
+            })
         }
     }
 

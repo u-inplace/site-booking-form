@@ -37,18 +37,10 @@ export default class PostalCodeStep extends BaseStep {
     }
 
     onNext() {
-        // Animate button
-        document.getElementById('step-0').querySelector('.next-button-slide').classList.add('wait')
-
         // Remove focus to hide keyboard
         DOM.postalCode.blur()
         document.activeElement.blur()
         super.onNext()
-
-        document
-            .getElementById('step-0')
-            .querySelector('.next-button-slide')
-            .classList.remove('wait')
     }
 
     get autoFollow() {

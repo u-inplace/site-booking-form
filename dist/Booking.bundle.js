@@ -11950,8 +11950,7 @@ const sliderController = () => {
   //  ONly starts after page is loaded
   const navController = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
   navController.init(); // Setup form submit action
-
-  document.getElementById('wf-form-Booking').onsubmit = onSubmit;
+  // document.getElementById('wf-form-Booking').onsubmit = onSubmit
 }; // eslint-disable-next-line no-use-before-define
 
 

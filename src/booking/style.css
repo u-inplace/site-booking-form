@@ -32,11 +32,11 @@
     }
 }
 
-#wf-form-Booking .completed {
+#wf-form-Booking.completed {
     display: none;
 }
 
-#form-done .active {
+#form-done.active {
     display: flex;
 }
 
@@ -44,6 +44,6 @@
     display: none;
 }
 
-#form-error .active {
+#form-error.active {
     display: block;
 }

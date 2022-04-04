@@ -27,7 +27,7 @@ const onSubmit = async event => {
         if (res.status >= 300)
             document.getElementsByClassName('w-form-fail')[0].style.display = 'block'
         else {
-            document.getElementById('wf-form-Booking').parentElement.style.display = 'none'
+            document.getElementById('wf-form-Booking').style.display = 'none'
             document.getElementsByClassName('w-form-done')[0].style.display = 'block'
         }
     } catch (error) {

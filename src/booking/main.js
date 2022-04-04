@@ -50,7 +50,7 @@ const sliderController = () => {
     navController.init()
 
     // Setup form submit action
-    // document.getElementById('wf-form-Booking').onsubmit = onSubmit
+    document.getElementById('wf-form-Booking').onsubmit = onSubmit
 }
 
 // eslint-disable-next-line no-use-before-define

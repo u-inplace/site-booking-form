@@ -224,9 +224,21 @@ export default class DOM {
      */
 
     static form = class {
+        static #submitButtonText
+
         static done() {
             document.getElementById('wf-form-Booking').classList.add('completed')
             document.getElementById('form-done').classList.add('active')
+        }
+
+        static onSubmit() {
+            this.#submitButtonText = document.getElementById('button-submit').value
+            document.getElementById('button-submit').value =
+                document.getElementById('button-submit').attributes['data-wait'].value
+        }
+
+        static onSubmitDone() {
+            document.getElementById('button-submit').value = this.#submitButtonText
         }
 
         static error = class {

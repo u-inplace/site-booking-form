@@ -89,7 +89,7 @@ export default class BaseStep extends Step {
                 document
                     .getElementById(`step-${this.stepNo}`)
                     .querySelector('.next-button-slide')
-                    .classList.add('remove')
+                    .classList.remove('wait')
 
                 this.onNext()
             }, 500)

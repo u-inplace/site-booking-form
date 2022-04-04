@@ -104,20 +104,12 @@ export default class DOM {
         return document.getElementById('postal-code')
     }
 
-    static get postalCodeWarning() {
-        return document.getElementById('area-warning')
-    }
-
     static postalCodeWarningShow() {
-        DOM.postalCodeWarning.classList.add('active')
-
-        this.msgTimeout = setTimeout(() => {
-            DOM.postalCodeWarning.classList.remove('active')
-        }, 1000 * 5)
+        DOM.alertShow('alert-area')
     }
 
     static postalCodeWarningHide() {
-        DOM.postalCodeWarning.classList.remove('active')
+        DOM.alertHid('alert-area')
     }
 
     /**
@@ -231,6 +223,23 @@ export default class DOM {
         }
     }
 
+    /**
+     * Message
+     */
+    static alertShow(id) {
+        document.getElementById(id).classList.remove('inactive')
+        document.getElementById(id).classList.add('active')
+
+        return (this.msgTimeout = setTimeout(() => {
+            DOM.alertHide(id)
+        }, 1000 * 5))
+    }
+
+    static alertHide(id) {
+        document.getElementById(id).classList.remove('active')
+        document.getElementById(id).classList.add('inactive')
+    }
+
     /** *
      * FORM
      */
@@ -274,15 +283,11 @@ export default class DOM {
             }
 
             static show() {
-                document.getElementById('form-error').classList.add('active')
-
-                this.msgTimeout = setTimeout(() => {
-                    document.getElementById('form-error').classList.remove('active')
-                }, 1000 * 3)
+                this.msgTimeout = DOM.alertShow('alert-submit')
             }
 
             static hide() {
-                document.getElementById('form-error').classList.remove('active')
+                DOM.alertHide('alert-submit')
             }
         }
     }

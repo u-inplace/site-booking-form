@@ -11892,12 +11892,12 @@ const onSubmit = async event => {
       },
       body: JSON.stringify(json)
     });
-    if (res.status >= 300) document.getElementById('wf-form-fail').style.display = 'block';else {
-      document.getElementById('wf-form-Booking').style.display = 'none';
-      document.getElementById('wf-form-done').style.display = 'block';
+    if (res.status >= 300) document.getElementsByClassName('wf-form-fail')[0].style.display = 'block';else {
+      document.getElementsByClassName('wf-form-Booking')[0].style.display = 'none';
+      document.getElementsByClassName('wf-form-done')[0].style.display = 'block';
     }
   } catch (error) {
-    document.getElementById('wf-form-fail').style.display = 'block';
+    document.getElementsByClassName('wf-form-fail')[0].style.display = 'block';
   }
 };
 /**

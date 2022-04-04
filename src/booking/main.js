@@ -16,6 +16,8 @@ const onSubmit = async event => {
     const url = new URL(form.attributes.action.value)
 
     try {
+        DOM.form.onSubmit()
+
         const res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -31,6 +33,7 @@ const onSubmit = async event => {
             DOM.form.error.title = 'Something went wrong'
             DOM.form.error.detail = JSON.stringify(resJson)
             DOM.form.error.show()
+            DOM.form.onSubmitDone()
         } else {
             DOM.form.done()
         }
@@ -38,6 +41,7 @@ const onSubmit = async event => {
         DOM.form.error.title = 'Something went very wrong'
         DOM.form.error.detail = error.message
         DOM.form.error.show()
+        DOM.form.onSubmitDone()
     }
 }
 

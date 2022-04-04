@@ -11929,6 +11929,7 @@ const onSubmit = async event => {
   const url = new URL(form.attributes.action.value);
 
   try {
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.onSubmit();
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -11943,6 +11944,7 @@ const onSubmit = async event => {
       _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.title = 'Something went wrong';
       _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.detail = JSON.stringify(resJson);
       _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.show();
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.onSubmitDone();
     } else {
       _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.done();
     }
@@ -11950,6 +11952,7 @@ const onSubmit = async event => {
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.title = 'Something went very wrong';
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.detail = error.message;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.show();
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.onSubmitDone();
   }
 };
 /**

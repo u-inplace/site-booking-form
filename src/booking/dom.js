@@ -232,15 +232,16 @@ export default class DOM {
         }
 
         static onSubmit() {
-            this.#submitButtonText = document.getElementById('button-submit').value
-            document.getElementById('button-submit').value =
-                document.getElementById('button-submit').attributes['data-wait'].value
-            document.getElementById('button-submit').disabled = true
+            const button = document.getElementById('button-submit')
+            this.#submitButtonText = button.value
+            button.value = button.attributes['data-wait'].value
+            button.disabled = true
         }
 
         static onSubmitDone() {
-            document.getElementById('button-submit').value = this.#submitButtonText
-            document.getElementById('button-submit').disabled = false
+            const button = document.getElementById('button-submit')
+            button.value = this.#submitButtonText
+            button.disabled = false
         }
 
         static error = class {

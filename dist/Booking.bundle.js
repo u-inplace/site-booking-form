@@ -10117,6 +10117,17 @@ class DOM {
   static get postalCodeWarning() {
     return document.getElementById('area-warning');
   }
+
+  static postalCodeWarningShow() {
+    DOM.postalCodeWarning.classList.add('active');
+    this.msgTimeout = setTimeout(() => {
+      DOM.postalCodeWarning.classList.remove('active');
+    }, 1000 * 3);
+  }
+
+  static postalCodeWarningHide() {
+    DOM.postalCodeWarning.classList.remove('active');
+  }
   /**
    * Slider
    */

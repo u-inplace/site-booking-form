@@ -11245,7 +11245,6 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.focus();
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.setActive(0);
     this.slider.resize();
-    this.toggleNext();
   }
 
   get isNextDisabled() {

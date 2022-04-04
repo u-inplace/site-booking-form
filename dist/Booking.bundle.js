@@ -10243,12 +10243,14 @@ class DOM {
       this.#submitButtonText = button.value;
       button.value = button.attributes['data-wait'].value;
       button.disabled = true;
+      button.classList.add('wait');
     }
 
     static onSubmitDone() {
       const button = document.getElementById('button-submit');
       button.value = this.#submitButtonText;
       button.disabled = false;
+      button.classList.remove('wait');
     }
 
     static error = class {

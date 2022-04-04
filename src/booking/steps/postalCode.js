@@ -18,6 +18,8 @@ export default class PostalCodeStep extends BaseStep {
 
         DOM.slider.setActive(0)
         this.slider.resize()
+
+        this.toggleNext()
     }
 
     get isNextDisabled() {

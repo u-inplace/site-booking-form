@@ -173,8 +173,8 @@ export default class AvailabilityStep extends BaseStep {
         const template = DOM.calendar.team.memberTemplate
 
         // Set start and end time on hidden inputs
-        document.getElementById('start-time').value = this.openings[0].start
-        document.getElementById('end-time').value = this.openings[0].end
+        document.getElementById('start-timestamp').value = this.openings[0].start
+        document.getElementById('start-timestamp').value = this.openings[0].end
 
         _.filter(this.openings, { start_time }).forEach(open => {
             const node = this.copyTemplate(template, {

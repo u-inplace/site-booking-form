@@ -10665,8 +10665,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     const start_time = event.target.value;
     const template = _dom__WEBPACK_IMPORTED_MODULE_3__["default"].calendar.team.memberTemplate; // Set start and end time on hidden inputs
 
-    document.getElementById('start-time').value = this.openings[0].start;
-    document.getElementById('end-time').value = this.openings[0].end;
+    document.getElementById('start-timestamp').value = this.openings[0].start;
+    document.getElementById('start-timestamp').value = this.openings[0].end;
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().filter(this.openings, {
       start_time

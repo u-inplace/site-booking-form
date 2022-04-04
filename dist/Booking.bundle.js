@@ -10226,6 +10226,35 @@ class DOM {
 
     };
   };
+  /** *
+   * FORM
+   */
+
+  static form = class {
+    static done() {
+      document.getElementById('wf-form-Booking').classList.add('completed');
+      document.getElementById('form-done').classList.add('active');
+    }
+
+    static error = class {
+      static set title(title) {
+        document.getElementById('error-title').innerText = title;
+      }
+
+      static set detail(title) {
+        document.getElementById('error-detail').innerText = title;
+      }
+
+      static show() {
+        document.getElementById('form-error').classList.add('active');
+      }
+
+      static hide() {
+        document.getElementById('form-error').classList.remove('active');
+      }
+
+    };
+  };
 }
 
 /***/ }),
@@ -11866,9 +11895,11 @@ var __webpack_exports__ = {};
   !*** ./src/booking/main.js ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/booking/navigation.js");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.css */ "./src/booking/style.css");
 /* eslint-disable no-var */
+
 
 
 /**
@@ -11892,12 +11923,19 @@ const onSubmit = async event => {
       },
       body: JSON.stringify(json)
     });
-    if (res.status >= 300) document.getElementsByClassName('w-form-fail')[0].style.display = 'block';else {
-      document.getElementById('wf-form-Booking').style.display = 'none';
-      document.getElementsByClassName('w-form-done')[0].style.display = 'block';
+    const resJson = await res.json();
+
+    if (res.status >= 300) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.title = 'Something went wrong';
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.detail = JSON.stringify(resJson);
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.show();
+    } else {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.done();
     }
   } catch (error) {
-    document.getElementsByClassName('w-form-fail')[0].style.display = 'block';
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.title = 'Something went very wrong';
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.detail = error.message;
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].form.error.show();
   }
 };
 /**
@@ -11907,7 +11945,7 @@ const onSubmit = async event => {
 
 const sliderController = () => {
   //  ONly starts after page is loaded
-  const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  const navController = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
   navController.init(); // Setup form submit action
 
   document.getElementById('wf-form-Booking').onsubmit = onSubmit;

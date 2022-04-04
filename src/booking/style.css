@@ -31,3 +31,19 @@
         transform: translateY(0px);
     }
 }
+
+#wf-form-Booking .completed {
+    display: none;
+}
+
+#form-done .active {
+    display: flex;
+}
+
+#form-error {
+    display: none;
+}
+
+#form-error .active {
+    display: block;
+}

@@ -1,4 +1,5 @@
 /* eslint-disable no-var */
+import DOM from './dom'
 import Navigation from './navigation'
 import './style.css'
 
@@ -24,14 +25,19 @@ const onSubmit = async event => {
             body: JSON.stringify(json)
         })
 
-        if (res.status >= 300)
-            document.getElementsByClassName('w-form-fail')[0].style.display = 'block'
-        else {
-            document.getElementById('wf-form-Booking').style.display = 'none'
-            document.getElementsByClassName('w-form-done')[0].style.display = 'block'
+        const resJson = await res.json()
+
+        if (res.status >= 300) {
+            DOM.form.error.title = 'Something went wrong'
+            DOM.form.error.detail = JSON.stringify(resJson)
+            DOM.form.error.show()
+        } else {
+            DOM.form.done()
         }
     } catch (error) {
-        document.getElementsByClassName('w-form-fail')[0].style.display = 'block'
+        DOM.form.error.title = 'Something went very wrong'
+        DOM.form.error.detail = error.message
+        DOM.form.error.show()
     }
 }
 

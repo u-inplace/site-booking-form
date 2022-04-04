@@ -218,4 +218,33 @@ export default class DOM {
             }
         }
     }
+
+    /** *
+     * FORM
+     */
+
+    static form = class {
+        static done() {
+            document.getElementById('wf-form-Booking').classList.add('completed')
+            document.getElementById('form-done').classList.add('active')
+        }
+
+        static error = class {
+            static set title(title) {
+                document.getElementById('error-title').innerText = title
+            }
+
+            static set detail(title) {
+                document.getElementById('error-detail').innerText = title
+            }
+
+            static show() {
+                document.getElementById('form-error').classList.add('active')
+            }
+
+            static hide() {
+                document.getElementById('form-error').classList.remove('active')
+            }
+        }
+    }
 }

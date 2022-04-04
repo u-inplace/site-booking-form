@@ -11881,7 +11881,7 @@ const onSubmit = async event => {
   const form = event.target;
   const data = new FormData(form);
   const json = Object.fromEntries(data.entries());
-  const url = new URL(form.attr('action'));
+  const url = new URL(form.attributes.action);
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -11903,7 +11903,7 @@ const sliderController = () => {
   const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
   navController.init(); // Setup form submit action
 
-  document.getElementById('wf-form-Booking').onsubmit = onSubmit; // document.getElementsByClassName('booking-form-submit')[0].click = onSubmit
+  document.getElementById('wf-form-Booking').onsubmit = onSubmit;
 }; // eslint-disable-next-line no-use-before-define
 
 

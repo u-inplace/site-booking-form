@@ -12,7 +12,7 @@ const onSubmit = async event => {
     const data = new FormData(form)
     const json = Object.fromEntries(data.entries())
 
-    const url = new URL(form.attr('action'))
+    const url = new URL(form.attributes.action)
 
     const res = await fetch(url, {
         method: 'POST',
@@ -38,7 +38,6 @@ const sliderController = () => {
 
     // Setup form submit action
     document.getElementById('wf-form-Booking').onsubmit = onSubmit
-    // document.getElementsByClassName('booking-form-submit')[0].click = onSubmit
 }
 
 // eslint-disable-next-line no-use-before-define

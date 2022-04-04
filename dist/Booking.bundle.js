@@ -11903,7 +11903,7 @@ const sliderController = () => {
   const navController = new _navigation__WEBPACK_IMPORTED_MODULE_0__["default"]();
   navController.init(); // Setup form submit action
 
-  document.getElementById('booking-form').onsubmit = onSubmit;
+  document.getElementById('wf-form-Booking').onsubmit = onSubmit;
 }; // eslint-disable-next-line no-use-before-define
 
 

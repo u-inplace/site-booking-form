@@ -700,16 +700,3 @@
     display: flex;
 }
 
-.alert {
-    display: block;
-    opacity: 0;
-
-    transition-property: opacity;
-    transition-duration: 0.5s;
-    transition-timing-function: ease;
-}
-
-.alert.active {
-    opacity: 1;
-}
-

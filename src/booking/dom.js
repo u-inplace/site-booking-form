@@ -113,7 +113,7 @@ export default class DOM {
 
         this.msgTimeout = setTimeout(() => {
             DOM.postalCodeWarning.classList.remove('active')
-        }, 1000 * 3)
+        }, 1000 * 5)
     }
 
     static postalCodeWarningHide() {

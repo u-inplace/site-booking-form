@@ -11355,9 +11355,11 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
     if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength); // show error message
 
     if (pc.value.length === pc.maxLength && !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value)) {
-      // Remove keyabord focus to correclty displas message on mobile
-      _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.blur();
-      document.activeElement.blur();
+      // Scroll back to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
       _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeToast();
     }
   }

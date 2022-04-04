@@ -60,9 +60,8 @@ export default class PostalCodeStep extends BaseStep {
 
         // show error message
         if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value)) {
-            // Remove keyabord focus to correclty displas message on mobile
-            DOM.postalCode.blur()
-            document.activeElement.blur()
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' })
 
             DOM.postalCodeToast()
         }

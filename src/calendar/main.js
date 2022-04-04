@@ -69,8 +69,7 @@ export default class CalendarController {
     /**
      * Load more dates
      */
-    onMonthChange = async (currentDate, events) => {
-        console.debug('::onMonthChange::', currentDate, events)
+    onMonthChange = async currentDate => {
         const firstDay = startOfMonth(currentDate)
         await this.getMonthAvailability(firstDay)
         if (!this.#initialised) this.init()
@@ -83,7 +82,6 @@ export default class CalendarController {
      */
     // eslint-disable-next-line class-methods-use-this
     onDateChange = (currentDate, events) => {
-        console.debug('::onDateChange::', currentDate, events)
         this.#onDayChangeCb(currentDate, events)
     }
 
@@ -126,8 +124,6 @@ export default class CalendarController {
 
         if (weekStartDate < new Date() || this.#cached[weekKey]) return
         this.#cached[weekKey] = true
-
-        console.log(`# WeekStart: ${toISOStringShort(weekStartDate)}`)
 
         const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
         const params = new URLSearchParams({

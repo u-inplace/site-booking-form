@@ -11575,8 +11575,7 @@ class CalendarController {
    */
 
 
-  onMonthChange = async (currentDate, events) => {
-    console.debug('::onMonthChange::', currentDate, events);
+  onMonthChange = async currentDate => {
     const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(currentDate);
     await this.getMonthAvailability(firstDay);
     if (!this.#initialised) this.init();
@@ -11589,7 +11588,6 @@ class CalendarController {
   // eslint-disable-next-line class-methods-use-this
 
   onDateChange = (currentDate, events) => {
-    console.debug('::onDateChange::', currentDate, events);
     this.#onDayChangeCb(currentDate, events);
   };
   /**
@@ -11633,7 +11631,6 @@ class CalendarController {
     const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate);
     if (weekStartDate < new Date() || this.#cached[weekKey]) return;
     this.#cached[weekKey] = true;
-    console.log(`# WeekStart: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_3__.toISOStringShort)(weekStartDate)}`);
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',

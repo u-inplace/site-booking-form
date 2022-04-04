@@ -713,3 +713,7 @@
     opacity: 1;
 }
 
+#button-submit.wait {
+    background: #05121f;
+}
+

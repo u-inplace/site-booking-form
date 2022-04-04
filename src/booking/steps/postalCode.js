@@ -65,7 +65,7 @@ export default class PostalCodeStep extends BaseStep {
         if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength)
 
         if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value))
-            DOM.postalCodeWarning.classList.add('msg-active')
-        else DOM.postalCodeWarning.classList.remove('msg-active')
+            DOM.postalCodeWarningShow()
+        else DOM.postalCodeWarningHide()
     }
 }

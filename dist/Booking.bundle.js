@@ -11344,7 +11344,7 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
   onPostalCodeInput(e) {
     const pc = e.target;
     if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength);
-    if (pc.value.length === pc.maxLength && !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value)) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarning.classList.add('msg-active');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarning.classList.remove('msg-active');
+    if (pc.value.length === pc.maxLength && !_model__WEBPACK_IMPORTED_MODULE_2__["default"].coverage.includes(pc.value)) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarningShow();else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCodeWarningHide();
   }
 
 }

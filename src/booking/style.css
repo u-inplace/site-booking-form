@@ -40,7 +40,7 @@
     display: flex;
 }
 
-#form-error {
+.alert {
     display: block;
     opacity: 0;
 
@@ -49,6 +49,6 @@
     transition-timing-function: ease;
 }
 
-#form-error.active {
+.alert.active {
     opacity: 1;
 }

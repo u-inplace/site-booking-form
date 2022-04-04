@@ -53,6 +53,6 @@
     opacity: 1;
 }
 
-#button-submit.wait {
+input.wait {
     background: #05121f;
 }

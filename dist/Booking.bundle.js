@@ -11879,16 +11879,21 @@ const onSubmit = async event => {
   const data = new FormData(form);
   const json = Object.fromEntries(data.entries());
   const url = new URL(form.attributes.action.value);
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      contentType: 'application/json',
-      dataType: 'json'
-    },
-    body: json
-  });
-  const resp = await res.json();
-  console.log(JSON.stringify(resp));
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        contentType: 'application/json',
+        dataType: 'json'
+      },
+      body: json
+    });
+    const resp = await res.json();
+    console.log(JSON.stringify(resp));
+  } catch (error) {
+    console.error(error);
+  }
 };
 /**
  * Add handlers

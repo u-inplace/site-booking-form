@@ -153,15 +153,15 @@ export default class DOM {
 
     static teamMember = class {
         static get name() {
-            return document.getElementById('team-member-name')
+            return document.getElementById('team-member-name').value
         }
 
         static get firsName() {
-            return document.getElementById('team-member-first-name')
+            return document.getElementById('team-member-first-name').value
         }
 
         static get avatar() {
-            return DOM.getRadio('team-member', true).src
+            return document.getElementById('team-members-block').querySelector('img').src
         }
     }
 
@@ -323,7 +323,7 @@ export default class DOM {
              */
             static set team(member) {
                 document.getElementById('conf-team-avatar').src = member.avatar
-                document.getElementById('conf-team-name').innerText = member.name
+                document.getElementById('conf-team-name').innerText = member.firstName
             }
         }
     }

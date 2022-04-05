@@ -220,8 +220,8 @@ export default class AvailabilityStep extends BaseStep {
      */
     onTeamMemberSelect(event) {
         const member = event.target
-        DOM.teamMember.name.value = member.getAttribute('member-name')
-        DOM.teamMember.firsName.value = member.getAttribute('member-first-name')
+        DOM.teamMember.name = member.getAttribute('member-name')
+        DOM.teamMember.firsName = member.getAttribute('member-first-name')
     }
 
     /**

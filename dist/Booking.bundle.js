@@ -209,15 +209,15 @@ class DOM {
 
   static teamMember = class {
     static get name() {
-      return document.getElementById('team-member-name');
+      return document.getElementById('team-member-name').value;
     }
 
     static get firsName() {
-      return document.getElementById('team-member-first-name');
+      return document.getElementById('team-member-first-name').value;
     }
 
     static get avatar() {
-      return DOM.getRadio('team-member', true).src;
+      return document.getElementById('team-members-block').querySelector('img').src;
     }
 
   };
@@ -376,7 +376,7 @@ class DOM {
 
       static set team(member) {
         document.getElementById('conf-team-avatar').src = member.avatar;
-        document.getElementById('conf-team-name').innerText = member.name;
+        document.getElementById('conf-team-name').innerText = member.firstName;
       }
 
     };
@@ -989,8 +989,8 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
 
   onTeamMemberSelect(event) {
     const member = event.target;
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.name.value = member.getAttribute('member-name');
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.firsName.value = member.getAttribute('member-first-name');
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.name = member.getAttribute('member-name');
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.firsName = member.getAttribute('member-first-name');
   }
   /**
    * Create a node copy from template

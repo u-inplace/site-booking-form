@@ -76,10 +76,10 @@ export default class Form {
 
                 if (resJson?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
                 else DOM.form.error.toast('toast-submit-error')
-                Form.createSummary()
 
                 DOM.form.onSubmitDone()
             } else {
+                Form.createSummary()
                 DOM.form.done()
             }
         } catch (error) {

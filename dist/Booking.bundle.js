@@ -465,9 +465,9 @@ class Form {
       if (res.status >= 300) {
         Form.logError(res);
         if (resJson?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
-        Form.createSummary();
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmitDone();
       } else {
+        Form.createSummary();
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.done();
       }
     } catch (error) {

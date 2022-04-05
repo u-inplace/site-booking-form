@@ -161,7 +161,7 @@ export default class DOM {
         }
 
         static get avatar() {
-            return DOM.getRadio('team-member', true).url
+            return DOM.getRadio('team-member', true).src
         }
     }
 
@@ -323,6 +323,7 @@ export default class DOM {
              */
             static set team(member) {
                 document.getElementById('conf-team-avatar').src = member.avatar
+                document.getElementById('conf-team-name').innerText = member.name
             }
         }
     }

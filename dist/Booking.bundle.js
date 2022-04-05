@@ -216,11 +216,11 @@ class DOM {
       document.getElementById('team-member-name').value = name;
     }
 
-    static get firsName() {
+    static get firstName() {
       return document.getElementById('team-member-first-name').value;
     }
 
-    static set firsName(first) {
+    static set firstName(first) {
       document.getElementById('team-member-first-name').value = first;
     }
 
@@ -998,7 +998,7 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
   onTeamMemberSelect(event) {
     const member = event.target;
     _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.name = member.getAttribute('member-name');
-    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.firsName = member.getAttribute('member-first-name');
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.firstName = member.getAttribute('member-first-name');
   }
   /**
    * Create a node copy from template

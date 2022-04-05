@@ -160,11 +160,11 @@ export default class DOM {
             document.getElementById('team-member-name').value = name
         }
 
-        static get firsName() {
+        static get firstName() {
             return document.getElementById('team-member-first-name').value
         }
 
-        static set firsName(first) {
+        static set firstName(first) {
             document.getElementById('team-member-first-name').value = first
         }
 

@@ -6,6 +6,18 @@ import Navigation from './navigation'
 import './style.css'
 
 /**
+ * Log error
+ * @param {*} res
+ */
+const logError = async res => {
+    console.log('Something went wrong...')
+    console.log(`Status: ${res.status} ${res.statusText}`)
+
+    if (res?.body) console.log(`Response: ${await res?.body}`)
+    else console.log(`Response: ${res}`)
+}
+
+/**
  * Form Submission
  * @param {SubmitEvent} event
  */
@@ -32,17 +44,18 @@ const onSubmit = async event => {
         const resJson = await res.json()
 
         if (res.status >= 300) {
-            DOM.form.error.title = 'Something went wrong'
-            DOM.form.error.detail = JSON.stringify(resJson)
-            DOM.form.error.toast()
+            logError(res)
+
+            if (resJson?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
+            else DOM.form.error.toast('toast-submit-error')
+
             DOM.form.onSubmitDone()
         } else {
             DOM.form.done()
         }
     } catch (error) {
-        DOM.form.error.title = 'Something went very wrong'
-        DOM.form.error.detail = error.message
-        DOM.form.error.toast()
+        logError(error.message)
+        DOM.form.error.toast('toast-submit-error')
         DOM.form.onSubmitDone()
     }
 }

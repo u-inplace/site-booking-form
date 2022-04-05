@@ -273,8 +273,8 @@ export default class DOM {
                 document.getElementById('error-detail').innerText = title
             }
 
-            static toast() {
-                this.msgTimeout = DOM.toast('alert-submit')
+            static toast(id) {
+                this.msgTimeout = DOM.toast(id)
             }
         }
     }

@@ -1,5 +1,4 @@
 /* eslint-disable no-var */
-import smoothscroll from 'smoothscroll-polyfill'
 import '../vivify.css'
 import DOM from './dom'
 import Navigation from './navigation'
@@ -64,9 +63,6 @@ const onSubmit = async event => {
  * Add handlers
  */
 const sliderController = () => {
-    // kick off the polyfill!
-    smoothscroll.polyfill()
-
     //  ONly starts after page is loaded
     const navController = new Navigation()
     navController.init()

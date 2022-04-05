@@ -212,8 +212,16 @@ class DOM {
       return document.getElementById('team-member-name').value;
     }
 
+    static set name(name) {
+      document.getElementById('team-member-name').value = name;
+    }
+
     static get firsName() {
       return document.getElementById('team-member-first-name').value;
+    }
+
+    static set firsName(first) {
+      document.getElementById('team-member-first-name').value = first;
     }
 
     static get avatar() {

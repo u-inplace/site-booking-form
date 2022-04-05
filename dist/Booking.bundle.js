@@ -467,7 +467,7 @@ class Form {
         setTimeout(() => {
           Form.createSummary();
           _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.done();
-        }, 1000 * 5);
+        }, 1000 * 1);
       }
     } catch (error) {
       Form.logError(error.message);

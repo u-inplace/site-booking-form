@@ -78,7 +78,7 @@ export default class Form {
                 setTimeout(() => {
                     Form.createSummary()
                     DOM.form.done()
-                }, 1000 * 5)
+                }, 1000 * 1)
             }
         } catch (error) {
             Form.logError(error.message)

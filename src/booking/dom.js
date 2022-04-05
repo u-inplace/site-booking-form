@@ -277,5 +277,31 @@ export default class DOM {
                 this.msgTimeout = DOM.toast(id)
             }
         }
+
+        static summary = class {
+            static activeService(service) {
+                document.getElementById(`conf-${service}`).classList.add('service-active')
+            }
+
+            static inactiveService(service) {
+                document.getElementById(`conf-${service}`).classList.remove('service-active')
+            }
+
+            static set duration(time) {
+                document.getElementById('conf-duration').innerText = time
+            }
+
+            static set occurrence(freq) {
+                document.getElementById('conf-occurrence').innerText = freq
+            }
+
+            static set payment(value) {
+                document.getElementById('conf-payment').innerText = value
+            }
+
+            static set start(value) {
+                document.getElementById('conf-start').innerText = value
+            }
+        }
     }
 }

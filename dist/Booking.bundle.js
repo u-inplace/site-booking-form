@@ -425,7 +425,7 @@ class Form {
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.duration = `${duration}h`;
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.payment = `${duration} titres-services`;
     const startIso = document.getElementById('start-timestamp').value;
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.start = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(new Date(startIso), 'dd/MM/YY H:mm');
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.start = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(new Date(startIso), 'dd/MM/yyyy H:mm');
     const {
       occurrence
     } = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];

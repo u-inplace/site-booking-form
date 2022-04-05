@@ -17,7 +17,7 @@ export default class PostalCodeStep extends BaseStep {
         DOM.postalCode.focus()
 
         DOM.slider.setActive(0)
-        this.slider.resize()
+        //this.slider.resize()
     }
 
     get isNextDisabled() {

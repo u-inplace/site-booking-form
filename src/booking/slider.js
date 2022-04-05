@@ -1,6 +1,6 @@
-import DOM from './dom'
-import Sequence from './sequence'
-import './slider.css'
+import DOM from "./dom"
+import Sequence from "./sequence"
+import "./slider.css"
 
 /**
  * Custom slider
@@ -16,8 +16,8 @@ export default class Slider {
         // Events to resize form after each step
         // Seems that this works sometimes, but not always when the page
         // is loading
-        window.addEventListener('load', () => this.resize(), false)
-        window.addEventListener('resize', () => this.resize(), false)
+        // window.addEventListener('load', () => this.resize(), false)
+        // window.addEventListener('resize', () => this.resize(), false)
     }
 
     static getInstance() {
@@ -56,7 +56,7 @@ export default class Slider {
 
         this.resize()
 
-        this.#onChange('next')
+        this.#onChange("next")
     }
 
     prev() {
@@ -70,6 +70,6 @@ export default class Slider {
 
         this.resize()
 
-        this.#onChange('back')
+        this.#onChange("back")
     }
 }

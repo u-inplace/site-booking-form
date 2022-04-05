@@ -40,6 +40,9 @@ export default class Form {
 
         const { occurrence } = DOM
         DOM.form.summary.occurrence = occurrence
+
+        // Team member
+        DOM.form.summary.team = DOM.teamMember
     }
 
     /**

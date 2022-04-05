@@ -151,6 +151,20 @@ export default class DOM {
         return DOM.getRadio('frequency', true).value
     }
 
+    static teamMember = class {
+        static get name() {
+            return document.getElementById('team-member-name')
+        }
+
+        static get firsName() {
+            return document.getElementById('team-member-first-name')
+        }
+
+        static get avatar() {
+            return DOM.getRadio('team-member', true).url
+        }
+    }
+
     /** *
      * Summary
      */
@@ -301,6 +315,14 @@ export default class DOM {
 
             static set start(value) {
                 document.getElementById('conf-start').innerText = value
+            }
+
+            /**
+             * @typedef {{avatar: string, name: string}} Member
+             * @param {Member} member
+             */
+            static set team(member) {
+                document.getElementById('conf-team-avatar').src = member.avatar
             }
         }
     }

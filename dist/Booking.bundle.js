@@ -206,10 +206,24 @@ class DOM {
   static get occurrence() {
     return DOM.getRadio('frequency', true).value;
   }
+
+  static teamMember = class {
+    static get name() {
+      return document.getElementById('team-member-name');
+    }
+
+    static get firsName() {
+      return document.getElementById('team-member-first-name');
+    }
+
+    static get avatar() {
+      return DOM.getRadio('team-member', true).url;
+    }
+
+  };
   /** *
    * Summary
    */
-
 
   static summary = class {
     static activeService(service) {
@@ -354,6 +368,15 @@ class DOM {
       static set start(value) {
         document.getElementById('conf-start').innerText = value;
       }
+      /**
+       * @typedef {{avatar: string, name: string}} Member
+       * @param {Member} member
+       */
+
+
+      static set team(member) {
+        document.getElementById('conf-team-avatar').src = member.avatar;
+      }
 
     };
   };
@@ -410,7 +433,9 @@ class Form {
     const {
       occurrence
     } = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.occurrence = occurrence;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.occurrence = occurrence; // Team member
+
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.team = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].teamMember;
   }
   /**
    * Form Submission
@@ -937,13 +962,18 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
         labelClass: 'team-member-name',
         labelText: open.employee.first_name,
         radioGroup: 'team-member',
-        radioValue: open.employee.id
+        radioValue: open.employee.id,
+        radioEvent: 'click',
+        radioEventHandler: this.onTeamMemberSelect.bind(this)
       }); // Get profile picture from webflow collections
 
       const avatar = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(this.team, {
         name: `${open.employee.first_name} ${open.employee.last_name}`
       })?.['profile-picture'];
-      avatar?.url && (node.querySelector('.team-avatar').src = avatar.url);
+      avatar?.url && (node.querySelector('.team-avatar').src = avatar.url); // Save team member name in attribute
+
+      node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
+      node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);
     }); // Wire events for next button
 
 
@@ -951,6 +981,17 @@ class AvailabilityStep extends _base__WEBPACK_IMPORTED_MODULE_4__["default"] {
     this.toggleNext(); // Trigger slide resize
 
     this.slider.resize();
+  }
+  /**
+   * Read attrs and store team member name into input fields
+   * @param {MouseEvent} event
+   */
+
+
+  onTeamMemberSelect(event) {
+    const member = event.target;
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.name.value = member.getAttribute('member-name');
+    _dom__WEBPACK_IMPORTED_MODULE_3__["default"].teamMember.firsName.value = member.getAttribute('member-first-name');
   }
   /**
    * Create a node copy from template

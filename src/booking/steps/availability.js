@@ -183,7 +183,9 @@ export default class AvailabilityStep extends BaseStep {
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioGroup: 'team-member',
-                radioValue: open.employee.id
+                radioValue: open.employee.id,
+                radioEvent: 'click',
+                radioEventHandler: this.onTeamMemberSelect.bind(this)
             })
 
             // Get profile picture from webflow collections
@@ -192,6 +194,16 @@ export default class AvailabilityStep extends BaseStep {
             })?.['profile-picture']
 
             avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
+
+            // Save team member name in attribute
+            node.querySelector('input').setAttribute(
+                'member-name',
+                `${open.employee.first_name} ${open.employee.last_name}`
+            )
+            node.querySelector('input').setAttribute(
+                'member-first-name',
+                `${open.employee.first_name}`
+            )
         })
 
         // Wire events for next button
@@ -200,6 +212,16 @@ export default class AvailabilityStep extends BaseStep {
 
         // Trigger slide resize
         this.slider.resize()
+    }
+
+    /**
+     * Read attrs and store team member name into input fields
+     * @param {MouseEvent} event
+     */
+    onTeamMemberSelect(event) {
+        const member = event.target
+        DOM.teamMember.name.value = member.getAttribute('member-name')
+        DOM.teamMember.firsName.value = member.getAttribute('member-first-name')
     }
 
     /**

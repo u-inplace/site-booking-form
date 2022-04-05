@@ -75,8 +75,10 @@ export default class Form {
 
                 DOM.form.onSubmitDone()
             } else {
-                Form.createSummary()
-                DOM.form.done()
+                setTimeout(() => {
+                    Form.createSummary()
+                    DOM.form.done()
+                }, 1000 * 5)
             }
         } catch (error) {
             Form.logError(error.message)

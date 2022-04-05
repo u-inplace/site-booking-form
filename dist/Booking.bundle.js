@@ -464,8 +464,10 @@ class Form {
         if (resJson?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmitDone();
       } else {
-        Form.createSummary();
-        _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.done();
+        setTimeout(() => {
+          Form.createSummary();
+          _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.done();
+        }, 1000 * 5);
       }
     } catch (error) {
       Form.logError(error.message);

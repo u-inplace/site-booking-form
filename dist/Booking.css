@@ -217,6 +217,6 @@
 
 #form-done.active {
     display: flex;
-    animation: fromDownUp 1s ease;
+    animation: fromDownUp 1.5s ease;
 }
 

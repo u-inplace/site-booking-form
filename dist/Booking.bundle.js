@@ -395,12 +395,12 @@ class Form {
   static createSummary() {
     // Selected services
     const services = _dom__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectedServices();
-    Object.values(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_1__["default"].summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_1__["default"].summary.inactiveService(s));
+    Object.values(_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE).forEach(s => services.includes(s) ? _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.activeService(s) : _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.inactiveService(s));
     const {
       duration
     } = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].summary.duration = `${duration}h`;
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].summary.payment = `${duration} titres-services`;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.duration = `${duration}h`;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.payment = `${duration} titres-services`;
     const startIso = document.getElementById('start-timestamp').value;
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.start = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(new Date(startIso), 'Pp', {
       locale: {
@@ -410,7 +410,7 @@ class Form {
     const {
       occurrence
     } = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].summary.occurrence = occurrence;
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.occurrence = occurrence;
   }
   /**
    * Form Submission

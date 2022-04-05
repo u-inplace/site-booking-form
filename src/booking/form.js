@@ -22,12 +22,14 @@ export default class Form {
         // Selected services
         const services = DOM.getSelectedServices()
         Object.values(SERVICE).forEach(s =>
-            services.includes(s) ? DOM.summary.activeService(s) : DOM.summary.inactiveService(s)
+            services.includes(s)
+                ? DOM.form.summary.activeService(s)
+                : DOM.form.summary.inactiveService(s)
         )
 
         const { duration } = DOM
-        DOM.summary.duration = `${duration}h`
-        DOM.summary.payment = `${duration} titres-services`
+        DOM.form.summary.duration = `${duration}h`
+        DOM.form.summary.payment = `${duration} titres-services`
 
         const startIso = document.getElementById('start-timestamp').value
         DOM.form.summary.start = format(new Date(startIso), 'Pp', {
@@ -37,7 +39,7 @@ export default class Form {
         })
 
         const { occurrence } = DOM
-        DOM.summary.occurrence = occurrence
+        DOM.form.summary.occurrence = occurrence
     }
 
     /**

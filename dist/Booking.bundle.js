@@ -394,10 +394,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Form; }
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/booking/constants.js");
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ "./src/booking/dom.js");
-
 
 
 class Form {
@@ -425,11 +423,6 @@ class Form {
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.duration = `${duration}h`;
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.payment = `${duration} titres-services`;
     const startIso = document.getElementById('start-timestamp').value;
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.summary.start = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(new Date(startIso), 'Pp', {
-      locale: {
-        code: 'fr'
-      }
-    });
     const {
       occurrence
     } = _dom__WEBPACK_IMPORTED_MODULE_1__["default"];

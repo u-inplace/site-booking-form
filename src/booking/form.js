@@ -1,4 +1,3 @@
-import { format } from 'date-fns'
 import { SERVICE } from './constants'
 import DOM from './dom'
 
@@ -32,11 +31,6 @@ export default class Form {
         DOM.form.summary.payment = `${duration} titres-services`
 
         const startIso = document.getElementById('start-timestamp').value
-        DOM.form.summary.start = format(new Date(startIso), 'Pp', {
-            locale: {
-                code: 'fr'
-            }
-        })
 
         const { occurrence } = DOM
         DOM.form.summary.occurrence = occurrence

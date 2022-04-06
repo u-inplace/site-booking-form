@@ -73,6 +73,8 @@ export default class Form {
                 if (res?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
                 else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
                     DOM.form.error.toast('toast-unavailable-slot')
+                else if (res?.error?.[0].contains('sodexo number is already linked'))
+                    DOM.form.error.toast('toast-sodexo-duplicated')
                 else DOM.form.error.toast('toast-submit-error')
 
                 DOM.form.onSubmitDone()

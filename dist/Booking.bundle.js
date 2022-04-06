@@ -469,7 +469,7 @@ class Form {
 
       if (resRaw.status >= 300) {
         Form.logError(resRaw, res);
-        if (res?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-unavailable-slot');else if (res?.errors?.[0].contains('sodexo number is already linked')) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo-duplicated');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
+        if (res?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-unavailable-slot');else if (res?.errors?.[0].includes('sodexo number is already linked ')) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo-duplicated');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmitDone();
       } else {
         setTimeout(() => {

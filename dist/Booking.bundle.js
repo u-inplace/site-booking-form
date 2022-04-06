@@ -414,10 +414,10 @@ class Form {
    * Log error
    * @param {*} res
    */
-  static async logError(res) {
+  static async logError(res, json) {
     console.log('Something went wrong...');
     console.log(`Status: ${res.status} ${res.statusText}`);
-    if (res?.body) console.log(`Response: ${await res?.json()}`);else console.log(`Response: ${res}`);
+    if (json) console.log(`Response: ${json}`);else console.log(`Response: ${res}`);
   }
   /**
    * Read options and create a summary
@@ -468,7 +468,7 @@ class Form {
       const res = await resRaw.json();
 
       if (resRaw.status >= 300) {
-        Form.logError(resRaw);
+        Form.logError(resRaw, res);
         if (res?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-unavailable-slot');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmitDone();
       } else {

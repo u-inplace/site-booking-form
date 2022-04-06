@@ -7,11 +7,11 @@ export default class Form {
      * Log error
      * @param {*} res
      */
-    static async logError(res) {
+    static async logError(res, json) {
         console.log('Something went wrong...')
         console.log(`Status: ${res.status} ${res.statusText}`)
 
-        if (res?.body) console.log(`Response: ${await res?.json()}`)
+        if (json) console.log(`Response: ${json}`)
         else console.log(`Response: ${res}`)
     }
 
@@ -68,7 +68,7 @@ export default class Form {
             const res = await resRaw.json()
 
             if (resRaw.status >= 300) {
-                Form.logError(resRaw)
+                Form.logError(resRaw, res)
 
                 if (res?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
                 else if (res?.error === 'UNAVAILABLE_TIME_SLOT')

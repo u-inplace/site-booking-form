@@ -457,7 +457,7 @@ class Form {
 
     try {
       _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmit();
-      const res = await fetch(url, {
+      const resRaw = await fetch(url, {
         method: 'POST',
         headers: {
           contentType: 'application/json',
@@ -465,11 +465,11 @@ class Form {
         },
         body: JSON.stringify(json)
       });
-      const resJson = await res.json();
+      const res = await resRaw.json();
 
-      if (res.status >= 300) {
-        Form.logError(res);
-        if (resJson?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
+      if (resRaw.status >= 300) {
+        Form.logError(resRaw);
+        if (res?.errors?.sodexo_reference) _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-unavailable-slot');else _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.error.toast('toast-submit-error');
         _dom__WEBPACK_IMPORTED_MODULE_1__["default"].form.onSubmitDone();
       } else {
         setTimeout(() => {

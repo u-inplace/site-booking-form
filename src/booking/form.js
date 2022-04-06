@@ -56,7 +56,7 @@ export default class Form {
         try {
             DOM.form.onSubmit()
 
-            const res = await fetch(url, {
+            const resRaw = await fetch(url, {
                 method: 'POST',
                 headers: {
                     contentType: 'application/json',
@@ -65,12 +65,14 @@ export default class Form {
                 body: JSON.stringify(json)
             })
 
-            const resJson = await res.json()
+            const res = await resRaw.json()
 
-            if (res.status >= 300) {
-                Form.logError(res)
+            if (resRaw.status >= 300) {
+                Form.logError(resRaw)
 
-                if (resJson?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
+                if (res?.errors?.sodexo_reference) DOM.form.error.toast('toast-sodexo')
+                else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
+                    DOM.form.error.toast('toast-unavailable-slot')
                 else DOM.form.error.toast('toast-submit-error')
 
                 DOM.form.onSubmitDone()

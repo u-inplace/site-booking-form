@@ -99,6 +99,7 @@ export default class BaseStep extends Step {
 
     onNext() {
         this.slider.next()
+        document.querySelectorAll('input').forEach(e => e.setAttribute('tabindex', 0))
     }
 
     onBack() {

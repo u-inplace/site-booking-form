@@ -417,7 +417,7 @@ class Form {
   static async logError(res, json) {
     console.log('Something went wrong...');
     console.log(`Status: ${res.status} ${res.statusText}`);
-    if (json) console.log(`Response: ${json}`);else console.log(`Response: ${res}`);
+    if (json) console.log(`Response: ${JSON.stringify(json)}`);else console.log(`Response: ${res}`);
   }
   /**
    * Read options and create a summary

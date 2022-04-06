@@ -11,7 +11,7 @@ export default class Form {
         console.log('Something went wrong...')
         console.log(`Status: ${res.status} ${res.statusText}`)
 
-        if (json) console.log(`Response: ${json}`)
+        if (json) console.log(`Response: ${JSON.stringify(json)}`)
         else console.log(`Response: ${res}`)
     }
 

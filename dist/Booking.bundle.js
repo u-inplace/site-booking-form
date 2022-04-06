@@ -1137,6 +1137,7 @@ class BaseStep extends _step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   onNext() {
     this.slider.next();
+    document.querySelectorAll('input').forEach(e => e.setAttribute('tabindex', 0));
   }
 
   onBack() {

@@ -713,9 +713,8 @@ class Slider {
     this.#sequence = sequence || new _sequence__WEBPACK_IMPORTED_MODULE_1__["default"](); // Events to resize form after each step
     // Seems that this works sometimes, but not always when the page
     // is loading
-
-    window.addEventListener('load', () => this.resize(), false);
-    window.addEventListener('resize', () => this.resize(), false);
+    // window.addEventListener('load', () => this.resize(), false)
+    // window.addEventListener('resize', () => this.resize(), false)
   }
 
   static getInstance() {
@@ -755,7 +754,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(next);
     this.resize();
-    this.#onChange('next');
+    this.#onChange("next");
   }
 
   prev() {
@@ -770,7 +769,7 @@ class Slider {
     } = this.#sequence;
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].slider.setActive(prev);
     this.resize();
-    this.#onChange('back');
+    this.#onChange("back");
   }
 
 }
@@ -1552,8 +1551,7 @@ class PostalCodeStep extends _base__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.autofocus = true;
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].postalCode.focus();
-    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.setActive(0);
-    this.slider.resize();
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].slider.setActive(0); //this.slider.resize()
   }
 
   get isNextDisabled() {

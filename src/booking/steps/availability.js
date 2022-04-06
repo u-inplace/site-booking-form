@@ -172,6 +172,10 @@ export default class AvailabilityStep extends BaseStep {
         const start_time = event.target.value
         const template = DOM.calendar.team.memberTemplate
 
+        // Set start and end time on hidden inputs
+        document.getElementById('start-timestamp').value = this.openings[0].start.toISOString()
+        document.getElementById('end-timestamp').value = this.openings[0].end.toISOString()
+
         _.filter(this.openings, { start_time }).forEach(open => {
             const node = this.copyTemplate(template, {
                 className: 'team-member',
@@ -179,7 +183,9 @@ export default class AvailabilityStep extends BaseStep {
                 labelClass: 'team-member-name',
                 labelText: open.employee.first_name,
                 radioGroup: 'team-member',
-                radioValue: open.employee.id
+                radioValue: open.employee.id,
+                radioEvent: 'click',
+                radioEventHandler: this.onTeamMemberSelect.bind(this)
             })
 
             // Get profile picture from webflow collections
@@ -188,6 +194,16 @@ export default class AvailabilityStep extends BaseStep {
             })?.['profile-picture']
 
             avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
+
+            // Save team member name in attribute
+            node.querySelector('input').setAttribute(
+                'member-name',
+                `${open.employee.first_name} ${open.employee.last_name}`
+            )
+            node.querySelector('input').setAttribute(
+                'member-first-name',
+                `${open.employee.first_name}`
+            )
         })
 
         // Wire events for next button
@@ -196,6 +212,16 @@ export default class AvailabilityStep extends BaseStep {
 
         // Trigger slide resize
         this.slider.resize()
+    }
+
+    /**
+     * Read attrs and store team member name into input fields
+     * @param {MouseEvent} event
+     */
+    onTeamMemberSelect(event) {
+        const member = event.target
+        DOM.teamMember.name = member.getAttribute('member-name')
+        DOM.teamMember.firstName = member.getAttribute('member-first-name')
     }
 
     /**

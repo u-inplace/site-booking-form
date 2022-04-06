@@ -104,8 +104,8 @@ export default class DOM {
         return document.getElementById('postal-code')
     }
 
-    static get postalCodeWarning() {
-        return document.getElementById('area-warning')
+    static postalCodeToast() {
+        DOM.toast('alert-area')
     }
 
     /**
@@ -149,6 +149,28 @@ export default class DOM {
 
     static get occurrence() {
         return DOM.getRadio('frequency', true).value
+    }
+
+    static teamMember = class {
+        static get name() {
+            return document.getElementById('team-member-name').value
+        }
+
+        static set name(name) {
+            document.getElementById('team-member-name').value = name
+        }
+
+        static get firstName() {
+            return document.getElementById('team-member-first-name').value
+        }
+
+        static set firstName(first) {
+            document.getElementById('team-member-first-name').value = first
+        }
+
+        static get avatar() {
+            return document.getElementById('team-members-block').querySelector('img').src
+        }
     }
 
     /** *
@@ -215,6 +237,101 @@ export default class DOM {
 
             static get memberTemplate() {
                 return document.getElementById('team-member-template')
+            }
+        }
+    }
+
+    /**
+     * Message
+     */
+    static toast(id) {
+        const toastBlock = document.getElementById(id)
+        toastBlock.classList.add('active')
+
+        return setTimeout(() => {
+            toastBlock.classList.remove('active')
+        }, 1000 * 4)
+    }
+
+    /** *
+     * FORM
+     */
+
+    static form = class {
+        static submitButtonText
+        static msgTimeout
+
+        static done() {
+            document.getElementById('wf-form-Booking').classList.add('completed')
+            document.getElementById('form-done').classList.add('active')
+        }
+
+        static onSubmit() {
+            const button = document.getElementById('button-submit')
+            this.submitButtonText = button.value
+            button.value = button.attributes['data-wait'].value
+            button.disabled = true
+            button.classList.add('wait')
+
+            if (this.msgTimeout) {
+                clearTimeout(this.msgTimeout)
+                DOM.form.error.hide()
+            }
+        }
+
+        static onSubmitDone() {
+            const button = document.getElementById('button-submit')
+            button.value = this.submitButtonText
+            button.disabled = false
+            button.classList.remove('wait')
+        }
+
+        static error = class {
+            static set title(title) {
+                document.getElementById('error-title').innerText = title
+            }
+
+            static set detail(title) {
+                document.getElementById('error-detail').innerText = title
+            }
+
+            static toast(id) {
+                this.msgTimeout = DOM.toast(id)
+            }
+        }
+
+        static summary = class {
+            static activeService(service) {
+                document.getElementById(`conf-${service}`).classList.add('service-active')
+            }
+
+            static inactiveService(service) {
+                document.getElementById(`conf-${service}`).classList.remove('service-active')
+            }
+
+            static set duration(time) {
+                document.getElementById('conf-duration').innerText = time
+            }
+
+            static set occurrence(freq) {
+                document.getElementById('conf-occurrence').innerText = freq
+            }
+
+            static set payment(value) {
+                document.getElementById('conf-payment').innerText = value
+            }
+
+            static set start(value) {
+                document.getElementById('conf-start').innerText = value
+            }
+
+            /**
+             * @typedef {{avatar: string, name: string}} Member
+             * @param {Member} member
+             */
+            static set team(member) {
+                document.getElementById('conf-team-avatar').src = member.avatar
+                document.getElementById('conf-team-name').innerText = member.firstName
             }
         }
     }

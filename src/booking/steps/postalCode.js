@@ -54,10 +54,16 @@ export default class PostalCodeStep extends BaseStep {
 
     onPostalCodeInput(e) {
         const pc = e.target
+
+        // Trim input if goes bigger than max length
         if (pc.value.length > pc.maxLength) pc.value = pc.value.slice(0, pc.maxLength)
 
-        if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value))
-            DOM.postalCodeWarning.classList.add('msg-active')
-        else DOM.postalCodeWarning.classList.remove('msg-active')
+        // show error message
+        if (pc.value.length === pc.maxLength && !BookingModel.coverage.includes(pc.value)) {
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+
+            DOM.postalCodeToast()
+        }
     }
 }

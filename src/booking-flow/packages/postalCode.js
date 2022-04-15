@@ -78,3 +78,4 @@ Webflow.push(() => {
 
 window.onload = () => console.log('onload')
 window.onhashchange = () => console.log('onhashchange')
+window.onpopstate = () => console.log('onpopstate')

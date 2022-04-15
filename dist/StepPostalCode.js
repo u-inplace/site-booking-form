@@ -84,7 +84,7 @@ class Sequence {
     ironing = false,
     cleaning = false,
     keepCurrent = false
-  }) {
+  } = {}) {
     !keepCurrent && (this.#current = 0);
     let seq = [STEP.PostalCode, STEP.Services];
     if (ironing) seq.push(STEP.Ironing);

@@ -27,7 +27,7 @@ export default class Sequence {
         } else this.reset()
     }
 
-    reset({ ironing = false, cleaning = false, keepCurrent = false }) {
+    reset({ ironing = false, cleaning = false, keepCurrent = false } = {}) {
         !keepCurrent && (this.#current = 0)
 
         let seq = [STEP.PostalCode, STEP.Services]

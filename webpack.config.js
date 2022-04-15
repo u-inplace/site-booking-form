@@ -74,11 +74,21 @@ const calendarConfig = {
 const bookingConfig = {
     ...config,
     name: 'bookingConfig',
-    entry: { Booking: './src/booking/main.js' },
+    entry: { Booking: './src/booking-slider/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js'
     }
 }
 
-module.exports = () => [calendarConfig, bookingConfig]
+const bookingFlow = {
+    ...config,
+    name: 'bookingFlow',
+    entry: { BookingFlow: './src/booking-flow/index.js' },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].bundle.js'
+    }
+}
+
+module.exports = () => [calendarConfig, bookingConfig, bookingFlow]

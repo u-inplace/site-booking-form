@@ -76,6 +76,6 @@ Webflow.push(() => {
     step.init()
 })
 
-window.onload = () => console.log('onload')
-window.onhashchange = () => console.log('onhashchange')
-window.onpopstate = () => console.log('onpopstate')
+window.addEventListener('load', () => console.log('onload'))
+window.addEventListener('hashchange', () => console.log('hashchange'))
+window.addEventListener('popstate', () => console.log('onpopstate'))

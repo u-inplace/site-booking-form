@@ -53,7 +53,7 @@ class PostalCodeStep extends StepController {
      */
     toggleNext() {
         super.toggleNext()
-        if (this.isNextDisabled) this.form.submit()
+        if (!this.isNextDisabled) this.form.submit()
     }
 
     onPostalCode(e) {

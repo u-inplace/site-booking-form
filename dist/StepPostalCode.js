@@ -24,7 +24,7 @@ class StepController {
    * @param {string} formId Step form Id
    */
 
-  constructor(formId = 'step-form') {
+  constructor(formId = 'wf-form-step') {
     this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
   }
   /**
@@ -260,7 +260,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
 
   toggleNext() {
     super.toggleNext();
-    if (this.isNextDisabled) this.form.submit();
+    if (!this.isNextDisabled) this.form.submit();
   }
 
   onPostalCode(e) {

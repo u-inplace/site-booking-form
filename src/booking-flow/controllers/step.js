@@ -10,7 +10,7 @@ export default class StepController {
      * Create new StepController
      * @param {string} formId Step form Id
      */
-    constructor(formId = 'step-form') {
+    constructor(formId = 'wf-form-step') {
         this.form = dom.id(formId)
     }
 

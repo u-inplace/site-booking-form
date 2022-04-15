@@ -9,7 +9,7 @@ export default class NavigationController {
 
         // Submit = nextButton
         dom.id(formId).addEventListener('submit', this.onNext.bind(this))
-        dom.id('back-button-flow').addEventListener('click', this.onBack.bind(this))
+        dom.id('back-button-flow')?.addEventListener('click', this.onBack.bind(this))
     }
 
     onNext() {

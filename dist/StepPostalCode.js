@@ -44,6 +44,8 @@ class StepController {
 
   setupInputHandlers() {
     this.form.querySelectorAll('input').forEach(input => {
+      // Do not mess with submit button
+      if (input.type === 'submit') return;
       const inputEvent = {
         radio: 'click',
         number: 'input'

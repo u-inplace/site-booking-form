@@ -28,12 +28,16 @@ export default class StepController {
      */
     setupInputHandlers() {
         this.form.querySelectorAll('input').forEach(input => {
+            // Do not mess with submit button
+            if (input.type === 'submit') return
+
             const inputEvent = {
                 radio: 'click',
                 number: 'input'
             }
 
             const event = inputEvent[input.type] || 'change'
+
             input.addEventListener(event, this.toggleNext.bind(this))
         })
     }

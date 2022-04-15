@@ -87,8 +87,8 @@ class Sequence {
   } = {}) {
     !keepCurrent && (this.#current = 0);
     let seq = [STEP.PostalCode, STEP.Services];
-    if (ironing) seq.push(STEP.Ironing);
-    if (cleaning) seq.push(STEP.Cleaning);
+    ironing && seq.push(STEP.Ironing);
+    cleaning && seq.push(STEP.Cleaning);
     seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Contact]);
     this.list = seq;
     this.setCookies();

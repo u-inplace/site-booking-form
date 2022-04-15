@@ -1,9 +1,9 @@
 #!/bin/bash
 
-bundle="Booking.bundle.js"
+bundle=$1
 target="/dist/$bundle"
 repo="ui-booking"
-branch=$1
+branch=$2
 cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
 
 # Basic if statement

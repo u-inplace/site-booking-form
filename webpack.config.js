@@ -67,7 +67,8 @@ const calendarConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        library: 'Calendar'
+        library: 'Calendar',
+        clean: true
     }
 }
 
@@ -77,7 +78,8 @@ const bookingConfig = {
     entry: { Booking: './src/booking-slider/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        clean: true
     }
 }
 
@@ -87,7 +89,9 @@ const bookingFlow = {
     entry: { BookingFlow: './src/booking-flow/index.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        library: 'BookingFlow',
+        clean: true
     }
 }
 

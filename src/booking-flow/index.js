@@ -1,3 +1,5 @@
 import dom from './helpers/dom'
 
-export { dom }
+const dummy = {}
+
+export { dom, dummy }

@@ -50,14 +50,14 @@ export default class Sequence {
         )
     }
 
-    get next() {
+    next() {
         this.#current++
         this.setCookies()
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)
         return this.list[this.#current]
     }
 
-    get prev() {
+    prev() {
         this.#current--
         this.setCookies()
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)

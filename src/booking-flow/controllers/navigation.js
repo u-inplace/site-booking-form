@@ -18,10 +18,10 @@ export default class NavigationController {
      */
     onNext(e) {
         e.preventDefault()
-        window.location.href = this.sequence.next
+        window.location.href = this.sequence.next()
     }
 
     onBack() {
-        window.location.href = this.sequence.prev
+        window.location.href = this.sequence.prev()
     }
 }

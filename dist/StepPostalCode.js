@@ -74,7 +74,7 @@ class Sequence {
     const cookieStr = js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get('ip-booking-flow');
 
     if (cookieStr) {
-      const cookie = JSON.parse();
+      const cookie = JSON.parse(cookieStr);
       this.#current = cookie.current;
       this.list = cookie.list;
     } else this.init({});

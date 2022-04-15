@@ -21,7 +21,7 @@ export default class Sequence {
         const cookieStr = Cookies.get('ip-booking-flow')
 
         if (cookieStr) {
-            const cookie = JSON.parse()
+            const cookie = JSON.parse(cookieStr)
             this.#current = cookie.current
             this.list = cookie.list
         } else this.init({})

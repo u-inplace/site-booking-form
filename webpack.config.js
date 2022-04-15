@@ -67,8 +67,7 @@ const calendarConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        library: 'Calendar',
-        clean: true
+        library: 'Calendar'
     }
 }
 
@@ -78,21 +77,19 @@ const bookingConfig = {
     entry: { Booking: './src/booking-slider/main.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        clean: true
+        filename: '[name].bundle.js'
     }
 }
 
-const bookingFlow = {
+const stepPostalCode = {
     ...config,
-    name: 'bookingFlow',
-    entry: { BookingFlow: './src/booking-flow/index.js' },
+    name: 'stepPostalCode',
+    entry: { StepPostalCode: './src/booking-flow/packages/postalCode.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        library: 'BookingFlow',
+        filename: '[name].js',
         clean: true
     }
 }
 
-module.exports = () => [calendarConfig, bookingConfig, bookingFlow]
+module.exports = () => [calendarConfig, bookingConfig, stepPostalCode]

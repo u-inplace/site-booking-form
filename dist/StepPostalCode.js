@@ -1,12 +1,11 @@
-var BookingFlow;
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/booking-flow/controller/step.js":
-/*!*********************************************!*\
-  !*** ./src/booking-flow/controller/step.js ***!
-  \*********************************************/
+/***/ "./src/booking-flow/controllers/step.js":
+/*!**********************************************!*\
+  !*** ./src/booking-flow/controllers/step.js ***!
+  \**********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -209,23 +208,70 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-/*!***********************************!*\
-  !*** ./src/booking-flow/index.js ***!
-  \***********************************/
+/*!*************************************************!*\
+  !*** ./src/booking-flow/packages/postalCode.js ***!
+  \*************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StepController": function() { return /* reexport safe */ _controller_step__WEBPACK_IMPORTED_MODULE_1__["default"]; },
-/* harmony export */   "dom": function() { return /* reexport safe */ _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"]; }
-/* harmony export */ });
-/* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vivify.css */ "./src/vivify.css");
-/* harmony import */ var _controller_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/step */ "./src/booking-flow/controller/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vivify.css */ "./src/vivify.css");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* eslint-disable class-methods-use-this */
+
+/* eslint-disable vars-on-top */
+
+/* eslint-disable no-use-before-define */
+
+/* eslint-disable no-var */
 
 
 
 
+class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  coverage = ['1070', '1160', '1082', '1000', '1040', '1140', '1190', '1083', '1130', '1050', '1090', '1081', '1020', '1080', '1120', '1060', '1210', '1030', '1180', '1170', '1200', '1150'];
+
+  init() {
+    super.init();
+    this.pc.addEventListener('input', this.onPostalCode.bind(this));
+  }
+
+  get isNextDisabled() {
+    const {
+      pc
+    } = this;
+    const {
+      value
+    } = pc;
+    return !this.coverage.includes(value);
+  }
+
+  get pc() {
+    return _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('postal-code');
+  }
+
+  onPostalCode(e) {
+    const pc = e.target;
+    const {
+      value
+    } = pc; // show error message
+
+    if (value.length === pc.maxLength && !this.coverage.includes(value)) {
+      // Scroll back to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].toast('alert-area');
+    }
+  }
+
+}
+
+var Webflow = Webflow || window.Webflow || [];
+Webflow.push(() => {
+  const step = new PostalCodeStep();
+  step.init();
+});
 }();
-BookingFlow = __webpack_exports__;
 /******/ })()
 ;
-//# sourceMappingURL=BookingFlow.bundle.js.map
+//# sourceMappingURL=StepPostalCode.js.map

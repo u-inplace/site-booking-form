@@ -44,7 +44,11 @@ class StepController {
 
   setupInputHandlers() {
     this.form.querySelectorAll('input').forEach(input => {
-      const event = input.type === 'radio' ? 'click' : 'change';
+      const inputEvent = {
+        radio: 'click',
+        number: 'input'
+      };
+      const event = inputEvent[input.type] || 'change';
       input.addEventListener(event, this.toggleNext.bind(this));
     });
   }

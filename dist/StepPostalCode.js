@@ -588,6 +588,10 @@ Webflow.push(() => {
   const step = new PostalCodeStep();
   step.init();
 });
+
+window.onload = () => console.log('onload');
+
+window.onhashchange = () => console.log('onhashchange');
 }();
 /******/ })()
 ;

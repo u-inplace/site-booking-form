@@ -10,7 +10,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const config = {
     target: ['web', 'es5'],
     mode: isProduction ? 'production' : 'development',
-    devtool: false,
+    devtool: 'source-map',
     devServer: {
         open: true,
         host: 'localhost'
@@ -20,26 +20,8 @@ const config = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        }),
-        new webpack.SourceMapDevToolPlugin({
-            filename: '[file].map',
-            exclude: ['vendor.bundle.js']
         })
     ],
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: 100,
-            minSize: 0,
-            cacheGroups: {
-                vendor: {
-                    name: 'vendor',
-                    test: /([/\\]node_modules[/\\]|[/\\]dev[/\\]vendor[/\\])/,
-                    chunks: 'all'
-                }
-            }
-        }
-    },
     module: {
         rules: [
             {

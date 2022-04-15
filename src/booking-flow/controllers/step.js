@@ -1,4 +1,5 @@
 import dom from '../helpers/dom'
+import NavigationController from './navigation'
 
 export default class StepController {
     /**
@@ -7,11 +8,17 @@ export default class StepController {
     form
 
     /**
+     * @type {NavigationController}
+     */
+    nav
+
+    /**
      * Create new StepController
      * @param {string} formId Step form Id
      */
     constructor(formId = 'wf-form-step') {
         this.form = dom.id(formId)
+        this.nav = new NavigationController()
     }
 
     /**

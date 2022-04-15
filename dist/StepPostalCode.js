@@ -60,7 +60,7 @@ const STEP = {
   Cleaning: '/booking/cleaning',
   Duration: '/booking/duration',
   Availability: '/booking/availability',
-  Contact: '/booking/confirmation'
+  Confirmation: '/booking/confirmation'
 };
 /**
  * Sequence Controller
@@ -89,7 +89,7 @@ class Sequence {
     let seq = [STEP.PostalCode, STEP.Services];
     ironing && seq.push(STEP.Ironing);
     cleaning && seq.push(STEP.Cleaning);
-    seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Contact]);
+    seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation]);
     this.list = seq;
     this.setCookies();
   }

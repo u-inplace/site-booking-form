@@ -18,7 +18,7 @@ export default class StepController {
      */
     constructor(formId = 'wf-form-step') {
         this.form = dom.id(formId)
-        this.nav = new NavigationController()
+        this.nav = new NavigationController({ formId })
     }
 
     /**

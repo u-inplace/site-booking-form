@@ -165,7 +165,9 @@ class StepController {
 
   constructor(formId = 'wf-form-step') {
     this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
-    this.nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      formId
+    });
   }
   /**
    * Initialize controller

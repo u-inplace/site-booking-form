@@ -51,6 +51,18 @@ class Dom {
 const dom = Dom;
 /* harmony default export */ __webpack_exports__["default"] = (dom);
 
+/***/ }),
+
+/***/ "./src/vivify.css":
+/*!************************!*\
+  !*** ./src/vivify.css ***!
+  \************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -117,10 +129,12 @@ var __webpack_exports__ = {};
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "dom": function() { return /* reexport safe */ _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"]; },
+/* harmony export */   "dom": function() { return /* reexport safe */ _helpers_dom__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   "dummy": function() { return /* binding */ dummy; }
 /* harmony export */ });
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vivify.css */ "./src/vivify.css");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/dom */ "./src/booking-flow/helpers/dom.js");
+
 
 const dummy = {};
 

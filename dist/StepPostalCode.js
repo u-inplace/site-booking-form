@@ -253,6 +253,15 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
   get pc() {
     return _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('postal-code');
   }
+  /**
+   * Navigate automatically to the next step
+   */
+
+
+  toggleNext() {
+    super.toggleNext();
+    if (this.isNextDisabled) this.form.submit();
+  }
 
   onPostalCode(e) {
     const pc = e.target;

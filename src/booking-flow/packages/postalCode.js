@@ -48,6 +48,14 @@ class PostalCodeStep extends StepController {
         return dom.id('postal-code')
     }
 
+    /**
+     * Navigate automatically to the next step
+     */
+    toggleNext() {
+        super.toggleNext()
+        if (this.isNextDisabled) this.form.submit()
+    }
+
     onPostalCode(e) {
         const pc = e.target
         const { value } = pc

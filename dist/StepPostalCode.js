@@ -552,8 +552,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
 
 
   toggleNext() {
-    super.toggleNext();
-    if (!this.isNextDisabled) this.form.submit();
+    super.toggleNext(); // if (!this.isNextDisabled) this.form.submit()
   }
 
   onPostalCode(e) {

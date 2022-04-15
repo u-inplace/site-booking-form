@@ -77,7 +77,7 @@ class Sequence {
       const cookie = JSON.parse();
       this.#current = cookie.current;
       this.list = cookie.list;
-    } else this.reset();
+    } else this.reset({});
   }
 
   reset({

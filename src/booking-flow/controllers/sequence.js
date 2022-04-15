@@ -24,7 +24,7 @@ export default class Sequence {
             const cookie = JSON.parse()
             this.#current = cookie.current
             this.list = cookie.list
-        } else this.reset()
+        } else this.reset({})
     }
 
     reset({ ironing = false, cleaning = false, keepCurrent = false } = {}) {

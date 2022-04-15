@@ -8,7 +8,7 @@ export default class NavigationController {
         this.sequence = sequence
 
         // Submit = nextButton
-        dom.id(formId).onsubmit = this.onNext
+        dom.id(formId).onsubmit = this.onNext.bind(this)
         dom.id('back-button-flow')?.addEventListener('click', this.onBack.bind(this))
     }
 

@@ -28,8 +28,14 @@ class NavigationController {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).addEventListener('submit', this.onNext.bind(this));
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button-flow')?.addEventListener('click', this.onBack.bind(this));
   }
+  /**
+   *
+   * @param {Event} e
+   */
 
-  onNext() {
+
+  onNext(e) {
+    e.preventDefault();
     window.location.href(this.sequence.next);
   }
 

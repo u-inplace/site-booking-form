@@ -12,7 +12,12 @@ export default class NavigationController {
         dom.id('back-button-flow')?.addEventListener('click', this.onBack.bind(this))
     }
 
-    onNext() {
+    /**
+     *
+     * @param {Event} e
+     */
+    onNext(e) {
+        e.preventDefault()
         window.location.href(this.sequence.next)
     }
 

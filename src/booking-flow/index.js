@@ -1,6 +1,5 @@
 import '../vivify.css'
+import StepController from './controller/step'
 import dom from './helpers/dom'
 
-const dummy = {}
-
-export { dom, dummy }
+export { dom, StepController }

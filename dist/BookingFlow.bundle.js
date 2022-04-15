@@ -3,6 +3,74 @@ var BookingFlow;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/booking-flow/controller/step.js":
+/*!*********************************************!*\
+  !*** ./src/booking-flow/controller/step.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ StepController; }
+/* harmony export */ });
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+
+class StepController {
+  /**
+   * @type {HTMLFormElement}
+   */
+  form;
+  /**
+   * Create new StepController
+   * @param {string} formId Step form Id
+   */
+
+  constructor(formId = 'step-form') {
+    this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
+  }
+  /**
+   * Initialize controller
+   */
+
+
+  init() {
+    this.setupInputHandlers();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].nextButtonDisabled = true;
+    this.toggleNext();
+  }
+  /**
+   * Create event handlers
+   */
+
+
+  setupInputHandlers() {
+    this.form.querySelectorAll('input').forEach(input => {
+      const event = input.type === 'radio' ? 'click' : 'change';
+      input.addEventListener(event, this.toggleNext.bind(this));
+    });
+  }
+  /**
+   * Toggle next button active
+   */
+
+
+  toggleNext() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].nextButtonDisabled = this.isNextDisabled;
+  }
+  /**
+   * Control next button
+   */
+  // eslint-disable-next-line class-methods-use-this
+
+
+  get isNextDisabled() {
+    return false;
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking-flow/helpers/dom.js":
 /*!*****************************************!*\
   !*** ./src/booking-flow/helpers/dom.js ***!
@@ -12,11 +80,22 @@ var BookingFlow;
 __webpack_require__.r(__webpack_exports__);
 class Dom {
   /**
+   * Get Element by Id
+   *
+   * @param {string} id element id
+   * @returns {Element}
+   */
+  static id(id) {
+    return document.getElementById(id);
+  }
+  /**
    * Query selector
    *
    * @param {string} query Dom query string
    * @returns {Element}
    */
+
+
   static q(query) {
     return document.querySelector(query);
   }
@@ -44,6 +123,12 @@ class Dom {
     return setTimeout(() => {
       toastBlock.classList.remove('active');
     }, 1000 * 4);
+  }
+
+  static set nextButtonDisabled(isDisabled) {
+    const nextButton = document.querySelectorl('.next-button-flow');
+    nextButton.disabled = isDisabled;
+    if (isDisabled) nextButton.classList.add('disabled');else nextButton.classList.remove('disabled');
   }
 
 }
@@ -129,14 +214,15 @@ var __webpack_exports__ = {};
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "dom": function() { return /* reexport safe */ _helpers_dom__WEBPACK_IMPORTED_MODULE_1__["default"]; },
-/* harmony export */   "dummy": function() { return /* binding */ dummy; }
+/* harmony export */   "StepController": function() { return /* reexport safe */ _controller_step__WEBPACK_IMPORTED_MODULE_1__["default"]; },
+/* harmony export */   "dom": function() { return /* reexport safe */ _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"]; }
 /* harmony export */ });
 /* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vivify.css */ "./src/vivify.css");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _controller_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/step */ "./src/booking-flow/controller/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/dom */ "./src/booking-flow/helpers/dom.js");
 
 
-const dummy = {};
+
 
 }();
 BookingFlow = __webpack_exports__;

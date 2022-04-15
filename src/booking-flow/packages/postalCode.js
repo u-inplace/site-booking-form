@@ -35,7 +35,7 @@ class PostalCodeStep extends StepController {
 
     init() {
         super.init()
-        this.nav.sequence.init()
+        this.nav.sequence.init({ keepCurrent: false })
         this.pc.addEventListener('input', this.onPostalCode.bind(this))
     }
 

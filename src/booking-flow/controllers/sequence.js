@@ -24,10 +24,10 @@ export default class Sequence {
             const cookie = JSON.parse()
             this.#current = cookie.current
             this.list = cookie.list
-        } else this.reset({})
+        } else this.init({})
     }
 
-    reset({ ironing = false, cleaning = false, keepCurrent = false } = {}) {
+    init({ ironing = false, cleaning = false, keepCurrent = false } = {}) {
         !keepCurrent && (this.#current = 0)
 
         let seq = [STEP.PostalCode, STEP.Services]

@@ -61,15 +61,20 @@ const bookingConfig = {
     }
 }
 
-const stepPostalCode = {
+const StepPackage = (name, entryFile) => ({
     ...config,
-    name: 'stepPostalCode',
-    entry: { StepPostalCode: './src/booking-flow/packages/postalCode.js' },
+    name,
+    entry: { [name]: entryFile },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
         clean: true
     }
-}
+})
 
-module.exports = () => [calendarConfig, bookingConfig, stepPostalCode]
+module.exports = () => [
+    calendarConfig,
+    bookingConfig,
+    StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
+    StepPackage('StepServices', './src/booking-flow/packages/services.js')
+]

@@ -28,7 +28,7 @@ class NavigationController {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).onsubmit = this.onNext.bind(this);
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
-    window.onpopstate = this.onHistoryBack.bind(this);
+    window.onpopstate = this.onBack().bind(this);
   }
   /**
    * @param {Event} e
@@ -43,10 +43,6 @@ class NavigationController {
   }
 
   onBack() {
-    this.onHistoryBack();
-  }
-
-  onHistoryBack() {
     this.sequence.prev(); // eslint-disable-next-line no-restricted-globals
 
     history.back();

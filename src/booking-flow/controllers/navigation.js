@@ -12,7 +12,7 @@ export default class NavigationController {
         dom.id('back-button')?.addEventListener('click', this.onBack.bind(this))
 
         // Browser history
-        window.onpopstate = this.onHistoryBack.bind(this)
+        window.onpopstate = this.onBack().bind(this)
     }
 
     /**
@@ -26,10 +26,6 @@ export default class NavigationController {
     }
 
     onBack() {
-        this.onHistoryBack()
-    }
-
-    onHistoryBack() {
         this.sequence.prev()
         // eslint-disable-next-line no-restricted-globals
         history.back()

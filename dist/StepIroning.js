@@ -211,6 +211,7 @@ class StepController {
     this.setupInputHandlers();
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].nextButtonDisabled = true;
     this.toggleNext();
+    this.updateNav();
   }
   /**
    * Create event handlers

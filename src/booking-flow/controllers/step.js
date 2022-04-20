@@ -30,6 +30,7 @@ export default class StepController {
         this.setupInputHandlers()
         dom.nextButtonDisabled = true
         this.toggleNext()
+        this.updateNav()
     }
 
     /**

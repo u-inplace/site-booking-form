@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 class Dom {
     /**
      * Get Element by Id
@@ -48,6 +49,41 @@ class Dom {
         nextButton.disabled = isDisabled
         if (isDisabled) nextButton.classList.add('disabled')
         else nextButton.classList.remove('disabled')
+    }
+
+    /**
+     * Helpers
+     */
+    static queryOptions(id, checked = false) {
+        return Array.from(
+            document.querySelectorAll(`input[id*='${id}']${checked ? ':checked' : ''}`)
+        )
+    }
+
+    /**
+     * STEPS
+     */
+    static steps = class {
+        static services = class {
+            static query(checked = false) {
+                return Dom.queryOptions('service-', checked)
+            }
+
+            /**
+             * @returns {string[]}
+             */
+            static get selected() {
+                return this.query(true).map(s => s.id.replace(/^.*-/, ''))
+            }
+
+            /**
+             * @param {string} service
+             * @returns {boolean}
+             */
+            static isServiceSelected(service) {
+                return this.selected.includes(service)
+            }
+        }
     }
 }
 

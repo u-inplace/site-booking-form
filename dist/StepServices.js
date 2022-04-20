@@ -266,6 +266,7 @@ class StepController {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+// eslint-disable-next-line max-classes-per-file
 class Dom {
   /**
    * Get Element by Id
@@ -318,7 +319,44 @@ class Dom {
     nextButton.disabled = isDisabled;
     if (isDisabled) nextButton.classList.add('disabled');else nextButton.classList.remove('disabled');
   }
+  /**
+   * Helpers
+   */
 
+
+  static queryOptions(id, checked = false) {
+    return Array.from(document.querySelectorAll(`input[id*='${id}']${checked ? ':checked' : ''}`));
+  }
+  /**
+   * STEPS
+   */
+
+
+  static steps = class {
+    static services = class {
+      static query(checked = false) {
+        return Dom.queryOptions('service-', checked);
+      }
+      /**
+       * @returns {string[]}
+       */
+
+
+      static get selected() {
+        return this.query(true).map(s => s.id.replace(/^.*-/, ''));
+      }
+      /**
+       * @param {string} service
+       * @returns {boolean}
+       */
+
+
+      static isServiceSelected(service) {
+        return this.selected.includes(service);
+      }
+
+    };
+  };
 }
 
 const dom = Dom;
@@ -536,6 +574,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -543,6 +582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* eslint-disable no-use-before-define */
 
 /* eslint-disable no-var */
+
 
 
 
@@ -561,7 +601,7 @@ class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["defau
 
 
   get isNextDisabled() {
-    return false;
+    return _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].steps.services.selected.length === 0;
   }
 
 }

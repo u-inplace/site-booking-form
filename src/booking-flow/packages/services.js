@@ -5,6 +5,7 @@
 
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
+import dom from '../helpers/dom'
 
 class ServicesStep extends StepController {
     constructor() {
@@ -20,7 +21,7 @@ class ServicesStep extends StepController {
      * @returns {boolean}
      */
     get isNextDisabled() {
-        return false
+        return dom.steps.services.selected.length === 0
     }
 }
 

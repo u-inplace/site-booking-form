@@ -34,12 +34,10 @@ export default class Sequence {
 
         if (cookieStr) {
             const cookie = JSON.parse(cookieStr)
-            console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`)
             this.list = cookie.seq
         } else this.init({})
 
         this.current = curr
-        console.log(`Seq :: curr (${this.#current})`)
     }
 
     init({ ironing = false, cleaning = false } = {}) {
@@ -48,9 +46,6 @@ export default class Sequence {
         if (cleaning) seq.push(STEP.Cleaning)
         seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation])
         this.list = seq
-
-        console.log(`Seq.init :: ${JSON.stringify(this.list, null, 2)}`)
-
         this.setCookies()
     }
 

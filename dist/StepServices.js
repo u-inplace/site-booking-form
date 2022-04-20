@@ -28,7 +28,7 @@ class NavigationController {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).onsubmit = this.onNext.bind(this);
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
-    window.onpopstate = this.onBack().bind(this);
+    window.onpopstate = this.onBack.bind(this);
   }
   /**
    * @param {Event} e

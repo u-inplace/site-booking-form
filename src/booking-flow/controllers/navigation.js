@@ -12,7 +12,7 @@ export default class NavigationController {
         dom.id('back-button')?.addEventListener('click', this.onBack.bind(this))
 
         // Browser history
-        window.onpopstate = this.onBack().bind(this)
+        window.onpopstate = this.onBack.bind(this)
     }
 
     /**

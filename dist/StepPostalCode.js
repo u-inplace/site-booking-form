@@ -99,10 +99,10 @@ class Sequence {
     cleaning = false,
     keepCurrent = false
   } = {}) {
-    !keepCurrent && (this.#current = 0);
+    if (!keepCurrent) this.#current = 0;
     let seq = [STEP.PostalCode, STEP.Services];
-    ironing && seq.push(STEP.Ironing);
-    cleaning && seq.push(STEP.Cleaning);
+    if (ironing) seq.push(STEP.Ironing);
+    if (cleaning) seq.push(STEP.Cleaning);
     seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation]);
     this.list = seq;
     console.log(`Seq.init :: curr (${this.#current}) :: ${JSON.stringify(this.list, null, 2)}`);

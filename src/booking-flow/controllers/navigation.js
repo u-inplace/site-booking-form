@@ -16,7 +16,6 @@ export default class NavigationController {
     }
 
     /**
-     *
      * @param {Event} e
      */
     onNext(e) {

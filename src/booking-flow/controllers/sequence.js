@@ -1,5 +1,12 @@
 import Cookies from 'js-cookie'
 
+/**
+ * @typedef {string} StepCode
+ */
+
+/**
+ * @enum {StepCode}
+ */
 const STEP = {
     PostalCode: '/booking',
     Services: '/booking/services',
@@ -19,20 +26,23 @@ export default class Sequence {
     #current
     list
 
-    constructor() {
+    /**
+     * @param {StepCode} curr
+     */
+    constructor(curr) {
         const cookieStr = Cookies.get(COOKIE_BOOKING)
 
         if (cookieStr) {
             const cookie = JSON.parse(cookieStr)
-            this.#current = cookie.current
             this.list = cookie.list
             console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`)
         } else this.init({})
+
+        console.log(`Seq :: curr (${this.#current})`)
+        this.current = curr
     }
 
-    init({ ironing = false, cleaning = false, keepCurrent = false } = {}) {
-        if (!keepCurrent) this.#current = 0
-
+    init({ ironing = false, cleaning = false } = {}) {
         let seq = [STEP.PostalCode, STEP.Services]
         if (ironing) seq.push(STEP.Ironing)
         if (cleaning) seq.push(STEP.Cleaning)
@@ -48,8 +58,7 @@ export default class Sequence {
         Cookies.set(
             COOKIE_BOOKING,
             JSON.stringify({
-                seq: this.list,
-                current: this.#current
+                seq: this.list
             }),
             { secure: true, sameSite: 'strict' }
         )
@@ -77,7 +86,17 @@ export default class Sequence {
         return this.list[this.#current]
     }
 
+    /**
+     * @param {string} current
+     */
+    set current(curr) {
+        const currIndex = Object.values(STEP).findIndex(e => e === curr)
+        if (currIndex >= 0) this.#current = currIndex
+    }
+
     get currentIndex() {
         return this.#current
     }
 }
+
+export { STEP }

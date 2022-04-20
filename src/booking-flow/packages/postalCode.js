@@ -4,6 +4,7 @@
 /* eslint-disable no-var */
 
 import '../../vivify.css'
+import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
 
@@ -32,6 +33,10 @@ class PostalCodeStep extends StepController {
         '1200',
         '1150'
     ]
+
+    constructor() {
+        super(STEP.PostalCode)
+    }
 
     init() {
         super.init()

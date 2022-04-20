@@ -31,7 +31,6 @@ class NavigationController {
     window.onpopstate = this.onHistoryBack.bind(this);
   }
   /**
-   *
    * @param {Event} e
    */
 
@@ -61,9 +60,18 @@ class NavigationController {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STEP": function() { return /* binding */ STEP; },
 /* harmony export */   "default": function() { return /* binding */ Sequence; }
 /* harmony export */ });
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
+
+/**
+ * @typedef {string} StepCode
+ */
+
+/**
+ * @enum {StepCode}
+ */
 
 const STEP = {
   PostalCode: '/booking',
@@ -82,24 +90,27 @@ const COOKIE_BOOKING = '__booking';
 class Sequence {
   #current;
   list;
+  /**
+   * @param {StepCode} curr
+   */
 
-  constructor() {
+  constructor(curr) {
     const cookieStr = js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get(COOKIE_BOOKING);
 
     if (cookieStr) {
       const cookie = JSON.parse(cookieStr);
-      this.#current = cookie.current;
       this.list = cookie.list;
       console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`);
     } else this.init({});
+
+    console.log(`Seq :: curr (${this.#current})`);
+    this.current = curr;
   }
 
   init({
     ironing = false,
-    cleaning = false,
-    keepCurrent = false
+    cleaning = false
   } = {}) {
-    if (!keepCurrent) this.#current = 0;
     let seq = [STEP.PostalCode, STEP.Services];
     if (ironing) seq.push(STEP.Ironing);
     if (cleaning) seq.push(STEP.Cleaning);
@@ -111,8 +122,7 @@ class Sequence {
 
   setCookies() {
     js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].set(COOKIE_BOOKING, JSON.stringify({
-      seq: this.list,
-      current: this.#current
+      seq: this.list
     }), {
       secure: true,
       sameSite: 'strict'
@@ -140,12 +150,22 @@ class Sequence {
   get current() {
     return this.list[this.#current];
   }
+  /**
+   * @param {string} current
+   */
+
+
+  set current(curr) {
+    const currIndex = Object.values(STEP).findIndex(e => e === curr);
+    if (currIndex >= 0) this.#current = currIndex;
+  }
 
   get currentIndex() {
     return this.#current;
   }
 
 }
+
 
 /***/ }),
 
@@ -161,6 +181,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/booking-flow/controllers/navigation.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sequence */ "./src/booking-flow/controllers/sequence.js");
+
 
 
 class StepController {
@@ -175,13 +197,15 @@ class StepController {
   nav;
   /**
    * Create new StepController
+   * @param {import('./sequence').StepCode} curr Current step
    * @param {string} formId Step form Id
    */
 
-  constructor(formId = 'wf-form-step') {
+  constructor(curr, formId = 'wf-form-step') {
     this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
     this.nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]({
-      formId
+      formId,
+      sequence: new _sequence__WEBPACK_IMPORTED_MODULE_2__["default"](curr)
     });
   }
   /**
@@ -521,8 +545,9 @@ var __webpack_exports__ = {};
   \*************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vivify.css */ "./src/vivify.css");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -534,8 +559,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+
+class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
   coverage = ['1070', '1160', '1082', '1000', '1040', '1140', '1190', '1083', '1130', '1050', '1090', '1081', '1020', '1080', '1120', '1060', '1210', '1030', '1180', '1170', '1200', '1150'];
+
+  constructor() {
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.PostalCode);
+  }
 
   init() {
     super.init();
@@ -556,7 +586,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
   }
 
   get pc() {
-    return _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('postal-code');
+    return _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('postal-code');
   }
   /**
    * Navigate automatically to the next step
@@ -565,7 +595,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
 
   toggleNext() {
     super.toggleNext();
-    if (!this.isNextDisabled) _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('next-btn').click();
+    if (!this.isNextDisabled) _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('next-btn').click();
   }
 
   onPostalCode(e) {
@@ -580,7 +610,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
         top: 0,
         behavior: 'smooth'
       });
-      _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].toast('alert-area');
+      _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].toast('alert-area');
     }
   }
 

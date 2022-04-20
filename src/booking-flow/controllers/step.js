@@ -1,5 +1,6 @@
 import dom from '../helpers/dom'
 import NavigationController from './navigation'
+import Sequence from './sequence'
 
 export default class StepController {
     /**
@@ -14,11 +15,12 @@ export default class StepController {
 
     /**
      * Create new StepController
+     * @param {import('./sequence').StepCode} curr Current step
      * @param {string} formId Step form Id
      */
-    constructor(formId = 'wf-form-step') {
+    constructor(curr, formId = 'wf-form-step') {
         this.form = dom.id(formId)
-        this.nav = new NavigationController({ formId })
+        this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
     }
 
     /**

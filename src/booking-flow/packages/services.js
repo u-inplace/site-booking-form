@@ -3,9 +3,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-var */
 
+import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 
 class PostalCodeStep extends StepController {
+    constructor() {
+        super(STEP.Services)
+    }
+
     /**
      * @returns {boolean}
      */

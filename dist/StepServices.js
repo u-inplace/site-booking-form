@@ -548,6 +548,11 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
   constructor() {
     super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Services);
   }
+
+  init() {
+    super.init();
+    this.nav.sequence.init();
+  }
   /**
    * @returns {boolean}
    */

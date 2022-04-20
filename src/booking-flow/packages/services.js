@@ -11,6 +11,11 @@ class PostalCodeStep extends StepController {
         super(STEP.Services)
     }
 
+    init() {
+        super.init()
+        this.nav.sequence.init()
+    }
+
     /**
      * @returns {boolean}
      */

@@ -569,9 +569,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["def
 
   init() {
     super.init();
-    this.nav.sequence.init({
-      keepCurrent: false
-    });
+    this.nav.sequence.init();
     this.pc.addEventListener('input', this.onPostalCode.bind(this));
   }
 

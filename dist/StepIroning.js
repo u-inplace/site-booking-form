@@ -99,8 +99,8 @@ class Sequence {
 
     if (cookieStr) {
       const cookie = JSON.parse(cookieStr);
-      this.list = cookie.list;
       console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`);
+      this.list = cookie.seq;
     } else this.init({});
 
     this.current = curr;

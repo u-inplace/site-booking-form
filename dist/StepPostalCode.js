@@ -249,6 +249,14 @@ class StepController {
   get isNextDisabled() {
     return false;
   }
+  /**
+   * Update Nav step count
+   */
+
+
+  updateNav() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('step-nav').innerHTML = `Step ${this.nav.sequence.currentIndex}/${this.nav.sequence.total - 1}`;
+  }
 
 }
 
@@ -655,6 +663,9 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["def
       });
       _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].toast('alert-area');
     }
+  }
+
+  updateNav() {// Do not update nav
   }
 
 }

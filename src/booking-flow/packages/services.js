@@ -35,6 +35,10 @@ class ServicesStep extends StepController {
     get isNextDisabled() {
         return dom.steps.services.selected.length === 0
     }
+
+    updateNav() {
+        // Do not update nav
+    }
 }
 
 var Webflow = Webflow || window.Webflow || []

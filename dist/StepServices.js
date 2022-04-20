@@ -278,6 +278,14 @@ class StepController {
   get isNextDisabled() {
     return false;
   }
+  /**
+   * Update Nav step count
+   */
+
+
+  updateNav() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('step-nav').innerHTML = `Step ${this.nav.sequence.currentIndex}/${this.nav.sequence.total - 1}`;
+  }
 
 }
 
@@ -650,6 +658,9 @@ class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["defau
 
   get isNextDisabled() {
     return _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].steps.services.selected.length === 0;
+  }
+
+  updateNav() {// Do not update nav
   }
 
 }

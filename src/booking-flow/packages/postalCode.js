@@ -73,6 +73,10 @@ class PostalCodeStep extends StepController {
             dom.toast('alert-area')
         }
     }
+
+    updateNav() {
+        // Do not update nav
+    }
 }
 
 var Webflow = Webflow || window.Webflow || []

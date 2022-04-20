@@ -249,6 +249,14 @@ class StepController {
   get isNextDisabled() {
     return false;
   }
+  /**
+   * Update Nav step count
+   */
+
+
+  updateNav() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('step-nav').innerHTML = `Step ${this.nav.sequence.currentIndex}/${this.nav.sequence.total - 1}`;
+  }
 
 }
 

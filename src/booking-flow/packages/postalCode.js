@@ -83,6 +83,8 @@ Webflow.push(() => {
 
 window.addEventListener('load', () => {
     console.log('onload')
+    // eslint-disable-next-line no-restricted-globals
+    console.log(`pushState: ${typeof history.pushState}`)
     window.addEventListener('hashchange', () => console.log('hashchange'))
     window.addEventListener('popstate', () => console.log('onpopstate'))
 })

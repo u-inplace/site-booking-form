@@ -21,7 +21,7 @@ export default class NavigationController {
     onNext(e) {
         e.preventDefault()
         // eslint-disable-next-line no-restricted-globals
-        history.pushState(null, document.title, location.href)
+        history.pushState({}, null, location.href)
         window.location.href = this.sequence.next()
     }
 

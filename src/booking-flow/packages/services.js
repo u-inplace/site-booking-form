@@ -10,10 +10,17 @@ import dom from '../helpers/dom'
 class ServicesStep extends StepController {
     constructor() {
         super(STEP.Services)
+
+        // Restart sequence
+        dom.id('next-btn').addEventListener('click', this.onNext.bind(this))
     }
 
     init() {
         super.init()
+        this.nav.sequence.init()
+    }
+
+    onNext() {
         this.nav.sequence.init()
     }
 

@@ -583,11 +583,17 @@ __webpack_require__.r(__webpack_exports__);
 
 class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Services);
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Services); // Restart sequence
+
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('next-btn').addEventListener('click', this.onNext.bind(this));
   }
 
   init() {
     super.init();
+    this.nav.sequence.init();
+  }
+
+  onNext() {
     this.nav.sequence.init();
   }
   /**

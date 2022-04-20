@@ -47,7 +47,9 @@ class NavigationController {
   }
 
   onHistoryBack() {
-    window.location.href = this.sequence.prev();
+    this.sequence.prev(); // eslint-disable-next-line no-restricted-globals
+
+    history.back();
   }
 
 }

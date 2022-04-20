@@ -66,14 +66,12 @@ export default class Sequence {
 
     next() {
         this.#current++
-        this.setCookies()
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)
         return this.list[this.#current]
     }
 
     prev() {
         this.#current--
-        this.setCookies()
         console.log(`Seq : ${this.list} ; curr : ${this.#current}`)
         return this.list[this.#current]
     }

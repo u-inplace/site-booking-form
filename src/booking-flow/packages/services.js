@@ -34,6 +34,8 @@ window.addEventListener('load', () => {
     console.log('onload')
     // eslint-disable-next-line no-restricted-globals
     console.log(`pushState: ${typeof history.pushState}`)
+    // eslint-disable-next-line no-restricted-globals
+    history.pushState(null, document.title, location.href)
     window.addEventListener('hashchange', () => console.log('hashchange'))
     window.addEventListener('popstate', () => console.log('onpopstate'))
 })

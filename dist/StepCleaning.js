@@ -2,35 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/booking-flow/common/constants.js":
-/*!**********************************************!*\
-  !*** ./src/booking-flow/common/constants.js ***!
-  \**********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "EXTRA": function() { return /* binding */ EXTRA; },
-/* harmony export */   "SERVICE": function() { return /* binding */ SERVICE; }
-/* harmony export */ });
-/**
- * Helper file for webflow inplace.be booking_
- */
-const SERVICE = {
-  Cleaning: 'cleaning',
-  Ironing: 'ironing',
-  Cooking: 'cooking',
-  Grocery: 'grocery'
-};
-const EXTRA = {
-  Windows: 'windows',
-  Cabinets: 'cabinets',
-  Fridge: 'fridge',
-  Oven: 'oven'
-};
-
-/***/ }),
-
 /***/ "./src/booking-flow/controllers/navigation.js":
 /*!****************************************************!*\
   !*** ./src/booking-flow/controllers/navigation.js ***!
@@ -616,13 +587,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
 /*!***********************************************!*\
-  !*** ./src/booking-flow/packages/services.js ***!
+  !*** ./src/booking-flow/packages/cleaning.js ***!
   \***********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/constants */ "./src/booking-flow/common/constants.js");
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -634,27 +604,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Services); // Restart sequence
-
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('next-btn').addEventListener('click', this.onNext.bind(this));
-  }
-
-  init() {
-    super.init();
-    this.nav.sequence.init();
-  }
-
-  onNext() {
-    const {
-      selected
-    } = _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].steps.services;
-    this.nav.sequence.init({
-      ironing: selected.includes(_common_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Ironing),
-      cleaning: selected.includes(_common_constants__WEBPACK_IMPORTED_MODULE_0__.SERVICE.Cleaning)
-    });
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
   }
   /**
    * @returns {boolean}
@@ -662,20 +614,18 @@ class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["defau
 
 
   get isNextDisabled() {
-    return _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].steps.services.selected.length === 0;
-  }
-
-  updateNav() {// Do not update nav
+    const disabled = !(_helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].getOption('supplies-conf', true) && _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].getRadio('home-bathrooms', true) && _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].getRadio('home-bedrooms', true));
+    return disabled;
   }
 
 }
 
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(() => {
-  const step = new ServicesStep();
+  const step = new Step();
   step.init();
 });
 }();
 /******/ })()
 ;
-//# sourceMappingURL=StepServices.js.map
+//# sourceMappingURL=StepCleaning.js.map

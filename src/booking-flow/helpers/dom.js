@@ -64,6 +64,10 @@ class Dom {
         return this.q(`input[name*="${name}"]${checked ? ':checked' : ''}`)
     }
 
+    static getOption(id, checked = false) {
+        return this.q(`input[id*='${id}']${checked ? ':checked' : ''}`)
+    }
+
     /**
      * STEPS
      */

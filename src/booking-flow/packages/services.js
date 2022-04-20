@@ -3,6 +3,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-var */
 
+import { SERVICE } from '../common/constants'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
@@ -21,7 +22,11 @@ class ServicesStep extends StepController {
     }
 
     onNext() {
-        this.nav.sequence.init()
+        const { selected } = dom.steps.services
+        this.nav.sequence.init({
+            ironing: selected.includes(SERVICE.Ironing),
+            cleaning: selected.includes(SERVICE.Cleaning)
+        })
     }
 
     /**

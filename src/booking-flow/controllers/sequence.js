@@ -49,7 +49,7 @@ export default class Sequence {
         seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation])
         this.list = seq
 
-        console.log(`Seq.init :: curr (${this.#current}) :: ${JSON.stringify(this.list, null, 2)}`)
+        console.log(`Seq.init :: ${JSON.stringify(this.list, null, 2)}`)
 
         this.setCookies()
     }

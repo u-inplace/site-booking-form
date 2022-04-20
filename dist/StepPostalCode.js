@@ -103,8 +103,8 @@ class Sequence {
       console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`);
     } else this.init({});
 
-    console.log(`Seq :: curr (${this.#current})`);
     this.current = curr;
+    console.log(`Seq :: curr (${this.#current})`);
   }
 
   init({

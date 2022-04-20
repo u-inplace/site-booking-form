@@ -74,6 +74,7 @@ const STEP = {
   Availability: '/booking/availability',
   Confirmation: '/booking/confirmation'
 };
+const COOKIE_BOOKING = '__booking';
 /**
  * Sequence Controller
  */
@@ -83,12 +84,13 @@ class Sequence {
   list;
 
   constructor() {
-    const cookieStr = js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get('ip-booking-flow');
+    const cookieStr = js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get(COOKIE_BOOKING);
 
     if (cookieStr) {
       const cookie = JSON.parse(cookieStr);
       this.#current = cookie.current;
       this.list = cookie.list;
+      console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`);
     } else this.init({});
   }
 
@@ -103,11 +105,12 @@ class Sequence {
     cleaning && seq.push(STEP.Cleaning);
     seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation]);
     this.list = seq;
+    console.log(`Seq.init :: curr (${this.#current}) :: ${JSON.stringify(this.list, null, 2)}`);
     this.setCookies();
   }
 
   setCookies() {
-    js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].set('ip-booking-flow', JSON.stringify({
+    js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].set(COOKIE_BOOKING, JSON.stringify({
       seq: this.list,
       current: this.#current
     }), {

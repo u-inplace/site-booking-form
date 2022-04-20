@@ -10,6 +10,8 @@ const STEP = {
     Confirmation: '/booking/confirmation'
 }
 
+const COOKIE_BOOKING = '__booking'
+
 /**
  * Sequence Controller
  */
@@ -18,12 +20,13 @@ export default class Sequence {
     list
 
     constructor() {
-        const cookieStr = Cookies.get('ip-booking-flow')
+        const cookieStr = Cookies.get(COOKIE_BOOKING)
 
         if (cookieStr) {
             const cookie = JSON.parse(cookieStr)
             this.#current = cookie.current
             this.list = cookie.list
+            console.log(`Seq.new :: cookie found ::  ${JSON.stringify(cookie, null, 2)}`)
         } else this.init({})
     }
 
@@ -36,12 +39,14 @@ export default class Sequence {
         seq = seq.concat([STEP.Duration, STEP.Availability, STEP.Confirmation])
         this.list = seq
 
+        console.log(`Seq.init :: curr (${this.#current}) :: ${JSON.stringify(this.list, null, 2)}`)
+
         this.setCookies()
     }
 
     setCookies() {
         Cookies.set(
-            'ip-booking-flow',
+            COOKIE_BOOKING,
             JSON.stringify({
                 seq: this.list,
                 current: this.#current

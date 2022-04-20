@@ -10,7 +10,7 @@ cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
 while true; do
     printf "\033c"
     echo @$branch
-    echo @$cdnURL
+    echo \:$target
     result=$(diff <(cat .$target) <(curl -s $cdnURL))
     if [[ $result != "" ]]; then
         echo Not synced.

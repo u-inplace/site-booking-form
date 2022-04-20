@@ -544,7 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+class ServicesStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor() {
     super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Services);
   }
@@ -566,7 +566,7 @@ class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["def
 
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(() => {
-  const step = new PostalCodeStep();
+  const step = new ServicesStep();
   step.init();
 });
 window.addEventListener('load', () => {

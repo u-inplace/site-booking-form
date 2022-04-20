@@ -6,7 +6,7 @@
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 
-class PostalCodeStep extends StepController {
+class ServicesStep extends StepController {
     constructor() {
         super(STEP.Services)
     }
@@ -26,7 +26,7 @@ class PostalCodeStep extends StepController {
 
 var Webflow = Webflow || window.Webflow || []
 Webflow.push(() => {
-    const step = new PostalCodeStep()
+    const step = new ServicesStep()
     step.init()
 })
 

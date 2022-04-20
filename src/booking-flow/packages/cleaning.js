@@ -9,7 +9,7 @@ import dom from '../helpers/dom'
 
 class Step extends StepController {
     constructor() {
-        super(STEP.Ironing)
+        super(STEP.Cleaning)
     }
 
     /**

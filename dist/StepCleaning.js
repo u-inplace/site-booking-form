@@ -606,7 +606,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Cleaning);
   }
   /**
    * @returns {boolean}

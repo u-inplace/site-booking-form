@@ -26,7 +26,7 @@ class NavigationController {
     this.sequence = sequence; // Submit = nextButton
 
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).onsubmit = this.onNext.bind(this);
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button-flow')?.addEventListener('click', this.onBack.bind(this)); // Browser history
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
     window.onpopstate = this.onHistoryBack.bind(this);
   }

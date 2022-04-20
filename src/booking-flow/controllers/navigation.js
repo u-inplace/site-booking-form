@@ -20,6 +20,8 @@ export default class NavigationController {
      */
     onNext(e) {
         e.preventDefault()
+        // eslint-disable-next-line no-restricted-globals
+        history.pushState(null, document.title, location.href)
         window.location.href = this.sequence.next()
     }
 
@@ -28,6 +30,6 @@ export default class NavigationController {
     }
 
     onHistoryBack() {
-        this.sequence.prev()
+        window.location.href = this.sequence.prev()
     }
 }

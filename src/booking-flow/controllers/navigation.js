@@ -26,7 +26,7 @@ export default class NavigationController {
     }
 
     onBack() {
-        window.location.href = this.sequence.prev()
+        this.onHistoryBack()
     }
 
     onHistoryBack() {

@@ -369,18 +369,6 @@ const dom = Dom;
 
 /***/ }),
 
-/***/ "./src/vivify.css":
-/*!************************!*\
-  !*** ./src/vivify.css ***!
-  \************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "./node_modules/js-cookie/dist/js.cookie.mjs":
 /*!***************************************************!*\
   !*** ./node_modules/js-cookie/dist/js.cookie.mjs ***!
@@ -585,14 +573,13 @@ var api = init(defaultConverter, { path: '/' });
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-/*!*************************************************!*\
-  !*** ./src/booking-flow/packages/postalCode.js ***!
-  \*************************************************/
+/*!**********************************************!*\
+  !*** ./src/booking-flow/packages/ironing.js ***!
+  \**********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vivify_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vivify.css */ "./src/vivify.css");
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -604,67 +591,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-class PostalCodeStep extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
-  coverage = ['1070', '1160', '1082', '1000', '1040', '1140', '1190', '1083', '1130', '1050', '1090', '1081', '1020', '1080', '1120', '1060', '1210', '1030', '1180', '1170', '1200', '1150'];
-
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.PostalCode);
-  }
-
-  init() {
-    super.init();
-    this.nav.sequence.init();
-    this.pc.addEventListener('input', this.onPostalCode.bind(this));
-  }
-
-  get isNextDisabled() {
-    const {
-      pc
-    } = this;
-    const {
-      value
-    } = pc;
-    return !this.coverage.includes(value);
-  }
-
-  get pc() {
-    return _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('postal-code');
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Ironing);
   }
   /**
-   * Navigate automatically to the next step
+   * @returns {boolean}
    */
 
 
-  toggleNext() {
-    super.toggleNext();
-    if (!this.isNextDisabled) _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('next-btn').click();
-  }
-
-  onPostalCode(e) {
-    const pc = e.target;
-    const {
-      value
-    } = pc; // show error message
-
-    if (value.length === pc.maxLength && !this.coverage.includes(value)) {
-      // Scroll back to top
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-      _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].toast('alert-area');
-    }
+  get isNextDisabled() {
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].steps.ironing.selected;
   }
 
 }
 
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(() => {
-  const step = new PostalCodeStep();
+  const step = new Step();
   step.init();
 });
 }();
 /******/ })()
 ;
-//# sourceMappingURL=StepPostalCode.js.map
+//# sourceMappingURL=StepIroning.js.map

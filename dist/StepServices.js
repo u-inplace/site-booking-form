@@ -351,6 +351,10 @@ class Dom {
   static queryOptions(id, checked = false) {
     return Array.from(document.querySelectorAll(`input[id*='${id}']${checked ? ':checked' : ''}`));
   }
+
+  static getRadio(name, checked = false) {
+    return this.q(`input[name*="${name}"]${checked ? ':checked' : ''}`);
+  }
   /**
    * STEPS
    */
@@ -377,6 +381,12 @@ class Dom {
 
       static isServiceSelected(service) {
         return this.selected.includes(service);
+      }
+
+    };
+    static ironing = class {
+      static get selected() {
+        return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
       }
 
     };

@@ -60,6 +60,10 @@ class Dom {
         )
     }
 
+    static getRadio(name, checked = false) {
+        return this.q(`input[name*="${name}"]${checked ? ':checked' : ''}`)
+    }
+
     /**
      * STEPS
      */
@@ -82,6 +86,12 @@ class Dom {
              */
             static isServiceSelected(service) {
                 return this.selected.includes(service)
+            }
+        }
+
+        static ironing = class {
+            static get selected() {
+                return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '')
             }
         }
     }

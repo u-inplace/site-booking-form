@@ -61,14 +61,14 @@ const bookingConfig = {
     }
 }
 
-const StepPackage = (name, entryFile) => ({
+const StepPackage = (name, entryFile, clean = false) => ({
     ...config,
     name,
     entry: { [name]: entryFile },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        clean: true
+        clean
     }
 })
 
@@ -76,5 +76,6 @@ module.exports = () => [
     calendarConfig,
     bookingConfig,
     StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
-    StepPackage('StepServices', './src/booking-flow/packages/services.js')
+    StepPackage('StepServices', './src/booking-flow/packages/services.js'),
+    StepPackage('StepIroning', './src/booking-flow/packages/ironing.js', true)
 ]

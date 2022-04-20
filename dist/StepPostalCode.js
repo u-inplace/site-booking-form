@@ -625,6 +625,7 @@ window.addEventListener('load', () => {
   console.log(`pushState: ${typeof history.pushState}`);
   window.addEventListener('hashchange', () => console.log('hashchange'));
   window.addEventListener('popstate', () => console.log('onpopstate'));
+  window.addEventListener('beforeunload', () => console.log('beforeunload'));
 });
 }();
 /******/ })()

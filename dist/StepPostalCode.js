@@ -134,15 +134,11 @@ class Sequence {
   }
 
   next() {
-    this.#current++;
-    console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
-    return this.list[this.#current];
+    return this.list[this.#current + 1];
   }
 
   prev() {
-    this.#current--;
-    console.log(`Seq : ${this.list} ; curr : ${this.#current}`);
-    return this.list[this.#current];
+    return this.list[this.#current - 1];
   }
 
   get total() {

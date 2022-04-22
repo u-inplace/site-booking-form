@@ -79,7 +79,7 @@ export default class Sequence {
      * @param {string} current
      */
     set current(curr) {
-        const currIndex = Object.values(STEP).findIndex(e => e === curr)
+        const currIndex = Object.values(this.list).findIndex(e => e === curr)
         if (currIndex >= 0) this.#current = currIndex
     }
 

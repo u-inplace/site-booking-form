@@ -633,7 +633,7 @@ class OptionsDuration {
   }
 
   get total() {
-    return this.services + this.ironing + this.cleaning;
+    return 3 + this.services + this.ironing + this.cleaning;
   }
 
   get services() {

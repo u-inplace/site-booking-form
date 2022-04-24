@@ -757,13 +757,15 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
     return !_helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].getRadio('frequency', true);
   }
 
-}
+} // Dependency on NoUISlider requires this step to be initialised by
+// webflow script
 
-var Webflow = Webflow || window.Webflow || [];
-Webflow.push(() => {
-  const step = new Step();
-  step.init();
-});
+
+window.Step = Step; // var Webflow = Webflow || window.Webflow || []
+// Webflow.push(() => {
+//     const step = new Step()
+//     step.init()
+// })
 }();
 /******/ })()
 ;

@@ -761,11 +761,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 // webflow script
 
 
-window.Step = Step; // var Webflow = Webflow || window.Webflow || []
-// Webflow.push(() => {
-//     const step = new Step()
-//     step.init()
-// })
+window.Step = Step;
 }();
 /******/ })()
 ;

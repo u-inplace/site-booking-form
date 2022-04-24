@@ -151,8 +151,3 @@ class Step extends StepController {
 // Dependency on NoUISlider requires this step to be initialised by
 // webflow script
 window.Step = Step
-// var Webflow = Webflow || window.Webflow || []
-// Webflow.push(() => {
-//     const step = new Step()
-//     step.init()
-// })

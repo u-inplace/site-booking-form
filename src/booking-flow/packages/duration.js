@@ -8,8 +8,11 @@ import StepController from '../controllers/step'
 import dom from '../helpers/dom'
 
 class Step extends StepController {
+    cookie
+
     constructor() {
         super(STEP.Duration)
+        this.cookie = window.FpCookie
     }
 
     /**

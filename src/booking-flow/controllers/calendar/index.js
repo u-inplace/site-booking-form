@@ -58,7 +58,9 @@ export default class CalendarController {
         if (this.calendar.getEventsData().length === 0) {
             const curr = new Date()
             const next = addMonths(curr, 1)
-            console.log(`init | curr: ${curr}, next: ${next}`)
+            console.log(
+                `init | curr: ${curr.toLocaleDateString()}, next: ${next.toLocaleDateString()}`
+            )
             await this.getMonthAvailability(next)
         }
 
@@ -71,10 +73,12 @@ export default class CalendarController {
 
     /**
      * Load more dates
+     * @param {Date} currentDate
      */
     onMonthChange = async currentDate => {
         const firstDay = startOfMonth(currentDate)
-        console.log(`onMonthChange | currDate: ${currentDate}, firstDay: ${firstDay}`)
+        console.log(`onMonthChange | currDate: ${currentDate.toLocaleDateString()}`)
+        console.log(`onMonthChange | firstDay: ${firstDay.toLocaleDateString()}`)
         await this.getMonthAvailability(firstDay)
         if (!this.#initialised) this.init()
     }
@@ -114,9 +118,12 @@ export default class CalendarController {
         document.getElementsByClassName('calendar__monthyear')[0].appendChild(loader)
     }
 
+    /**
+     * @param {Date} startDate
+     */
     async getMonthAvailability(startDate) {
         this.toggleLoading(true)
-        console.log(`getMonthAvailability | startDate: ${startDate}`)
+        console.log(`getMonthAvailability | startDate: ${startDate.toLocaleDateString()}`)
         console.log(`getMonthAvailability | mondays: ${getMondays(startDate)}`)
         await Promise.all(getMondays(startDate).map(monday => this.getAvailability(monday)))
         this.toggleLoading()

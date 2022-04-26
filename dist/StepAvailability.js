@@ -2384,7 +2384,9 @@ class CalendarController {
       const curr = new Date();
       const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(curr, 1);
       await this.getMonthAvailability(next);
-    }
+    } // Shorthands like 'start' below are heavy futures, removed by default
+    // when using lodash-webpack-plugin
+
 
     const slots = lodash_sortBy__WEBPACK_IMPORTED_MODULE_1___default()(this.calendar.getEventsData(), [e => e.start]);
 

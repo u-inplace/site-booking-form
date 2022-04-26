@@ -61,6 +61,8 @@ export default class CalendarController {
             await this.getMonthAvailability(next)
         }
 
+        // Shorthands like 'start' below are heavy futures, removed by default
+        // when using lodash-webpack-plugin
         const slots = _.sortBy(this.calendar.getEventsData(), [e => e.start])
 
         if (slots?.length > 0) this.calendar.setDate(slots[0]?.start)

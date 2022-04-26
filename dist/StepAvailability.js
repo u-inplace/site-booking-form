@@ -2615,9 +2615,10 @@ class BookingOptions {
 
   #getOptionWithPrefix(prefix) {
     return Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
-    .filter(([key, _]) => key.startsWith(prefix)).map(([s, value]) => ({
-      [rmPrefix(s, prefix)]: value
-    }));
+    .filter(([key, _]) => key.startsWith(prefix)).reduce((acc, [key, value]) => {
+      acc[rmPrefix(key, prefix)] = value;
+      return acc;
+    }, {});
   }
   /**
    * @param {string} prefix

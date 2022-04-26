@@ -2108,6 +2108,7 @@ class CalendarController {
     if (this.calendar.getEventsData().length === 0) {
       const curr = new Date();
       const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(curr, 1);
+      console.log(`init | curr: ${curr}, next: ${next}`);
       await this.getMonthAvailability(next);
     } // Shorthands like 'start' below are heavy futures, removed by default
     // when using lodash-webpack-plugin
@@ -2124,6 +2125,7 @@ class CalendarController {
 
   onMonthChange = async currentDate => {
     const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate);
+    console.log(`onMonthChange | currDate: ${currentDate}, firstDay: ${firstDay}`);
     await this.getMonthAvailability(firstDay);
     if (!this.#initialised) this.init();
   };
@@ -2166,6 +2168,8 @@ class CalendarController {
 
   async getMonthAvailability(startDate) {
     this.toggleLoading(true);
+    console.log(`getMonthAvailability | startDate: ${startDate}`);
+    console.log(`getMonthAvailability | mondays: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate)}`);
     await Promise.all((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate).map(monday => this.getAvailability(monday)));
     this.toggleLoading();
   }

@@ -161,7 +161,9 @@ export default class CalendarController {
         }
 
         const newEvents = _.compact(
-            avail?.data?.map(dateAvail => dateAvail.time_slots.flatMap(slot => slotToEvent(slot)))
+            avail?.data
+                ?.map(dateAvail => dateAvail.time_slots.map(slot => slotToEvent(slot)))
+                .flat()
         )
 
         newEvents.length > 0 && this.calendar.addEventsData(newEvents)

@@ -4,6 +4,18 @@
  */
 
 /**
+ * Helpers
+ */
+
+/**
+ * Removes prefix from string
+ * @param {string} s input String
+ * @param {string} p prefix to be removed
+ * @returns {string} string without prefix
+ */
+const rmPrefix = (s, p) => s.replace(new RegExp(`^${p}`), '')
+
+/**
  * Booking Options
  * @class
  * @constructor
@@ -48,7 +60,7 @@ export default class BookingOptions {
             Object.entries(this.ops)
                 // eslint-disable-next-line no-unused-vars
                 .filter(([key, _]) => key.startsWith(prefix))
-                .map((s, value) => ({ [s.replace(prefix, '')]: value }))
+                .map((s, value) => ({ [rmPrefix(s, prefix)]: value }))
         )
     }
 
@@ -65,7 +77,7 @@ export default class BookingOptions {
                         key.startsWith(prefix) && (filter === undefined || value === filter)
                 )
                 // eslint-disable-next-line no-unused-vars
-                .map(([key, _]) => key.replace(prefix, ''))
+                .map(([key, _]) => rmPrefix(key, prefix))
         )
     }
 

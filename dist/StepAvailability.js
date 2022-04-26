@@ -3605,7 +3605,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
       const avatar = lodash_find__WEBPACK_IMPORTED_MODULE_0___default()(this.team, {
         name: `${open.employee.first_name} ${open.employee.last_name}`
       })?.['profile-picture'];
-      avatar?.url && (node.querySelector('.team-avatar').src = avatar.url); // Save team member name in attribute
+      if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Save team member name in attribute
 
       node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
       node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);

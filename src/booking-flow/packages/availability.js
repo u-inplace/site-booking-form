@@ -191,7 +191,7 @@ class Step extends StepController {
                 name: `${open.employee.first_name} ${open.employee.last_name}`
             })?.['profile-picture']
 
-            avatar?.url && (node.querySelector('.team-avatar').src = avatar.url)
+            if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
 
             // Save team member name in attribute
             node.querySelector('input').setAttribute(

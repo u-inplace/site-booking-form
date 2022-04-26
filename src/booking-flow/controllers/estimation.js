@@ -6,10 +6,6 @@ export default class Estimation {
      */
     ops
 
-    /**
-     *
-     * @param {CookieOptions} options
-     */
     constructor() {
         this.ops = new BookingOptions()
     }

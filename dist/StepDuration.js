@@ -19,10 +19,6 @@ class Estimation {
    * @type {BookingOptions}
    */
   ops;
-  /**
-   *
-   * @param {CookieOptions} options
-   */
 
   constructor() {
     this.ops = new _options__WEBPACK_IMPORTED_MODULE_0__["default"]();

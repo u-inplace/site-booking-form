@@ -219,7 +219,7 @@ class BookingOptions {
    * @property {boolean} service-grocery
    * @property {boolean} service-ironing
    * @property {number} duration
-   * @property {string} recurrence
+   * @property {string} frequency
    */
 
   /**
@@ -326,7 +326,7 @@ class BookingOptions {
 
 
   get recurrence() {
-    return this.ops?.recurrence;
+    return this.ops?.frequency;
   }
 
 }

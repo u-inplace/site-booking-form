@@ -39,7 +39,7 @@ export default class BookingOptions {
      * @property {boolean} service-grocery
      * @property {boolean} service-ironing
      * @property {number} duration
-     * @property {string} recurrence
+     * @property {string} frequency
      */
     /**
      * @type {CookieOptions}
@@ -144,6 +144,6 @@ export default class BookingOptions {
      * @returns {('weekly'|'biweekly'|'once')}
      */
     get recurrence() {
-        return this.ops?.recurrence
+        return this.ops?.frequency
     }
 }

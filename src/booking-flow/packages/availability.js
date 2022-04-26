@@ -155,7 +155,7 @@ class Step extends StepController {
         if (_.isEmpty(openings)) this.cal.openings.showWarning()
         else this.cal.openings.hideWarning()
 
-        _.uniqBy(openings, [o => o.start_time]).forEach(open => {
+        _.uniqBy(openings, o => o.start_time).forEach(open => {
             this.copyTemplate(template, {
                 className: 'start-time',
                 parentId: 'start-time-block',

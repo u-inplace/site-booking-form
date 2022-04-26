@@ -3609,7 +3609,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
     this.cal.team.hideBlock();
     if (lodash_isEmpty__WEBPACK_IMPORTED_MODULE_3___default()(openings)) this.cal.openings.showWarning();else this.cal.openings.hideWarning();
 
-    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2___default()(openings, [o => o.start_time]).forEach(open => {
+    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2___default()(openings, o => o.start_time).forEach(open => {
       this.copyTemplate(template, {
         className: 'start-time',
         parentId: 'start-time-block',

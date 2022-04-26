@@ -44,10 +44,12 @@ export default class BookingOptions {
      * @returns {object}
      */
     #getOptionWithPrefix(prefix) {
-        Object.entries(this.ops)
-            // eslint-disable-next-line no-unused-vars
-            .filter(([key, _]) => key.startsWith(prefix))
-            .map((s, value) => ({ [s.replace(prefix, '')]: value }))
+        return (
+            Object.entries(this.ops)
+                // eslint-disable-next-line no-unused-vars
+                .filter(([key, _]) => key.startsWith(prefix))
+                .map((s, value) => ({ [s.replace(prefix, '')]: value }))
+        )
     }
 
     /**
@@ -56,13 +58,15 @@ export default class BookingOptions {
      * @returns {any[]}
      */
     #filterOptionWithPrefix(prefix, filter = undefined) {
-        Object.entries(this.ops)
-            .filter(
-                ([key, value]) =>
-                    key.startsWith(prefix) && (filter === undefined || value === filter)
-            )
-            // eslint-disable-next-line no-unused-vars
-            .map(([_, value]) => value)
+        return (
+            Object.entries(this.ops)
+                .filter(
+                    ([key, value]) =>
+                        key.startsWith(prefix) && (filter === undefined || value === filter)
+                )
+                // eslint-disable-next-line no-unused-vars
+                .map(([key, _]) => key)
+        )
     }
 
     /**

@@ -226,7 +226,7 @@ class BookingOptions {
 
 
   #getOptionWithPrefix(prefix) {
-    Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
+    return Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
     .filter(([key, _]) => key.startsWith(prefix)).map((s, value) => ({
       [s.replace(prefix, '')]: value
     }));
@@ -239,8 +239,8 @@ class BookingOptions {
 
 
   #filterOptionWithPrefix(prefix, filter = undefined) {
-    Object.entries(this.ops).filter(([key, value]) => key.startsWith(prefix) && (filter === undefined || value === filter)) // eslint-disable-next-line no-unused-vars
-    .map(([_, value]) => value);
+    return Object.entries(this.ops).filter(([key, value]) => key.startsWith(prefix) && (filter === undefined || value === filter)) // eslint-disable-next-line no-unused-vars
+    .map(([key, _]) => key);
   }
   /**
    * @returns {{bathrooms:string, bedrooms:string}}

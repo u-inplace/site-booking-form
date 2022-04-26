@@ -1,9 +1,12 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable vars-on-top */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-var */
+/* eslint-disable vars-on-top */
+/* eslint-disable camelcase */
+/* eslint-disable class-methods-use-this */
 
+import _ from 'lodash'
 import CalendarController from '../controllers/calendar'
+import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
@@ -47,8 +50,20 @@ class Step extends StepController {
      */
     team
 
+    /**
+     * @type {BookingOptions}
+     */
+    ops
+
+    /**
+     * Dom calendar helpers
+     */
+    cal
+
     constructor() {
         super(STEP.Availability)
+        this.ops = new BookingOptions()
+        this.cal = dom.steps.avail
     }
 
     /**
@@ -65,16 +80,16 @@ class Step extends StepController {
         this.#fetchTeam()
 
         // Clean up existing entries
-        DOM.calendar.team.cleanUp()
+        this.cal.team.cleanUp()
         this.toggleNext()
 
         // Update duration when loading Duration step
         this.#calendar = new CalendarController(
             'availability-cal',
             {
-                postalCode: DOM.postalCode.value,
-                duration: DOM.duration,
-                recurrence: DOM.occurrence
+                postalCode: this.ops.postalCode,
+                duration: this.ops.duration,
+                recurrence: this.ops.recurrence
             },
             this.onDayChange.bind(this)
         )
@@ -104,17 +119,9 @@ class Step extends StepController {
      */
     #createSummary() {
         // Selected services
-        const services = DOM.getSelectedServices()
-        Object.values(SERVICE).forEach(s =>
-            services.includes(s) ? DOM.summary.activeService(s) : DOM.summary.inactiveService(s)
-        )
-
-        const { duration } = DOM
-        DOM.summary.duration = `${duration}h`
-        DOM.summary.payment = `${duration} titres-services`
-
-        const { occurrence } = DOM
-        DOM.summary.occurrence = occurrence
+        const { service, recurrence } = this.ops
+        dom.summary.service = service
+        dom.summary.recurrence = recurrence
     }
 
     /**
@@ -139,13 +146,13 @@ class Step extends StepController {
         this.openings = openings
 
         // Clean up existing entries
-        DOM.calendar.openings.cleanUp()
+        this.cal.openings.cleanUp()
 
         // Hide Team block
-        DOM.calendar.team.hideBlock()
+        this.cal.team.hideBlock()
 
-        if (_.isEmpty(openings)) DOM.calendar.openings.showWarning()
-        else DOM.calendar.openings.hideWarning()
+        if (_.isEmpty(openings)) this.cal.openings.showWarning()
+        else this.cal.openings.hideWarning()
 
         _.uniqBy(openings, 'start_time').forEach(open => {
             this.copyTemplate(template, {
@@ -167,15 +174,15 @@ class Step extends StepController {
      */
     onStartTimeSelect(event) {
         // Clean up existing entries
-        DOM.calendar.team.cleanUp()
+        this.cal.team.cleanUp()
 
-        DOM.calendar.team.showBlock()
+        this.cal.team.showBlock()
         const start_time = event.target.value
-        const template = DOM.calendar.team.memberTemplate
+        const template = this.cal.team.memberTemplate
 
         // Set start and end time on hidden inputs
-        document.getElementById('start-timestamp').value = this.openings[0].start.toISOString()
-        document.getElementById('end-timestamp').value = this.openings[0].end.toISOString()
+        dom.id('start-timestamp').value = this.openings[0].start.toISOString()
+        dom.id('end-timestamp').value = this.openings[0].end.toISOString()
 
         _.filter(this.openings, { start_time }).forEach(open => {
             const node = this.copyTemplate(template, {
@@ -207,12 +214,11 @@ class Step extends StepController {
             )
         })
 
-        // Wire events for next button
-        this.toggleNextWatcher = new ToggleWatcher(DOM.queryRadio('team-member'), 'click')
+        // Wire events for newly created elements for next button
+        dom.queryRadio('team-member').forEach(r =>
+            r.addEventListener('click', this.toggleNext.bind(this))
+        )
         this.toggleNext()
-
-        // Trigger slide resize
-        this.slider.resize()
     }
 
     /**
@@ -221,8 +227,8 @@ class Step extends StepController {
      */
     onTeamMemberSelect(event) {
         const member = event.target
-        DOM.teamMember.name = member.getAttribute('member-name')
-        DOM.teamMember.firstName = member.getAttribute('member-first-name')
+        this.cal.teamMember.name = member.getAttribute('member-name')
+        this.cal.teamMember.firstName = member.getAttribute('member-first-name')
     }
 
     /**

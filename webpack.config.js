@@ -78,10 +78,10 @@ const StepPackage = (name, entryFile, clean = false) => ({
 module.exports = () => [
     calendarConfig,
     bookingConfig,
+    StepPackage('StepAvailability', './src/booking-flow/packages/availability.js'),
     StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
     StepPackage('StepServices', './src/booking-flow/packages/services.js'),
     StepPackage('StepIroning', './src/booking-flow/packages/ironing.js'),
     StepPackage('StepCleaning', './src/booking-flow/packages/cleaning.js'),
-    StepPackage('StepDuration', './src/booking-flow/packages/duration.js', true)
-    // StepPackage('StepAvailability', './src/booking-flow/packages/availability.js', true)
+    StepPackage('StepDuration', './src/booking-flow/packages/duration.js')
 ]

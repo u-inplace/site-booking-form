@@ -2,6 +2,126 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/booking-flow/controllers/estimation.js":
+/*!****************************************************!*\
+  !*** ./src/booking-flow/controllers/estimation.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Estimation; }
+/* harmony export */ });
+/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options */ "./src/booking-flow/controllers/options.js");
+
+class Estimation {
+  /**
+   * @type {BookingOptions}
+   */
+  ops;
+  /**
+   *
+   * @param {CookieOptions} options
+   */
+
+  constructor() {
+    this.ops = new _options__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+
+  get total() {
+    return 3 + this.services + this.ironing + this.cleaning;
+  }
+
+  get services() {
+    const {
+      services
+    } = this.ops;
+    let total = 0;
+
+    if (services.length > 1) {
+      total += this.ops.service.cooking ? 0.5 : 0;
+      total += this.ops.service.grocery ? 0.5 : 0;
+    }
+
+    return total;
+  }
+
+  get ironing() {
+    if (!this.ops.service.ironing) return 0;
+
+    switch (this.ops.ironing) {
+      case 'xs':
+        return 0.5;
+
+      case 's':
+        return 1;
+
+      case 'm':
+        return 2;
+
+      case 'l':
+        return 3;
+
+      case 'xl':
+        return 4;
+
+      default:
+        return 0;
+    }
+  }
+
+  get cleaning() {
+    if (!this.ops.service.cleaning) return 0; // Extras
+
+    const {
+      extra
+    } = this.ops;
+    let total = extra.windows ? 1 : 0;
+    total += extra.cabinets ? 1 : 0;
+    total += extra.fridge ? 0.5 : 0;
+    total += extra.oven ? 0.5 : 0; // Bedroom
+
+    const bedroom = this.ops.cleaning.bedrooms;
+    const bathroom = this.ops.cleaning.bathrooms;
+
+    switch (bedroom) {
+      case '3':
+      case '4':
+        total += 1;
+        break;
+
+      case '5+':
+        total += 2;
+        break;
+
+      default:
+        break;
+    }
+
+    switch (bathroom) {
+      case '2':
+        total += 1;
+        break;
+
+      case '3':
+        total += 2;
+        break;
+
+      case '4+':
+        total += 3;
+        break;
+
+      default:
+        break;
+    }
+
+    return total;
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking-flow/controllers/navigation.js":
 /*!****************************************************!*\
   !*** ./src/booking-flow/controllers/navigation.js ***!
@@ -46,6 +166,157 @@ class NavigationController {
     this.sequence.prev(); // eslint-disable-next-line no-restricted-globals
 
     history.back();
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking-flow/controllers/options.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/controllers/options.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ BookingOptions; }
+/* harmony export */ });
+/**
+ * @typedef {{cleaning:boolean, cooking:boolean, grocery:boolean, ironing:boolean}} Service
+ * @typedef {('cleaning'|'cooking'|'grocery'|'ironing')[]} Services
+ */
+
+/**
+ * Booking Options
+ * @class
+ * @constructor
+ * @public
+ */
+class BookingOptions {
+  cookie;
+  /**
+   * @typedef {Object} CookieOptions
+   * @property {string} cleaning-bathrooms
+   * @property {string} cleaning-bedrooms
+   * @property {boolean} extra-cabinets
+   * @property {boolean} extra-fridge
+   * @property {boolean} extra-oven
+   * @property {boolean} extra-windows
+   * @property {string} ironing
+   * @property {string} postal-code
+   * @property {boolean} service-cleaning
+   * @property {boolean} service-cooking
+   * @property {boolean} service-grocery
+   * @property {boolean} service-ironing
+   * @property {number} duration
+   * @property {string} recurrence
+   */
+
+  /**
+   * @type {CookieOptions}
+   */
+
+  ops;
+
+  constructor() {
+    this.cookie = window.FpCookie;
+    this.ops = this.cookie.store;
+  }
+  /**
+   * @param {string} prefix
+   * @returns {object}
+   */
+
+
+  #getOptionWithPrefix(prefix) {
+    Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
+    .filter(([key, _]) => key.startsWith(prefix)).map((s, value) => ({
+      [s.replace(prefix, '')]: value
+    }));
+  }
+  /**
+   * @param {string} prefix
+   * @param {(any|undefined)} [filter=undefined]
+   * @returns {any[]}
+   */
+
+
+  #filterOptionWithPrefix(prefix, filter = undefined) {
+    Object.entries(this.ops).filter(([key, value]) => key.startsWith(prefix) && (filter === undefined || value === filter)) // eslint-disable-next-line no-unused-vars
+    .map(([_, value]) => value);
+  }
+  /**
+   * @returns {{bathrooms:string, bedrooms:string}}
+   */
+
+
+  get cleaning() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('cleaning-') : {};
+  }
+  /**
+   * @returns {('cabinets' | 'fridge' | 'oven' | 'windows')[]}
+   */
+
+
+  get extras() {
+    return this.ops['service-cleaning'] ? this.#filterOptionWithPrefix('extra-', true) : [];
+  }
+  /**
+   * @returns {{cabinets:boolean, fridge:boolean, oven:boolean, windows:boolean}}
+   */
+
+
+  get extra() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('extra-') : {};
+  }
+  /**
+   * @returns {('xs'|'s'|'m'|'l'|'xl'|'')}
+   */
+
+
+  get ironing() {
+    return this.ops['service-ironing'] ? this.ops.ironing.replace('ironing-size-', '') : '';
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get postalCode() {
+    return this.ops['postal-code'];
+  }
+  /**
+   * @returns {Services}
+   */
+
+
+  get services() {
+    return this.#filterOptionWithPrefix('service-', true);
+  }
+  /**
+   * @returns {Service}
+   */
+
+
+  get service() {
+    return this.#getOptionWithPrefix('service-');
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get duration() {
+    return this.ops?.duration;
+  }
+  /**
+   * @returns {('weekly'|'biweekly'|'once')}
+   */
+
+
+  get recurrence() {
+    return this.ops?.recurrence;
   }
 
 }
@@ -308,7 +579,7 @@ class Dom {
 
 
   static toast(id) {
-    const toastBlock = document.getElementById(id);
+    const toastBlock = Dom.id(id);
     toastBlock.classList.add('active');
     return setTimeout(() => {
       toastBlock.classList.remove('active');
@@ -333,6 +604,10 @@ class Dom {
     return this.q(`input[name*="${name}"]${checked ? ':checked' : ''}`);
   }
 
+  static queryRadio(name, checked = false) {
+    return Array.from(this.qall(`input[name*='${name}']${checked ? ':checked' : ''}`));
+  }
+
   static getOption(id, checked = false) {
     return this.q(`input[id*='${id}']${checked ? ':checked' : ''}`);
   }
@@ -342,6 +617,9 @@ class Dom {
 
 
   static steps = class {
+    /**
+     * Services
+     */
     static services = class {
       static query(checked = false) {
         return Dom.queryOptions('service-', checked);
@@ -365,12 +643,112 @@ class Dom {
       }
 
     };
+    /**
+     * Ironing
+     */
+
     static ironing = class {
       static get selected() {
         return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
       }
 
     };
+    /**
+     * Availability
+     */
+
+    static avail = class {
+      static openings = class {
+        static cleanUp() {
+          Dom.id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+        }
+
+        static showWarning() {
+          Dom.id('aval-warning').classList.add('msg-active');
+        }
+
+        static hideWarning() {
+          Dom.id('aval-warning').classList.remove('msg-active');
+        }
+
+      };
+      static team = class {
+        static showBlock() {
+          Dom.id('team-members-block').classList.add('visible');
+        }
+
+        static hideBlock() {
+          Dom.id('team-members-block').classList.remove('visible');
+        }
+
+        static cleanUp() {
+          Dom.id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+        }
+
+        static get memberTemplate() {
+          return Dom.id('team-member-template');
+        }
+
+      };
+      static teamMember = class {
+        static get name() {
+          return Dom.id('team-member-name').value;
+        }
+
+        static set name(name) {
+          Dom.id('team-member-name').value = name;
+        }
+
+        static get firstName() {
+          return Dom.id('team-member-first-name').value;
+        }
+
+        static set firstName(first) {
+          Dom.id('team-member-first-name').value = first;
+        }
+
+        static get avatar() {
+          return Dom.id('team-members-block').querySelector('img').src;
+        }
+
+      };
+    };
+  };
+  /** *
+   * Summary
+   */
+
+  static summary = class {
+    /**
+     * @typedef {import('../controllers/options').Service} ServiceOptions
+     * @param {ServiceOptions} service
+     */
+    static set service(service) {
+      Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
+    }
+    /**
+     * Show or hide service
+     * @param {import('../controllers/options').Services} s
+     * @param {boolean} display
+     */
+
+
+    static displayService(s, display = true) {
+      const {
+        classList
+      } = Dom.id(`summary-${s}`);
+      if (display) classList.add('service-active');else classList.remove('service-active');
+    }
+    /**
+     * Display recurrence
+     * @param {('weekly'|'biweekly'|'once')} r
+     */
+
+
+    static set recurrence(r) {
+      Dom.id(`summary-${r}`).classList.remove('hidden');
+    }
+
   };
 }
 
@@ -587,145 +965,19 @@ var __webpack_exports__ = {};
   !*** ./src/booking-flow/packages/duration.js ***!
   \***********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
-/* eslint-disable max-classes-per-file */
-
+/* harmony import */ var _controllers_estimation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/estimation */ "./src/booking-flow/controllers/estimation.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
-/* eslint-disable vars-on-top */
-
-/* eslint-disable no-use-before-define */
-
-/* eslint-disable no-var */
 
 
 
-/**
- * @typedef {Object} CookieOptions
- * @property {string} cleaning-bathrooms
- * @property {string} cleaning-bedrooms
- * @property {boolean} extra-cabinets
- * @property {boolean} extra-fridge
- * @property {boolean} extra-oven
- * @property {boolean} extra-windows
- * @property {string} ironing
- * @property {string} postal-code
- * @property {boolean} service-cleaning
- * @property {boolean} service-cooking
- * @property {boolean} service-grocery
- * @property {boolean} service-ironing
- */
 
-class OptionsDuration {
-  /**
-   * @type {CookieOptions}
-   */
-  ops;
-  /**
-   *
-   * @param {CookieOptions} options
-   */
-
-  constructor(options) {
-    this.ops = options;
-  }
-
-  get total() {
-    return 3 + this.services + this.ironing + this.cleaning;
-  }
-
-  get services() {
-    const services = Object.keys(this.ops).filter(o => o.startsWith('service-'));
-    let total = 0;
-
-    if (services.length > 1) {
-      total += this.ops['service-cooking'] ? 0.5 : 0;
-      total += this.ops['service-grocery'] ? 0.5 : 0;
-    }
-
-    return total;
-  }
-
-  get ironing() {
-    if (!this.ops['service-ironing']) return 0;
-    const ironing = this.ops.ironing.replace('ironing-size-', '');
-
-    switch (ironing) {
-      case 'xs':
-        return 0.5;
-
-      case 's':
-        return 1;
-
-      case 'm':
-        return 2;
-
-      case 'l':
-        return 3;
-
-      case 'xl':
-        return 4;
-
-      default:
-        return 0;
-    }
-  }
-
-  get cleaning() {
-    if (!this.ops['service-cleaning']) return 0; // Extras
-
-    let total = this.ops['extra-windows'] ? 1 : 0;
-    total += this.ops['extra-cabinets'] ? 1 : 0;
-    total += this.ops['extra-fridge'] ? 0.5 : 0;
-    total += this.ops['extra-oven'] ? 0.5 : 0; // Bedroom
-
-    const bedroom = this.ops['cleaning-bedrooms'];
-    const bathroom = this.ops['cleaning-bathrooms'];
-
-    switch (bedroom) {
-      case '3':
-      case '4':
-        total += 1;
-        break;
-
-      case '5+':
-        total += 2;
-        break;
-
-      default:
-        break;
-    }
-
-    switch (bathroom) {
-      case '2':
-        total += 1;
-        break;
-
-      case '3':
-        total += 2;
-        break;
-
-      case '4+':
-        total += 3;
-        break;
-
-      default:
-        break;
-    }
-
-    return total;
-  }
-
-}
-
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
-  cookie;
-
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Duration);
-    this.cookie = window.FpCookie;
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Duration);
   }
   /**
    * Calculate estimation
@@ -738,7 +990,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
 
   get estimation() {
-    const options = new OptionsDuration(this.cookie.store);
+    const options = new _controllers_estimation__WEBPACK_IMPORTED_MODULE_0__["default"]();
     const {
       total
     } = options;
@@ -746,7 +998,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
 
   set estimation(total) {
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].id('duration').nextElementSibling.noUiSlider.set(total);
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('duration').nextElementSibling.noUiSlider.set(total);
   }
   /**
    * @returns {boolean}
@@ -754,7 +1006,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].getRadio('frequency', true);
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].getRadio('frequency', true);
   }
 
 } // Dependency on NoUISlider requires this step to be initialised by

@@ -65,7 +65,7 @@ export default class BookingOptions {
                         key.startsWith(prefix) && (filter === undefined || value === filter)
                 )
                 // eslint-disable-next-line no-unused-vars
-                .map(([key, _]) => key)
+                .map(([key, _]) => key.replace(prefix, ''))
         )
     }
 

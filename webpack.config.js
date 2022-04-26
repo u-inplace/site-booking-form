@@ -79,5 +79,6 @@ module.exports = () => [
     StepPackage('StepServices', './src/booking-flow/packages/services.js'),
     StepPackage('StepIroning', './src/booking-flow/packages/ironing.js'),
     StepPackage('StepCleaning', './src/booking-flow/packages/cleaning.js'),
-    StepPackage('StepDuration', './src/booking-flow/packages/duration.js', true)
+    StepPackage('StepDuration', './src/booking-flow/packages/duration.js'),
+    StepPackage('StepAvailability', './src/booking-flow/packages/availability.js', true)
 ]

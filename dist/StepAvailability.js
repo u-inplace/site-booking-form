@@ -2188,7 +2188,7 @@ class CalendarController {
     const weekKey = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(weekStartDate);
     if (weekStartDate < new Date() || this.#cached[weekKey]) return;
     this.#cached[weekKey] = true;
-    console.log(`weekStartDate: ${weekKey}`);
+    console.log(`getAvailability | weekStartDate: ${weekKey}`);
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',

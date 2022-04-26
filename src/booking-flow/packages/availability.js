@@ -174,18 +174,7 @@ class Step extends StepController {
      * @param {MouseEvent} event
      */
     onStartTimeSelect(event) {
-        // Clean up existing entries
-        this.cal.team.cleanUp()
-
-        this.cal.team.showBlock()
-        const start_time = event.target.value
-        const template = this.cal.team.memberTemplate
-
-        // Set start and end time on hidden inputs
-        dom.id('start-timestamp').value = this.openings[0].start.toISOString()
-        dom.id('end-timestamp').value = this.openings[0].end.toISOString()
-
-        _.filter(this.openings, { start_time }).forEach(open => {
+        const createTeamMember = open => {
             const node = this.copyTemplate(template, {
                 className: 'team-member',
                 parentId: 'team-members-block',
@@ -213,7 +202,21 @@ class Step extends StepController {
                 'member-first-name',
                 `${open.employee.first_name}`
             )
-        })
+        }
+
+        // Clean up existing entries
+        this.cal.team.cleanUp()
+
+        this.cal.team.showBlock()
+        const start_time = event.target.value
+        const template = this.cal.team.memberTemplate
+
+        // Set start and end time on hidden inputs
+        dom.id('start-timestamp').value = this.openings[0].start.toISOString()
+        dom.id('end-timestamp').value = this.openings[0].end.toISOString()
+
+        const startTimeFilter = o => o.start_time === start_time
+        this.openings.filter(startTimeFilter).forEach(createTeamMember)
 
         // Wire events for newly created elements for next button
         dom.queryRadio('team-member').forEach(r =>

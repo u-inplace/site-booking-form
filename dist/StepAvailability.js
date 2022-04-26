@@ -1565,42 +1565,6 @@ module.exports = compact;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/filter.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/filter.js ***!
-  \***************************************/
-/***/ (function(module) {
-
-/**
- * A specialized version of `_.filter` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function arrayFilter(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      resIndex = 0,
-      result = [];
-
-  while (++index < length) {
-    var value = array[index];
-
-    if (predicate(value, index, array)) {
-      result[resIndex++] = value;
-    }
-  }
-
-  return result;
-}
-
-module.exports = arrayFilter;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/find.js":
 /*!*************************************!*\
   !*** ./node_modules/lodash/find.js ***!
@@ -3450,19 +3414,16 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
 /* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/filter */ "./node_modules/lodash/filter.js");
-/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/uniqBy.js");
-/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _controllers_calendar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/calendar */ "./src/booking-flow/controllers/calendar/index.js");
-/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
-/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
-
+/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/uniqBy.js");
+/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _controllers_calendar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/calendar */ "./src/booking-flow/controllers/calendar/index.js");
+/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
 
 
 
@@ -3487,7 +3448,7 @@ __webpack_require__.r(__webpack_exports__);
  * @public
  */
 
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
   #calendar;
   /**
    * Openings for a day
@@ -3524,9 +3485,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
   cal;
 
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_6__.STEP.Availability);
-    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_5__["default"]();
-    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].steps.avail;
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_5__.STEP.Availability);
+    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_4__["default"]();
+    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].steps.avail;
   }
   /**
    * @returns {boolean}
@@ -3534,7 +3495,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].getRadio('team-member', true);
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].getRadio('team-member', true);
   }
 
   init() {
@@ -3545,7 +3506,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
     this.cal.team.cleanUp();
     this.toggleNext(); // Update duration when loading Duration step
 
-    this.#calendar = new _controllers_calendar__WEBPACK_IMPORTED_MODULE_4__["default"]('availability-cal', {
+    this.#calendar = new _controllers_calendar__WEBPACK_IMPORTED_MODULE_3__["default"]('availability-cal', {
       postalCode: this.ops.postalCode,
       duration: this.ops.duration,
       recurrence: this.ops.recurrence
@@ -3579,8 +3540,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].summary.recurrence = recurrence;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.service = service;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.recurrence = recurrence;
   }
   /**
    * Load all available openings
@@ -3607,9 +3568,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
     this.cal.openings.cleanUp(); // Hide Team block
 
     this.cal.team.hideBlock();
-    if (lodash_isEmpty__WEBPACK_IMPORTED_MODULE_3___default()(openings)) this.cal.openings.showWarning();else this.cal.openings.hideWarning();
+    if (lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2___default()(openings)) this.cal.openings.showWarning();else this.cal.openings.hideWarning();
 
-    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_2___default()(openings, o => o.start_time).forEach(open => {
+    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1___default()(openings, o => o.start_time).forEach(open => {
       this.copyTemplate(template, {
         className: 'start-time',
         parentId: 'start-time-block',
@@ -3629,18 +3590,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
 
 
   onStartTimeSelect(event) {
-    // Clean up existing entries
-    this.cal.team.cleanUp();
-    this.cal.team.showBlock();
-    const start_time = event.target.value;
-    const template = this.cal.team.memberTemplate; // Set start and end time on hidden inputs
-
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
-
-    lodash_filter__WEBPACK_IMPORTED_MODULE_1___default()(this.openings, {
-      start_time
-    }).forEach(open => {
+    const createTeamMember = open => {
       const node = this.copyTemplate(template, {
         className: 'team-member',
         parentId: 'team-members-block',
@@ -3659,10 +3609,22 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_7__["default"] {
 
       node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
       node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);
-    }); // Wire events for newly created elements for next button
+    }; // Clean up existing entries
 
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_8__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
+    this.cal.team.cleanUp();
+    this.cal.team.showBlock();
+    const start_time = event.target.value;
+    const template = this.cal.team.memberTemplate; // Set start and end time on hidden inputs
+
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
+
+    const startTimeFilter = o => o.start_time === start_time;
+
+    this.openings.filter(startTimeFilter).forEach(createTeamMember); // Wire events for newly created elements for next button
+
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
     this.toggleNext();
   }
   /**

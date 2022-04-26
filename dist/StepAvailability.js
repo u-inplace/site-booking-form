@@ -2386,7 +2386,7 @@ class CalendarController {
       await this.getMonthAvailability(next);
     }
 
-    const slots = lodash_sortBy__WEBPACK_IMPORTED_MODULE_1___default()(this.calendar.getEventsData(), ['start']);
+    const slots = lodash_sortBy__WEBPACK_IMPORTED_MODULE_1___default()(this.calendar.getEventsData(), [e => e.start]);
 
     if (slots?.length > 0) this.calendar.setDate(slots[0]?.start);
   }

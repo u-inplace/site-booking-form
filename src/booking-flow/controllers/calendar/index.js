@@ -61,7 +61,7 @@ export default class CalendarController {
             await this.getMonthAvailability(next)
         }
 
-        const slots = _.sortBy(this.calendar.getEventsData(), ['start'])
+        const slots = _.sortBy(this.calendar.getEventsData(), [e => e.start])
 
         if (slots?.length > 0) this.calendar.setDate(slots[0]?.start)
     }

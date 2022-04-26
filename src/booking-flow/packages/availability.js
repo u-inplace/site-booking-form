@@ -187,9 +187,9 @@ class Step extends StepController {
             })
 
             // Get profile picture from webflow collections
-            const avatar = _.find(this.team, {
-                name: `${open.employee.first_name} ${open.employee.last_name}`
-            })?.['profile-picture']
+            const avatar = this.team.find(
+                m => m.name === `${open.employee.first_name} ${open.employee.last_name}`
+            )?.['profile-picture']
 
             if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
 

@@ -653,40 +653,6 @@ module.exports = arrayMap;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseFindIndex.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_baseFindIndex.js ***!
-  \***********************************************/
-/***/ (function(module) {
-
-/**
- * The base implementation of `_.findIndex` and `_.findLastIndex` without
- * support for iteratee shorthands.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {Function} predicate The function invoked per iteration.
- * @param {number} fromIndex The index to search from.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseFindIndex(array, predicate, fromIndex, fromRight) {
-  var length = array.length,
-      index = fromIndex + (fromRight ? 1 : -1);
-
-  while (fromRight ? index-- : ++index < length) {
-    if (predicate(array[index], index, array)) {
-      return index;
-    }
-  }
-
-  return -1;
-}
-
-module.exports = baseFindIndex;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_baseFlatten.js":
 /*!*********************************************!*\
   !*** ./node_modules/lodash/_baseFlatten.js ***!
@@ -1238,46 +1204,6 @@ module.exports = compareMultiple;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_createFind.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_createFind.js ***!
-  \********************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-/**
- * Creates a `_.find` or `_.findLast` function.
- *
- * @private
- * @param {Function} findIndexFunc The function to find the collection index.
- * @returns {Function} Returns the new find function.
- */
-
-
-function createFind(findIndexFunc) {
-  return function (collection, predicate, fromIndex) {
-    var iterable = Object(collection);
-
-    if (!isArrayLike(collection)) {
-      var iteratee = baseIteratee(predicate, 3);
-      collection = keys(collection);
-
-      predicate = function (key) {
-        return iteratee(iterable[key], key, iterable);
-      };
-    }
-
-    var index = findIndexFunc(collection, predicate, fromIndex);
-    return index > -1 ? iterable[iteratee ? collection[index] : index] : undefined;
-  };
-}
-
-module.exports = createFind;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_createSet.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_createSet.js ***!
@@ -1562,126 +1488,6 @@ function compact(array) {
 }
 
 module.exports = compact;
-
-/***/ }),
-
-/***/ "./node_modules/lodash/find.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/find.js ***!
-  \*************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var createFind = __webpack_require__(/*! ./_createFind */ "./node_modules/lodash/_createFind.js"),
-    findIndex = __webpack_require__(/*! ./findIndex */ "./node_modules/lodash/findIndex.js");
-/**
- * Iterates over elements of `collection`, returning the first element
- * `predicate` returns truthy for. The predicate is invoked with three
- * arguments: (value, index|key, collection).
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to inspect.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @param {number} [fromIndex=0] The index to search from.
- * @returns {*} Returns the matched element, else `undefined`.
- * @example
- *
- * var users = [
- *   { 'user': 'barney',  'age': 36, 'active': true },
- *   { 'user': 'fred',    'age': 40, 'active': false },
- *   { 'user': 'pebbles', 'age': 1,  'active': true }
- * ];
- *
- * _.find(users, function(o) { return o.age < 40; });
- * // => object for 'barney'
- *
- * // The `_.matches` iteratee shorthand.
- * _.find(users, { 'age': 1, 'active': true });
- * // => object for 'pebbles'
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.find(users, ['active', false]);
- * // => object for 'fred'
- *
- * // The `_.property` iteratee shorthand.
- * _.find(users, 'active');
- * // => object for 'barney'
- */
-
-
-var find = createFind(findIndex);
-module.exports = find;
-
-/***/ }),
-
-/***/ "./node_modules/lodash/findIndex.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/findIndex.js ***!
-  \******************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var baseFindIndex = __webpack_require__(/*! ./_baseFindIndex */ "./node_modules/lodash/_baseFindIndex.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    toInteger = __webpack_require__(/*! ./toInteger */ "./node_modules/lodash/toInteger.js");
-/* Built-in method references for those with the same name as other `lodash` methods. */
-
-
-var nativeMax = Math.max;
-/**
- * This method is like `_.find` except that it returns the index of the first
- * element `predicate` returns truthy for instead of the element itself.
- *
- * @static
- * @memberOf _
- * @since 1.1.0
- * @category Array
- * @param {Array} array The array to inspect.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @param {number} [fromIndex=0] The index to search from.
- * @returns {number} Returns the index of the found element, else `-1`.
- * @example
- *
- * var users = [
- *   { 'user': 'barney',  'active': false },
- *   { 'user': 'fred',    'active': false },
- *   { 'user': 'pebbles', 'active': true }
- * ];
- *
- * _.findIndex(users, function(o) { return o.user == 'barney'; });
- * // => 0
- *
- * // The `_.matches` iteratee shorthand.
- * _.findIndex(users, { 'user': 'fred', 'active': false });
- * // => 1
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.findIndex(users, ['active', false]);
- * // => 0
- *
- * // The `_.property` iteratee shorthand.
- * _.findIndex(users, 'active');
- * // => 2
- */
-
-function findIndex(array, predicate, fromIndex) {
-  var length = array == null ? 0 : array.length;
-
-  if (!length) {
-    return -1;
-  }
-
-  var index = fromIndex == null ? 0 : toInteger(fromIndex);
-
-  if (index < 0) {
-    index = nativeMax(length + index, 0);
-  }
-
-  return baseFindIndex(array, baseIteratee(predicate, 3), index);
-}
-
-module.exports = findIndex;
 
 /***/ }),
 
@@ -2122,21 +1928,6 @@ module.exports = stubFalse;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/keys.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/keys.js ***!
-  \*************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
-/* Built-in method references for those with the same name as other `lodash` methods. */
-
-
-var nativeKeys = overArg(Object.keys, Object);
-module.exports = nativeKeys;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/sortBy.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/sortBy.js ***!
@@ -2194,36 +1985,6 @@ var sortBy = baseRest(function (collection, iteratees) {
   return baseOrderBy(collection, baseFlatten(iteratees, 1), []);
 });
 module.exports = sortBy;
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toInteger.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/toInteger.js ***!
-  \******************************************/
-/***/ (function(module) {
-
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
 
 /***/ }),
 
@@ -3412,19 +3173,16 @@ var __webpack_exports__ = {};
   !*** ./src/booking-flow/packages/availability.js ***!
   \***************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/uniqBy.js");
-/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _controllers_calendar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/calendar */ "./src/booking-flow/controllers/calendar/index.js");
-/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
-/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
-
+/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/uniqBy.js");
+/* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _controllers_calendar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/calendar */ "./src/booking-flow/controllers/calendar/index.js");
+/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
 
 
 
@@ -3448,7 +3206,7 @@ __webpack_require__.r(__webpack_exports__);
  * @public
  */
 
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
   #calendar;
   /**
    * Openings for a day
@@ -3485,9 +3243,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
   cal;
 
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_5__.STEP.Availability);
-    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_4__["default"]();
-    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].steps.avail;
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_4__.STEP.Availability);
+    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].steps.avail;
   }
   /**
    * @returns {boolean}
@@ -3495,7 +3253,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].getRadio('team-member', true);
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].getRadio('team-member', true);
   }
 
   init() {
@@ -3506,7 +3264,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
     this.cal.team.cleanUp();
     this.toggleNext(); // Update duration when loading Duration step
 
-    this.#calendar = new _controllers_calendar__WEBPACK_IMPORTED_MODULE_3__["default"]('availability-cal', {
+    this.#calendar = new _controllers_calendar__WEBPACK_IMPORTED_MODULE_2__["default"]('availability-cal', {
       postalCode: this.ops.postalCode,
       duration: this.ops.duration,
       recurrence: this.ops.recurrence
@@ -3540,8 +3298,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.recurrence = recurrence;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].summary.service = service;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].summary.recurrence = recurrence;
   }
   /**
    * Load all available openings
@@ -3568,9 +3326,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
     this.cal.openings.cleanUp(); // Hide Team block
 
     this.cal.team.hideBlock();
-    if (lodash_isEmpty__WEBPACK_IMPORTED_MODULE_2___default()(openings)) this.cal.openings.showWarning();else this.cal.openings.hideWarning();
+    if (lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default()(openings)) this.cal.openings.showWarning();else this.cal.openings.hideWarning();
 
-    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_1___default()(openings, o => o.start_time).forEach(open => {
+    lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0___default()(openings, o => o.start_time).forEach(open => {
       this.copyTemplate(template, {
         className: 'start-time',
         parentId: 'start-time-block',
@@ -3602,9 +3360,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
         radioEventHandler: this.onTeamMemberSelect.bind(this)
       }); // Get profile picture from webflow collections
 
-      const avatar = lodash_find__WEBPACK_IMPORTED_MODULE_0___default()(this.team, {
-        name: `${open.employee.first_name} ${open.employee.last_name}`
-      })?.['profile-picture'];
+      const avatar = this.team.find(m => m.name === `${open.employee.first_name} ${open.employee.last_name}`)?.['profile-picture'];
       if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Save team member name in attribute
 
       node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
@@ -3617,14 +3373,14 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_6__["default"] {
     const start_time = event.target.value;
     const template = this.cal.team.memberTemplate; // Set start and end time on hidden inputs
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
 
     const startTimeFilter = o => o.start_time === start_time;
 
     this.openings.filter(startTimeFilter).forEach(createTeamMember); // Wire events for newly created elements for next button
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
     this.toggleNext();
   }
   /**

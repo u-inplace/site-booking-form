@@ -2108,7 +2108,7 @@ class CalendarController {
     if (this.calendar.getEventsData().length === 0) {
       const curr = new Date();
       const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(curr, 1);
-      console.log(`init | curr: ${curr.toLocaleDateString()}, next: ${next.toLocaleDateString()}`);
+      console.log(`init | curr: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(curr)}, next: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(next)}`);
       await this.getMonthAvailability(next);
     } // Shorthands like 'start' below are heavy futures, removed by default
     // when using lodash-webpack-plugin
@@ -2126,8 +2126,8 @@ class CalendarController {
 
   onMonthChange = async currentDate => {
     const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate);
-    console.log(`onMonthChange | currDate: ${currentDate.toLocaleDateString()}`);
-    console.log(`onMonthChange | firstDay: ${firstDay.toLocaleDateString()}`);
+    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)}`);
+    console.log(`onMonthChange | firstDay: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(firstDay)}`);
     await this.getMonthAvailability(firstDay);
     if (!this.#initialised) this.init();
   };
@@ -2174,8 +2174,8 @@ class CalendarController {
 
   async getMonthAvailability(startDate) {
     this.toggleLoading(true);
-    console.log(`getMonthAvailability | startDate: ${startDate.toLocaleDateString()}`);
-    console.log(`getMonthAvailability | mondays: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate)}`);
+    console.log(`getMonthAvailability | startDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(startDate)}`);
+    console.log(`getMonthAvailability | mondays: ${JSON.stringify((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate).map(m => (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(m)))}`);
     await Promise.all((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate).map(monday => this.getAvailability(monday)));
     this.toggleLoading();
   }

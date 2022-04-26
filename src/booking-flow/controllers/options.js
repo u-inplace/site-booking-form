@@ -60,7 +60,7 @@ export default class BookingOptions {
             Object.entries(this.ops)
                 // eslint-disable-next-line no-unused-vars
                 .filter(([key, _]) => key.startsWith(prefix))
-                .map((s, value) => ({ [rmPrefix(s, prefix)]: value }))
+                .map(([s, value]) => ({ [rmPrefix(s, prefix)]: value }))
         )
     }
 

@@ -2188,7 +2188,8 @@ class CalendarController {
     });
     url.search = params;
     const res = await fetch(url);
-    const avail = await res.json(); // console.log(JSON.stringify(avail, null, 2))
+    const avail = await res.json();
+    console.log(JSON.stringify(avail, null, 2));
 
     const slotToEvent = slot => {
       // Only add if it's still the same month as start of the week

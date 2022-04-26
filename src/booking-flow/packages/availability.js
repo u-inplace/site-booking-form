@@ -10,6 +10,7 @@ import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
+import './availability.css'
 
 /**
  * @typedef {Object} Opening

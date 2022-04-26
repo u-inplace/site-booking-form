@@ -3213,6 +3213,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/booking-flow/packages/availability.css":
+/*!****************************************************!*\
+  !*** ./src/booking-flow/packages/availability.css ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/js-cookie/dist/js.cookie.mjs":
 /*!***************************************************!*\
   !*** ./node_modules/js-cookie/dist/js.cookie.mjs ***!
@@ -3448,6 +3461,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
+
 
 
 

@@ -80,7 +80,7 @@ module.exports = () => [
     bookingConfig,
     StepPackage('StepAvailability', './src/booking-flow/packages/availability.js'),
     StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
-    StepPackage('StepServices', './src/booking-flow/packages/services.js'),
+    StepPackage('StepServices', './src/booking-flow/packages/services.js', true),
     StepPackage('StepIroning', './src/booking-flow/packages/ironing.js'),
     StepPackage('StepCleaning', './src/booking-flow/packages/cleaning.js'),
     StepPackage('StepDuration', './src/booking-flow/packages/duration.js')

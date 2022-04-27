@@ -66,7 +66,7 @@ export default class CalendarController {
         if (this.calendar.getEventsData().length === 0) {
             const curr = new Date()
             const next = addMonths(curr, 1)
-            console.log(`init | curr: ${toISOStringShort(curr)}, next: ${toISOStringShort(next)}`)
+            // console.log(`init | curr: ${toISOStringShort(curr)}, next: ${toISOStringShort(next)}`)
             await this.getMonthAvailability(next)
         }
 
@@ -83,15 +83,15 @@ export default class CalendarController {
      */
     onMonthChange = async currentDate => {
         // Only trigger change if month really changed
-        console.log(
-            `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${
-                this.#curr ? toISOStringShort(this.#curr) : ''
-            }`
-        )
+        // console.log(
+        //     `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${
+        //         this.#curr ? toISOStringShort(this.#curr) : ''
+        //     }`
+        // )
         if (this.#curr?.getMonth() !== currentDate.getMonth()) {
             this.#curr = currentDate
             const firstDay = startOfMonth(currentDate)
-            console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
+            // console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
             await this.getMonthAvailability(firstDay)
             if (!this.#initialised) this.init()
         }
@@ -142,12 +142,12 @@ export default class CalendarController {
      */
     async getMonthAvailability(startDate) {
         this.toggleLoading(true)
-        console.log(`getMonthAvailability | startDate: ${toISOStringShort(startDate)}`)
-        console.log(
-            `getMonthAvailability | mondays: ${JSON.stringify(
-                getMondays(startDate).map(m => toISOStringShort(m))
-            )}`
-        )
+        // console.log(`getMonthAvailability | startDate: ${toISOStringShort(startDate)}`)
+        // console.log(
+        //     `getMonthAvailability | mondays: ${JSON.stringify(
+        //         getMondays(startDate).map(m => toISOStringShort(m))
+        //     )}`
+        // )
         await Promise.all(getMondays(startDate).map(monday => this.getAvailability(monday)))
         this.toggleLoading()
     }
@@ -161,11 +161,11 @@ export default class CalendarController {
         if (weekStartDate < new Date() || this.#cached[weekKey]) return
         this.#cached[weekKey] = true
 
-        console.log(
-            `getAvailability | weekStartDate: ${toISOStringShort(
-                weekStartDate
-            )} weekKey: ${weekKey}`
-        )
+        // console.log(
+        //     `getAvailability | weekStartDate: ${toISOStringShort(
+        //         weekStartDate
+        //     )} weekKey: ${weekKey}`
+        // )
 
         const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
         const params = new URLSearchParams({

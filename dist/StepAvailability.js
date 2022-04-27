@@ -2439,8 +2439,8 @@ class CalendarController {
 
     if (this.calendar.getEventsData().length === 0) {
       const curr = new Date();
-      const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(curr, 1);
-      console.log(`init | curr: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(curr)}, next: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(next)}`);
+      const next = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(curr, 1); // console.log(`init | curr: ${toISOStringShort(curr)}, next: ${toISOStringShort(next)}`)
+
       await this.getMonthAvailability(next);
     } // Shorthands like 'start' below are heavy futures, removed by default
     // when using lodash-webpack-plugin
@@ -2458,12 +2458,15 @@ class CalendarController {
 
   onMonthChange = async currentDate => {
     // Only trigger change if month really changed
-    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)} this.curr: ${this.#curr ? (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(this.#curr) : ''}`);
-
+    // console.log(
+    //     `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${
+    //         this.#curr ? toISOStringShort(this.#curr) : ''
+    //     }`
+    // )
     if (this.#curr?.getMonth() !== currentDate.getMonth()) {
       this.#curr = currentDate;
-      const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate);
-      console.log(`onMonthChange | firstDay: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(firstDay)}`);
+      const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate); // console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
+
       await this.getMonthAvailability(firstDay);
       if (!this.#initialised) this.init();
     }
@@ -2515,9 +2518,13 @@ class CalendarController {
 
 
   async getMonthAvailability(startDate) {
-    this.toggleLoading(true);
-    console.log(`getMonthAvailability | startDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(startDate)}`);
-    console.log(`getMonthAvailability | mondays: ${JSON.stringify((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate).map(m => (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(m)))}`);
+    this.toggleLoading(true); // console.log(`getMonthAvailability | startDate: ${toISOStringShort(startDate)}`)
+    // console.log(
+    //     `getMonthAvailability | mondays: ${JSON.stringify(
+    //         getMondays(startDate).map(m => toISOStringShort(m))
+    //     )}`
+    // )
+
     await Promise.all((0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.getMondays)(startDate).map(monday => this.getAvailability(monday)));
     this.toggleLoading();
   }
@@ -2529,8 +2536,12 @@ class CalendarController {
   async getAvailability(weekStartDate) {
     const weekKey = (0,date_fns_getWeek__WEBPACK_IMPORTED_MODULE_8__["default"])(weekStartDate);
     if (weekStartDate < new Date() || this.#cached[weekKey]) return;
-    this.#cached[weekKey] = true;
-    console.log(`getAvailability | weekStartDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(weekStartDate)} weekKey: ${weekKey}`);
+    this.#cached[weekKey] = true; // console.log(
+    //     `getAvailability | weekStartDate: ${toISOStringShort(
+    //         weekStartDate
+    //     )} weekKey: ${weekKey}`
+    // )
+
     const url = new URL('https://inplace-booking.azurewebsites.net/api/availability');
     const params = new URLSearchParams({
       code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',

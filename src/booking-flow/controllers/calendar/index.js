@@ -18,8 +18,15 @@ export default class CalendarController {
     #placeHolderID
     #initialised
     #request
-    #cached
+
+    /** @type {Function} */
     #onDayChangeCb
+
+    /** @type {number[]} */
+    #cached
+
+    /** @type {Date} */
+    #curr
 
     constructor(placeHolderID, request, onDayChangeCb) {
         // Store requested weeks
@@ -75,11 +82,17 @@ export default class CalendarController {
      * @param {Date} currentDate
      */
     onMonthChange = async currentDate => {
-        const firstDay = startOfMonth(currentDate)
-        console.log(`onMonthChange | currDate: ${toISOStringShort(currentDate)}`)
-        console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
-        await this.getMonthAvailability(firstDay)
-        if (!this.#initialised) this.init()
+        // Only trigger change if month really changed
+        console.log(
+            `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${this.#curr}`
+        )
+        if (this.#curr?.getMonth() !== currentDate.getMonth()) {
+            this.#curr = currentDate
+            const firstDay = startOfMonth(currentDate)
+            console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
+            await this.getMonthAvailability(firstDay)
+            if (!this.#initialised) this.init()
+        }
     }
 
     /**
@@ -89,7 +102,11 @@ export default class CalendarController {
      */
     // eslint-disable-next-line class-methods-use-this
     onDateChange = (currentDate, events) => {
-        this.#onDayChangeCb(currentDate, events)
+        // Only trigger change if date really changed
+        if (this.#curr !== currentDate) {
+            this.#curr = currentDate
+            this.#onDayChangeCb(currentDate, events)
+        }
     }
 
     /**

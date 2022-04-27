@@ -2396,8 +2396,15 @@ class CalendarController {
   #placeHolderID;
   #initialised;
   #request;
-  #cached;
+  /** @type {Function} */
+
   #onDayChangeCb;
+  /** @type {number[]} */
+
+  #cached;
+  /** @type {Date} */
+
+  #curr;
 
   constructor(placeHolderID, request, onDayChangeCb) {
     // Store requested weeks
@@ -2450,11 +2457,16 @@ class CalendarController {
 
 
   onMonthChange = async currentDate => {
-    const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate);
-    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)}`);
-    console.log(`onMonthChange | firstDay: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(firstDay)}`);
-    await this.getMonthAvailability(firstDay);
-    if (!this.#initialised) this.init();
+    // Only trigger change if month really changed
+    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)} this.curr: ${this.#curr}`);
+
+    if (this.#curr?.getMonth() !== currentDate.getMonth()) {
+      this.#curr = currentDate;
+      const firstDay = (0,date_fns__WEBPACK_IMPORTED_MODULE_7__["default"])(currentDate);
+      console.log(`onMonthChange | firstDay: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(firstDay)}`);
+      await this.getMonthAvailability(firstDay);
+      if (!this.#initialised) this.init();
+    }
   };
   /**
    * Load slots into view
@@ -2464,7 +2476,11 @@ class CalendarController {
   // eslint-disable-next-line class-methods-use-this
 
   onDateChange = (currentDate, events) => {
-    this.#onDayChangeCb(currentDate, events);
+    // Only trigger change if date really changed
+    if (this.#curr !== currentDate) {
+      this.#curr = currentDate;
+      this.#onDayChangeCb(currentDate, events);
+    }
   };
   /**
    * Start or stop loading animation

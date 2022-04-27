@@ -2458,7 +2458,7 @@ class CalendarController {
 
   onMonthChange = async currentDate => {
     // Only trigger change if month really changed
-    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)} this.curr: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(this.#curr)}`);
+    console.log(`onMonthChange | currDate: ${(0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(currentDate)} this.curr: ${this.#curr ? (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_4__.toISOStringShort)(this.#curr) : ''}`);
 
     if (this.#curr?.getMonth() !== currentDate.getMonth()) {
       this.#curr = currentDate;

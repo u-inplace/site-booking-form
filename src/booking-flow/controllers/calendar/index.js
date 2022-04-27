@@ -84,7 +84,9 @@ export default class CalendarController {
     onMonthChange = async currentDate => {
         // Only trigger change if month really changed
         console.log(
-            `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${this.#curr}`
+            `onMonthChange | currDate: ${toISOStringShort(
+                currentDate
+            )} this.curr: ${toISOStringShort(this.#curr)}`
         )
         if (this.#curr?.getMonth() !== currentDate.getMonth()) {
             this.#curr = currentDate

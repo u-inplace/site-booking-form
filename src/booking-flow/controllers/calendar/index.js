@@ -1,6 +1,7 @@
 import Calendar from 'color-calendar'
 import 'color-calendar/dist/css/theme-glass.css'
 import { addMonths, startOfMonth } from 'date-fns'
+import getWeek from 'date-fns/getWeek'
 import _ from 'lodash'
 import { getMondays, toISOStringShort } from '../../helpers/dates'
 import './styles.css'
@@ -135,12 +136,16 @@ export default class CalendarController {
      * Get Availability
      */
     async getAvailability(weekStartDate) {
-        const weekKey = toISOStringShort(weekStartDate)
+        const weekKey = getWeek(weekStartDate)
 
         if (weekStartDate < new Date() || this.#cached[weekKey]) return
         this.#cached[weekKey] = true
 
-        console.log(`getAvailability | weekStartDate: ${weekKey}`)
+        console.log(
+            `getAvailability | weekStartDate: ${toISOStringShort(
+                weekStartDate
+            )} weekKey: ${weekKey}`
+        )
 
         const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
         const params = new URLSearchParams({

@@ -2389,6 +2389,71 @@ __webpack_require__.r(__webpack_exports__);
 
 const LoaderId = 'loaderBalls';
 /**
+ * @typedef {Object} AvailabilityResponse
+ * @property {AvailData[]} data
+ */
+
+/**
+ * @typedef {Object} AvailData
+ * @property {string} delivery_date
+ * @property {TimeSlots[]} time_slots
+ */
+
+/**
+ * @typedef {Object} TimeSlots
+ * @property {string} start_time
+ * @property {string} end_time
+ * @property {number} priority
+ * @property {object} distance_from_last_location
+ * @property {boolean} last_location_is_home
+ * @property {number} event_id
+ * @property {boolean} fills_th_entirely
+ * @property {boolean} contained_by_th
+ * @property {boolean} is_extra_hour
+ * @property {string} label
+ * @property {string} key
+ * @property {AffiliateWorker} affiliate_worker
+ * @property {number} global_priority
+ * @property {WorkerDetails} worker_details
+ * @property {Affiliate} affiliate
+ */
+
+/**
+ * @typedef {Object} AffiliateWorker
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {object} allergies
+ * @property {number} worker_contract_id
+ * @property {number} affiliate_id
+ * @property {string} affiliate_name
+ * @property {number} priority
+ * @property {string} title
+ * @property {object} comment
+ */
+
+/**
+ * @typedef {Object} WorkerDetails
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {object} allergies
+ * @property {number} worker_contract_id
+ * @property {number} affiliate_id
+ * @property {string} affiliate_name
+ * @property {number} priority
+ * @property {string} title
+ * @property {object} comment
+ */
+
+/**
+ * @typedef {Object} Affiliate
+ * @property {string} name
+ * @property {number} id
+ * @property {number} days_before_new_booking
+ * @property {string} telephone
+ * @property {string} customer_support_email
+ */
+
+/**
  * Calendar Controller
  */
 
@@ -2552,7 +2617,13 @@ class CalendarController {
     });
     url.search = params;
     const res = await fetch(url);
+    /** @type {AvailabilityResponse} */
+
     const avail = await res.json(); // console.log(JSON.stringify(avail, null, 2))
+
+    /**
+     * @param {TimeSlots} slot
+     */
 
     const slotToEvent = slot => {
       // Only add if it's still the same month as start of the week

@@ -2476,8 +2476,9 @@ class CalendarController {
   // eslint-disable-next-line class-methods-use-this
 
   onDateChange = (currentDate, events) => {
-    // Only trigger change if date really changed
-    if (this.#curr !== currentDate) {
+    // Only trigger change if date really changed,
+    // but only if #curr has been initialised
+    if (this.#curr && this.#curr !== currentDate) {
       this.#curr = currentDate;
       this.#onDayChangeCb(currentDate, events);
     }

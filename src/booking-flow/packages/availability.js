@@ -40,9 +40,12 @@ class Step extends StepController {
      * Team Members
      * @typedef {{fileId: string, url: string }} Image
      * @typedef {Object} TeamMember
-     * @property {String} name
-     * @property {String} slug
-     * @property {String} email
+     * @property {string} name
+     * @property {string} slug
+     * @property {string} email
+     * @property {boolean} english
+     * @property {boolean} french
+     * @property {boolean} dutch
      * @property {Image} profile-picture
      */
     /**
@@ -187,11 +190,17 @@ class Step extends StepController {
             })
 
             // Get profile picture from webflow collections
-            const avatar = this.team.find(
+            const member = this.team.find(
                 m => m.name === `${open.employee.first_name} ${open.employee.last_name}`
-            )?.['profile-picture']
+            )
+            const avatar = member?.['profile-picture']
 
             if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
+
+            // Languages
+            if (member.french) node.querySelector('.french').classList.remove('hidden')
+            if (member.dutch) node.querySelector('.dutch').classList.remove('hidden')
+            if (member.english) node.querySelector('.english').classList.remove('hidden')
 
             // Save team member name in attribute
             node.querySelector('input').setAttribute(

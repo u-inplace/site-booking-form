@@ -3654,9 +3654,12 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
    * Team Members
    * @typedef {{fileId: string, url: string }} Image
    * @typedef {Object} TeamMember
-   * @property {String} name
-   * @property {String} slug
-   * @property {String} email
+   * @property {string} name
+   * @property {string} slug
+   * @property {string} email
+   * @property {boolean} english
+   * @property {boolean} french
+   * @property {boolean} dutch
    * @property {Image} profile-picture
    */
 
@@ -3795,8 +3798,13 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
         radioEventHandler: this.onTeamMemberSelect.bind(this)
       }); // Get profile picture from webflow collections
 
-      const avatar = this.team.find(m => m.name === `${open.employee.first_name} ${open.employee.last_name}`)?.['profile-picture'];
-      if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Save team member name in attribute
+      const member = this.team.find(m => m.name === `${open.employee.first_name} ${open.employee.last_name}`);
+      const avatar = member?.['profile-picture'];
+      if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Languages
+
+      if (member.french) node.querySelector('.french').classList.remove('hidden');
+      if (member.dutch) node.querySelector('.dutch').classList.remove('hidden');
+      if (member.english) node.querySelector('.english').classList.remove('hidden'); // Save team member name in attribute
 
       node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
       node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);

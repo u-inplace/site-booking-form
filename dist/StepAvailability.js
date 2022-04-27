@@ -3799,12 +3799,16 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
       }); // Get profile picture from webflow collections
 
       const member = this.team.find(m => m.name === `${open.employee.first_name} ${open.employee.last_name}`);
-      const avatar = member?.['profile-picture'];
-      if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Languages
 
-      if (member.french) node.querySelector('.french').classList.remove('hidden');
-      if (member.dutch) node.querySelector('.dutch').classList.remove('hidden');
-      if (member.english) node.querySelector('.english').classList.remove('hidden'); // Save team member name in attribute
+      if (member) {
+        const avatar = member?.['profile-picture'];
+        if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Languages
+
+        if (member.french) node.querySelector('.french').classList.remove('hidden');
+        if (member.dutch) node.querySelector('.dutch').classList.remove('hidden');
+        if (member.english) node.querySelector('.english').classList.remove('hidden');
+      } // Save team member name in attribute
+
 
       node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
       node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);

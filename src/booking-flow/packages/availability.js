@@ -193,14 +193,17 @@ class Step extends StepController {
             const member = this.team.find(
                 m => m.name === `${open.employee.first_name} ${open.employee.last_name}`
             )
-            const avatar = member?.['profile-picture']
 
-            if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
+            if (member) {
+                const avatar = member?.['profile-picture']
 
-            // Languages
-            if (member.french) node.querySelector('.french').classList.remove('hidden')
-            if (member.dutch) node.querySelector('.dutch').classList.remove('hidden')
-            if (member.english) node.querySelector('.english').classList.remove('hidden')
+                if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
+
+                // Languages
+                if (member.french) node.querySelector('.french').classList.remove('hidden')
+                if (member.dutch) node.querySelector('.dutch').classList.remove('hidden')
+                if (member.english) node.querySelector('.english').classList.remove('hidden')
+            }
 
             // Save team member name in attribute
             node.querySelector('input').setAttribute(

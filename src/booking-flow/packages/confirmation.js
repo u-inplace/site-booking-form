@@ -42,7 +42,10 @@ class Step extends StepController {
         dom.summary.recurrence = recurrence
 
         // Start date
-        dom.id('conf-start').innerText = this.ops.start.toLocaleString()
+        dom.id('conf-start').innerText = this.ops.start.toLocaleString('be-fr', {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+        })
     }
 
     #setTeamMember() {

@@ -1084,7 +1084,10 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.service = service;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.recurrence = recurrence; // Start date
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].id('conf-start').innerText = this.ops.start.toLocaleString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].id('conf-start').innerText = this.ops.start.toLocaleString('be-fr', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
   }
 
   #setTeamMember() {

@@ -54,9 +54,6 @@ class Step extends StepController {
         const node = dom.id('conf-team-member')
 
         this.team.setMemberDetails(node, memberId, memberConf)
-
-        // show node once details have been set
-        node.classList.remove('hidden')
     }
 }
 

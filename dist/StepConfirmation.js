@@ -1093,9 +1093,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
     };
     const memberId = this.ops.teamMember.name;
     const node = _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].id('conf-team-member');
-    this.team.setMemberDetails(node, memberId, memberConf); // show node once details have been set
-
-    node.classList.remove('hidden');
+    this.team.setMemberDetails(node, memberId, memberConf);
   }
 
 }

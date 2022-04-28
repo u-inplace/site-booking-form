@@ -52,7 +52,11 @@ class Step extends StepController {
 
         const memberId = this.ops.teamMember.name
         const node = dom.id('conf-team-member')
+
         this.team.setMemberDetails(node, memberId, memberConf)
+
+        // show node once details have been set
+        node.classList.remove('hidden')
     }
 }
 

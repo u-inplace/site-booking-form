@@ -558,9 +558,9 @@ class Team {
    */
 
 
-  setMemberDetails(node, memberId, conf) {
+  async setMemberDetails(node, memberId, conf) {
     // Get profile picture from webflow collections
-    const member = this.members.find(m => m.name === memberId);
+    const member = (await this.members).find(m => m.name === memberId);
 
     if (member) {
       const avatar = member?.['profile-picture'];

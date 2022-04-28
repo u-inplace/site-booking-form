@@ -3118,6 +3118,118 @@ class StepController {
 
 /***/ }),
 
+/***/ "./src/booking-flow/fragments/teamMember.js":
+/*!**************************************************!*\
+  !*** ./src/booking-flow/fragments/teamMember.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Team; }
+/* harmony export */ });
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable class-methods-use-this */
+class Team {
+  /**
+   * Team Members
+   * @typedef {{fileId: string, url: string }} Image
+   * @typedef {Object} TeamMember
+   * @property {string} name
+   * @property {string} slug
+   * @property {string} email
+   * @property {boolean} english
+   * @property {boolean} french
+   * @property {boolean} dutch
+   * @property {Image} profile-picture
+   */
+
+  /**
+   * @type {TeamMember[]}
+   * @protected
+   */
+  members;
+
+  constructor() {
+    // Get all team members from Webflow CMS
+    this.#fetchTeam();
+  }
+  /**
+   * Fetch team members from webflow CMS
+   */
+
+
+  async #fetchTeam() {
+    const url = new URL('https://inplace-booking.azurewebsites.net/api/collection');
+    const params = new URLSearchParams({
+      code: 'Itrex4w/daAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484/49A==',
+      name: 'team'
+    });
+    url.search = params;
+    const res = await fetch(url);
+    const members = await res.json();
+    this.members = members;
+  }
+  /**
+   * @typedef {Object} MemberIDConf
+   * @property {string} first_name
+   * @property {string} last_name
+   *
+   * @typedef {string} MemberId Member Id
+   *
+   * @param {MemberIDConf} conf
+   * @return {MemberId}
+   */
+
+
+  makeMemberId(conf) {
+    return `${conf.first_name} ${conf.last_name}`;
+  }
+  /**
+   * Set details of an member element
+   *
+   * @typedef {Object} MemberConf
+   * @property {string} first_name
+   * @property {string} last_name
+   *
+   * @param {HTMLElement} node
+   * @param {MemberId} memberId
+   * @param {MemberConf} conf Hard confs for members not in Webflow
+   */
+
+
+  setMemberDetails(node, memberId, conf) {
+    // Get profile picture from webflow collections
+    const member = this.members.find(m => m.name === memberId);
+
+    if (member) {
+      const avatar = member?.['profile-picture'];
+      if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Languages
+
+      if (member.french) node.querySelector('.french').classList.remove('hidden');
+      if (member.dutch) node.querySelector('.dutch').classList.remove('hidden');
+      if (member.english) node.querySelector('.english').classList.remove('hidden');
+    } // Set Name from conf
+
+
+    const label = node.querySelector('team-member-name');
+    label.innerText = conf.first_name; // Save team member name in attribute
+    // In summary this input wont exits
+
+    const nodeInput = node.querySelector('input');
+
+    if (nodeInput) {
+      nodeInput.setAttribute('member-name', `${conf.first_name} ${conf.last_name}`);
+      nodeInput.setAttribute('member-first-name', `${conf.first_name}`);
+    }
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking-flow/helpers/dates.js":
 /*!*******************************************!*\
   !*** ./src/booking-flow/helpers/dates.js ***!
@@ -3654,8 +3766,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
 /* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
-/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
+/* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
+
 
 
 
@@ -3689,25 +3803,6 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
   openings;
   /**
-   * Team Members
-   * @typedef {{fileId: string, url: string }} Image
-   * @typedef {Object} TeamMember
-   * @property {string} name
-   * @property {string} slug
-   * @property {string} email
-   * @property {boolean} english
-   * @property {boolean} french
-   * @property {boolean} dutch
-   * @property {Image} profile-picture
-   */
-
-  /**
-   * @type {TeamMember[]}
-   * @protected
-   */
-
-  team;
-  /**
    * @type {BookingOptions}
    */
 
@@ -3717,11 +3812,17 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
    */
 
   cal;
+  /**
+   * @type {Team}
+   */
+
+  team;
 
   constructor() {
     super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_4__.STEP.Availability);
     this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].steps.avail;
+    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].steps.avail;
+    this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__["default"]();
   }
   /**
    * @returns {boolean}
@@ -3729,13 +3830,11 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].getRadio('team-member', true);
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].getRadio('team-member', true);
   }
 
   init() {
-    super.init(); // Get all team members from Webflow CMS
-
-    this.#fetchTeam(); // Clean up existing entries
+    super.init(); // Clean up existing entries
 
     this.cal.team.cleanUp();
     this.toggleNext(); // Update duration when loading Duration step
@@ -3748,22 +3847,6 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
     this.#createSummary();
   }
   /**
-   * Fetch team members from webflow CMS
-   */
-
-
-  async #fetchTeam() {
-    const url = new URL('https://inplace-booking.azurewebsites.net/api/collection');
-    const params = new URLSearchParams({
-      code: 'Itrex4w/daAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484/49A==',
-      name: 'team'
-    });
-    url.search = params;
-    const res = await fetch(url);
-    const team = await res.json();
-    this.team = team;
-  }
-  /**
    * Read options and create a summary
    */
 
@@ -3774,8 +3857,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].summary.recurrence = recurrence;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.service = service;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.recurrence = recurrence;
   }
   /**
    * Load all available openings
@@ -3824,6 +3907,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
 
 
   onStartTimeSelect(event) {
+    /**
+     * @param {Opening} open
+     */
     const createTeamMember = open => {
       const node = this.copyTemplate(template, {
         className: 'team-member',
@@ -3834,22 +3920,13 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
         radioValue: open.employee.id,
         radioEvent: 'click',
         radioEventHandler: this.onTeamMemberSelect.bind(this)
-      }); // Get profile picture from webflow collections
-
-      const member = this.team.find(m => m.name === `${open.employee.first_name} ${open.employee.last_name}`);
-
-      if (member) {
-        const avatar = member?.['profile-picture'];
-        if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url; // Languages
-
-        if (member.french) node.querySelector('.french').classList.remove('hidden');
-        if (member.dutch) node.querySelector('.dutch').classList.remove('hidden');
-        if (member.english) node.querySelector('.english').classList.remove('hidden');
-      } // Save team member name in attribute
-
-
-      node.querySelector('input').setAttribute('member-name', `${open.employee.first_name} ${open.employee.last_name}`);
-      node.querySelector('input').setAttribute('member-first-name', `${open.employee.first_name}`);
+      });
+      const memberConf = {
+        first_name: open.employee.first_name,
+        last_name: open.employee.last_name
+      };
+      const memberId = this.team.makeMemberId(memberConf);
+      this.team.setMemberDetails(node, memberId, memberConf);
     }; // Clean up existing entries
 
 
@@ -3858,14 +3935,14 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
     const start_time = event.target.value;
     const template = this.cal.team.memberTemplate; // Set start and end time on hidden inputs
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
 
     const startTimeFilter = o => o.start_time === start_time;
 
     this.openings.filter(startTimeFilter).forEach(createTeamMember); // Wire events for newly created elements for next button
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
     this.toggleNext();
   }
   /**

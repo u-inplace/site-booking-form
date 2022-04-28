@@ -9,6 +9,7 @@ import CalendarController from '../controllers/calendar'
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
+import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
 import './availability.css'
 
@@ -37,24 +38,6 @@ class Step extends StepController {
     openings
 
     /**
-     * Team Members
-     * @typedef {{fileId: string, url: string }} Image
-     * @typedef {Object} TeamMember
-     * @property {string} name
-     * @property {string} slug
-     * @property {string} email
-     * @property {boolean} english
-     * @property {boolean} french
-     * @property {boolean} dutch
-     * @property {Image} profile-picture
-     */
-    /**
-     * @type {TeamMember[]}
-     * @protected
-     */
-    team
-
-    /**
      * @type {BookingOptions}
      */
     ops
@@ -64,10 +47,16 @@ class Step extends StepController {
      */
     cal
 
+    /**
+     * @type {Team}
+     */
+    team
+
     constructor() {
         super(STEP.Availability)
         this.ops = new BookingOptions()
         this.cal = dom.steps.avail
+        this.team = new Team()
     }
 
     /**
@@ -79,9 +68,6 @@ class Step extends StepController {
 
     init() {
         super.init()
-
-        // Get all team members from Webflow CMS
-        this.#fetchTeam()
 
         // Clean up existing entries
         this.cal.team.cleanUp()
@@ -99,23 +85,6 @@ class Step extends StepController {
         )
 
         this.#createSummary()
-    }
-
-    /**
-     * Fetch team members from webflow CMS
-     */
-    async #fetchTeam() {
-        const url = new URL('https://inplace-booking.azurewebsites.net/api/collection')
-        const params = new URLSearchParams({
-            code: 'Itrex4w/daAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484/49A==',
-            name: 'team'
-        })
-
-        url.search = params
-        const res = await fetch(url)
-        const team = await res.json()
-
-        this.team = team
     }
 
     /**
@@ -177,6 +146,9 @@ class Step extends StepController {
      * @param {MouseEvent} event
      */
     onStartTimeSelect(event) {
+        /**
+         * @param {Opening} open
+         */
         const createTeamMember = open => {
             const node = this.copyTemplate(template, {
                 className: 'team-member',
@@ -189,31 +161,13 @@ class Step extends StepController {
                 radioEventHandler: this.onTeamMemberSelect.bind(this)
             })
 
-            // Get profile picture from webflow collections
-            const member = this.team.find(
-                m => m.name === `${open.employee.first_name} ${open.employee.last_name}`
-            )
-
-            if (member) {
-                const avatar = member?.['profile-picture']
-
-                if (avatar?.url) node.querySelector('.team-avatar').src = avatar.url
-
-                // Languages
-                if (member.french) node.querySelector('.french').classList.remove('hidden')
-                if (member.dutch) node.querySelector('.dutch').classList.remove('hidden')
-                if (member.english) node.querySelector('.english').classList.remove('hidden')
+            const memberConf = {
+                first_name: open.employee.first_name,
+                last_name: open.employee.last_name
             }
 
-            // Save team member name in attribute
-            node.querySelector('input').setAttribute(
-                'member-name',
-                `${open.employee.first_name} ${open.employee.last_name}`
-            )
-            node.querySelector('input').setAttribute(
-                'member-first-name',
-                `${open.employee.first_name}`
-            )
+            const memberId = this.team.makeMemberId(memberConf)
+            this.team.setMemberDetails(node, memberId, memberConf)
         }
 
         // Clean up existing entries

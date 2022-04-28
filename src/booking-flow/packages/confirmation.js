@@ -6,6 +6,7 @@
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
+import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
 
 class Step extends StepController {
@@ -14,14 +15,21 @@ class Step extends StepController {
      */
     ops
 
+    /**
+     * @type {Team}
+     */
+    team
+
     constructor() {
         super(STEP.Confirmation)
         this.ops = new BookingOptions()
+        this.team = new Team()
     }
 
     init() {
         super.init()
         this.#createSummary()
+        this.#setTeamMember()
     }
 
     /**
@@ -35,6 +43,16 @@ class Step extends StepController {
 
         // Start date
         dom.id('conf-start').innerText = this.ops.start.toLocaleString()
+    }
+
+    #setTeamMember() {
+        const memberConf = {
+            first_name: this.ops.teamMember.firstName
+        }
+
+        const memberId = this.ops.teamMember.name
+        const node = dom.id('conf-team-member')
+        this.team.setMemberDetails(node, memberId, memberConf)
     }
 }
 

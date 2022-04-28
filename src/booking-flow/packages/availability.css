@@ -1,7 +1,3 @@
-.service-summary-item.service-active {
-    display: flex;
-}
-
 .start-time {
     animation: fromDownUp 0.5s ease;
 }

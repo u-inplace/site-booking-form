@@ -3187,6 +3187,14 @@ class Team {
     })();
   }
   /**
+   * @param {MemberId} memberId
+   */
+
+
+  async getMember(memberId) {
+    return (await this.members).find(m => m.name === memberId);
+  }
+  /**
    * @typedef {Object} MemberIDConf
    * @property {string} first_name
    * @property {string} last_name
@@ -3216,7 +3224,7 @@ class Team {
 
   async setMemberDetails(node, memberId, conf) {
     // Get profile picture from webflow collections
-    const member = (await this.members).find(m => m.name === memberId);
+    const member = await this.getMember(memberId);
 
     if (member) {
       const avatar = member?.['profile-picture'];

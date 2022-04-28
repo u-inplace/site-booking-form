@@ -103,8 +103,8 @@ export default class Team {
         }
 
         // Set Name from conf
-        const label = node.querySelector('team-member-name')
-        label.innerText = conf.first_name
+        const label = node.querySelector('.team-member-name')
+        if (label) label.innerText = conf.first_name
 
         // Save team member name in attribute
         // In summary this input wont exits

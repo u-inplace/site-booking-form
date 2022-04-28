@@ -494,11 +494,17 @@ class Team {
    * @type {TeamMember[]}
    * @protected
    */
-  members;
+  _members;
+  /**
+   * @type {Promise}
+   * @protected
+   */
+
+  #teamReq;
 
   constructor() {
     // Get all team members from Webflow CMS
-    this.#fetchTeam();
+    this.#teamReq = this.#fetchTeam();
   }
   /**
    * Fetch team members from webflow CMS
@@ -514,7 +520,15 @@ class Team {
     url.search = params;
     const res = await fetch(url);
     const members = await res.json();
-    this.members = members;
+    this._members = members;
+  }
+
+  get members() {
+    // Is possible that #fetchTeam hasn't replied yet with members
+    return (async () => {
+      await this.#teamReq;
+      return this._members;
+    })();
   }
   /**
    * @typedef {Object} MemberIDConf

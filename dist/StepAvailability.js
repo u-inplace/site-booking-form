@@ -2757,6 +2757,11 @@ class BookingOptions {
    * @property {boolean} service-ironing
    * @property {number} duration
    * @property {string} frequency
+   * @property {string} start-timestamp
+   * @property {string} end-timestamp
+   * @property {string} team-member
+   * @property {string} team-member-name
+   * @property {string} team-member-first-name
    */
 
   /**
@@ -2864,6 +2869,39 @@ class BookingOptions {
 
   get recurrence() {
     return this.ops?.frequency;
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get start() {
+    return new Date(this.ops['start-timestamp']);
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get end() {
+    return new Date(this.ops['end-timestamp']);
+  }
+  /**
+   * @typedef {Object} TeamMember
+   * @property {string} id
+   * @property {string} name
+   * @property {string} firstName
+   *
+   * @returns {TeamMember}
+   */
+
+
+  get teamMember() {
+    return {
+      id: this.ops['team-member'],
+      name: this.ops['team-member-name'],
+      firstName: this.ops['team-member-first-name']
+    };
   }
 
 }

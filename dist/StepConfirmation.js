@@ -104,6 +104,11 @@ class BookingOptions {
    * @property {boolean} service-ironing
    * @property {number} duration
    * @property {string} frequency
+   * @property {string} start-timestamp
+   * @property {string} end-timestamp
+   * @property {string} team-member
+   * @property {string} team-member-name
+   * @property {string} team-member-first-name
    */
 
   /**
@@ -211,6 +216,39 @@ class BookingOptions {
 
   get recurrence() {
     return this.ops?.frequency;
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get start() {
+    return new Date(this.ops['start-timestamp']);
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get end() {
+    return new Date(this.ops['end-timestamp']);
+  }
+  /**
+   * @typedef {Object} TeamMember
+   * @property {string} id
+   * @property {string} name
+   * @property {string} firstName
+   *
+   * @returns {TeamMember}
+   */
+
+
+  get teamMember() {
+    return {
+      id: this.ops['team-member'],
+      name: this.ops['team-member-name'],
+      firstName: this.ops['team-member-first-name']
+    };
   }
 
 }
@@ -902,7 +940,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
       recurrence
     } = this.ops;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.recurrence = recurrence;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.recurrence = recurrence; // Start date
+
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].id('conf-start').innerText = this.ops.start.toLocaleString();
   }
 
 }

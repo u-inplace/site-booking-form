@@ -32,6 +32,9 @@ class Step extends StepController {
         const { service, recurrence } = this.ops
         dom.summary.service = service
         dom.summary.recurrence = recurrence
+
+        // Start date
+        dom.id('conf-start').innerText = this.ops.start.toLocaleString()
     }
 }
 

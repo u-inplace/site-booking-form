@@ -52,6 +52,171 @@ class NavigationController {
 
 /***/ }),
 
+/***/ "./src/booking-flow/controllers/options.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/controllers/options.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ BookingOptions; }
+/* harmony export */ });
+/**
+ * @typedef {{cleaning:boolean, cooking:boolean, grocery:boolean, ironing:boolean}} Service
+ * @typedef {('cleaning'|'cooking'|'grocery'|'ironing')[]} Services
+ */
+
+/**
+ * Helpers
+ */
+
+/**
+ * Removes prefix from string
+ * @param {string} s input String
+ * @param {string} p prefix to be removed
+ * @returns {string} string without prefix
+ */
+const rmPrefix = (s, p) => s.replace(new RegExp(`^${p}`), '');
+/**
+ * Booking Options
+ * @class
+ * @constructor
+ * @public
+ */
+
+
+class BookingOptions {
+  cookie;
+  /**
+   * @typedef {Object} CookieOptions
+   * @property {string} cleaning-bathrooms
+   * @property {string} cleaning-bedrooms
+   * @property {boolean} extra-cabinets
+   * @property {boolean} extra-fridge
+   * @property {boolean} extra-oven
+   * @property {boolean} extra-windows
+   * @property {string} ironing
+   * @property {string} postal-code
+   * @property {boolean} service-cleaning
+   * @property {boolean} service-cooking
+   * @property {boolean} service-grocery
+   * @property {boolean} service-ironing
+   * @property {number} duration
+   * @property {string} frequency
+   */
+
+  /**
+   * @type {CookieOptions}
+   */
+
+  ops;
+
+  constructor() {
+    this.cookie = window.FpCookie;
+    this.ops = this.cookie.store;
+  }
+  /**
+   * @param {string} prefix
+   * @returns {object}
+   */
+
+
+  #getOptionWithPrefix(prefix) {
+    return Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
+    .filter(([key, _]) => key.startsWith(prefix)).reduce((acc, [key, value]) => {
+      acc[rmPrefix(key, prefix)] = value;
+      return acc;
+    }, {});
+  }
+  /**
+   * @param {string} prefix
+   * @param {(any|undefined)} [filter=undefined]
+   * @returns {any[]}
+   */
+
+
+  #filterOptionWithPrefix(prefix, filter = undefined) {
+    return Object.entries(this.ops).filter(([key, value]) => key.startsWith(prefix) && (filter === undefined || value === filter)) // eslint-disable-next-line no-unused-vars
+    .map(([key, _]) => rmPrefix(key, prefix));
+  }
+  /**
+   * @returns {{bathrooms:string, bedrooms:string}}
+   */
+
+
+  get cleaning() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('cleaning-') : {};
+  }
+  /**
+   * @returns {('cabinets' | 'fridge' | 'oven' | 'windows')[]}
+   */
+
+
+  get extras() {
+    return this.ops['service-cleaning'] ? this.#filterOptionWithPrefix('extra-', true) : [];
+  }
+  /**
+   * @returns {{cabinets:boolean, fridge:boolean, oven:boolean, windows:boolean}}
+   */
+
+
+  get extra() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('extra-') : {};
+  }
+  /**
+   * @returns {('xs'|'s'|'m'|'l'|'xl'|'')}
+   */
+
+
+  get ironing() {
+    return this.ops['service-ironing'] ? this.ops.ironing.replace('ironing-size-', '') : '';
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get postalCode() {
+    return this.ops['postal-code'];
+  }
+  /**
+   * @returns {Services}
+   */
+
+
+  get services() {
+    return this.#filterOptionWithPrefix('service-', true);
+  }
+  /**
+   * @returns {Service}
+   */
+
+
+  get service() {
+    return this.#getOptionWithPrefix('service-');
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get duration() {
+    return this.ops?.duration;
+  }
+  /**
+   * @returns {('weekly'|'biweekly'|'once')}
+   */
+
+
+  get recurrence() {
+    return this.ops?.frequency;
+  }
+
+}
+
+/***/ }),
+
 /***/ "./src/booking-flow/controllers/sequence.js":
 /*!**************************************************!*\
   !*** ./src/booking-flow/controllers/sequence.js ***!
@@ -694,8 +859,10 @@ var __webpack_exports__ = {};
   !*** ./src/booking-flow/packages/confirmation.js ***!
   \***************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -706,9 +873,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
+
+
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  /**
+   * @type {BookingOptions}
+   */
+  ops;
+
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_0__.STEP.Confirmation);
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Confirmation);
+    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+
+  init() {
+    super.init();
+    this.#createSummary();
+  }
+  /**
+   * Read options and create a summary
+   */
+
+
+  #createSummary() {
+    // Selected services
+    const {
+      service,
+      recurrence
+    } = this.ops;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.service = service;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_3__["default"].summary.recurrence = recurrence;
   }
 
 }

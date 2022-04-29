@@ -21,6 +21,14 @@ export default class NavigationController {
     }
 
     /**
+     *
+     * @param {import('./sequence').StepCode} step
+     */
+    goto(step) {
+        window.location.href = step
+    }
+
+    /**
      * @param {Event} e
      */
     onNext(e) {

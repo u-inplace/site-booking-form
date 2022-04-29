@@ -152,6 +152,15 @@ class NavigationController {
     window.location.href = _sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Services;
   }
   /**
+   *
+   * @param {import('./sequence').StepCode} step
+   */
+
+
+  goto(step) {
+    window.location.href = step;
+  }
+  /**
    * @param {Event} e
    */
 
@@ -578,7 +587,7 @@ class StepController {
 
 
   validateState() {
-    if (!this.ops.isValid) this.nav.restart();
+    if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.PostalCode);else if (this.ops.services.length === 0) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.Services);
   }
   /**
    * Toggle next button active

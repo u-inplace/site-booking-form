@@ -1,7 +1,7 @@
 import dom from '../helpers/dom'
 import NavigationController from './navigation'
 import BookingOptions from './options'
-import Sequence from './sequence'
+import Sequence, { STEP } from './sequence'
 
 export default class StepController {
     /**
@@ -69,7 +69,8 @@ export default class StepController {
      * Otherwise, redirect to /booking/services
      */
     validateState() {
-        if (!this.ops.isValid) this.nav.restart()
+        if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(STEP.PostalCode)
+        else if (this.ops.services.length === 0) this.nav.goto(STEP.Services)
     }
 
     /**

@@ -3,11 +3,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-var */
 
+import Cookies from 'js-cookie'
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
+
+const SESSION_COOKIE = '__inplace_booking_session'
 
 class Step extends StepController {
     /**
@@ -30,6 +33,7 @@ class Step extends StepController {
         super.init()
         this.#createSummary()
         this.#setTeamMember()
+        this.setupBookingSession()
     }
 
     /**
@@ -57,6 +61,18 @@ class Step extends StepController {
         const node = dom.id('conf-team-member')
 
         this.team.setMemberDetails(node, memberId, memberConf)
+    }
+
+    /**
+     * Set cookie to be used in /redirect here when login/signup is done
+     */
+    setupBookingSession() {
+        const buttons = [dom.id('btn-signup'), dom.id('btn-login')]
+        buttons.forEach(b =>
+            b.addEventListener('click', () => {
+                Cookies.set(SESSION_COOKIE, true, { secure: true, sameSite: 'strict' })
+            })
+        )
     }
 }
 

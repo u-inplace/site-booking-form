@@ -1030,11 +1030,12 @@ var __webpack_exports__ = {};
   !*** ./src/booking-flow/packages/confirmation.js ***!
   \***************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
-/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
+/* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
+/* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -1048,7 +1049,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
+const SESSION_COOKIE = '__inplace_booking_session';
+
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
   /**
    * @type {BookingOptions}
    */
@@ -1060,15 +1063,16 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
   team;
 
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Confirmation);
-    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_0__["default"]();
-    this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_2__.STEP.Confirmation);
+    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_4__["default"]();
   }
 
   init() {
     super.init();
     this.#createSummary();
     this.#setTeamMember();
+    this.setupBookingSession();
   }
   /**
    * Read options and create a summary
@@ -1081,10 +1085,10 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].summary.recurrence = recurrence; // Start date
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].summary.service = service;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].summary.recurrence = recurrence; // Start date
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].id('conf-start').innerText = this.ops.start.toLocaleString('fr', {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('conf-start').innerText = this.ops.start.toLocaleString('fr', {
       dateStyle: 'short',
       timeStyle: 'short'
     });
@@ -1095,8 +1099,22 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_2__["default"] {
       first_name: this.ops.teamMember.firstName
     };
     const memberId = this.ops.teamMember.name;
-    const node = _helpers_dom__WEBPACK_IMPORTED_MODULE_4__["default"].id('conf-team-member');
+    const node = _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('conf-team-member');
     this.team.setMemberDetails(node, memberId, memberConf);
+  }
+  /**
+   * Set cookie to be used in /redirect here when login/signup is done
+   */
+
+
+  setupBookingSession() {
+    const buttons = [_helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('btn-signup'), _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('btn-login')];
+    buttons.forEach(b => b.addEventListener('click', () => {
+      js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].set(SESSION_COOKIE, true, {
+        secure: true,
+        sameSite: 'strict'
+      });
+    }));
   }
 
 }

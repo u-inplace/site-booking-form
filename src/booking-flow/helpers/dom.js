@@ -46,6 +46,7 @@ class Dom {
 
     static set nextButtonDisabled(isDisabled) {
         const nextButton = document.querySelector('.next-button-flow')
+        if (!nextButton) return
         nextButton.disabled = isDisabled
         if (isDisabled) nextButton.classList.add('disabled')
         else nextButton.classList.remove('disabled')

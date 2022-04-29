@@ -44,6 +44,10 @@ class PostalCodeStep extends StepController {
         this.pc.addEventListener('input', this.onPostalCode.bind(this))
     }
 
+    validateState() {
+        // Do nothing
+    }
+
     get isNextDisabled() {
         const { pc } = this
         const { value } = pc

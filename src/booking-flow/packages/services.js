@@ -21,6 +21,10 @@ class ServicesStep extends StepController {
         this.nav.sequence.init()
     }
 
+    validateState() {
+        // Do nothing
+    }
+
     onNext() {
         const { selected } = dom.steps.services
         this.nav.sequence.init({

@@ -57,6 +57,13 @@ export default class BookingOptions {
     }
 
     /**
+     * Check if options are valid
+     */
+    get isValid() {
+        return this.ops !== undefined
+    }
+
+    /**
      * @param {string} prefix
      * @returns {object}
      */

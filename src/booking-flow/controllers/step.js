@@ -1,5 +1,6 @@
 import dom from '../helpers/dom'
 import NavigationController from './navigation'
+import BookingOptions from './options'
 import Sequence from './sequence'
 
 export default class StepController {
@@ -14,6 +15,11 @@ export default class StepController {
     nav
 
     /**
+     * @type {BookingOptions}
+     */
+    ops
+
+    /**
      * Create new StepController
      * @param {import('./sequence').StepCode} curr Current step
      * @param {string} formId Step form Id
@@ -21,6 +27,7 @@ export default class StepController {
     constructor(curr, formId = 'wf-form-step') {
         this.form = dom.id(formId)
         this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
+        this.ops = new BookingOptions()
     }
 
     /**
@@ -54,6 +61,14 @@ export default class StepController {
             // eslint-disable-next-line no-param-reassign
             input.checked = false
         })
+    }
+
+    /**
+     * Check if a booking session cookie exists with booking options
+     * Otherwise, redirect to /booking/services
+     */
+    validateState() {
+        if (!this.ops.isValid) this.nav.restart()
     }
 
     /**

@@ -1,5 +1,5 @@
 import dom from '../helpers/dom'
-import Sequence from './sequence'
+import Sequence, { STEP } from './sequence'
 
 export default class NavigationController {
     sequence
@@ -13,6 +13,11 @@ export default class NavigationController {
 
         // Browser history
         window.onpopstate = this.onBack.bind(this)
+    }
+
+    // Navigate to first STEP (Services)
+    restart() {
+        window.location.href = STEP.Services
     }
 
     /**

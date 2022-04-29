@@ -29,6 +29,11 @@ class NavigationController {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
     window.onpopstate = this.onBack.bind(this);
+  } // Navigate to first STEP (Services)
+
+
+  restart() {
+    window.location.href = _sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Services;
   }
   /**
    * @param {Event} e
@@ -46,6 +51,217 @@ class NavigationController {
     // eslint-disable-next-line no-restricted-globals
     // history.back()
     window.location.href = this.sequence.prev();
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/booking-flow/controllers/options.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/controllers/options.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ BookingOptions; }
+/* harmony export */ });
+/**
+ * @typedef {{cleaning:boolean, cooking:boolean, grocery:boolean, ironing:boolean}} Service
+ * @typedef {('cleaning'|'cooking'|'grocery'|'ironing')[]} Services
+ */
+
+/**
+ * Helpers
+ */
+
+/**
+ * Removes prefix from string
+ * @param {string} s input String
+ * @param {string} p prefix to be removed
+ * @returns {string} string without prefix
+ */
+const rmPrefix = (s, p) => s.replace(new RegExp(`^${p}`), '');
+/**
+ * Booking Options
+ * @class
+ * @constructor
+ * @public
+ */
+
+
+class BookingOptions {
+  cookie;
+  /**
+   * @typedef {Object} CookieOptions
+   * @property {string} cleaning-bathrooms
+   * @property {string} cleaning-bedrooms
+   * @property {boolean} extra-cabinets
+   * @property {boolean} extra-fridge
+   * @property {boolean} extra-oven
+   * @property {boolean} extra-windows
+   * @property {string} ironing
+   * @property {string} postal-code
+   * @property {boolean} service-cleaning
+   * @property {boolean} service-cooking
+   * @property {boolean} service-grocery
+   * @property {boolean} service-ironing
+   * @property {number} duration
+   * @property {string} frequency
+   * @property {string} start-timestamp
+   * @property {string} end-timestamp
+   * @property {string} team-member
+   * @property {string} team-member-name
+   * @property {string} team-member-first-name
+   */
+
+  /**
+   * @type {CookieOptions}
+   */
+
+  ops;
+
+  constructor() {
+    this.cookie = window.FpCookie;
+    this.ops = this.cookie.store;
+  }
+  /**
+   * Check if options are valid
+   */
+
+
+  get isValid() {
+    return this.ops !== undefined;
+  }
+  /**
+   * @param {string} prefix
+   * @returns {object}
+   */
+
+
+  #getOptionWithPrefix(prefix) {
+    return Object.entries(this.ops) // eslint-disable-next-line no-unused-vars
+    .filter(([key, _]) => key.startsWith(prefix)).reduce((acc, [key, value]) => {
+      acc[rmPrefix(key, prefix)] = value;
+      return acc;
+    }, {});
+  }
+  /**
+   * @param {string} prefix
+   * @param {(any|undefined)} [filter=undefined]
+   * @returns {any[]}
+   */
+
+
+  #filterOptionWithPrefix(prefix, filter = undefined) {
+    return Object.entries(this.ops).filter(([key, value]) => key.startsWith(prefix) && (filter === undefined || value === filter)) // eslint-disable-next-line no-unused-vars
+    .map(([key, _]) => rmPrefix(key, prefix));
+  }
+  /**
+   * @returns {{bathrooms:string, bedrooms:string}}
+   */
+
+
+  get cleaning() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('cleaning-') : {};
+  }
+  /**
+   * @returns {('cabinets' | 'fridge' | 'oven' | 'windows')[]}
+   */
+
+
+  get extras() {
+    return this.ops['service-cleaning'] ? this.#filterOptionWithPrefix('extra-', true) : [];
+  }
+  /**
+   * @returns {{cabinets:boolean, fridge:boolean, oven:boolean, windows:boolean}}
+   */
+
+
+  get extra() {
+    return this.ops['service-cleaning'] ? this.#getOptionWithPrefix('extra-') : {};
+  }
+  /**
+   * @returns {('xs'|'s'|'m'|'l'|'xl'|'')}
+   */
+
+
+  get ironing() {
+    return this.ops['service-ironing'] ? this.ops.ironing.replace('ironing-size-', '') : '';
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get postalCode() {
+    return this.ops['postal-code'];
+  }
+  /**
+   * @returns {Services}
+   */
+
+
+  get services() {
+    return this.#filterOptionWithPrefix('service-', true);
+  }
+  /**
+   * @returns {Service}
+   */
+
+
+  get service() {
+    return this.#getOptionWithPrefix('service-');
+  }
+  /**
+   * @returns {number}
+   */
+
+
+  get duration() {
+    return this.ops?.duration;
+  }
+  /**
+   * @returns {('weekly'|'biweekly'|'once')}
+   */
+
+
+  get recurrence() {
+    return this.ops?.frequency;
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get start() {
+    return new Date(this.ops['start-timestamp']);
+  }
+  /**
+   * @returns {Date}
+   */
+
+
+  get end() {
+    return new Date(this.ops['end-timestamp']);
+  }
+  /**
+   * @typedef {Object} TeamMember
+   * @property {string} id
+   * @property {string} name
+   * @property {string} firstName
+   *
+   * @returns {TeamMember}
+   */
+
+
+  get teamMember() {
+    return {
+      id: this.ops['team-member'],
+      name: this.ops['team-member-name'],
+      firstName: this.ops['team-member-first-name']
+    };
   }
 
 }
@@ -172,7 +388,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/booking-flow/controllers/navigation.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sequence */ "./src/booking-flow/controllers/sequence.js");
+
 
 
 
@@ -187,6 +405,11 @@ class StepController {
 
   nav;
   /**
+   * @type {BookingOptions}
+   */
+
+  ops;
+  /**
    * Create new StepController
    * @param {import('./sequence').StepCode} curr Current step
    * @param {string} formId Step form Id
@@ -196,8 +419,9 @@ class StepController {
     this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
     this.nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]({
       formId,
-      sequence: new _sequence__WEBPACK_IMPORTED_MODULE_2__["default"](curr)
+      sequence: new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"](curr)
     });
+    this.ops = new _options__WEBPACK_IMPORTED_MODULE_2__["default"]();
   }
   /**
    * Initialize controller
@@ -229,6 +453,15 @@ class StepController {
 
       input.checked = false;
     });
+  }
+  /**
+   * Check if a booking session cookie exists with booking options
+   * Otherwise, redirect to /booking/services
+   */
+
+
+  validateState() {
+    if (!this.ops.isValid) this.nav.restart();
   }
   /**
    * Toggle next button active

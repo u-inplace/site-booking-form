@@ -2681,6 +2681,11 @@ class NavigationController {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
     window.onpopstate = this.onBack.bind(this);
+  } // Navigate to first STEP (Services)
+
+
+  restart() {
+    window.location.href = _sequence__WEBPACK_IMPORTED_MODULE_1__.STEP.Services;
   }
   /**
    * @param {Event} e
@@ -2773,6 +2778,14 @@ class BookingOptions {
   constructor() {
     this.cookie = window.FpCookie;
     this.ops = this.cookie.store;
+  }
+  /**
+   * Check if options are valid
+   */
+
+
+  get isValid() {
+    return this.ops !== undefined;
   }
   /**
    * @param {string} prefix
@@ -3030,7 +3043,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./src/booking-flow/controllers/navigation.js");
-/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sequence */ "./src/booking-flow/controllers/sequence.js");
+/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./options */ "./src/booking-flow/controllers/options.js");
+/* harmony import */ var _sequence__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sequence */ "./src/booking-flow/controllers/sequence.js");
+
 
 
 
@@ -3045,6 +3060,11 @@ class StepController {
 
   nav;
   /**
+   * @type {BookingOptions}
+   */
+
+  ops;
+  /**
    * Create new StepController
    * @param {import('./sequence').StepCode} curr Current step
    * @param {string} formId Step form Id
@@ -3054,8 +3074,9 @@ class StepController {
     this.form = _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId);
     this.nav = new _navigation__WEBPACK_IMPORTED_MODULE_1__["default"]({
       formId,
-      sequence: new _sequence__WEBPACK_IMPORTED_MODULE_2__["default"](curr)
+      sequence: new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"](curr)
     });
+    this.ops = new _options__WEBPACK_IMPORTED_MODULE_2__["default"]();
   }
   /**
    * Initialize controller
@@ -3087,6 +3108,15 @@ class StepController {
 
       input.checked = false;
     });
+  }
+  /**
+   * Check if a booking session cookie exists with booking options
+   * Otherwise, redirect to /booking/services
+   */
+
+
+  validateState() {
+    if (!this.ops.isValid) this.nav.restart();
   }
   /**
    * Toggle next button active

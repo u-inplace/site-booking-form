@@ -60,7 +60,7 @@ export default class BookingOptions {
      * Check if options are valid
      */
     get isValid() {
-        return this.ops !== undefined
+        return Object.keys(this.ops).length > 0
     }
 
     /**

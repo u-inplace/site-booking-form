@@ -132,7 +132,7 @@ class BookingOptions {
 
 
   get isValid() {
-    return this.ops !== undefined;
+    return Object.keys(this.ops).length > 0;
   }
   /**
    * @param {string} prefix

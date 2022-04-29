@@ -718,7 +718,7 @@ class Dom {
 
 
       static isServiceSelected(service) {
-        return this.selected.includes(service);
+        return this.selected?.includes(service);
       }
 
     };
@@ -743,21 +743,21 @@ class Dom {
         }
 
         static showWarning() {
-          Dom.id('aval-warning').classList.add('msg-active');
+          Dom.id('aval-warning')?.classList.add('msg-active');
         }
 
         static hideWarning() {
-          Dom.id('aval-warning').classList.remove('msg-active');
+          Dom.id('aval-warning')?.classList.remove('msg-active');
         }
 
       };
       static team = class {
         static showBlock() {
-          Dom.id('team-members-block').classList.add('visible');
+          Dom.id('team-members-block')?.classList.add('visible');
         }
 
         static hideBlock() {
-          Dom.id('team-members-block').classList.remove('visible');
+          Dom.id('team-members-block')?.classList.remove('visible');
         }
 
         static cleanUp() {
@@ -787,7 +787,7 @@ class Dom {
         }
 
         static get avatar() {
-          return Dom.id('team-members-block').querySelector('img').src;
+          return Dom.id('team-members-block')?.querySelector('img').src;
         }
 
       };
@@ -816,7 +816,7 @@ class Dom {
       const {
         classList
       } = Dom.id(`summary-${s}`);
-      if (display) classList.add('service-active');else classList.remove('service-active');
+      if (display) classList?.add('service-active');else classList?.remove('service-active');
     }
     /**
      * Display recurrence
@@ -825,7 +825,7 @@ class Dom {
 
 
     static set recurrence(r) {
-      Dom.id(`summary-${r}`).classList.remove('hidden');
+      Dom.id(`summary-${r}`)?.classList.remove('hidden');
     }
 
   };

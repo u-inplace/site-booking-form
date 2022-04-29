@@ -1109,7 +1109,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   setupBookingSession() {
     const buttons = [_helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('btn-signup'), _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('btn-login')];
-    buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(b => b?.addEventListener('click', () => {
       js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].set(SESSION_COOKIE, true, {
         secure: true,
         sameSite: 'strict'

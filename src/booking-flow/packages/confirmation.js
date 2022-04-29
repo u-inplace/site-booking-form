@@ -69,7 +69,7 @@ class Step extends StepController {
     setupBookingSession() {
         const buttons = [dom.id('btn-signup'), dom.id('btn-login')]
         buttons.forEach(b =>
-            b.addEventListener('click', () => {
+            b?.addEventListener('click', () => {
                 Cookies.set(SESSION_COOKIE, true, { secure: true, sameSite: 'strict' })
             })
         )

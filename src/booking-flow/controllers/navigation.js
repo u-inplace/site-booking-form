@@ -26,8 +26,8 @@ export default class NavigationController {
     }
 
     onBack() {
-        this.sequence.prev()
         // eslint-disable-next-line no-restricted-globals
-        history.back()
+        // history.back()
+        window.location.href = this.sequence.prev()
     }
 }

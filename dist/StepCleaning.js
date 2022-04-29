@@ -94,7 +94,7 @@ const rmPrefix = (s, p) => s.replace(new RegExp(`^${p}`), '');
 class BookingOptions {
   cookie;
   /**
-   * @typedef {Object} CookieOptions
+   * @typedef {Object} SessionOptions
    * @property {string} cleaning-bathrooms
    * @property {string} cleaning-bedrooms
    * @property {boolean} extra-cabinets
@@ -117,7 +117,7 @@ class BookingOptions {
    */
 
   /**
-   * @type {CookieOptions}
+   * @type {SessionOptions}
    */
 
   ops;

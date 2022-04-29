@@ -25,7 +25,7 @@ export default class BookingOptions {
     cookie
 
     /**
-     * @typedef {Object} CookieOptions
+     * @typedef {Object} SessionOptions
      * @property {string} cleaning-bathrooms
      * @property {string} cleaning-bedrooms
      * @property {boolean} extra-cabinets
@@ -47,7 +47,7 @@ export default class BookingOptions {
      * @property {string} team-member-first-name
      */
     /**
-     * @type {CookieOptions}
+     * @type {SessionOptions}
      */
     ops
 

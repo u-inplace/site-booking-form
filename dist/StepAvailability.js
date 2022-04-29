@@ -3077,6 +3077,7 @@ class StepController {
       sequence: new _sequence__WEBPACK_IMPORTED_MODULE_3__["default"](curr)
     });
     this.ops = new _options__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    this.validateState();
   }
   /**
    * Initialize controller

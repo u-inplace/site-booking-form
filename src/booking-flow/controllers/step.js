@@ -28,6 +28,7 @@ export default class StepController {
         this.form = dom.id(formId)
         this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
         this.ops = new BookingOptions()
+        this.validateState()
     }
 
     /**

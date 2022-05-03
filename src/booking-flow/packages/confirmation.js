@@ -54,6 +54,29 @@ class Step extends StepController {
         const { form } = event.target
         const data = new FormData(form)
         const json = Object.fromEntries(data.entries())
+        const booking = {
+            duration: json.duration,
+            frequency: json.frequency,
+            start_timestamp: json['start-timestamp'],
+            end_timestamp: json['end-timestamp'],
+            team_member_contract_id: json['team-member'],
+            team_member_name: json['team-member-name'],
+            customer_id: json['customer-id'],
+            customer_address_id: json['customer-address-id'],
+            options: {
+                service_cleaning: false,
+                service_ironing: true,
+                service_grocery: false,
+                service_cooking: false,
+                cleaning_bedrooms: '1',
+                cleaning_bathrooms: '2',
+                extra_windows: false,
+                extra_cabinets: true,
+                extra_fridge: false,
+                extra_oven: false,
+                ironing: 'xs'
+            }
+        }
 
         const url = new URL(form.attributes.action.value)
 
@@ -66,7 +89,7 @@ class Step extends StepController {
                     contentType: 'application/json',
                     dataType: 'json'
                 },
-                body: JSON.stringify(json)
+                body: JSON.stringify(booking)
             })
 
             const res = await resRaw.json()

@@ -9,6 +9,7 @@ import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
+import domConf from '../helpers/dom/confirmation'
 
 const SESSION_COOKIE = '__inplace_booking_session'
 
@@ -34,6 +35,75 @@ class Step extends StepController {
         this.#createSummary()
         this.#setTeamMember()
         this.setupBookingSession()
+        this.#setupSubmit()
+    }
+
+    /**
+     * Create form submit handlers
+     */
+    #setupSubmit() {
+        dom.id('booking-form').addEventListener('submit', this.onSubmit.bind(this))
+    }
+
+    /**
+     * Form Submission
+     * @param {SubmitEvent} event
+     */
+    async onSubmit(event) {
+        event.preventDefault()
+        const { form } = event.target
+        const data = new FormData(form)
+        const json = Object.fromEntries(data.entries())
+
+        const url = new URL(form.attributes.action.value)
+
+        try {
+            domConf.onSubmit()
+
+            const resRaw = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    contentType: 'application/json',
+                    dataType: 'json'
+                },
+                body: JSON.stringify(json)
+            })
+
+            const res = await resRaw.json()
+
+            if (resRaw.status >= 300) {
+                this.logError(resRaw, res)
+
+                if (res?.errors?.sodexo_reference) domConf.error.toast('toast-sodexo')
+                else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
+                    domConf.error.toast('toast-unavailable-slot')
+                else if (res?.errors?.[0].includes('sodexo number is already linked '))
+                    domConf.error.toast('toast-sodexo-duplicated')
+                else domConf.error.toast('toast-submit-error')
+
+                domConf.onSubmitDone()
+            } else {
+                setTimeout(() => {
+                    domConf.done()
+                }, 1000 * 1)
+            }
+        } catch (error) {
+            this.logError(error.message)
+            domConf.error.toast('toast-submit-error')
+            domConf.onSubmitDone()
+        }
+    }
+
+    /**
+     * Log error
+     * @param {*} res
+     */
+    static async logError(res, json) {
+        console.log('Something went wrong...')
+        console.log(`Status: ${res.status} ${res.statusText}`)
+
+        if (json) console.log(`Response: ${JSON.stringify(json)}`)
+        else console.log(`Response: ${res}`)
     }
 
     /**

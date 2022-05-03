@@ -717,149 +717,79 @@ class Dom {
   static getOption(id, checked = false) {
     return this.q(`input[id*='${id}']${checked ? ':checked' : ''}`);
   }
-  /**
-   * STEPS
-   */
 
+}
 
-  static steps = class {
-    /**
-     * Services
-     */
-    static services = class {
-      static query(checked = false) {
-        return Dom.queryOptions('service-', checked);
-      }
-      /**
-       * @returns {string[]}
-       */
+const dom = Dom;
+/* harmony default export */ __webpack_exports__["default"] = (dom);
 
+/***/ }),
 
-      static get selected() {
-        return this.query(true).map(s => s.id.replace(/^.*-/, ''));
-      }
-      /**
-       * @param {string} service
-       * @returns {boolean}
-       */
+/***/ "./src/booking-flow/helpers/dom/confirmation.js":
+/*!******************************************************!*\
+  !*** ./src/booking-flow/helpers/dom/confirmation.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking-flow/helpers/dom.js");
+/* eslint-disable max-classes-per-file */
 
-      static isServiceSelected(service) {
-        return this.selected?.includes(service);
-      }
+/**
+ * Confirmation
+ */
 
-    };
-    /**
-     * Ironing
-     */
+class ConfirmationDom {
+  static get selected() {
+    return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
+  }
 
-    static ironing = class {
-      static get selected() {
-        return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
-      }
+  static submitButtonText;
+  static msgTimeout;
 
-    };
-    /**
-     * Availability
-     */
+  static done() {
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('wf-form-Booking').classList.add('completed');
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('form-done').classList.add('active');
+  }
 
-    static avail = class {
-      static openings = class {
-        static cleanUp() {
-          Dom.id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-        }
+  static onSubmit() {
+    const button = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('button-submit');
+    this.submitButtonText = button.value;
+    button.value = button.attributes['data-wait'].value;
+    button.disabled = true;
+    button.classList.add('wait');
 
-        static showWarning() {
-          Dom.id('aval-warning')?.classList.add('msg-active');
-        }
-
-        static hideWarning() {
-          Dom.id('aval-warning')?.classList.remove('msg-active');
-        }
-
-      };
-      static team = class {
-        static showBlock() {
-          Dom.id('team-members-block')?.classList.add('visible');
-        }
-
-        static hideBlock() {
-          Dom.id('team-members-block')?.classList.remove('visible');
-        }
-
-        static cleanUp() {
-          Dom.id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        static get memberTemplate() {
-          return Dom.id('team-member-template');
-        }
-
-      };
-      static teamMember = class {
-        static get name() {
-          return Dom.id('team-member-name').value;
-        }
-
-        static set name(name) {
-          Dom.id('team-member-name').value = name;
-        }
-
-        static get firstName() {
-          return Dom.id('team-member-first-name').value;
-        }
-
-        static set firstName(first) {
-          Dom.id('team-member-first-name').value = first;
-        }
-
-        static get avatar() {
-          return Dom.id('team-members-block')?.querySelector('img').src;
-        }
-
-      };
-    };
-  };
-  /** *
-   * Summary
-   */
-
-  static summary = class {
-    /**
-     * @typedef {import('../controllers/options').Service} ServiceOptions
-     * @param {ServiceOptions} service
-     */
-    static set service(service) {
-      Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
+    if (this.msgTimeout) {
+      clearTimeout(this.msgTimeout);
+      this.error.hide();
     }
-    /**
-     * Show or hide service
-     * @param {import('../controllers/options').Services} s
-     * @param {boolean} display
-     */
+  }
 
+  static onSubmitDone() {
+    const button = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('button-submit');
+    button.value = this.submitButtonText;
+    button.disabled = false;
+    button.classList.remove('wait');
+  }
 
-    static displayService(s, display = true) {
-      const {
-        classList
-      } = Dom.id(`summary-${s}`);
-      if (display) classList?.add('service-active');else classList?.remove('service-active');
+  static error = class {
+    static set title(title) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('error-title').innerText = title;
     }
-    /**
-     * Display recurrence
-     * @param {('weekly'|'biweekly'|'once')} r
-     */
 
+    static set detail(title) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('error-detail').innerText = title;
+    }
 
-    static set recurrence(r) {
-      Dom.id(`summary-${r}`)?.classList.remove('hidden');
+    static toast(id) {
+      this.msgTimeout = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].toast(id);
     }
 
   };
 }
 
-const dom = Dom;
-/* harmony default export */ __webpack_exports__["default"] = (dom);
+const domConf = ConfirmationDom;
+/* harmony default export */ __webpack_exports__["default"] = (domConf);
 
 /***/ }),
 
@@ -1077,6 +1007,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
 /* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom/confirmation */ "./src/booking-flow/helpers/dom/confirmation.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -1084,6 +1015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* eslint-disable no-use-before-define */
 
 /* eslint-disable no-var */
+
 
 
 
@@ -1114,6 +1046,68 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
     this.#createSummary();
     this.#setTeamMember();
     this.setupBookingSession();
+    this.#setupSubmit();
+  }
+  /**
+   * Create form submit handlers
+   */
+
+
+  #setupSubmit() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('booking-form').addEventListener('submit', this.onSubmit.bind(this));
+  }
+  /**
+   * Form Submission
+   * @param {SubmitEvent} event
+   */
+
+
+  async onSubmit(event) {
+    event.preventDefault();
+    const {
+      form
+    } = event.target;
+    const data = new FormData(form);
+    const json = Object.fromEntries(data.entries());
+    const url = new URL(form.attributes.action.value);
+
+    try {
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmit();
+      const resRaw = await fetch(url, {
+        method: 'POST',
+        headers: {
+          contentType: 'application/json',
+          dataType: 'json'
+        },
+        body: JSON.stringify(json)
+      });
+      const res = await resRaw.json();
+
+      if (resRaw.status >= 300) {
+        this.logError(resRaw, res);
+        if (res?.errors?.sodexo_reference) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-slot');else if (res?.errors?.[0].includes('sodexo number is already linked ')) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo-duplicated');else _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
+        _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
+      } else {
+        setTimeout(() => {
+          _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].done();
+        }, 1000 * 1);
+      }
+    } catch (error) {
+      this.logError(error.message);
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
+    }
+  }
+  /**
+   * Log error
+   * @param {*} res
+   */
+
+
+  static async logError(res, json) {
+    console.log('Something went wrong...');
+    console.log(`Status: ${res.status} ${res.statusText}`);
+    if (json) console.log(`Response: ${JSON.stringify(json)}`);else console.log(`Response: ${res}`);
   }
   /**
    * Read options and create a summary

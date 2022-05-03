@@ -5,7 +5,7 @@
 
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
-import dom from '../helpers/dom'
+import domIroning from '../helpers/dom/ironing'
 
 class Step extends StepController {
     constructor() {
@@ -16,7 +16,7 @@ class Step extends StepController {
      * @returns {boolean}
      */
     get isNextDisabled() {
-        return !dom.steps.ironing.selected
+        return !domIroning.selected
     }
 }
 

@@ -3414,149 +3414,140 @@ class Dom {
   static getOption(id, checked = false) {
     return this.q(`input[id*='${id}']${checked ? ':checked' : ''}`);
   }
-  /**
-   * STEPS
-   */
 
+}
 
-  static steps = class {
-    /**
-     * Services
-     */
-    static services = class {
-      static query(checked = false) {
-        return Dom.queryOptions('service-', checked);
-      }
-      /**
-       * @returns {string[]}
-       */
+const dom = Dom;
+/* harmony default export */ __webpack_exports__["default"] = (dom);
 
+/***/ }),
 
-      static get selected() {
-        return this.query(true).map(s => s.id.replace(/^.*-/, ''));
-      }
-      /**
-       * @param {string} service
-       * @returns {boolean}
-       */
+/***/ "./src/booking-flow/helpers/dom/availability.js":
+/*!******************************************************!*\
+  !*** ./src/booking-flow/helpers/dom/availability.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking-flow/helpers/dom.js");
+/* eslint-disable max-classes-per-file */
 
-      static isServiceSelected(service) {
-        return this.selected?.includes(service);
-      }
+/**
+ * Ironing
+ */
 
-    };
-    /**
-     * Ironing
-     */
+class AvailDom {
+  static openings = class {
+    static cleanUp() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+    }
 
-    static ironing = class {
-      static get selected() {
-        return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
-      }
+    static showWarning() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('aval-warning')?.classList.add('msg-active');
+    }
 
-    };
-    /**
-     * Availability
-     */
+    static hideWarning() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('aval-warning')?.classList.remove('msg-active');
+    }
 
-    static avail = class {
-      static openings = class {
-        static cleanUp() {
-          Dom.id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        static showWarning() {
-          Dom.id('aval-warning')?.classList.add('msg-active');
-        }
-
-        static hideWarning() {
-          Dom.id('aval-warning')?.classList.remove('msg-active');
-        }
-
-      };
-      static team = class {
-        static showBlock() {
-          Dom.id('team-members-block')?.classList.add('visible');
-        }
-
-        static hideBlock() {
-          Dom.id('team-members-block')?.classList.remove('visible');
-        }
-
-        static cleanUp() {
-          Dom.id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        static get memberTemplate() {
-          return Dom.id('team-member-template');
-        }
-
-      };
-      static teamMember = class {
-        static get name() {
-          return Dom.id('team-member-name').value;
-        }
-
-        static set name(name) {
-          Dom.id('team-member-name').value = name;
-        }
-
-        static get firstName() {
-          return Dom.id('team-member-first-name').value;
-        }
-
-        static set firstName(first) {
-          Dom.id('team-member-first-name').value = first;
-        }
-
-        static get avatar() {
-          return Dom.id('team-members-block')?.querySelector('img').src;
-        }
-
-      };
-    };
   };
-  /** *
-   * Summary
-   */
-
-  static summary = class {
-    /**
-     * @typedef {import('../controllers/options').Service} ServiceOptions
-     * @param {ServiceOptions} service
-     */
-    static set service(service) {
-      Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
+  static team = class {
+    static showBlock() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.classList.add('visible');
     }
-    /**
-     * Show or hide service
-     * @param {import('../controllers/options').Services} s
-     * @param {boolean} display
-     */
 
-
-    static displayService(s, display = true) {
-      const {
-        classList
-      } = Dom.id(`summary-${s}`);
-      if (display) classList?.add('service-active');else classList?.remove('service-active');
+    static hideBlock() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.classList.remove('visible');
     }
-    /**
-     * Display recurrence
-     * @param {('weekly'|'biweekly'|'once')} r
-     */
 
+    static cleanUp() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+    }
 
-    static set recurrence(r) {
-      Dom.id(`summary-${r}`)?.classList.remove('hidden');
+    static get memberTemplate() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-template');
+    }
+
+  };
+  static teamMember = class {
+    static get name() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-name').value;
+    }
+
+    static set name(name) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-name').value = name;
+    }
+
+    static get firstName() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-first-name').value;
+    }
+
+    static set firstName(first) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-first-name').value = first;
+    }
+
+    static get avatar() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.querySelector('img').src;
     }
 
   };
 }
 
-const dom = Dom;
-/* harmony default export */ __webpack_exports__["default"] = (dom);
+const domAvail = AvailDom;
+/* harmony default export */ __webpack_exports__["default"] = (domAvail);
+
+/***/ }),
+
+/***/ "./src/booking-flow/helpers/dom/summary.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/helpers/dom/summary.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking-flow/helpers/dom.js");
+
+/**
+ * Summary
+ */
+
+class SummaryDom {
+  /**
+   * @typedef {import('../controllers/options').Service} ServiceOptions
+   * @param {ServiceOptions} service
+   */
+  static set service(service) {
+    Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
+  }
+  /**
+   * Show or hide service
+   * @param {import('../controllers/options').Services} s
+   * @param {boolean} display
+   */
+
+
+  static displayService(s, display = true) {
+    const {
+      classList
+    } = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(`summary-${s}`);
+    if (display) classList?.add('service-active');else classList?.remove('service-active');
+  }
+  /**
+   * Display recurrence
+   * @param {('weekly'|'biweekly'|'once')} r
+   */
+
+
+  static set recurrence(r) {
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(`summary-${r}`)?.classList.remove('hidden');
+  }
+
+}
+
+const domSummary = SummaryDom;
+/* harmony default export */ __webpack_exports__["default"] = (domSummary);
 
 /***/ }),
 
@@ -3831,7 +3822,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
 /* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
-/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
+/* harmony import */ var _helpers_dom_availability__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../helpers/dom/availability */ "./src/booking-flow/helpers/dom/availability.js");
+/* harmony import */ var _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../helpers/dom/summary */ "./src/booking-flow/helpers/dom/summary.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./availability.css */ "./src/booking-flow/packages/availability.css");
+
+
 
 
 
@@ -3884,7 +3879,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
   constructor() {
     super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_4__.STEP.Availability);
     this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.cal = _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].steps.avail;
+    this.cal = _helpers_dom_availability__WEBPACK_IMPORTED_MODULE_8__["default"];
     this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__["default"]();
   }
   /**
@@ -3920,8 +3915,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].summary.recurrence = recurrence;
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__["default"].service = service;
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__["default"].recurrence = recurrence;
   }
   /**
    * Load all available openings

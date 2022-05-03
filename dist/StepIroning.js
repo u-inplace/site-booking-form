@@ -584,149 +584,36 @@ class Dom {
   static getOption(id, checked = false) {
     return this.q(`input[id*='${id}']${checked ? ':checked' : ''}`);
   }
-  /**
-   * STEPS
-   */
 
-
-  static steps = class {
-    /**
-     * Services
-     */
-    static services = class {
-      static query(checked = false) {
-        return Dom.queryOptions('service-', checked);
-      }
-      /**
-       * @returns {string[]}
-       */
-
-
-      static get selected() {
-        return this.query(true).map(s => s.id.replace(/^.*-/, ''));
-      }
-      /**
-       * @param {string} service
-       * @returns {boolean}
-       */
-
-
-      static isServiceSelected(service) {
-        return this.selected?.includes(service);
-      }
-
-    };
-    /**
-     * Ironing
-     */
-
-    static ironing = class {
-      static get selected() {
-        return Dom.getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
-      }
-
-    };
-    /**
-     * Availability
-     */
-
-    static avail = class {
-      static openings = class {
-        static cleanUp() {
-          Dom.id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        static showWarning() {
-          Dom.id('aval-warning')?.classList.add('msg-active');
-        }
-
-        static hideWarning() {
-          Dom.id('aval-warning')?.classList.remove('msg-active');
-        }
-
-      };
-      static team = class {
-        static showBlock() {
-          Dom.id('team-members-block')?.classList.add('visible');
-        }
-
-        static hideBlock() {
-          Dom.id('team-members-block')?.classList.remove('visible');
-        }
-
-        static cleanUp() {
-          Dom.id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        static get memberTemplate() {
-          return Dom.id('team-member-template');
-        }
-
-      };
-      static teamMember = class {
-        static get name() {
-          return Dom.id('team-member-name').value;
-        }
-
-        static set name(name) {
-          Dom.id('team-member-name').value = name;
-        }
-
-        static get firstName() {
-          return Dom.id('team-member-first-name').value;
-        }
-
-        static set firstName(first) {
-          Dom.id('team-member-first-name').value = first;
-        }
-
-        static get avatar() {
-          return Dom.id('team-members-block')?.querySelector('img').src;
-        }
-
-      };
-    };
-  };
-  /** *
-   * Summary
-   */
-
-  static summary = class {
-    /**
-     * @typedef {import('../controllers/options').Service} ServiceOptions
-     * @param {ServiceOptions} service
-     */
-    static set service(service) {
-      Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
-    }
-    /**
-     * Show or hide service
-     * @param {import('../controllers/options').Services} s
-     * @param {boolean} display
-     */
-
-
-    static displayService(s, display = true) {
-      const {
-        classList
-      } = Dom.id(`summary-${s}`);
-      if (display) classList?.add('service-active');else classList?.remove('service-active');
-    }
-    /**
-     * Display recurrence
-     * @param {('weekly'|'biweekly'|'once')} r
-     */
-
-
-    static set recurrence(r) {
-      Dom.id(`summary-${r}`)?.classList.remove('hidden');
-    }
-
-  };
 }
 
 const dom = Dom;
 /* harmony default export */ __webpack_exports__["default"] = (dom);
+
+/***/ }),
+
+/***/ "./src/booking-flow/helpers/dom/ironing.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/helpers/dom/ironing.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking-flow/helpers/dom.js");
+
+/**
+ * Ironing
+ */
+
+class IroningDom {
+  static get selected() {
+    return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].getRadio('ironing-size', true)?.value?.replace(/^ironing-size-/, '');
+  }
+
+}
+
+const domIroning = IroningDom;
+/* harmony default export */ __webpack_exports__["default"] = (domIroning);
 
 /***/ }),
 
@@ -940,7 +827,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking-flow/controllers/sequence.js");
 /* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/step */ "./src/booking-flow/controllers/step.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
+/* harmony import */ var _helpers_dom_ironing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/dom/ironing */ "./src/booking-flow/helpers/dom/ironing.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -962,7 +849,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_2__["default"].steps.ironing.selected;
+    return !_helpers_dom_ironing__WEBPACK_IMPORTED_MODULE_2__["default"].selected;
   }
 
 }

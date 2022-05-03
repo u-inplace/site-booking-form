@@ -7,6 +7,7 @@ import { SERVICE } from '../common/constants'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
+import domServices from '../helpers/dom/services'
 
 class ServicesStep extends StepController {
     constructor() {
@@ -26,7 +27,7 @@ class ServicesStep extends StepController {
     }
 
     onNext() {
-        const { selected } = dom.steps.services
+        const { selected } = domServices
         this.nav.sequence.init({
             ironing: selected.includes(SERVICE.Ironing),
             cleaning: selected.includes(SERVICE.Cleaning)
@@ -37,7 +38,7 @@ class ServicesStep extends StepController {
      * @returns {boolean}
      */
     get isNextDisabled() {
-        return dom.steps.services.selected.length === 0
+        return domServices.selected.length === 0
     }
 
     updateNav() {

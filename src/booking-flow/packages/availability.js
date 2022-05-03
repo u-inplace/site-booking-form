@@ -11,6 +11,8 @@ import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
+import domAvail from '../helpers/dom/availability'
+import domSummary from '../helpers/dom/summary'
 import './availability.css'
 
 /**
@@ -55,7 +57,7 @@ class Step extends StepController {
     constructor() {
         super(STEP.Availability)
         this.ops = new BookingOptions()
-        this.cal = dom.steps.avail
+        this.cal = domAvail
         this.team = new Team()
     }
 
@@ -93,8 +95,8 @@ class Step extends StepController {
     #createSummary() {
         // Selected services
         const { service, recurrence } = this.ops
-        dom.summary.service = service
-        dom.summary.recurrence = recurrence
+        domSummary.service = service
+        domSummary.recurrence = recurrence
     }
 
     /**

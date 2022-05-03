@@ -793,6 +793,57 @@ const domConf = ConfirmationDom;
 
 /***/ }),
 
+/***/ "./src/booking-flow/helpers/dom/summary.js":
+/*!*************************************************!*\
+  !*** ./src/booking-flow/helpers/dom/summary.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking-flow/helpers/dom.js");
+
+/**
+ * Summary
+ */
+
+class SummaryDom {
+  /**
+   * @typedef {import('../controllers/options').Service} ServiceOptions
+   * @param {ServiceOptions} service
+   */
+  static set service(service) {
+    Object.entries(service).forEach(([s, isActive]) => this.displayService(s, isActive));
+  }
+  /**
+   * Show or hide service
+   * @param {import('../controllers/options').Services} s
+   * @param {boolean} display
+   */
+
+
+  static displayService(s, display = true) {
+    const {
+      classList
+    } = _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(`summary-${s}`);
+    if (display) classList?.add('service-active');else classList?.remove('service-active');
+  }
+  /**
+   * Display recurrence
+   * @param {('weekly'|'biweekly'|'once')} r
+   */
+
+
+  static set recurrence(r) {
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(`summary-${r}`)?.classList.remove('hidden');
+  }
+
+}
+
+const domSummary = SummaryDom;
+/* harmony default export */ __webpack_exports__["default"] = (domSummary);
+
+/***/ }),
+
 /***/ "./node_modules/js-cookie/dist/js.cookie.mjs":
 /*!***************************************************!*\
   !*** ./node_modules/js-cookie/dist/js.cookie.mjs ***!
@@ -1008,6 +1059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking-flow/fragments/teamMember.js");
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* harmony import */ var _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom/confirmation */ "./src/booking-flow/helpers/dom/confirmation.js");
+/* harmony import */ var _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom/summary */ "./src/booking-flow/helpers/dom/summary.js");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -1015,6 +1067,7 @@ __webpack_require__.r(__webpack_exports__);
 /* eslint-disable no-use-before-define */
 
 /* eslint-disable no-var */
+
 
 
 
@@ -1144,8 +1197,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].summary.service = service;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].summary.recurrence = recurrence; // Start date
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__["default"].service = service;
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__["default"].recurrence = recurrence; // Start date
 
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('conf-start').innerText = this.ops.start.toLocaleString('fr', {
       dateStyle: 'short',

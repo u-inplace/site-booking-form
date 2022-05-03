@@ -10,6 +10,7 @@ import StepController from '../controllers/step'
 import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
 import domConf from '../helpers/dom/confirmation'
+import domSummary from '../helpers/dom/summary'
 
 const SESSION_COOKIE = '__inplace_booking_session'
 const FORM_ID = 'booking-form'
@@ -136,8 +137,8 @@ class Step extends StepController {
     #createSummary() {
         // Selected services
         const { service, recurrence } = this.ops
-        dom.summary.service = service
-        dom.summary.recurrence = recurrence
+        domSummary.service = service
+        domSummary.recurrence = recurrence
 
         // Start date
         dom.id('conf-start').innerText = this.ops.start.toLocaleString('fr', {

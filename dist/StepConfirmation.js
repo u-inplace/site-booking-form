@@ -1023,6 +1023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SESSION_COOKIE = '__inplace_booking_session';
+const FORM_ID = 'booking-form';
 
 class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
   /**
@@ -1036,7 +1037,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
   team;
 
   constructor() {
-    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_2__.STEP.Confirmation);
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_2__.STEP.Confirmation, FORM_ID);
     this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_4__["default"]();
   }
@@ -1054,7 +1055,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
 
   #setupSubmit() {
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('booking-form').addEventListener('submit', this.onSubmit.bind(this));
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id(FORM_ID).addEventListener('submit', this.onSubmit.bind(this));
   }
   /**
    * Form Submission

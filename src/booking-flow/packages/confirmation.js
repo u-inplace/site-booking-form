@@ -12,6 +12,7 @@ import dom from '../helpers/dom'
 import domConf from '../helpers/dom/confirmation'
 
 const SESSION_COOKIE = '__inplace_booking_session'
+const FORM_ID = 'booking-form'
 
 class Step extends StepController {
     /**
@@ -25,7 +26,7 @@ class Step extends StepController {
     team
 
     constructor() {
-        super(STEP.Confirmation)
+        super(STEP.Confirmation, FORM_ID)
         this.ops = new BookingOptions()
         this.team = new Team()
     }
@@ -42,7 +43,7 @@ class Step extends StepController {
      * Create form submit handlers
      */
     #setupSubmit() {
-        dom.id('booking-form').addEventListener('submit', this.onSubmit.bind(this))
+        dom.id(FORM_ID).addEventListener('submit', this.onSubmit.bind(this))
     }
 
     /**

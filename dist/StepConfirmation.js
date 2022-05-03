@@ -25,7 +25,7 @@ class NavigationController {
   }) {
     this.sequence = sequence; // Submit = nextButton
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).onsubmit = this.onNext.bind(this);
+    if (_helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId)) _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id(formId).onsubmit = this.onNext.bind(this);
     _helpers_dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('back-button')?.addEventListener('click', this.onBack.bind(this)); // Browser history
 
     window.onpopstate = this.onBack.bind(this);
@@ -1069,6 +1069,29 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
     } = event.target;
     const data = new FormData(form);
     const json = Object.fromEntries(data.entries());
+    const booking = {
+      duration: json.duration,
+      frequency: json.frequency,
+      start_timestamp: json['start-timestamp'],
+      end_timestamp: json['end-timestamp'],
+      team_member_contract_id: json['team-member'],
+      team_member_name: json['team-member-name'],
+      customer_id: json['customer-id'],
+      customer_address_id: json['customer-address-id'],
+      options: {
+        service_cleaning: false,
+        service_ironing: true,
+        service_grocery: false,
+        service_cooking: false,
+        cleaning_bedrooms: '1',
+        cleaning_bathrooms: '2',
+        extra_windows: false,
+        extra_cabinets: true,
+        extra_fridge: false,
+        extra_oven: false,
+        ironing: 'xs'
+      }
+    };
     const url = new URL(form.attributes.action.value);
 
     try {
@@ -1079,7 +1102,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
           contentType: 'application/json',
           dataType: 'json'
         },
-        body: JSON.stringify(json)
+        body: JSON.stringify(booking)
       });
       const res = await resRaw.json();
 

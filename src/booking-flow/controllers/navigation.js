@@ -8,8 +8,8 @@ export default class NavigationController {
         this.sequence = sequence
 
         // Submit = nextButton
-        dom.id(formId).onsubmit = this.onNext.bind(this)
-        dom.id('back-button')?.addEventListener('click', this.onBack.bind(this))
+        if (dom.id(formId)) dom.id(formId).onsubmit = this.onNext.bind(this)
+        dom?.id('back-button')?.addEventListener('click', this.onBack.bind(this))
 
         // Browser history
         window.onpopstate = this.onBack.bind(this)

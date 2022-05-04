@@ -1119,9 +1119,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   async onSubmit(event) {
     event.preventDefault();
-    const {
-      form
-    } = event.target;
+    const form = event.target;
     const data = new FormData(form);
     /** @type {BookingForm} */
 

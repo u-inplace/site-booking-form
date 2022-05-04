@@ -55,6 +55,55 @@ class Step extends StepController {
     }
 
     /**
+     * @typedef {Object} BookingForm
+     * @property {string} duration
+     * @property {string} frequency
+     * @property {string} start-timestamp
+     * @property {string} end-timestamp
+     * @property {string} team-member
+     * @property {string} team-member-name
+     * @property {string} customer-id
+     * @property {string} customer-address-id
+     * @property {string} service-ironing
+     * @property {string} service-grocery
+     * @property {string} service-cooking
+     * @property {string} service-cleaning
+     * @property {string} extra-fridge
+     * @property {string} extra-cabinets
+     * @property {string} extra-oven
+     * @property {string} extra-windows
+     * @property {string} ironing
+     * @property {string} cleaning-bathrooms
+     * @property {string} cleaning-bedrooms
+     */
+
+    /**
+     * @typedef {Object} BookingAPI
+     * @property {string} duration
+     * @property {string} frequency
+     * @property {string} start_timestamp
+     * @property {string} end_timestamp
+     * @property {string} team_member_contract_id
+     * @property {string} customer_id
+     * @property {string} customer_address_id
+     * @property {BookingAPIOptions} options
+     */
+    /**
+     * @typedef {Object} BookingAPIOptions
+     * @property {boolean} service_cleaning
+     * @property {boolean} service_ironing
+     * @property {boolean} service_grocery
+     * @property {boolean} service_cooking
+     * @property {string} cleaning_bedrooms
+     * @property {string} cleaning_bathrooms
+     * @property {boolean} extra_windows
+     * @property {boolean} extra_cabinets
+     * @property {boolean} extra_fridge
+     * @property {boolean} extra_oven
+     * @property {string} ironing
+     */
+
+    /**
      * Form Submission
      * @param {SubmitEvent} event
      */
@@ -62,7 +111,11 @@ class Step extends StepController {
         event.preventDefault()
         const { form } = event.target
         const data = new FormData(form)
+
+        /** @type {BookingForm} */
         const json = Object.fromEntries(data.entries())
+
+        /** @type {BookingAPI} */
         const booking = {
             duration: json.duration,
             frequency: json.frequency,
@@ -73,17 +126,17 @@ class Step extends StepController {
             customer_id: json['customer-id'],
             customer_address_id: json['customer-address-id'],
             options: {
-                service_cleaning: false,
-                service_ironing: true,
-                service_grocery: false,
-                service_cooking: false,
-                cleaning_bedrooms: '1',
-                cleaning_bathrooms: '2',
-                extra_windows: false,
-                extra_cabinets: true,
-                extra_fridge: false,
-                extra_oven: false,
-                ironing: 'xs'
+                service_cleaning: json['service-cleaning'],
+                service_ironing: json['service-ironing'],
+                service_grocery: json['service-grocery'],
+                service_cooking: json['service-cooking'],
+                cleaning_bedrooms: json['cleaning-bedrooms'],
+                cleaning_bathrooms: json['cleaning-bathrooms'],
+                extra_windows: json['extra-windows'],
+                extra_cabinets: json['extra-cabinets'],
+                extra_fridge: json['extra-fridge'],
+                extra_oven: json['extra-oven'],
+                ironing: json.ironing.replace('ironing-size-', '')
             }
         }
 

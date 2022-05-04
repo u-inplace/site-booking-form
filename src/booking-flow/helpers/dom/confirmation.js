@@ -13,7 +13,7 @@ class ConfirmationDom {
     static msgTimeout
 
     static done() {
-        dom.id('wf-form-Booking').classList.add('completed')
+        dom.id('wf-form-booking').classList.add('completed')
         dom.id('form-done').classList.add('active')
     }
 

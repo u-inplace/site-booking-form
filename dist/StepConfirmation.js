@@ -748,7 +748,7 @@ class ConfirmationDom {
   static msgTimeout;
 
   static done() {
-    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('wf-form-Booking').classList.add('completed');
+    _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('wf-form-booking').classList.add('completed');
     _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('form-done').classList.add('active');
   }
 

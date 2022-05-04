@@ -1103,6 +1103,14 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
     this.#setupSubmit();
   }
   /**
+   * No need to set input handlers for next button, since this is the
+   * last step.
+   * the input.checked = false fix is also messing with FpCookies unloading
+   */
+
+
+  setupInputHandlers() {}
+  /**
    * Create form submit handlers
    */
 

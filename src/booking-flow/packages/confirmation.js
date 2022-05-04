@@ -41,6 +41,13 @@ class Step extends StepController {
     }
 
     /**
+     * No need to set input handlers for next button, since this is the
+     * last step.
+     * the input.checked = false fix is also messing with FpCookies unloading
+     */
+    setupInputHandlers() {}
+
+    /**
      * Create form submit handlers
      */
     #setupSubmit() {

@@ -1119,6 +1119,51 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id(FORM_ID).addEventListener('submit', this.onSubmit.bind(this));
   }
   /**
+   * Form Submission
+   * @param {SubmitEvent} event
+   */
+
+
+  async onSubmit(event) {
+    event.preventDefault();
+    const {
+      form
+    } = event.target;
+    const data = new FormData(form);
+    /** @type {BookingForm} */
+
+    const json = Object.fromEntries(data.entries());
+    const booking = this.makeBooking(json);
+    const url = new URL(form.attributes.action.value);
+
+    try {
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmit();
+      const resRaw = await fetch(url, {
+        method: 'POST',
+        headers: {
+          contentType: 'application/json',
+          dataType: 'json'
+        },
+        body: JSON.stringify(booking)
+      });
+      const res = await resRaw.json();
+
+      if (resRaw.status >= 300) {
+        this.logError(resRaw, res);
+        if (res?.errors?.sodexo_reference) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-slot');else if (res?.errors?.[0].includes('sodexo number is already linked ')) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo-duplicated');else _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
+        _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
+      } else {
+        setTimeout(() => {
+          _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].done();
+        }, 1000 * 1);
+      }
+    } catch (error) {
+      this.logError(error.message);
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
+      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
+    }
+  }
+  /**
    * @typedef {Object} BookingForm
    * @property {string} duration
    * @property {string} frequency
@@ -1169,21 +1214,17 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
    */
 
   /**
-   * Form Submission
-   * @param {SubmitEvent} event
+   * Create booking API object from form
+   * @param {BookingForm} json
+   * @returns {BookingAPI}
    */
 
 
-  async onSubmit(event) {
-    event.preventDefault();
-    const {
-      form
-    } = event.target;
-    const data = new FormData(form);
-    /** @type {BookingForm} */
+  makeBooking(json) {
+    const toBool = f => f === 'on';
 
-    const json = Object.fromEntries(data.entries());
-    /** @type {BookingAPI} */
+    const rmUndefined = obj => // eslint-disable-next-line no-param-reassign
+    Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key]);
 
     const booking = {
       duration: json.duration,
@@ -1195,47 +1236,20 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
       customer_id: json['customer-id'],
       customer_address_id: json['customer-address-id'],
       options: {
-        service_cleaning: json['service-cleaning'],
-        service_ironing: json['service-ironing'],
-        service_grocery: json['service-grocery'],
-        service_cooking: json['service-cooking'],
+        service_cleaning: toBool(json['service-cleaning']),
+        service_ironing: toBool(json['service-ironing']),
+        service_grocery: toBool(json['service-grocery']),
+        service_cooking: toBool(json['service-cooking']),
+        extra_windows: toBool(json['extra-windows']),
+        extra_cabinets: toBool(json['extra-cabinets']),
+        extra_fridge: toBool(json['extra-fridge']),
+        extra_oven: toBool(json['extra-oven']),
         cleaning_bedrooms: json['cleaning-bedrooms'],
         cleaning_bathrooms: json['cleaning-bathrooms'],
-        extra_windows: json['extra-windows'],
-        extra_cabinets: json['extra-cabinets'],
-        extra_fridge: json['extra-fridge'],
-        extra_oven: json['extra-oven'],
-        ironing: json.ironing.replace('ironing-size-', '')
+        ironing: json.ironing?.replace('ironing-size-', '')
       }
     };
-    const url = new URL(form.attributes.action.value);
-
-    try {
-      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmit();
-      const resRaw = await fetch(url, {
-        method: 'POST',
-        headers: {
-          contentType: 'application/json',
-          dataType: 'json'
-        },
-        body: JSON.stringify(booking)
-      });
-      const res = await resRaw.json();
-
-      if (resRaw.status >= 300) {
-        this.logError(resRaw, res);
-        if (res?.errors?.sodexo_reference) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-slot');else if (res?.errors?.[0].includes('sodexo number is already linked ')) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo-duplicated');else _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
-        _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
-      } else {
-        setTimeout(() => {
-          _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].done();
-        }, 1000 * 1);
-      }
-    } catch (error) {
-      this.logError(error.message);
-      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
-      _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
-    }
+    return rmUndefined(booking);
   }
   /**
    * Log error

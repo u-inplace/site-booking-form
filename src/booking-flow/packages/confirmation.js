@@ -55,6 +55,57 @@ class Step extends StepController {
     }
 
     /**
+     * Form Submission
+     * @param {SubmitEvent} event
+     */
+    async onSubmit(event) {
+        event.preventDefault()
+        const { form } = event.target
+        const data = new FormData(form)
+
+        /** @type {BookingForm} */
+        const json = Object.fromEntries(data.entries())
+        const booking = this.makeBooking(json)
+        const url = new URL(form.attributes.action.value)
+
+        try {
+            domConf.onSubmit()
+
+            const resRaw = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    contentType: 'application/json',
+                    dataType: 'json'
+                },
+                body: JSON.stringify(booking)
+            })
+
+            const res = await resRaw.json()
+
+            if (resRaw.status >= 300) {
+                this.logError(resRaw, res)
+
+                if (res?.errors?.sodexo_reference) domConf.error.toast('toast-sodexo')
+                else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
+                    domConf.error.toast('toast-unavailable-slot')
+                else if (res?.errors?.[0].includes('sodexo number is already linked '))
+                    domConf.error.toast('toast-sodexo-duplicated')
+                else domConf.error.toast('toast-submit-error')
+
+                domConf.onSubmitDone()
+            } else {
+                setTimeout(() => {
+                    domConf.done()
+                }, 1000 * 1)
+            }
+        } catch (error) {
+            this.logError(error.message)
+            domConf.error.toast('toast-submit-error')
+            domConf.onSubmitDone()
+        }
+    }
+
+    /**
      * @typedef {Object} BookingForm
      * @property {string} duration
      * @property {string} frequency
@@ -104,18 +155,16 @@ class Step extends StepController {
      */
 
     /**
-     * Form Submission
-     * @param {SubmitEvent} event
+     * Create booking API object from form
+     * @param {BookingForm} json
+     * @returns {BookingAPI}
      */
-    async onSubmit(event) {
-        event.preventDefault()
-        const { form } = event.target
-        const data = new FormData(form)
+    makeBooking(json) {
+        const toBool = f => f === 'on'
+        const rmUndefined = obj =>
+            // eslint-disable-next-line no-param-reassign
+            Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key])
 
-        /** @type {BookingForm} */
-        const json = Object.fromEntries(data.entries())
-
-        /** @type {BookingAPI} */
         const booking = {
             duration: json.duration,
             frequency: json.frequency,
@@ -126,57 +175,21 @@ class Step extends StepController {
             customer_id: json['customer-id'],
             customer_address_id: json['customer-address-id'],
             options: {
-                service_cleaning: json['service-cleaning'],
-                service_ironing: json['service-ironing'],
-                service_grocery: json['service-grocery'],
-                service_cooking: json['service-cooking'],
+                service_cleaning: toBool(json['service-cleaning']),
+                service_ironing: toBool(json['service-ironing']),
+                service_grocery: toBool(json['service-grocery']),
+                service_cooking: toBool(json['service-cooking']),
+                extra_windows: toBool(json['extra-windows']),
+                extra_cabinets: toBool(json['extra-cabinets']),
+                extra_fridge: toBool(json['extra-fridge']),
+                extra_oven: toBool(json['extra-oven']),
                 cleaning_bedrooms: json['cleaning-bedrooms'],
                 cleaning_bathrooms: json['cleaning-bathrooms'],
-                extra_windows: json['extra-windows'],
-                extra_cabinets: json['extra-cabinets'],
-                extra_fridge: json['extra-fridge'],
-                extra_oven: json['extra-oven'],
-                ironing: json.ironing.replace('ironing-size-', '')
+                ironing: json.ironing?.replace('ironing-size-', '')
             }
         }
 
-        const url = new URL(form.attributes.action.value)
-
-        try {
-            domConf.onSubmit()
-
-            const resRaw = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    contentType: 'application/json',
-                    dataType: 'json'
-                },
-                body: JSON.stringify(booking)
-            })
-
-            const res = await resRaw.json()
-
-            if (resRaw.status >= 300) {
-                this.logError(resRaw, res)
-
-                if (res?.errors?.sodexo_reference) domConf.error.toast('toast-sodexo')
-                else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
-                    domConf.error.toast('toast-unavailable-slot')
-                else if (res?.errors?.[0].includes('sodexo number is already linked '))
-                    domConf.error.toast('toast-sodexo-duplicated')
-                else domConf.error.toast('toast-submit-error')
-
-                domConf.onSubmitDone()
-            } else {
-                setTimeout(() => {
-                    domConf.done()
-                }, 1000 * 1)
-            }
-        } catch (error) {
-            this.logError(error.message)
-            domConf.error.toast('toast-submit-error')
-            domConf.onSubmitDone()
-        }
+        return rmUndefined(booking)
     }
 
     /**

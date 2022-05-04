@@ -1076,7 +1076,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SESSION_COOKIE = '__inplace_booking_session';
-const FORM_ID = 'booking-form';
+const FORM_ID = 'wf-form-booking';
 
 class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
   /**
@@ -1109,7 +1109,9 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
    */
 
 
-  setupInputHandlers() {}
+  setupInputHandlers() {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id(FORM_ID).onsubmit = this.onSubmit.bind(this);
+  }
   /**
    * Create form submit handlers
    */

@@ -13,7 +13,7 @@ import domConf from '../helpers/dom/confirmation'
 import domSummary from '../helpers/dom/summary'
 
 const SESSION_COOKIE = '__inplace_booking_session'
-const FORM_ID = 'booking-form'
+const FORM_ID = 'wf-form-booking'
 
 class Step extends StepController {
     /**
@@ -45,7 +45,9 @@ class Step extends StepController {
      * last step.
      * the input.checked = false fix is also messing with FpCookies unloading
      */
-    setupInputHandlers() {}
+    setupInputHandlers() {
+        dom.id(FORM_ID).onsubmit = this.onSubmit.bind(this)
+    }
 
     /**
      * Create form submit handlers

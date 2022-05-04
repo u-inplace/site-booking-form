@@ -1100,7 +1100,6 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
     this.#createSummary();
     this.#setTeamMember();
     this.setupBookingSession();
-    this.#setupSubmit();
   }
   /**
    * No need to set input handlers for next button, since this is the
@@ -1111,14 +1110,6 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   setupInputHandlers() {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id(FORM_ID).onsubmit = this.onSubmit.bind(this);
-  }
-  /**
-   * Create form submit handlers
-   */
-
-
-  #setupSubmit() {
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id(FORM_ID).addEventListener('submit', this.onSubmit.bind(this));
   }
   /**
    * Form Submission

@@ -37,7 +37,6 @@ class Step extends StepController {
         this.#createSummary()
         this.#setTeamMember()
         this.setupBookingSession()
-        this.#setupSubmit()
     }
 
     /**
@@ -47,13 +46,6 @@ class Step extends StepController {
      */
     setupInputHandlers() {
         dom.id(FORM_ID).onsubmit = this.onSubmit.bind(this)
-    }
-
-    /**
-     * Create form submit handlers
-     */
-    #setupSubmit() {
-        dom.id(FORM_ID).addEventListener('submit', this.onSubmit.bind(this))
     }
 
     /**

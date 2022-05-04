@@ -155,9 +155,11 @@ class Step extends StepController {
      */
     makeBooking(json) {
         const toBool = f => f === 'on'
-        const rmUndefined = obj =>
+        const rmUndefined = obj => {
             // eslint-disable-next-line no-param-reassign
             Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key])
+            return obj
+        }
 
         const booking = {
             duration: json.duration,

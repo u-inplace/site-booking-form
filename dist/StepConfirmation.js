@@ -1217,6 +1217,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
   handleNewBooking(res) {
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-apple').href &&= res.events.apple.url;
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-ics').href &&= res.events.apple.url;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-google').href &&= res.events.google;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-outlook').href &&= res.events.outlook;
   }

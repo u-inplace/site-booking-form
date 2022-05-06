@@ -159,6 +159,7 @@ class Step extends StepController {
      */
     handleNewBooking(res) {
         dom.id('cal-apple').href &&= res.events.apple.url
+        dom.id('cal-ics').href &&= res.events.apple.url
         dom.id('cal-google').href &&= res.events.google
         dom.id('cal-outlook').href &&= res.events.outlook
     }

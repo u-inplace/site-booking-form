@@ -49,6 +49,53 @@ class Step extends StepController {
     }
 
     /**
+     * @typedef {Object} BookingResponse
+     * @property {number} parent_booking_id
+     * @property {number} booking_request_id
+     * @property {string} start_timestamp
+     * @property {string} start_date
+     * @property {string} start_time
+     * @property {string} end_timestamp
+     * @property {string} end_date
+     * @property {string} end_time
+     * @property {string} duration
+     * @property {RecurrenceType} recurrence
+     * @property {BookingWebhookCustomer} customer
+     * @property {BookingWebhookTeamMember} team
+     * @property {BookingWebhookAddress} address
+     * @property {CalendarEvents} events
+     *
+     *
+     * @typedef {Object} BookingWebhookCustomer
+     * @property {number} contract_id
+     * @property {string} name
+     * @property {string} email
+     * @property {string} sodexo
+     * @property {string} language
+     *
+     * @typedef {Object} BookingWebhookTeamMember
+     * @property {number} contract_id
+     * @property {string} name
+     * @property {string} email
+     * @property {string} sodexo
+     * @property {string} phone
+     *
+     * @typedef {Object} BookingWebhookAddress
+     * @property {string} id
+     * @property {string} zip_code
+     * @property {string} town
+     * @property {string} street_name
+     * @property {string} street_number
+     *
+     * @typedef {Object} CalendarEvents
+     * @property {string} google
+     * @property {string} apple
+     * @property {string} outlook
+     *
+     * @typedef {"once" | "weekly" | "biweekly"} RecurrenceType
+     */
+
+    /**
      * Form Submission
      * @param {SubmitEvent} event
      */
@@ -74,6 +121,7 @@ class Step extends StepController {
                 body: JSON.stringify(booking)
             })
 
+            /** @type {BookingResponse} */
             const res = await resRaw.json()
 
             if (resRaw.status >= 300) {
@@ -88,6 +136,7 @@ class Step extends StepController {
 
                 domConf.onSubmitDone()
             } else {
+                this.handleNewBooking(res)
                 setTimeout(() => {
                     domConf.done()
                 }, 1000 * 1)
@@ -97,6 +146,16 @@ class Step extends StepController {
             domConf.error.toast('toast-submit-error')
             domConf.onSubmitDone()
         }
+    }
+
+    /**
+     * Do stuff with new booking
+     * @param {BookingResponse} res
+     */
+    handleNewBooking(res) {
+        dom.id('cal-google').href &&= res.events.google
+        dom.id('cal-apple').href &&= res.events.apple
+        dom.id('cal-outlook').href &&= res.events.outlook
     }
 
     /**
@@ -129,6 +188,7 @@ class Step extends StepController {
      * @property {string} start_timestamp
      * @property {string} end_timestamp
      * @property {string} team_member_contract_id
+     * @property {string} team_member_name
      * @property {string} customer_id
      * @property {string} customer_address_id
      * @property {BookingAPIOptions} options

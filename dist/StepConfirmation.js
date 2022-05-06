@@ -1152,8 +1152,13 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
    *
    * @typedef {Object} CalendarEvents
    * @property {string} google
-   * @property {string} apple
    * @property {string} outlook
+   * @property {AppleCalendar} apple
+   *
+   * @typedef {Object} AppleCalendar
+   * @property {string} url
+   * @property {string} content
+   * @property {string} ics B
    *
    * @typedef {"once" | "weekly" | "biweekly"} RecurrenceType
    */
@@ -1211,8 +1216,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
 
   handleNewBooking(res) {
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-apple').href &&= res.events.apple.url;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-google').href &&= res.events.google;
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-apple').href &&= res.events.apple;
     _helpers_dom__WEBPACK_IMPORTED_MODULE_5__["default"].id('cal-outlook').href &&= res.events.outlook;
   }
   /**

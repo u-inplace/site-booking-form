@@ -89,8 +89,13 @@ class Step extends StepController {
      *
      * @typedef {Object} CalendarEvents
      * @property {string} google
-     * @property {string} apple
      * @property {string} outlook
+     * @property {AppleCalendar} apple
+     *
+     * @typedef {Object} AppleCalendar
+     * @property {string} url
+     * @property {string} content
+     * @property {string} ics B
      *
      * @typedef {"once" | "weekly" | "biweekly"} RecurrenceType
      */
@@ -153,8 +158,8 @@ class Step extends StepController {
      * @param {BookingResponse} res
      */
     handleNewBooking(res) {
+        dom.id('cal-apple').href &&= res.events.apple.url
         dom.id('cal-google').href &&= res.events.google
-        dom.id('cal-apple').href &&= res.events.apple
         dom.id('cal-outlook').href &&= res.events.outlook
     }
 

@@ -1319,7 +1319,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
    */
 
 
-  static async logError(res, json) {
+  logError(res, json) {
     console.log('Something went wrong...');
     console.log(`Status: ${res.status} ${res.statusText}`);
     if (json) console.log(`Response: ${JSON.stringify(json)}`);else console.log(`Response: ${res}`);

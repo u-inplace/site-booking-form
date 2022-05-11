@@ -258,7 +258,7 @@ class Step extends StepController {
      * Log error
      * @param {*} res
      */
-    static async logError(res, json) {
+    logError(res, json) {
         console.log('Something went wrong...')
         console.log(`Status: ${res.status} ${res.statusText}`)
 

@@ -136,8 +136,8 @@ class Step extends StepController {
                 if (res?.errors?.sodexo_reference) domConf.error.toast('toast-sodexo')
                 else if (res?.error === 'UNAVAILABLE_TIME_SLOT')
                     domConf.error.toast('toast-unavailable-slot')
-                else if (res?.errors?.[0].includes('sodexo number is already linked '))
-                    domConf.error.toast('toast-sodexo-duplicated')
+                else if (res?.error === 'customer_unavailability')
+                    domConf.error.toast('toast-unavailable-customer')
                 else domConf.error.toast('toast-submit-error')
 
                 domConf.onSubmitDone()

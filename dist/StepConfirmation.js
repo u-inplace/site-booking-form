@@ -1209,7 +1209,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_3__["default"] {
 
       if (resRaw.status >= 300) {
         this.logError(resRaw, res);
-        if (res?.errors?.sodexo_reference) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-slot');else if (res?.errors?.[0].includes('sodexo number is already linked ')) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo-duplicated');else _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
+        if (res?.errors?.sodexo_reference) _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-sodexo');else if (res?.error === 'UNAVAILABLE_TIME_SLOT') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-slot');else if (res?.error === 'customer_unavailability') _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-unavailable-customer');else _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].error.toast('toast-submit-error');
         _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__["default"].onSubmitDone();
       } else {
         this.handleNewBooking(res);

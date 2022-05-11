@@ -11,6 +11,7 @@ import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
 import domConf from '../helpers/dom/confirmation'
 import domSummary from '../helpers/dom/summary'
+import './confirmation.css'
 
 const SESSION_COOKIE = '__inplace_booking_session'
 const FORM_ID = 'wf-form-booking'

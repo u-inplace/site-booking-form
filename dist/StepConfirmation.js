@@ -844,6 +844,18 @@ const domSummary = SummaryDom;
 
 /***/ }),
 
+/***/ "./src/booking-flow/packages/confirmation.css":
+/*!****************************************************!*\
+  !*** ./src/booking-flow/packages/confirmation.css ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/js-cookie/dist/js.cookie.mjs":
 /*!***************************************************!*\
   !*** ./node_modules/js-cookie/dist/js.cookie.mjs ***!
@@ -1060,6 +1072,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking-flow/helpers/dom.js");
 /* harmony import */ var _helpers_dom_confirmation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom/confirmation */ "./src/booking-flow/helpers/dom/confirmation.js");
 /* harmony import */ var _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom/summary */ "./src/booking-flow/helpers/dom/summary.js");
+/* harmony import */ var _confirmation_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./confirmation.css */ "./src/booking-flow/packages/confirmation.css");
 /* eslint-disable class-methods-use-this */
 
 /* eslint-disable vars-on-top */
@@ -1067,6 +1080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* eslint-disable no-use-before-define */
 
 /* eslint-disable no-var */
+
 
 
 

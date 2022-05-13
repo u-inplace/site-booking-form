@@ -1,6 +1,5 @@
-import DOM from "./dom"
-import Sequence from "./sequence"
-import "./slider.css"
+import DOM from './dom'
+import Sequence from './sequence'
 
 /**
  * Custom slider
@@ -56,7 +55,7 @@ export default class Slider {
 
         this.resize()
 
-        this.#onChange("next")
+        this.#onChange('next')
     }
 
     prev() {
@@ -70,6 +69,6 @@ export default class Slider {
 
         this.resize()
 
-        this.#onChange("back")
+        this.#onChange('back')
     }
 }

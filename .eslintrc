@@ -48,6 +48,7 @@
         "no-return-assign": ["error", "except-parens"],
         "no-unused-expressions": ["error", { "allowShortCircuit": true }],
         "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "class-methods-use-this": "off",
         "func-names": ["error", "as-needed"],
         "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
         "func-style": ["error", "expression", { "allowArrowFunctions": true }],

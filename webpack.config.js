@@ -13,13 +13,6 @@ const config = {
         open: true,
         host: 'localhost'
     },
-    plugins: [
-        new LodashModuleReplacementPlugin(),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
-        })
-    ],
     module: {
         rules: [
             {
@@ -43,7 +36,7 @@ const config = {
     }
 }
 
-const StepPackage = (name, entryFile, clean = false) => ({
+const Booking = (name, entryFile, clean = false) => ({
     ...config,
     name,
     entry: { [name]: entryFile },
@@ -51,15 +44,22 @@ const StepPackage = (name, entryFile, clean = false) => ({
         path: path.resolve(__dirname, 'dist'),
         filename: 'booking/[name].js',
         clean
-    }
+    },
+    plugins: [
+        new LodashModuleReplacementPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'booking/[name].css',
+            chunkFilename: '[id].css'
+        })
+    ]
 })
 
 module.exports = () => [
-    StepPackage('StepAvailability', './src/booking/packages/availability.js'),
-    StepPackage('StepConfirmation', './src/booking/packages/confirmation.js'),
-    StepPackage('StepCleaning', './src/booking/packages/cleaning.js', true),
-    StepPackage('StepDuration', './src/booking/packages/duration.js'),
-    StepPackage('StepIroning', './src/booking/packages/ironing.js'),
-    StepPackage('StepPostalCode', './src/booking/packages/postalCode.js'),
-    StepPackage('StepServices', './src/booking/packages/services.js')
+    Booking('availability', './src/booking/packages/availability.js'),
+    Booking('confirmation', './src/booking/packages/confirmation.js'),
+    Booking('cleaning', './src/booking/packages/cleaning.js', true),
+    Booking('duration', './src/booking/packages/duration.js'),
+    Booking('ironing', './src/booking/packages/ironing.js'),
+    Booking('postal-code', './src/booking/packages/postalCode.js'),
+    Booking('services', './src/booking/packages/services.js')
 ]

@@ -1,0 +1,44 @@
+.fadeInTop {
+    -webkit-animation-name: fadeInTop;
+    animation-name: fadeInTop;
+    -webkit-animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+@keyframes fadeInTop {
+    0% {
+        -webkit-transform: translate3d(0, -400px, 0);
+        transform: translate3d(0, -400px, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.fadeOutTop {
+    -webkit-animation-name: fadeOutTop;
+    animation-name: fadeOutTop;
+    -webkit-animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+@keyframes fadeOutTop {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.2;
+    }
+    100% {
+        -webkit-transform: translate3d(0, -300px, 0);
+        transform: translate3d(0, -300px, 0);
+        opacity: 0;
+    }
+}
+

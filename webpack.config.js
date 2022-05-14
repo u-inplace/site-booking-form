@@ -13,13 +13,6 @@ const config = {
         open: true,
         host: 'localhost'
     },
-    plugins: [
-        new LodashModuleReplacementPlugin(),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
-        })
-    ],
     module: {
         rules: [
             {
@@ -43,46 +36,30 @@ const config = {
     }
 }
 
-const calendarConfig = {
-    ...config,
-    name: 'calendarConfig',
-    entry: { Calendar: './src/calendar/main.js' },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        library: 'Calendar'
-    }
-}
-
-const bookingConfig = {
-    ...config,
-    name: 'bookingConfig',
-    entry: { Booking: './src/booking-slider/main.js' },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
-    }
-}
-
-const StepPackage = (name, entryFile, clean = false) => ({
+const Booking = (name, entryFile, clean = false) => ({
     ...config,
     name,
     entry: { [name]: entryFile },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: 'booking/[name].js',
         clean
-    }
+    },
+    plugins: [
+        new LodashModuleReplacementPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'booking/[name].css',
+            chunkFilename: '[id].css'
+        })
+    ]
 })
 
 module.exports = () => [
-    calendarConfig,
-    bookingConfig,
-    StepPackage('StepAvailability', './src/booking-flow/packages/availability.js'),
-    StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
-    StepPackage('StepServices', './src/booking-flow/packages/services.js'),
-    StepPackage('StepIroning', './src/booking-flow/packages/ironing.js'),
-    StepPackage('StepCleaning', './src/booking-flow/packages/cleaning.js'),
-    StepPackage('StepDuration', './src/booking-flow/packages/duration.js'),
-    StepPackage('StepConfirmation', './src/booking-flow/packages/confirmation.js', true)
+    Booking('availability', './src/booking/packages/availability.js'),
+    Booking('confirmation', './src/booking/packages/confirmation.js'),
+    Booking('cleaning', './src/booking/packages/cleaning.js', true),
+    Booking('duration', './src/booking/packages/duration.js'),
+    Booking('ironing', './src/booking/packages/ironing.js'),
+    Booking('postal-code', './src/booking/packages/postalCode.js'),
+    Booking('services', './src/booking/packages/services.js')
 ]

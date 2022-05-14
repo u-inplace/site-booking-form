@@ -43,27 +43,6 @@ const config = {
     }
 }
 
-const calendarConfig = {
-    ...config,
-    name: 'calendarConfig',
-    entry: { Calendar: './src/calendar/main.js' },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        library: 'Calendar'
-    }
-}
-
-const bookingConfig = {
-    ...config,
-    name: 'bookingConfig',
-    entry: { Booking: './src/booking-slider/main.js' },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
-    }
-}
-
 const StepPackage = (name, entryFile, clean = false) => ({
     ...config,
     name,
@@ -76,13 +55,11 @@ const StepPackage = (name, entryFile, clean = false) => ({
 })
 
 module.exports = () => [
-    calendarConfig,
-    bookingConfig,
-    StepPackage('StepAvailability', './src/booking-flow/packages/availability.js'),
-    StepPackage('StepPostalCode', './src/booking-flow/packages/postalCode.js'),
-    StepPackage('StepServices', './src/booking-flow/packages/services.js'),
-    StepPackage('StepIroning', './src/booking-flow/packages/ironing.js'),
-    StepPackage('StepCleaning', './src/booking-flow/packages/cleaning.js'),
-    StepPackage('StepDuration', './src/booking-flow/packages/duration.js'),
-    StepPackage('StepConfirmation', './src/booking-flow/packages/confirmation.js', true)
+    StepPackage('StepAvailability', './src/booking/packages/availability.js'),
+    StepPackage('StepConfirmation', './src/booking/packages/confirmation.js'),
+    StepPackage('StepCleaning', './src/booking/packages/cleaning.js', true),
+    StepPackage('StepDuration', './src/booking/packages/duration.js'),
+    StepPackage('StepIroning', './src/booking/packages/ironing.js'),
+    StepPackage('StepPostalCode', './src/booking/packages/postalCode.js'),
+    StepPackage('StepServices', './src/booking/packages/services.js')
 ]

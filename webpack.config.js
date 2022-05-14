@@ -49,7 +49,7 @@ const StepPackage = (name, entryFile, clean = false) => ({
     entry: { [name]: entryFile },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: 'booking/[name].js',
         clean
     }
 })

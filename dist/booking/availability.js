@@ -3879,6 +3879,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
   team;
 
   constructor() {
+    // eslint-disable-next-line no-debugger
+    debugger;
     super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_4__.STEP.Availability);
     this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_3__["default"]();
     this.cal = _helpers_dom_availability__WEBPACK_IMPORTED_MODULE_8__["default"];

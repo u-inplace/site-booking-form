@@ -55,6 +55,8 @@ class Step extends StepController {
     team
 
     constructor() {
+        // eslint-disable-next-line no-debugger
+        debugger
         super(STEP.Availability)
         this.ops = new BookingOptions()
         this.cal = domAvail

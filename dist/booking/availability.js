@@ -3127,14 +3127,7 @@ class StepController {
   validateState() {
     // eslint-disable-next-line no-debugger
     debugger;
-
-    if (!this.ops.isValid || !this.ops.postalCode) {
-      console.error('invalid options');
-      this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.PostalCode);
-    } else if (this.ops.services.length === 0) {
-      console.error('no service');
-      this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.Services);
-    }
+    if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.PostalCode);else if (this.ops.services.length === 0) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.Services);
   }
   /**
    * Toggle next button active
@@ -3427,6 +3420,83 @@ class Dom {
 
 const dom = Dom;
 /* harmony default export */ __webpack_exports__["default"] = (dom);
+
+/***/ }),
+
+/***/ "./src/booking/helpers/dom/availability.js":
+/*!*************************************************!*\
+  !*** ./src/booking/helpers/dom/availability.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dom */ "./src/booking/helpers/dom.js");
+/* eslint-disable max-classes-per-file */
+
+/**
+ * Ironing
+ */
+
+class AvailDom {
+  static openings = class {
+    static cleanUp() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('start-time-block')?.querySelectorAll('.start-time')?.forEach(e => e.parentNode.removeChild(e));
+    }
+
+    static showWarning() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('aval-warning')?.classList.add('msg-active');
+    }
+
+    static hideWarning() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('aval-warning')?.classList.remove('msg-active');
+    }
+
+  };
+  static team = class {
+    static showBlock() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.classList.add('visible');
+    }
+
+    static hideBlock() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.classList.remove('visible');
+    }
+
+    static cleanUp() {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.querySelectorAll('.team-member')?.forEach(e => e.parentNode.removeChild(e));
+    }
+
+    static get memberTemplate() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-template');
+    }
+
+  };
+  static teamMember = class {
+    static get name() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-name').value;
+    }
+
+    static set name(name) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-name').value = name;
+    }
+
+    static get firstName() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-first-name').value;
+    }
+
+    static set firstName(first) {
+      _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-member-first-name').value = first;
+    }
+
+    static get avatar() {
+      return _dom__WEBPACK_IMPORTED_MODULE_0__["default"].id('team-members-block')?.querySelector('img').src;
+    }
+
+  };
+}
+
+const domAvail = AvailDom;
+/* harmony default export */ __webpack_exports__["default"] = (domAvail);
 
 /***/ }),
 
@@ -3749,11 +3819,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _controllers_calendar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/calendar */ "./src/booking/controllers/calendar/index.js");
 /* harmony import */ var _controllers_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/options */ "./src/booking/controllers/options.js");
-/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/step */ "./src/booking/controllers/step.js");
-/* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking/fragments/teamMember.js");
-/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking/helpers/dom.js");
-/* harmony import */ var _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom/summary */ "./src/booking/helpers/dom/summary.js");
-/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./availability.css */ "./src/booking/packages/availability.css");
+/* harmony import */ var _controllers_sequence__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/sequence */ "./src/booking/controllers/sequence.js");
+/* harmony import */ var _controllers_step__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/step */ "./src/booking/controllers/step.js");
+/* harmony import */ var _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../fragments/teamMember */ "./src/booking/fragments/teamMember.js");
+/* harmony import */ var _helpers_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/dom */ "./src/booking/helpers/dom.js");
+/* harmony import */ var _helpers_dom_availability__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../helpers/dom/availability */ "./src/booking/helpers/dom/availability.js");
+/* harmony import */ var _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../helpers/dom/summary */ "./src/booking/helpers/dom/summary.js");
+/* harmony import */ var _availability_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./availability.css */ "./src/booking/packages/availability.css");
+
+
 
 
 
@@ -3778,7 +3852,7 @@ __webpack_require__.r(__webpack_exports__);
  * @public
  */
 
-class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_4__["default"] {
+class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_5__["default"] {
   #calendar;
   /**
    * Openings for a day
@@ -3804,11 +3878,10 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_4__["default"] {
   team;
 
   constructor() {
-    // eslint-disable-next-line no-debugger
-    debugger; // super(STEP.Availability)
-    // this.ops = new BookingOptions()
-    // this.cal = domAvail
-    // this.team = new Team()
+    super(_controllers_sequence__WEBPACK_IMPORTED_MODULE_4__.STEP.Availability);
+    this.ops = new _controllers_options__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.cal = _helpers_dom_availability__WEBPACK_IMPORTED_MODULE_8__["default"];
+    this.team = new _fragments_teamMember__WEBPACK_IMPORTED_MODULE_6__["default"]();
   }
   /**
    * @returns {boolean}
@@ -3816,7 +3889,7 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_4__["default"] {
 
 
   get isNextDisabled() {
-    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].getRadio('team-member', true);
+    return !_helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].getRadio('team-member', true);
   }
 
   init() {
@@ -3843,8 +3916,8 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_4__["default"] {
       service,
       recurrence
     } = this.ops;
-    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__["default"].service = service;
-    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_7__["default"].recurrence = recurrence;
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__["default"].service = service;
+    _helpers_dom_summary__WEBPACK_IMPORTED_MODULE_9__["default"].recurrence = recurrence;
   }
   /**
    * Load all available openings
@@ -3921,14 +3994,14 @@ class Step extends _controllers_step__WEBPACK_IMPORTED_MODULE_4__["default"] {
     const start_time = event.target.value;
     const template = this.cal.team.memberTemplate; // Set start and end time on hidden inputs
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('start-timestamp').value = this.openings[0].start.toISOString();
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].id('end-timestamp').value = this.openings[0].end.toISOString();
 
     const startTimeFilter = o => o.start_time === start_time;
 
     this.openings.filter(startTimeFilter).forEach(createTeamMember); // Wire events for newly created elements for next button
 
-    _helpers_dom__WEBPACK_IMPORTED_MODULE_6__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
+    _helpers_dom__WEBPACK_IMPORTED_MODULE_7__["default"].queryRadio('team-member').forEach(r => r.addEventListener('click', this.toggleNext.bind(this)));
     this.toggleNext();
   }
   /**

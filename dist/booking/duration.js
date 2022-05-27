@@ -576,8 +576,7 @@ class StepController {
       const event = inputEvent[input.type] || 'change';
       input.addEventListener(event, this.toggleNext.bind(this)); // Sometimes inputs start checked for no reason
       // eslint-disable-next-line no-param-reassign
-
-      input.checked = false;
+      // input.checked = false
     });
   }
   /**

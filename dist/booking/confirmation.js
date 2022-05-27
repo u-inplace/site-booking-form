@@ -471,7 +471,6 @@ class StepController {
 
   validateState() {
     // eslint-disable-next-line no-debugger
-    debugger;
     if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.PostalCode);else if (this.ops.services.length === 0) this.nav.goto(_sequence__WEBPACK_IMPORTED_MODULE_3__.STEP.Services);
   }
   /**

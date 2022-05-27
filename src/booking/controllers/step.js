@@ -69,6 +69,8 @@ export default class StepController {
      * Otherwise, redirect to /booking/services
      */
     validateState() {
+        // eslint-disable-next-line no-debugger
+        debugger
         if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(STEP.PostalCode)
         else if (this.ops.services.length === 0) this.nav.goto(STEP.Services)
     }

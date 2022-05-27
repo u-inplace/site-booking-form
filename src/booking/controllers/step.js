@@ -60,7 +60,7 @@ export default class StepController {
 
             // Sometimes inputs start checked for no reason
             // eslint-disable-next-line no-param-reassign
-            input.checked = false
+            // input.checked = false
         })
     }
 
@@ -69,6 +69,7 @@ export default class StepController {
      * Otherwise, redirect to /booking/services
      */
     validateState() {
+        // eslint-disable-next-line no-debugger
         if (!this.ops.isValid || !this.ops.postalCode) this.nav.goto(STEP.PostalCode)
         else if (this.ops.services.length === 0) this.nav.goto(STEP.Services)
     }

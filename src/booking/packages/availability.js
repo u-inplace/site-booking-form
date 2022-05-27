@@ -7,11 +7,9 @@
 import _ from 'lodash'
 import CalendarController from '../controllers/calendar'
 import BookingOptions from '../controllers/options'
-import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import Team from '../fragments/teamMember'
 import dom from '../helpers/dom'
-import domAvail from '../helpers/dom/availability'
 import domSummary from '../helpers/dom/summary'
 import './availability.css'
 
@@ -57,10 +55,10 @@ class Step extends StepController {
     constructor() {
         // eslint-disable-next-line no-debugger
         debugger
-        super(STEP.Availability)
-        this.ops = new BookingOptions()
-        this.cal = domAvail
-        this.team = new Team()
+        // super(STEP.Availability)
+        // this.ops = new BookingOptions()
+        // this.cal = domAvail
+        // this.team = new Team()
     }
 
     /**

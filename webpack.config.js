@@ -36,30 +36,33 @@ const config = {
     }
 }
 
-const Booking = (name, entryFile, clean = false) => ({
+const Package = (root, name, entryFile, clean = false) => ({
     ...config,
     name,
     entry: { [name]: entryFile },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'booking/[name].js',
+        filename: `${root}/[name].js`,
         clean
     },
     plugins: [
         new LodashModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'booking/[name].css',
+            filename: `${root}/[name].css`,
             chunkFilename: '[id].css'
         })
     ]
 })
+
+const Booking = (name, entryFile, clean = false) => Package('booking', name, entryFile, clean)
 
 module.exports = () => [
     Booking('availability', './src/booking/packages/availability.js'),
     Booking('confirmation', './src/booking/packages/confirmation.js'),
     Booking('cleaning', './src/booking/packages/cleaning.js'),
     Booking('duration', './src/booking/packages/duration.js'),
-    Booking('ironing', './src/booking/packages/ironing.js', true),
+    Booking('ironing', './src/booking/packages/ironing.js'),
     Booking('postal-code', './src/booking/packages/postalCode.js'),
-    Booking('services', './src/booking/packages/services.js')
+    Booking('services', './src/booking/packages/services.js'),
+    Package('account', 'bookings', './src/account/packages/bookings.js')
 ]

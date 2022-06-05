@@ -25,7 +25,7 @@ class BookingsController {
         // Fetch bookings for the upcoming 3 months
         const dateFrom = new Date()
         const dateTo = new Date(dateFrom.setMonth(dateFrom.getMonth() + 3))
-        const bookings = this.fetch(dateFrom, dateTo)
+        const bookings = await this.fetch(dateFrom, dateTo)
         console.log(JSON.stringify(bookings))
     }
 

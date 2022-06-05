@@ -352,8 +352,8 @@ class BookingsController {
       const params = new URLSearchParams({
         code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
         customer,
-        fromDate: fromStr,
-        toDate: toStr
+        from_date: fromStr,
+        to_date: toStr
       });
       url.search = params;
       bookings = await fetch(url);

@@ -1,6 +1,8 @@
 /* eslint-disable vars-on-top */
-import { toISOStringShort } from '../../helpers/dates'
 /* eslint-disable no-var */
+
+import { addMonths } from 'date-fns'
+import { toISOStringShort } from '../../helpers/dates'
 
 class BookingsController {
     /** @type {import('../types/memberstack').Member} */
@@ -24,7 +26,7 @@ class BookingsController {
     async load() {
         // Fetch bookings for the upcoming 3 months
         const dateFrom = new Date()
-        const dateTo = new Date(dateFrom.setMonth(dateFrom.getMonth() + 3))
+        const dateTo = addMonths(dateFrom, 3)
         const bookings = await this.fetch(dateFrom, dateTo)
         console.log(JSON.stringify(bookings))
     }
@@ -35,6 +37,7 @@ class BookingsController {
      * @param {Date} dateTo
      * @returns {import('../types/bookings').BookingsReadResponse}
      */
+
     async fetch(dateFrom, dateTo) {
         const fromStr = toISOStringShort(dateFrom)
         const toStr = toISOStringShort(dateTo)

@@ -139,6 +139,7 @@ class BookingsController {
    * Fetch bookings for user within date range
    * @param {Date} dateFrom
    * @param {Date} dateTo
+   * @returns {import('../types/bookings').BookingsReadResponse}
    */
 
 
@@ -146,16 +147,23 @@ class BookingsController {
     const fromStr = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_0__.toISOStringShort)(dateFrom);
     const toStr = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_0__.toISOStringShort)(dateTo);
     const customer = this.member['pootsy-id'];
-    const url = new URL('https://blue.inplace.be/api/bookings');
-    const params = new URLSearchParams({
-      code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
-      customer: Number(customer),
-      fromDate: fromStr,
-      toDate: toStr
-    });
-    url.search = params;
-    const res = await fetch(url);
-    return res;
+    let bookings = {};
+
+    try {
+      const url = new URL('https://blue.inplace.be/api/bookings');
+      const params = new URLSearchParams({
+        code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
+        customer: Number(customer),
+        fromDate: fromStr,
+        toDate: toStr
+      });
+      url.search = params;
+      bookings = await fetch(url);
+    } catch (err) {
+      console.error(err);
+    }
+
+    return bookings;
   }
 
 } // eslint-disable-next-line no-use-before-define

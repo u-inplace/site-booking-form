@@ -33,23 +33,30 @@ class BookingsController {
      * Fetch bookings for user within date range
      * @param {Date} dateFrom
      * @param {Date} dateTo
+     * @returns {import('../types/bookings').BookingsReadResponse}
      */
     async fetch(dateFrom, dateTo) {
         const fromStr = toISOStringShort(dateFrom)
         const toStr = toISOStringShort(dateTo)
         const customer = this.member['pootsy-id']
+        let bookings = {}
 
-        const url = new URL('https://blue.inplace.be/api/bookings')
-        const params = new URLSearchParams({
-            code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
-            customer: Number(customer),
-            fromDate: fromStr,
-            toDate: toStr
-        })
+        try {
+            const url = new URL('https://blue.inplace.be/api/bookings')
+            const params = new URLSearchParams({
+                code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
+                customer: Number(customer),
+                fromDate: fromStr,
+                toDate: toStr
+            })
 
-        url.search = params
-        const res = await fetch(url)
-        return res
+            url.search = params
+            bookings = await fetch(url)
+        } catch (err) {
+            console.error(err)
+        }
+
+        return bookings
     }
 }
 

@@ -360,7 +360,7 @@ class BookingsController {
       return bookings;
     } catch (err) {
       console.error(err);
-      return {};
+      return bookings;
     }
   }
 

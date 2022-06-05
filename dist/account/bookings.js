@@ -344,14 +344,14 @@ class BookingsController {
   async fetch(dateFrom, dateTo) {
     const fromStr = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_0__.toISOStringShort)(dateFrom);
     const toStr = (0,_helpers_dates__WEBPACK_IMPORTED_MODULE_0__.toISOStringShort)(dateTo);
-    const customer = this.member['pootsy-id'];
+    const customer = Number(this.member['pootsy-id']);
     let bookings = {};
 
     try {
       const url = new URL('https://blue.inplace.be/api/bookings');
       const params = new URLSearchParams({
         code: 'X0XQCODICDXlLbCRdgVHLlN7C-lNWRZ_DOZmJJkxyAj5AzFu3r05kw==',
-        customer: Number(customer),
+        customer,
         fromDate: fromStr,
         toDate: toStr
       });

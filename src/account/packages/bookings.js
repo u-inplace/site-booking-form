@@ -54,7 +54,7 @@ class BookingsController {
 
             url.search = params
             bookings = await fetch(url)
-            return bookings
+            return bookings.json()
         } catch (err) {
             console.error(err)
             return bookings

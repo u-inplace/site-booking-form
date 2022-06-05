@@ -357,11 +357,11 @@ class BookingsController {
       });
       url.search = params;
       bookings = await fetch(url);
+      return bookings;
     } catch (err) {
       console.error(err);
+      return {};
     }
-
-    return bookings;
   }
 
 } // eslint-disable-next-line no-use-before-define

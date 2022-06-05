@@ -37,7 +37,6 @@ class BookingsController {
      * @param {Date} dateTo
      * @returns {import('../types/bookings').BookingsReadResponse}
      */
-
     async fetch(dateFrom, dateTo) {
         const fromStr = toISOStringShort(dateFrom)
         const toStr = toISOStringShort(dateTo)
@@ -55,11 +54,11 @@ class BookingsController {
 
             url.search = params
             bookings = await fetch(url)
+            return bookings
         } catch (err) {
             console.error(err)
+            return {}
         }
-
-        return bookings
     }
 }
 

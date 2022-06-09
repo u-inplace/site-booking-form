@@ -331,7 +331,7 @@ class BookingsController {
     const dateFrom = new Date();
     const dateTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__["default"])(dateFrom, 3);
     const bookings = await this.fetch(dateFrom, dateTo);
-    console.log(JSON.stringify(bookings), null, 2);
+    console.log(JSON.stringify(bookings, null, 2));
   }
   /**
    * Fetch bookings for user within date range

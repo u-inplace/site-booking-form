@@ -28,6 +28,7 @@ class BookingsController {
         const dateFrom = new Date()
         const dateTo = addMonths(dateFrom, 3)
         const bookings = await this.fetch(dateFrom, dateTo)
+
         console.log(JSON.stringify(bookings, null, 2))
     }
 

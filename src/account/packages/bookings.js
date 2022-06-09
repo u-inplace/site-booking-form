@@ -35,12 +35,14 @@ class BookingsController {
      * Fetch bookings for user within date range
      * @param {Date} dateFrom
      * @param {Date} dateTo
-     * @returns {import('../types/bookings').BookingsReadResponse}
+     * @returns {BookingType}
      */
     async fetch(dateFrom, dateTo) {
         const fromStr = toISOStringShort(dateFrom)
         const toStr = toISOStringShort(dateTo)
         const customer = Number(this.member['pootsy-id'])
+
+        /** @type {BookingType[]} */
         let bookings = {}
 
         try {
@@ -53,12 +55,76 @@ class BookingsController {
             })
 
             url.search = params
-            bookings = await fetch(url)
-            return bookings.json()
+            const res = await fetch(url)
+            const resJson = await res.json()
+            bookings = this.remodel(resJson)
         } catch (err) {
             console.error(err)
-            return bookings
         }
+
+        return bookings
+    }
+
+    /**
+     * @typedef {Object} BookingType
+     * @property {string} id
+     * @property {number} teamMemberId
+     * @property {number} customerId
+     * @property {string} teamMember
+     * @property {string} serviceDate
+     * @property {string} startTime
+     * @property {string} endTime
+     * @property {string} startEndTime
+     * @property {string} day
+     * @property {string} month
+     * @property {boolean} recurrence
+     * @property {string} status
+     * @property {number} duration
+     */
+    /**
+     * Remodel booking data to fit interface needs
+     * @param {import('../types/bookings').BookingsReadResponse} incoming
+     * @returns {BookingType[]}
+     */
+    remodel(incoming) {
+        const { lang } = this
+
+        return incoming?.data?.map(orig => {
+            const dateStrToTime = dateStr =>
+                new Date(dateStr).toLocaleTimeString('fr', { timeStyle: 'short' })
+            const startEndTime = attrs =>
+                `${dateStrToTime(attrs.start_time)} - ${dateStrToTime(attrs.end_time)}`
+
+            const attrs = orig.attributes
+            const date = new Date(attrs.start_time)
+
+            /** @type {BookingType} */
+            const booking = {
+                id: orig.id,
+                teamMemberId: attrs.worker_contract_id,
+                customerId: attrs.customer_contract_id,
+                teamMember: attrs.worker_display_name,
+                serviceDate: attrs.delivery_date,
+                startTime: dateStrToTime(attrs.start_time),
+                endTime: dateStrToTime(attrs.end_time),
+                startEndTime: startEndTime(attrs),
+                day: date.getDate(),
+                month: date.toLocaleDateString(lang, { month: 'short' }),
+                recurrence: attrs.recurrence,
+                status: attrs.service_delivery_status,
+                duration: `${attrs.billable_hours}h`
+            }
+
+            return booking
+        })
+    }
+
+    /**
+     * Get the user language from Weglot
+     */
+    get lang() {
+        // eslint-disable-next-line no-undef
+        return Weglot?.getCurrentLang() || 'FR'
     }
 }
 

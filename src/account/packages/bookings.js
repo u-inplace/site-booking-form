@@ -1,12 +1,16 @@
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 
+import dataBind from '@gogocat/data-bind'
 import { addMonths } from 'date-fns'
 import { toISOStringShort } from '../../helpers/dates'
 
 class BookingsController {
     /** @type {import('../types/memberstack').Member} */
     member
+
+    /** @type {Binder} */
+    component
 
     /**
      * Initialize controller
@@ -28,22 +32,38 @@ class BookingsController {
         const dateFrom = new Date()
         const dateTo = addMonths(dateFrom, 3)
         const bookings = await this.fetch(dateFrom, dateTo)
-
         console.log(JSON.stringify(bookings, null, 2))
+
+        this.bind(bookings)
+    }
+
+    /**
+     * Bind bookings to UI Component
+     * @param {Bookings} bookings
+     */
+    async bind(bookings) {
+        const model = { bookings }
+
+        this.component = dataBind.init(
+            document.querySelector('[data-bind-comp=bookingsComponent'),
+            model
+        )
+
+        this.component.render()
     }
 
     /**
      * Fetch bookings for user within date range
      * @param {Date} dateFrom
      * @param {Date} dateTo
-     * @returns {BookingType}
+     * @returns {Bookings}
      */
     async fetch(dateFrom, dateTo) {
         const fromStr = toISOStringShort(dateFrom)
         const toStr = toISOStringShort(dateTo)
         const customer = Number(this.member['pootsy-id'])
 
-        /** @type {BookingType[]} */
+        /** @type {Bookings} */
         let bookings = {}
 
         try {
@@ -82,11 +102,13 @@ class BookingsController {
      * @property {boolean} recurrence
      * @property {string} status
      * @property {number} duration
+     *
+     * @typedef {Bookings} Bookings
      */
     /**
      * Remodel booking data to fit interface needs
      * @param {import('../types/bookings').BookingsReadResponse} incoming
-     * @returns {BookingType[]}
+     * @returns {Bookings}
      */
     remodel(incoming) {
         const { lang } = this

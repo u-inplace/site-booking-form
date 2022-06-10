@@ -76,7 +76,7 @@ class BookingsController {
      * @property {string} startTime
      * @property {string} endTime
      * @property {string} startEndTime
-     * @property {string} day
+     * @property {string} weekday
      * @property {string} month
      * @property {boolean} recurrence
      * @property {string} status
@@ -109,7 +109,7 @@ class BookingsController {
                 startTime: dateStrToTime(attrs.start_time),
                 endTime: dateStrToTime(attrs.end_time),
                 startEndTime: startEndTime(attrs),
-                day: date.getDate(),
+                weekday: date.getDate(),
                 month: date.toLocaleDateString(lang, { month: 'short' }),
                 recurrence: attrs.recurrence,
                 status: attrs.service_delivery_status,

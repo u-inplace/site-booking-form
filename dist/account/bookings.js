@@ -3097,7 +3097,7 @@ class BookingsController {
    * @property {string} month
    * @property {boolean} recurrence
    * @property {string} status
-   * @property {string} isCancelled
+   * @property {string} cancelled
    * @property {number} duration
    *
    * @typedef {Bookings} Bookings
@@ -3143,7 +3143,7 @@ class BookingsController {
         }),
         recurrence: attrs.recurrence,
         status: attrs.service_delivery_status,
-        isCancelled: attrs.service_delivery_status === 'cancelled',
+        cancelled: attrs.service_delivery_status === 'cancelled',
         duration: `${attrs.billable_hours}h`
       };
       return booking;

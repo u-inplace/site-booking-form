@@ -3199,7 +3199,6 @@ class BookingsController {
 
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(() => {
-  console.log('helooo');
   const controller = new BookingsController();
   controller.init();
 });

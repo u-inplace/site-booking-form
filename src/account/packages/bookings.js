@@ -191,7 +191,6 @@ class BookingsController {
 // eslint-disable-next-line no-use-before-define
 var Webflow = Webflow || window.Webflow || []
 Webflow.push(() => {
-    console.log('helooo')
     const controller = new BookingsController()
     controller.init()
 })

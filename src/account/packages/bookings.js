@@ -34,12 +34,11 @@ class BookingsController {
         }
 
         this.component = dataBind.init(
-            document.querySelector('[data-bind-comp="dashboardComponent"]'),
+            document.querySelector('[data-bind-comp="dashboardComp"]'),
             this.viewModel
         )
 
         this.component.render()
-
         this.load()
     }
 

@@ -38,7 +38,7 @@ class BookingsController {
             this._viewModel
         )
 
-        this.component.render()
+        await this.component.render()
         this.load()
     }
 

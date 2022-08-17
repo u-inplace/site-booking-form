@@ -3033,7 +3033,7 @@ class BookingsController {
       bookings: []
     };
     this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel);
-    this.component.render();
+    await this.component.render();
     this.load();
   }
   /**

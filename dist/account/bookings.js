@@ -3070,7 +3070,7 @@ class BookingsController {
   set bookings(bookings) {
     const model = this.viewModel;
     model.bookings = bookings;
-    this._viewModel = model;
+    this.viewModel = model;
   }
   /**
    * @param {boolean} isLoading
@@ -3080,7 +3080,7 @@ class BookingsController {
   set isLoading(isLoading) {
     const model = this.viewModel;
     model.isLoading = isLoading;
-    this._viewModel = model;
+    this.viewModel = model;
   }
   /**
    * Fetch bookings for user within date range

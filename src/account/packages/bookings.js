@@ -72,7 +72,7 @@ class BookingsController {
     set bookings(bookings) {
         const model = this.viewModel
         model.bookings = bookings
-        this._viewModel = model
+        this.viewModel = model
     }
 
     /**
@@ -81,7 +81,7 @@ class BookingsController {
     set isLoading(isLoading) {
         const model = this.viewModel
         model.isLoading = isLoading
-        this._viewModel = model
+        this.viewModel = model
     }
 
     /**

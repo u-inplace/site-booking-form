@@ -4,8 +4,8 @@ bundle=$1
 target="/dist/$bundle"
 repo="webflow"
 branch=$2
-cdnURL="https://cdn.jsdelivr.net/gh/u-inplace/$repo@$branch$target"
-#cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
+#cdnURL="https://cdn.jsdelivr.net/gh/u-inplace/$repo@$branch$target"
+cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
 
 # Basic if statement
 while true; do

@@ -3012,6 +3012,12 @@ class BookingsController {
 
   component;
   /**
+   * @typedef {Object} ViewModel
+   * @property {boolean} isLoading
+   * @property {Bookings} bookings
+   */
+
+  /**
    * Initialize controller
    */
 
@@ -3020,6 +3026,14 @@ class BookingsController {
     // eslint-disable-next-line no-undef
     const member = await MemberStack.onReady;
     this.member = member;
+    /** @type {ViewModel} */
+
+    this._viewModel = {
+      isLoading: true,
+      bookings: []
+    };
+    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp=dashboardComponent'), this.viewModel);
+    this.component.render();
     this.load();
   }
   /**
@@ -3032,8 +3046,20 @@ class BookingsController {
     const dateFrom = new Date();
     const dateTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(dateFrom, 3);
     const bookings = await this.fetch(dateFrom, dateTo);
-    console.log(JSON.stringify(bookings, null, 2));
-    this.bind(bookings);
+    this.bookings = bookings;
+  }
+  /**
+   * @param {ViewModel} model
+   */
+
+
+  set viewModel(model) {
+    this._viewModel = model;
+    this.component.render();
+  }
+
+  get viewModel() {
+    return this._viewModel;
   }
   /**
    * Bind bookings to UI Component
@@ -3041,12 +3067,20 @@ class BookingsController {
    */
 
 
-  async bind(bookings) {
-    const model = {
-      bookings
-    };
-    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp=bookingsComponent'), model);
-    this.component.render();
+  set bookings(bookings) {
+    const model = this.viewModel;
+    model.bookings = bookings;
+    this._viewModel = model;
+  }
+  /**
+   * @param {boolean} isLoading
+   */
+
+
+  set isLoading(isLoading) {
+    const model = this.viewModel;
+    model.isLoading = isLoading;
+    this._viewModel = model;
   }
   /**
    * Fetch bookings for user within date range
@@ -3062,7 +3096,7 @@ class BookingsController {
     const customer = Number(this.member['pootsy-id']);
     /** @type {Bookings} */
 
-    let bookings = {};
+    let bookings = [];
 
     try {
       const url = new URL('https://blue.inplace.be/api/bookings');
@@ -3080,6 +3114,7 @@ class BookingsController {
       console.error(err);
     }
 
+    this.isLoading = false;
     return bookings;
   }
   /**
@@ -3100,7 +3135,7 @@ class BookingsController {
    * @property {string} canceled
    * @property {number} duration
    *
-   * @typedef {Bookings} Bookings
+   * @typedef {BookingType[]} Bookings
    */
 
   /**

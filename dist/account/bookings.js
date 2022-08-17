@@ -3034,9 +3034,12 @@ class BookingsController {
       isEmpty: false,
       bookings: []
     };
-    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel);
-    await this.component.render();
-    this.load();
+    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel); // BUG: This is not executed correctly without a wait
+
+    setTimeout(async () => {
+      await this.component.render();
+      this.load();
+    }, 500);
   }
   /**
    * Fetch and load bookings

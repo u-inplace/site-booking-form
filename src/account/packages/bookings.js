@@ -40,8 +40,11 @@ class BookingsController {
             this._viewModel
         )
 
-        await this.component.render()
-        this.load()
+        // BUG: This is not executed correctly without a wait
+        setTimeout(async () => {
+            await this.component.render()
+            this.load()
+        }, 500)
     }
 
     /**

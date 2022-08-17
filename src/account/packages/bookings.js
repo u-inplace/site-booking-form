@@ -15,6 +15,7 @@ class BookingsController {
     /**
      * @typedef {Object} ViewModel
      * @property {boolean} isLoading
+     * @property {boolean} isEmpty
      * @property {Bookings} bookings
      */
 
@@ -30,6 +31,7 @@ class BookingsController {
         /** @type {ViewModel} */
         this._viewModel = {
             isLoading: true,
+            isEmpty: false,
             bookings: []
         }
 
@@ -72,6 +74,7 @@ class BookingsController {
     set bookings(bookings) {
         const model = this.viewModel
         model.bookings = bookings
+        model.isEmpty = bookings.length === 0
         this.viewModel = model
     }
 

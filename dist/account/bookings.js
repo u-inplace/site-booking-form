@@ -3014,6 +3014,7 @@ class BookingsController {
   /**
    * @typedef {Object} ViewModel
    * @property {boolean} isLoading
+   * @property {boolean} isEmpty
    * @property {Bookings} bookings
    */
 
@@ -3030,6 +3031,7 @@ class BookingsController {
 
     this._viewModel = {
       isLoading: true,
+      isEmpty: false,
       bookings: []
     };
     this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel);
@@ -3070,6 +3072,7 @@ class BookingsController {
   set bookings(bookings) {
     const model = this.viewModel;
     model.bookings = bookings;
+    model.isEmpty = bookings.length === 0;
     this.viewModel = model;
   }
   /**

@@ -3034,12 +3034,9 @@ class BookingsController {
       isEmpty: false,
       bookings: []
     };
-    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel); // BUG: This is not executed correctly without a wait
-
-    setTimeout(async () => {
-      await this.component.render();
-      this.load();
-    }, 500);
+    this.component = _gogocat_data_bind__WEBPACK_IMPORTED_MODULE_0___default().init(document.querySelector('[data-bind-comp="dashboardComp"]'), this._viewModel);
+    await this.component.render();
+    this.load();
   }
   /**
    * Fetch and load bookings
@@ -3205,6 +3202,7 @@ class BookingsController {
 
 var Webflow = Webflow || window.Webflow || [];
 Webflow.push(() => {
+  console.log('Controller.init()');
   const controller = new BookingsController();
   controller.init();
 });

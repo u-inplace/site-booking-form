@@ -40,11 +40,8 @@ class BookingsController {
             this._viewModel
         )
 
-        // BUG: This is not executed correctly without a wait
-        setTimeout(async () => {
-            await this.component.render()
-            this.load()
-        }, 500)
+        await this.component.render()
+        this.load()
     }
 
     /**
@@ -197,6 +194,7 @@ class BookingsController {
 // eslint-disable-next-line no-use-before-define
 var Webflow = Webflow || window.Webflow || []
 Webflow.push(() => {
+    console.log('Controller.init()')
     const controller = new BookingsController()
     controller.init()
 })

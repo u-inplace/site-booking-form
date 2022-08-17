@@ -2,7 +2,7 @@
 
 bundle=$1
 target="/dist/$bundle"
-repo="ui-booking"
+repo="webflow"
 branch=$2
 cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
 

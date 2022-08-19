@@ -227,7 +227,7 @@ export default class CalendarController {
         //     )} weekKey: ${weekKey}`
         // )
 
-        const url = new URL('https://inplace-booking.azurewebsites.net/api/availability')
+        const url = new URL('https://blue.inplace.be/api/availability')
         const params = new URLSearchParams({
             code: 'jDlOk9eyca7HVUuVn2fRaIDQmv57z9l8bCHssUSMzpDugndIrzi5Tw==',
             postalCode: this.#request.postalCode,

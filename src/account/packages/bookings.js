@@ -185,9 +185,9 @@ class BookingsController {
     }
 
     // eslint-disable-next-line no-unused-vars
-    onDelete(_event, _elem) {
+    onDelete(_event, elem) {
         // eslint-disable-next-line no-alert
-        alert('Delete me')
+        alert(`${elem.id}`)
     }
 
     /**

@@ -103,12 +103,8 @@ testApp
 coverage
 
 ############################
-# Strapi
+# Buiild
 ############################
 
 .env
-license.txt
-exports
-*.cache
-build
-.strapi-updater.json
+dist/*/*

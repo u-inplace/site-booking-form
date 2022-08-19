@@ -3137,6 +3137,7 @@ class BookingsController {
    * @property {string} status
    * @property {string} canceled
    * @property {number} duration
+   * @property {Function} onDelete
    *
    * @typedef {BookingType[]} Bookings
    */
@@ -3182,10 +3183,17 @@ class BookingsController {
         recurrence: attrs.recurrence,
         status: attrs.service_delivery_status,
         canceled: attrs.service_delivery_status === 'cancelled',
-        duration: `${attrs.billable_hours}h`
+        duration: `${attrs.billable_hours}h`,
+        onDelete: this.onDelete()
       };
       return booking;
     });
+  } // eslint-disable-next-line no-unused-vars
+
+
+  onDelete(_event, _elem) {
+    // eslint-disable-next-line no-alert
+    alert('Delete me');
   }
   /**
    * Get the user language from Weglot

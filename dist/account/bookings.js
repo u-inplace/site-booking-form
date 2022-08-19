@@ -3200,7 +3200,6 @@ class BookingsController {
 } // eslint-disable-next-line no-use-before-define
 
 
-console.log('Controller.init()');
 const controller = new BookingsController();
 controller.init();
 }();

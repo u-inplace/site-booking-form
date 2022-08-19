@@ -139,7 +139,7 @@ class BookingsController {
      * @property {string} status
      * @property {string} canceled
      * @property {number} duration
-     * @property {Function} onDelete
+     * @property {Function} onCancel
      *
      * @typedef {BookingType[]} Bookings
      */
@@ -177,7 +177,8 @@ class BookingsController {
                 status: attrs.service_delivery_status,
                 canceled: attrs.service_delivery_status === 'cancelled',
                 duration: `${attrs.billable_hours}h`,
-                onDelete: this.onDelete
+                onCancel: this.onCancel,
+                getCancelAttrs: { id: orig.id }
             }
 
             return booking
@@ -185,7 +186,7 @@ class BookingsController {
     }
 
     // eslint-disable-next-line no-unused-vars
-    onDelete(_event, elem) {
+    onCancel(_event, elem) {
         // eslint-disable-next-line no-alert
         alert(`${elem.id}`)
     }

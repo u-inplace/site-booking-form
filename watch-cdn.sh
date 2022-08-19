@@ -7,8 +7,8 @@ branch=$2
 
 # to clea cache
 # purge.jsdelivr.net/gh/u-inplace/...
-#cdnURL="https://cdn.jsdelivr.net/gh/u-inplace/$repo@$branch$target"
-cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
+cdnURL="https://cdn.jsdelivr.net/gh/u-inplace/$repo@$branch$target"
+#cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
 
 # Basic if statement
 while true; do

@@ -177,7 +177,7 @@ class BookingsController {
                 status: attrs.service_delivery_status,
                 canceled: attrs.service_delivery_status === 'cancelled',
                 duration: `${attrs.billable_hours}h`,
-                onDelete: this.onDelete()
+                onDelete: this.onDelete
             }
 
             return booking

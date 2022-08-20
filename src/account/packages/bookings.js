@@ -187,8 +187,8 @@ class BookingsController {
 
     // eslint-disable-next-line no-unused-vars
     onCancel(_event, elem) {
-        // eslint-disable-next-line no-alert
-        alert(`${elem.id}`)
+        //  Workaround to trigger popup animation
+        document.getElementById('popup-btn').click()
     }
 
     /**

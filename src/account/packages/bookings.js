@@ -187,7 +187,7 @@ class BookingsController {
                 status: attrs.service_delivery_status,
                 canceled: attrs.service_delivery_status === 'cancelled',
                 duration: `${attrs.billable_hours}h`,
-                onCancel: this.onCancel,
+                onCancel: this.onCancel.bind(this),
                 getCancelAttrs: { id: orig.id }
             }
 

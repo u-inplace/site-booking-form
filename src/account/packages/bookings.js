@@ -210,20 +210,32 @@ class BookingsController {
     async onCancelConfirm(event) {
         event.preventDefault()
 
-        const id = this.actionBookingId
-        const url = new URL(`https://blue.inplace.be/api/booking/${id}`)
-        const params = new URLSearchParams({
-            code: 'rvzrvPgH8mUra2ayJcLDvIQhn6k6NEUFivB1ULquVcTJwbqlh7R4Wg=='
-        })
-        url.search = params
+        const model = {
+            wait: true
+        }
 
-        const res = await fetch(url, { method: 'DELETE' })
-        const cancelled = await res.json()
+        const comp = dataBind.init(document.querySelector('[data-bind-comp="popupComp"]'), model)
+        await comp.render()
 
-        console.log(JSON.stringify(cancelled, null, 2))
+        try {
+            const id = this.actionBookingId
+            const url = new URL(`https://blue.inplace.be/api/booking/${id}`)
+            const params = new URLSearchParams({
+                code: 'rvzrvPgH8mUra2ayJcLDvIQhn6k6NEUFivB1ULquVcTJwbqlh7R4Wg=='
+            })
+            url.search = params
+
+            await fetch(url, { method: 'DELETE' })
+        } catch (e) {
+            console.log(e)
+        }
 
         //  Workaround to trigger popup closed animation
         document.getElementById('popup-close').click()
+
+        // Remove loading thing
+        model.wait = false
+        comp.render()
 
         // Refresh bookings
         this.load()

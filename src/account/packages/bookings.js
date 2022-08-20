@@ -225,7 +225,9 @@ class BookingsController {
             })
             url.search = params
 
-            await fetch(url, { method: 'DELETE' })
+            const res = await fetch(url, { method: 'DELETE' })
+            const bookingInfo = await res.json()
+            this.raiseWebhook(bookingInfo)
         } catch (e) {
             console.log(e)
         }
@@ -239,6 +241,24 @@ class BookingsController {
 
         // Refresh bookings
         this.load()
+    }
+
+    /**
+     * Raise cancelled booking event to send notifications
+     * @param {Object} booking
+     */
+    async raiseWebhook(booking) {
+        const payload = {
+            member: this.member,
+            booking
+        }
+        fetch('https://hooks.zapier.com/hooks/catch/10465457/blrmn58/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
     }
 
     /**

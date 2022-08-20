@@ -201,10 +201,26 @@ class BookingsController {
         document.getElementById('popup-btn').click()
     }
 
-    // eslint-disable-next-line no-unused-vars
-    onCancelConfirm(_event, elem) {
-        // eslint-disable-next-line no-alert
-        alert(this.actionBookingId)
+    /**
+     * Send cancelation request
+     * @param {SubmitEvent} event
+     */
+    async onCancelConfirm(event) {
+        event.preventDefault()
+
+        const id = this.actionBookingId
+        const url = new URL(`https://blue.inplace.be/api/booking/${id}`)
+        const params = new URLSearchParams({
+            code: 'rvzrvPgH8mUra2ayJcLDvIQhn6k6NEUFivB1ULquVcTJwbqlh7R4Wg=='
+        })
+        url.search = params
+
+        const res = await fetch(url, { method: 'DELETE' })
+
+        console.log(JSON.parse(res))
+
+        //  Workaround to trigger popup closed animation
+        document.getElementById('popup-close').click()
     }
 
     /**

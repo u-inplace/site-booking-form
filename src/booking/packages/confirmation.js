@@ -27,17 +27,23 @@ class Step extends StepController {
      */
     team
 
+    member
+
     constructor() {
         super(STEP.Confirmation, FORM_ID)
         this.ops = new BookingOptions()
         this.team = new Team()
     }
 
-    init() {
+    async init() {
         super.init()
         this.#createSummary()
         this.#setTeamMember()
         this.setupBookingSession()
+
+        // eslint-disable-next-line no-undef
+        const member = await MemberStack.onReady
+        this.member = member
     }
 
     /**
@@ -237,6 +243,7 @@ class Step extends StepController {
             team_member_name: json['team-member-name'],
             customer_id: json['customer-id'],
             customer_address_id: json['customer-address-id'],
+            customer_email: this.member.email,
             options: {
                 service_cleaning: toBool(json['service-cleaning']),
                 service_ironing: toBool(json['service-ironing']),

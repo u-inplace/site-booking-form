@@ -49,7 +49,9 @@ class BookingsController {
     }
 
     setupEventHandlers() {
-        document.getElementById('cancel-confirm').addEventListener('click', this.onCancelConfirm)
+        document
+            .getElementById('cancel-confirm')
+            .addEventListener('click', this.onCancelConfirm.bind(this))
     }
 
     /**

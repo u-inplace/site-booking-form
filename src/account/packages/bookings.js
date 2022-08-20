@@ -223,6 +223,9 @@ class BookingsController {
 
         //  Workaround to trigger popup closed animation
         document.getElementById('popup-close').click()
+
+        // Refresh bookings
+        this.load()
     }
 
     /**

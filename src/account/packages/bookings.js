@@ -218,8 +218,9 @@ class BookingsController {
         url.search = params
 
         const res = await fetch(url, { method: 'DELETE' })
+        const cancelled = await res.json()
 
-        console.log(JSON.parse(res))
+        console.log(JSON.stringify(cancelled, null, 2))
 
         //  Workaround to trigger popup closed animation
         document.getElementById('popup-close').click()

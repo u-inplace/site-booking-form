@@ -12,6 +12,9 @@ class BookingsController {
     /** @type {Binder} */
     component
 
+    /** @type {string} */
+    actionBookingId
+
     /**
      * @typedef {Object} ViewModel
      * @property {boolean} isLoading
@@ -27,6 +30,7 @@ class BookingsController {
         // eslint-disable-next-line no-undef
         const member = await MemberStack.onReady
         this.member = member
+        this.setupEventHandlers()
 
         /** @type {ViewModel} */
         this._viewModel = {
@@ -42,6 +46,10 @@ class BookingsController {
 
         await this.component.render()
         this.load()
+    }
+
+    setupEventHandlers() {
+        document.getElementById('cancel-confirm').addEventListener('click', this.onCancelConfirm)
     }
 
     /**
@@ -185,10 +193,18 @@ class BookingsController {
         })
     }
 
-    // eslint-disable-next-line no-unused-vars
     onCancel(_event, elem) {
+        // Store booking id to be retrieved later
+        this.actionBookingId = elem.id
+
         //  Workaround to trigger popup animation
         document.getElementById('popup-btn').click()
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    onCancelConfirm(_event, elem) {
+        // eslint-disable-next-line no-alert
+        alert(this.actionBookingId)
     }
 
     /**

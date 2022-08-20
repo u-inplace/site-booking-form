@@ -254,9 +254,6 @@ class BookingsController {
         }
         fetch('https://hooks.zapier.com/hooks/catch/10465457/blrmn58/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(payload)
         })
     }

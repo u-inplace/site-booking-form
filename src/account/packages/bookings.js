@@ -60,7 +60,7 @@ class BookingsController {
     async load() {
         // Fetch bookings for the upcoming 3 months
         const dateFrom = new Date()
-        const dateTo = addMonths(dateFrom, 3)
+        const dateTo = addMonths(dateFrom, 6)
         const bookings = await this.fetch(dateFrom, dateTo)
         this.bookings = bookings
     }

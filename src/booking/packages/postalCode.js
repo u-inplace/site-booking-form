@@ -83,8 +83,5 @@ class PostalCodeStep extends StepController {
     }
 }
 
-var Webflow = Webflow || window.Webflow || []
-Webflow.push(() => {
-    const step = new PostalCodeStep()
-    step.init()
-})
+const step = new PostalCodeStep()
+step.init()

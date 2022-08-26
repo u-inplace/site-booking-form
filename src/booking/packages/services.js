@@ -46,8 +46,5 @@ class ServicesStep extends StepController {
     }
 }
 
-var Webflow = Webflow || window.Webflow || []
-Webflow.push(() => {
-    const step = new ServicesStep()
-    step.init()
-})
+const step = new ServicesStep()
+step.init()

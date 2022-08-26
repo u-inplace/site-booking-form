@@ -242,8 +242,5 @@ class Step extends StepController {
     }
 }
 
-var Webflow = Webflow || window.Webflow || []
-Webflow.push(() => {
-    const step = new Step()
-    step.init()
-})
+const step = new Step()
+step.init()

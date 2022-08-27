@@ -8,7 +8,7 @@ import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
 
-class PostalCodeStep extends StepController {
+class Step extends StepController {
     coverage = [
         '1070',
         '1160',
@@ -86,5 +86,8 @@ class PostalCodeStep extends StepController {
     }
 }
 
-const step = new PostalCodeStep()
-step.init()
+// Wait for DOM to load before query elements
+document.addEventListener('DOMContentLoaded', () => {
+    const step = new Step()
+    step.init()
+})

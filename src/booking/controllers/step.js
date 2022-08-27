@@ -25,26 +25,20 @@ export default class StepController {
      * @param {string} formId Step form Id
      */
     constructor(curr, formId = 'wf-form-step') {
-        // Wait for DOM to load before query elements
-        document.addEventListener('DOMContentLoaded', () => {
-            this.form = dom.id(formId)
-            this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
-            this.ops = new BookingOptions()
-            this.validateState()
-        })
+        this.form = dom.id(formId)
+        this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
+        this.ops = new BookingOptions()
+        this.validateState()
     }
 
     /**
      * Initialize controller
      */
     init() {
-        // Wait for DOM to load before query elements
-        document.addEventListener('DOMContentLoaded', () => {
-            this.setupInputHandlers()
-            dom.nextButtonDisabled = true
-            this.toggleNext()
-            this.updateNav()
-        })
+        this.setupInputHandlers()
+        dom.nextButtonDisabled = true
+        this.toggleNext()
+        this.updateNav()
     }
 
     /**
@@ -98,9 +92,5 @@ export default class StepController {
     /**
      * Update Nav step count
      */
-    updateNav() {
-        dom.id('step-nav').innerHTML = `Step ${this.nav.sequence.currentIndex}/${
-            this.nav.sequence.total - 1
-        }`
-    }
+    updateNav() {}
 }

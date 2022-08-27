@@ -9,7 +9,7 @@ import StepController from '../controllers/step'
 import dom from '../helpers/dom'
 import domServices from '../helpers/dom/services'
 
-class ServicesStep extends StepController {
+class Step extends StepController {
     constructor() {
         super(STEP.Services)
 
@@ -46,5 +46,8 @@ class ServicesStep extends StepController {
     }
 }
 
-const step = new ServicesStep()
-step.init()
+// Wait for DOM to load before query elements
+document.addEventListener('DOMContentLoaded', () => {
+    const step = new Step()
+    step.init()
+})

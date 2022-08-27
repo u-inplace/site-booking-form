@@ -94,5 +94,6 @@ const run = () => {
 
 // Wait for DOM to load before query elements
 // It's possible that DOMContent is already loaded, so check on document.readState
+console.log('Step: Script loaded')
 if (document.readyState !== 'loading') run()
 else document.addEventListener('DOMContentLoaded', run)

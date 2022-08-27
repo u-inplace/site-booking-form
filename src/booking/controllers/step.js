@@ -25,20 +25,26 @@ export default class StepController {
      * @param {string} formId Step form Id
      */
     constructor(curr, formId = 'wf-form-step') {
-        this.form = dom.id(formId)
-        this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
-        this.ops = new BookingOptions()
-        this.validateState()
+        // Wait for DOM to load before query elements
+        document.addEventListener('DOMContentLoaded', () => {
+            this.form = dom.id(formId)
+            this.nav = new NavigationController({ formId, sequence: new Sequence(curr) })
+            this.ops = new BookingOptions()
+            this.validateState()
+        })
     }
 
     /**
      * Initialize controller
      */
     init() {
-        this.setupInputHandlers()
-        dom.nextButtonDisabled = true
-        this.toggleNext()
-        this.updateNav()
+        // Wait for DOM to load before query elements
+        document.addEventListener('DOMContentLoaded', () => {
+            this.setupInputHandlers()
+            dom.nextButtonDisabled = true
+            this.toggleNext()
+            this.updateNav()
+        })
     }
 
     /**

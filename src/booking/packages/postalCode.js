@@ -88,6 +88,7 @@ class Step extends StepController {
 
 // Wait for DOM to load before query elements
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Step: DOMContentLoaded')
     const step = new Step()
     step.init()
 })

@@ -39,7 +39,8 @@ class Step extends StepController {
     }
 
     init() {
-        // Clear all options
+        // Clear all options before initilization, otherwise postal-code cookie will be
+        // deleted AFTER selecting it, which will couse later steps to restart
         this.ops.clear()
         super.init()
         this.nav.sequence.init()

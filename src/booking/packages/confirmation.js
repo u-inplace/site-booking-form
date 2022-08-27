@@ -165,6 +165,9 @@ class Step extends StepController {
      * @param {BookingResponse} res
      */
     handleNewBooking(res) {
+        // Clear all options
+        this.ops.clear()
+
         dom.id('cal-apple').href &&= res.events.apple.url
         dom.id('cal-ics').href &&= res.events.apple.url
         dom.id('cal-google').href &&= res.events.google

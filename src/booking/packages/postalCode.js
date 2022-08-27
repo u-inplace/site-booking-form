@@ -42,6 +42,9 @@ class PostalCodeStep extends StepController {
         super.init()
         this.nav.sequence.init()
         this.pc.addEventListener('input', this.onPostalCode.bind(this))
+
+        // Clear all options
+        this.ops.clear()
     }
 
     validateState() {

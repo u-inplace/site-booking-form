@@ -20,8 +20,14 @@ class Step extends StepController {
     }
 }
 
-// Wait for DOM to load before query elements
-document.addEventListener('DOMContentLoaded', () => {
+const run = () => {
+    console.log('Step: DOMContentLoaded')
     const step = new Step()
     step.init()
-})
+}
+
+// Wait for DOM to load before query elements
+// It's possible that DOMContent is already loaded, so check on document.readState
+console.log('Step: Script loaded')
+if (document.readyState !== 'loading') run()
+else document.addEventListener('DOMContentLoaded', run)

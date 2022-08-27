@@ -39,9 +39,9 @@ class Step extends StepController {
     }
 
     init() {
-        super.init()
         // Clear all options
         this.ops.clear()
+        super.init()
         this.nav.sequence.init()
         this.pc.addEventListener('input', this.onPostalCode.bind(this))
     }

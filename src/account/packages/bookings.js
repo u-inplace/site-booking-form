@@ -12,6 +12,9 @@ class BookingsController {
     /** @type {Binder} */
     component
 
+    /** @type {string} */
+    actionBookingId
+
     /**
      * @typedef {Object} ViewModel
      * @property {boolean} isLoading
@@ -27,6 +30,7 @@ class BookingsController {
         // eslint-disable-next-line no-undef
         const member = await MemberStack.onReady
         this.member = member
+        this.setupEventHandlers()
 
         /** @type {ViewModel} */
         this._viewModel = {
@@ -44,13 +48,19 @@ class BookingsController {
         this.load()
     }
 
+    setupEventHandlers() {
+        document
+            .getElementById('cancel-confirm')
+            .addEventListener('click', this.onCancelConfirm.bind(this))
+    }
+
     /**
      * Fetch and load bookings
      */
     async load() {
         // Fetch bookings for the upcoming 3 months
         const dateFrom = new Date()
-        const dateTo = addMonths(dateFrom, 3)
+        const dateTo = addMonths(dateFrom, 6)
         const bookings = await this.fetch(dateFrom, dateTo)
         this.bookings = bookings
     }
@@ -139,7 +149,7 @@ class BookingsController {
      * @property {string} status
      * @property {string} canceled
      * @property {number} duration
-     * @property {Function} onDelete
+     * @property {Function} onCancel
      *
      * @typedef {BookingType[]} Bookings
      */
@@ -177,17 +187,75 @@ class BookingsController {
                 status: attrs.service_delivery_status,
                 canceled: attrs.service_delivery_status === 'cancelled',
                 duration: `${attrs.billable_hours}h`,
-                onDelete: this.onDelete
+                onCancel: this.onCancel.bind(this),
+                getCancelAttrs: { id: orig.id }
             }
 
             return booking
         })
     }
 
-    // eslint-disable-next-line no-unused-vars
-    onDelete(_event, _elem) {
-        // eslint-disable-next-line no-alert
-        alert('Delete me')
+    onCancel(_event, elem) {
+        // Store booking id to be retrieved later
+        this.actionBookingId = elem.id
+
+        //  Workaround to trigger popup animation
+        document.getElementById('popup-btn').click()
+    }
+
+    /**
+     * Send cancelation request
+     * @param {SubmitEvent} event
+     */
+    async onCancelConfirm(event) {
+        event.preventDefault()
+
+        const model = {
+            wait: true
+        }
+
+        const comp = dataBind.init(document.querySelector('[data-bind-comp="popupComp"]'), model)
+        await comp.render()
+
+        try {
+            const id = this.actionBookingId
+            const url = new URL(`https://blue.inplace.be/api/booking/${id}`)
+            const params = new URLSearchParams({
+                code: 'rvzrvPgH8mUra2ayJcLDvIQhn6k6NEUFivB1ULquVcTJwbqlh7R4Wg=='
+            })
+            url.search = params
+
+            const res = await fetch(url, { method: 'DELETE' })
+            const bookingInfo = await res.json()
+            this.raiseWebhook(bookingInfo)
+        } catch (e) {
+            console.log(e)
+        }
+
+        //  Workaround to trigger popup closed animation
+        document.getElementById('popup-close').click()
+
+        // Remove loading thing
+        model.wait = false
+        comp.render()
+
+        // Refresh bookings
+        this.load()
+    }
+
+    /**
+     * Raise cancelled booking event to send notifications
+     * @param {Object} booking
+     */
+    async raiseWebhook(booking) {
+        const payload = {
+            member: this.member,
+            booking
+        }
+        fetch('https://hooks.zapier.com/hooks/catch/10465457/blrmn58/', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
     }
 
     /**

@@ -57,6 +57,13 @@ export default class BookingOptions {
     }
 
     /**
+     * Remove all options, cleaning cookie store
+     */
+    clear() {
+        this.cookie.clear()
+    }
+
+    /**
      * Check if options are valid
      */
     get isValid() {

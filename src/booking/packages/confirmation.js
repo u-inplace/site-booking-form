@@ -27,17 +27,23 @@ class Step extends StepController {
      */
     team
 
+    member
+
     constructor() {
         super(STEP.Confirmation, FORM_ID)
         this.ops = new BookingOptions()
         this.team = new Team()
     }
 
-    init() {
+    async init() {
         super.init()
         this.#createSummary()
         this.#setTeamMember()
         this.setupBookingSession()
+
+        // eslint-disable-next-line no-undef
+        const member = await MemberStack.onReady
+        this.member = member
     }
 
     /**
@@ -159,6 +165,9 @@ class Step extends StepController {
      * @param {BookingResponse} res
      */
     handleNewBooking(res) {
+        // Clear all options
+        this.ops.clear()
+
         dom.id('cal-apple').href &&= res.events.apple.url
         dom.id('cal-ics').href &&= res.events.apple.url
         dom.id('cal-google').href &&= res.events.google
@@ -237,6 +246,7 @@ class Step extends StepController {
             team_member_name: json['team-member-name'],
             customer_id: json['customer-id'],
             customer_address_id: json['customer-address-id'],
+            customer_email: this.member.email,
             options: {
                 service_cleaning: toBool(json['service-cleaning']),
                 service_ironing: toBool(json['service-ironing']),
@@ -307,8 +317,14 @@ class Step extends StepController {
     }
 }
 
-var Webflow = Webflow || window.Webflow || []
-Webflow.push(() => {
+const run = () => {
+    console.log('Step: DOMContentLoaded')
     const step = new Step()
     step.init()
-})
+}
+
+// Wait for DOM to load before query elements
+// It's possible that DOMContent is already loaded, so check on document.readState
+console.log('Step: Script loaded')
+if (document.readyState !== 'loading') run()
+else document.addEventListener('DOMContentLoaded', run)

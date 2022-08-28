@@ -13,7 +13,7 @@ import domConf from '../helpers/dom/confirmation'
 import domSummary from '../helpers/dom/summary'
 import './confirmation.css'
 
-const SESSION_COOKIE = '__inplace_booking_session'
+const ACCOUNT_REDIRECT_COOKIE = '__inplace_login_redirect'
 const FORM_ID = 'wf-form-booking'
 
 class Step extends StepController {
@@ -311,7 +311,10 @@ class Step extends StepController {
         const buttons = [dom.id('btn-signup'), dom.id('btn-login')]
         buttons.forEach(b =>
             b?.addEventListener('click', () => {
-                Cookies.set(SESSION_COOKIE, true, { secure: true, sameSite: 'strict' })
+                Cookies.set(ACCOUNT_REDIRECT_COOKIE, '/booking/confirmation', {
+                    secure: true,
+                    sameSite: 'strict'
+                })
             })
         )
     }

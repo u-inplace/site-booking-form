@@ -4,9 +4,13 @@
 import dataBind from '@gogocat/data-bind'
 import { addMonths } from 'date-fns'
 import { toISOStringShort } from '../../helpers/dates'
+import MemberStack from '../../helpers/memberstack'
 
 class BookingsController {
-    /** @type {import('../types/memberstack').Member} */
+    /** @type {MemberStack} */
+    ms
+
+    /** @type {import('../../types/memberstack').Member} */
     member
 
     /** @type {Binder} */
@@ -26,10 +30,8 @@ class BookingsController {
      * Initialize controller
      */
     async init() {
-        // Wait for MemberStack
-        // eslint-disable-next-line no-undef
-        const member = await MemberStack.onReady
-        this.member = member
+        this.ms = new MemberStack()
+        this.member = await this.ms.getMember()
         this.setupEventHandlers()
 
         /** @type {ViewModel} */
@@ -155,7 +157,7 @@ class BookingsController {
      */
     /**
      * Remodel booking data to fit interface needs
-     * @param {import('../types/bookings').BookingsReadResponse} incoming
+     * @param {import('../../types/bookings').BookingsReadResponse} incoming
      * @returns {Bookings}
      */
     remodel(incoming) {

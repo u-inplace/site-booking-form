@@ -180,14 +180,14 @@ class Step extends StepController {
         const template = this.cal.team.memberTemplate
 
         const startTimeFilter = o => o.start_time === start_time
-        this.openings.filter(startTimeFilter).forEach(open => {
-            // Set start and end time on hidden inputs
-            dom.id('start-timestamp').value = open.start.toISOString()
-            dom.id('end-timestamp').value = open.end.toISOString()
 
-            // Create available team members' avatars
-            createTeamMember(open)
-        })
+        // Set start and end time on hidden inputs
+        const open = this.openings.find(startTimeFilter)
+        dom.id('start-timestamp').value = open.start.toISOString()
+        dom.id('end-timestamp').value = open.end.toISOString()
+
+        // Create available team members' avatars
+        this.openings.filter(startTimeFilter).forEach(createTeamMember)
 
         // Wire events for newly created elements for next button
         dom.queryRadio('team-member').forEach(r =>

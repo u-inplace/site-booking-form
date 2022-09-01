@@ -1,3 +1,5 @@
+import * as iso8601 from 'iso8601-support'
+
 /**
  * Return all mondays of the month
  * @param {*} date
@@ -23,5 +25,15 @@ const getMondays = date => {
  * Return YYYY-MM-DD
  */
 export const toISOStringShort = date => new Date(date).toISOString().slice(0, 10)
+
+export const toISOStringWithOffset = date => {
+    // 2022-09-07T14:30:00.000+02:00
+    const almost = iso8601.toISOStringWithOffset(date)
+
+    // 2022-04-07T00:00:00+02:00
+    const isoWithOffset = almost.replace('.000', '')
+
+    return isoWithOffset
+}
 
 export { getMondays }

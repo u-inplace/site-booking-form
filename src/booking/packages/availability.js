@@ -4,8 +4,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 
-import * as iso8601 from 'iso8601-support'
 import _ from 'lodash'
+import { toISOStringWithOffset } from '../../helpers/dates'
 import CalendarController from '../controllers/calendar'
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
@@ -185,8 +185,8 @@ class Step extends StepController {
         // Set start and end time on hidden inputs
         const open = this.openings.find(startTimeFilter)
         // Pootsy started disliking toISOString s
-        dom.id('start-timestamp').value = iso8601.toISOStringWithOffset(open.start)
-        dom.id('end-timestamp').value = iso8601.toISOStringWithOffset(open.end)
+        dom.id('start-timestamp').value = toISOStringWithOffset(open.start)
+        dom.id('end-timestamp').value = toISOStringWithOffset(open.end)
 
         // Create available team members' avatars
         this.openings.filter(startTimeFilter).forEach(createTeamMember)

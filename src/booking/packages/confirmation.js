@@ -4,6 +4,7 @@
 /* eslint-disable no-var */
 
 import Cookies from 'js-cookie'
+import MemberStack from '../../helpers/memberstack'
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
@@ -27,6 +28,7 @@ class Step extends StepController {
      */
     team
 
+    /** @type {import('../../types/memberstack').Member} */
     member
 
     constructor() {
@@ -41,9 +43,8 @@ class Step extends StepController {
         this.#setTeamMember()
         this.setupBookingSession()
 
-        // eslint-disable-next-line no-undef
-        const member = await MemberStack.onReady
-        this.member = member
+        this.ms = new MemberStack()
+        this.member = await this.ms.getMember()
     }
 
     /**

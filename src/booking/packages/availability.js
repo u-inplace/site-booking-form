@@ -5,6 +5,7 @@
 /* eslint-disable class-methods-use-this */
 
 import _ from 'lodash'
+import { toISOStringWithOffset } from '../../helpers/dates'
 import CalendarController from '../controllers/calendar'
 import BookingOptions from '../controllers/options'
 import { STEP } from '../controllers/sequence'
@@ -179,11 +180,15 @@ class Step extends StepController {
         const start_time = event.target.value
         const template = this.cal.team.memberTemplate
 
-        // Set start and end time on hidden inputs
-        dom.id('start-timestamp').value = this.openings[0].start.toISOString()
-        dom.id('end-timestamp').value = this.openings[0].end.toISOString()
-
         const startTimeFilter = o => o.start_time === start_time
+
+        // Set start and end time on hidden inputs
+        const open = this.openings.find(startTimeFilter)
+        // Pootsy started disliking toISOString s
+        dom.id('start-timestamp').value = toISOStringWithOffset(open.start)
+        dom.id('end-timestamp').value = toISOStringWithOffset(open.end)
+
+        // Create available team members' avatars
         this.openings.filter(startTimeFilter).forEach(createTeamMember)
 
         // Wire events for newly created elements for next button

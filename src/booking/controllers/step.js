@@ -92,9 +92,5 @@ export default class StepController {
     /**
      * Update Nav step count
      */
-    updateNav() {
-        dom.id('step-nav').innerHTML = `Step ${this.nav.sequence.currentIndex}/${
-            this.nav.sequence.total - 1
-        }`
-    }
+    updateNav() {}
 }

@@ -8,7 +8,7 @@ import { STEP } from '../controllers/sequence'
 import StepController from '../controllers/step'
 import dom from '../helpers/dom'
 
-class PostalCodeStep extends StepController {
+class Step extends StepController {
     coverage = [
         '1070',
         '1160',
@@ -39,6 +39,9 @@ class PostalCodeStep extends StepController {
     }
 
     init() {
+        // Clear all options before initilization, otherwise postal-code cookie will be
+        // deleted AFTER selecting it, which will couse later steps to restart
+        this.ops.clear()
         super.init()
         this.nav.sequence.init()
         this.pc.addEventListener('input', this.onPostalCode.bind(this))
@@ -83,8 +86,14 @@ class PostalCodeStep extends StepController {
     }
 }
 
-var Webflow = Webflow || window.Webflow || []
-Webflow.push(() => {
-    const step = new PostalCodeStep()
+const run = () => {
+    console.log('Step: DOMContentLoaded')
+    const step = new Step()
     step.init()
-})
+}
+
+// Wait for DOM to load before query elements
+// It's possible that DOMContent is already loaded, so check on document.readState
+console.log('Step: Script loaded')
+if (document.readyState !== 'loading') run()
+else document.addEventListener('DOMContentLoaded', run)

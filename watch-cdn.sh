@@ -2,9 +2,15 @@
 
 bundle=$1
 target="/dist/$bundle"
-repo="ui-booking"
+repo="webflow"
 branch=$2
-cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
+
+# to clea cache
+# purge.jsdelivr.net/gh/u-inplace/...
+#cdnURL="https://cdn.jsdelivr.net/gh/u-inplace/$repo@$branch$target"
+#cdnURL="https://combinatronics.com/u-inplace/$repo/$branch$target"
+#cdnURL="https://webflow-js.inplace.be/$bundle"
+cdnURL="https://blue-plant-005e86203-$branch.westeurope.1.azurestaticapps.net"
 
 # Basic if statement
 while true; do

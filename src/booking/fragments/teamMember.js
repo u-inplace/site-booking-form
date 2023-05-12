@@ -34,7 +34,7 @@ export default class Team {
      * Fetch team members from webflow CMS
      */
     async #fetchTeam() {
-        const url = new URL('https://inplace-booking.azurewebsites.net/api/collection')
+        const url = new URL('https://blue.inplace.be/api/collection')
         const params = new URLSearchParams({
             code: 'Itrex4w/daAwDFd78PsawdASdJyo9clkm1OOhG0Z3GLEe6m484/49A==',
             name: 'team'

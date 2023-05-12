@@ -247,14 +247,16 @@ export default class CalendarController {
         /**
          * @param {TimeSlots} slot
          */
-        const slotToEvent = slot => {
+        const slotToEvent = slot =>
             // Only add if it's still the same month as start of the week
             // to avoid infinity loop with monthChanged event, which is triggered
             // when a new event is added
-            if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return
+            // Removing this check will cause the calendar to skip days on the next month
+            // if the week starts in the previous month
+            // if (new Date(slot.start_time).getMonth() !== weekStartDate.getMonth()) return
 
             // eslint-disable-next-line consistent-return
-            return {
+            ({
                 start: new Date(slot.start_time),
                 end: new Date(slot.end_time),
                 start_time: slot.label,
@@ -264,8 +266,7 @@ export default class CalendarController {
                     last_name: slot.affiliate_worker.last_name,
                     allergies: slot.affiliate_worker.allergies
                 }
-            }
-        }
+            })
 
         const newEvents = _.compact(
             avail?.data

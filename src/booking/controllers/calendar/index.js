@@ -150,6 +150,10 @@ export default class CalendarController {
         // )
         if (this.#curr?.getMonth() !== currentDate.getMonth()) {
             this.#curr = currentDate
+
+            // Trigger a clean up of the calendar
+            this.#onDayChangeCb(currentDate, [])
+
             const firstDay = startOfMonth(currentDate)
             // console.log(`onMonthChange | firstDay: ${toISOStringShort(firstDay)}`)
             await this.getMonthAvailability(firstDay)

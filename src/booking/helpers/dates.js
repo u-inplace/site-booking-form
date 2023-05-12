@@ -22,6 +22,13 @@ const getMondays = date => {
 /**
  * Return YYYY-MM-DD
  */
-export const toISOStringShort = date => new Date(date).toISOString().slice(0, 10)
+export const toISOStringShort = date => {
+    const d = date instanceof Date ? date : new Date(date)
+    const formattedDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+        d.getDate()
+    ).padStart(2, '0')}`
+
+    return formattedDate
+}
 
 export { getMondays }

@@ -173,7 +173,7 @@ class BookingsController {
             const date = new Date(attrs.start_time)
 
             // Can only cancel if up to 3 days before delivery date & service is not canceled
-            const isCancelVisible = !attrs.canceled
+            const isCancelVisible = attrs.service_delivery_status === 'assigned'
             const isCancelEnabled =
                 date.getTime() - Date.now() > 3 * 24 * 60 * 60 * 1000 && !attrs.canceled
             const isCancelVisibleAndEnabled = isCancelVisible && isCancelEnabled

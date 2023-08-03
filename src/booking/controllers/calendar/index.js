@@ -223,6 +223,13 @@ export default class CalendarController {
     async getAvailability(weekStartDate) {
         const weekKey = getWeek(weekStartDate)
 
+        console.log(`getAvailability | weekKey: ${weekKey}`)
+        console.log(`getAvailability | weekStartDate: ${weekStartDate}`)
+        console.log(`getAvailability | new Date: ${new Date()}`)
+        console.log(
+            `getAvailability | check: ${weekStartDate < new Date() || this.#cached[weekKey]}`
+        )
+
         if (weekStartDate < new Date() || this.#cached[weekKey]) return
         this.#cached[weekKey] = true
 

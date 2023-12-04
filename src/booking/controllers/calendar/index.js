@@ -218,11 +218,23 @@ export default class CalendarController {
     }
 
     /**
+     * Generates a unique key for a week based on its start date.
+     * The key is a combination of the year and the week number.
+     * @param {Date} date - The start date of the week.
+     * @returns {string} A unique key for the week.
+     */
+    getWeekKey(date) {
+        const year = date.getFullYear()
+        const weekNumber = getWeek(date)
+        return `${year}${weekNumber}`
+    }
+
+    /**
      * Get Availability
      */
     async getAvailability(weekStartDate) {
-        const weekKey = getWeek(weekStartDate)
-        const currentWeekKey = getWeek(new Date())
+        const weekKey = this.getWeekKey(weekStartDate)
+        const currentWeekKey = this.getWeekKey(new Date())
 
         // Compare week number instead of date to avoid not requesting availability
         // for the current week if the weekStartDate is in the past

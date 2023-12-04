@@ -172,6 +172,13 @@ class BookingsController {
             const attrs = orig.attributes
             const date = new Date(attrs.start_time)
 
+            // Can only cancel if up to 3 days before delivery date & service is not canceled
+            const isCancelVisible = attrs.service_delivery_status === 'assigned'
+            const isCancelEnabled =
+                date.getTime() - Date.now() > 3 * 24 * 60 * 60 * 1000 && !attrs.canceled
+            const isCancelVisibleAndEnabled = isCancelVisible && isCancelEnabled
+            const isCancelVisibleAndDisabled = isCancelVisible && !isCancelEnabled
+
             /** @type {BookingType} */
             const booking = {
                 id: orig.id,
@@ -189,6 +196,8 @@ class BookingsController {
                 status: attrs.service_delivery_status,
                 canceled: attrs.service_delivery_status === 'cancelled',
                 duration: `${attrs.billable_hours}h`,
+                isCancelVisibleAndEnabled,
+                isCancelVisibleAndDisabled,
                 onCancel: this.onCancel.bind(this),
                 getCancelAttrs: { id: orig.id }
             }

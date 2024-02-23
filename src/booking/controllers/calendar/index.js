@@ -226,7 +226,8 @@ export default class CalendarController {
     getWeekKey(date) {
         const year = date.getFullYear()
         const weekNumber = getWeek(date)
-        return `${year}${weekNumber}`
+
+        return `${year}${weekNumber.toString().padStart(2, '0')}`
     }
 
     /**

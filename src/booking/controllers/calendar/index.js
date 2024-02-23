@@ -239,6 +239,7 @@ export default class CalendarController {
         // Debugging only
         console.log(`getAvailability | weekKey: ${weekKey}`)
         console.log(`getAvailability | currentWeekKey: ${currentWeekKey}`)
+        console.log(`getAvailability | this.#cached: ${this.#cached}`)
         console.log(`getAvailability | this.#cached[weekKey]: ${this.#cached[weekKey]}`)
         console.log(`getAvailability | run: ${weekKey < currentWeekKey || this.#cached[weekKey]}`)
 

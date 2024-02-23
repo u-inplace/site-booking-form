@@ -143,11 +143,11 @@ export default class CalendarController {
      */
     onMonthChange = async currentDate => {
         // Only trigger change if month really changed
-        // console.log(
-        //     `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${
-        //         this.#curr ? toISOStringShort(this.#curr) : ''
-        //     }`
-        // )
+        console.log(
+            `onMonthChange | currDate: ${toISOStringShort(currentDate)} this.curr: ${
+                this.#curr ? toISOStringShort(this.#curr) : ''
+            }`
+        )
         if (this.#curr?.getMonth() !== currentDate.getMonth()) {
             // Define only if not initialised yet
             this.#curr ??= currentDate
@@ -207,12 +207,12 @@ export default class CalendarController {
      */
     async getMonthAvailability(startDate) {
         this.toggleLoading(true)
-        // console.log(`getMonthAvailability | startDate: ${toISOStringShort(startDate)}`)
-        // console.log(
-        //     `getMonthAvailability | mondays: ${JSON.stringify(
-        //         getMondays(startDate).map(m => toISOStringShort(m))
-        //     )}`
-        // )
+        console.log(`getMonthAvailability | startDate: ${toISOStringShort(startDate)}`)
+        console.log(
+            `getMonthAvailability | mondays: ${JSON.stringify(
+                getMondays(startDate).map(m => toISOStringShort(m))
+            )}`
+        )
         await Promise.all(getMondays(startDate).map(monday => this.getAvailability(monday)))
         this.toggleLoading()
     }
@@ -226,7 +226,8 @@ export default class CalendarController {
     getWeekKey(date) {
         const year = date.getFullYear()
         const weekNumber = getWeek(date)
-        return `${year}${weekNumber}`
+
+        return `${year}${weekNumber.toString().padStart(2, '0')}`
     }
 
     /**
@@ -236,16 +237,27 @@ export default class CalendarController {
         const weekKey = this.getWeekKey(weekStartDate)
         const currentWeekKey = this.getWeekKey(new Date())
 
+        // Debugging only
+        console.log(
+            `getAvailability | ${JSON.stringify({
+                weekKey,
+                currentWeekKey,
+                cached: JSON.stringify(this.#cached),
+                cachedValue: this.#cached[weekKey],
+                shouldReturn: weekKey < currentWeekKey || this.#cached[weekKey]
+            })}`
+        )
+
         // Compare week number instead of date to avoid not requesting availability
         // for the current week if the weekStartDate is in the past
         if (weekKey < currentWeekKey || this.#cached[weekKey]) return
         this.#cached[weekKey] = true
 
-        // console.log(
-        //     `getAvailability | weekStartDate: ${toISOStringShort(
-        //         weekStartDate
-        //     )} weekKey: ${weekKey}`
-        // )
+        console.log(
+            `getAvailability | weekStartDate: ${toISOStringShort(
+                weekStartDate
+            )} weekKey: ${weekKey}`
+        )
 
         const url = new URL('https://blue.inplace.be/api/availability')
         const params = new URLSearchParams({
@@ -262,7 +274,7 @@ export default class CalendarController {
         /** @type {AvailabilityResponse} */
         const avail = await res.json()
 
-        // console.log(JSON.stringify(avail, null, 2))
+        console.log(JSON.stringify(avail, null, 2))
 
         /**
          * @param {TimeSlots} slot

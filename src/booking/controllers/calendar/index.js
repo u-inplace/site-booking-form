@@ -237,13 +237,15 @@ export default class CalendarController {
         const currentWeekKey = this.getWeekKey(new Date())
 
         // Debugging only
-        console.log({
-            weekKey,
-            currentWeekKey,
-            cached: JSON.stringify(this.#cached),
-            cachedValue: this.#cached[weekKey],
-            shouldReturn: weekKey < currentWeekKey || this.#cached[weekKey]
-        })
+        console.log(
+            `getAvailability | ${JSON.stringify({
+                weekKey,
+                currentWeekKey,
+                cached: JSON.stringify(this.#cached),
+                cachedValue: this.#cached[weekKey],
+                shouldReturn: weekKey < currentWeekKey || this.#cached[weekKey]
+            })}`
+        )
 
         // Compare week number instead of date to avoid not requesting availability
         // for the current week if the weekStartDate is in the past
